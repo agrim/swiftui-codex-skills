@@ -1,0 +1,4 @@
+interface:
+  display_name: "Apple Privacy Integrations"
+  short_description: "Privacy and Apple system integration discipline."
+  default_prompt: "Use $apple-privacy-system-integrations to review this Apple framework integration."

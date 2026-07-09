@@ -1,0 +1,4 @@
+interface:
+  display_name: "Apple Project Governance"
+  short_description: "Project, scheme, and entitlement discipline."
+  default_prompt: "Use $apple-project-governance to review this Apple app project change."

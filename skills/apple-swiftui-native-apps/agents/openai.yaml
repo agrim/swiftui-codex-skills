@@ -1,0 +1,4 @@
+interface:
+  display_name: "Apple SwiftUI Native Apps"
+  short_description: "Native Apple UI, controls, and validation."
+  default_prompt: "Use $apple-swiftui-native-apps to implement or review this SwiftUI Apple app surface."
