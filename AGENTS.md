@@ -12,6 +12,7 @@ This repository is the source of truth for published Swift/SwiftUI Codex skills.
 - If the skill affects active Apple-app work, update the relevant app-local instructions only when the rule is app-specific.
 - Do not commit local-machine absolute paths, secrets, device identifiers, private screenshots, or user-specific filesystem details.
 - Use `scripts/validate_skills.py .` before publishing.
+- Keep public literature domain-neutral and example-driven. Explain the app-engineering pattern without naming private apps, local folders, devices, sessions, or users.
 
 ## Current Published Skills
 
