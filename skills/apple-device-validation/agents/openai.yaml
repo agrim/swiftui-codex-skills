@@ -1,4 +1,4 @@
 interface:
   display_name: "Apple Device Validation"
-  short_description: "Simulator, device, and screenshot validation."
-  default_prompt: "Use $apple-device-validation to verify this Apple app behavior."
+  short_description: "Runtime proof on simulators and Apple devices."
+  default_prompt: "Use $apple-device-validation to prove this Apple app behavior at the requested runtime evidence level."

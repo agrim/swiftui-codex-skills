@@ -32,7 +32,7 @@ These skills are a sharpening layer for Apple-platform app work. They sit on top
   - Example: if a manifest owns the Xcode project, edit the manifest and regenerate instead of hand-editing generated files.
 
 - `apple-privacy-system-integrations` tightens framework adoption.
-  - Example: adding a sensitive framework is not just an import. It needs permission purpose, entitlement, manifest, retention model, denied/unavailable states, user explanation, and focused tests.
+  - Example: adding a sensitive framework is not just an import. Audit permission purpose, entitlements, manifests, disclosures, retention, denied/unavailable states, user explanation, and focused tests, then change only the layers that apply.
   - Example: exporting to a system service should preserve truthful app data and degrade gracefully when the service is unavailable.
 
 - `apple-device-validation` tightens proof.
@@ -43,6 +43,10 @@ These skills are a sharpening layer for Apple-platform app work. They sit on top
   - Example: remove duplication through tiny helpers and source-contract tests instead of broad rewrites.
   - Example: preserve the distinction between nil, zero, stale, failed, denied, and unavailable states when cleaning parsing or state code.
 
+- `apple-app-store-readiness` tightens submission orchestration.
+  - Example: freeze the smallest complete release promise before adding infrastructure, then align the exact binary, public support and privacy pages, screenshots, metadata, review access, and App Store Connect state.
+  - Example: treat an App Store name, domain, trademark clearance, TestFlight upload, App Review approval, and public release as separate evidence gates.
+
 - `macos-productization` tightens release work.
   - Example: local signing is not notarization. Verify signing, entitlements, hardened runtime, packaging, launch, and Gatekeeper behavior for the intended distribution channel.
   - Example: app icon and packaging quality must be verified in the built product, not only in source assets.
@@ -51,10 +55,13 @@ These skills are a sharpening layer for Apple-platform app work. They sit on top
 
 - Use `apple-swiftui-native-apps` for UI, SwiftUI surface structure, Liquid Glass, controls, navigation, visual hierarchy, and accessibility-sensitive interaction.
 - Use `apple-project-governance` for project files, schemes, target membership, bundle IDs, entitlements, generated project files, build settings, and dependency exposure.
-- Use `apple-privacy-system-integrations` for permissions, sensitive data, HealthKit, CloudKit, App Intents, widgets, Live Activities, Spotlight, companion sync, and privacy manifests.
+- Use `apple-privacy-system-integrations` for permissions, sensitive data, privacy artifacts, and HealthKit, CloudKit, App Intents, widgets, Live Activities, Spotlight, or companion work that requires reasoning about data, account, service, process, or device boundaries.
 - Use `apple-device-validation` for simulator runs, physical-device installs, watch validation, screenshots, UI proof, and infrastructure triage.
 - Use `apple-performance-cleanup` for startup, hot paths, telemetry, parsing, rendering, concurrency, memory, and behavior-preserving simplification.
+- Use `apple-app-store-readiness` for first submissions and updates, App Store Connect, rejection-readiness audits, public support and privacy surfaces, exact release candidates, review access, metadata, screenshots, submission, and release state.
 - Use `macos-productization` for signing, notarization, packaging, DMGs, icons, release notes, installation, and direct distribution.
+
+For a Mac App Store release, use both: `apple-app-store-readiness` owns storefront and App Review orchestration, while `macos-productization` owns the macOS archive, signing, sandbox, export, packaging, and installed-artifact proof.
 
 ## What This Layer Is Not
 
