@@ -16,9 +16,10 @@ This repository is the source of truth for published Swift/SwiftUI Codex skills.
 
 ## Current Published Skills
 
-- `apple-swiftui-native-apps`: default SwiftUI discipline for native Apple UI, controls, button foreground behavior, workflow hierarchy, and simulator/device validation.
+- `apple-swiftui-native-apps`: native Apple UI, controls, button foreground behavior, navigation, accessibility, workflow hierarchy, and interaction-state semantics.
 - `apple-project-governance`: project files, targets, schemes, generated project state, bundle identifiers, and entitlements.
-- `apple-privacy-system-integrations`: permissions, privacy manifests, HealthKit, CloudKit, App Intents, widgets, Live Activities, Spotlight, and WatchConnectivity.
-- `apple-device-validation`: simulator, physical-device, watch, screenshot, install, and infrastructure-aware validation.
+- `apple-privacy-system-integrations`: permission, protected-data, disclosure, retention, and cross-boundary semantics for Apple system integrations.
+- `apple-device-validation`: simulator, Mac, physical-device, watch, screenshot, install, and infrastructure-aware runtime proof.
 - `apple-performance-cleanup`: startup, hot-path, memory, telemetry, and behavior-preserving simplification work.
+- `apple-app-store-readiness`: App Store release promise, public surfaces, metadata, reviewability, exact-candidate, submission, and release gates.
 - `macos-productization`: macOS signing, notarization, packaging, app icons, releases, and install verification.

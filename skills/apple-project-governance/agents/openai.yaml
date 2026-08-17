@@ -1,4 +1,4 @@
 interface:
   display_name: "Apple Project Governance"
-  short_description: "Project, scheme, and entitlement discipline."
-  default_prompt: "Use $apple-project-governance to review this Apple app project change."
+  short_description: "Project wiring, identity, and effective build state."
+  default_prompt: "Use $apple-project-governance to trace this Apple project change to its source of truth and prove the effective built configuration."
