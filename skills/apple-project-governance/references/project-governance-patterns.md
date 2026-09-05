@@ -1,78 +1,57 @@
-# Project Governance Operational Playbook
+# Apple project governance: playbook
 
-Use this reference to determine who owns a project value, propagate it across products, and select evidence that proves the effective result.
+## Ownership matrix
 
-## Ownership Matrix
+| Value | Inspect the source owner | Inspect the result |
+| --- | --- | --- |
+| Targets and dependencies | Generator manifest, project, or Package.swift | Discovered products and build graph |
+| Build/test selection | Shared schemes and CI configuration | Actual scheme and test-plan invocation |
+| Capabilities | Entitlement inputs and provisioning configuration | Signed product entitlements |
+| Usage descriptions | Info.plist inputs, build settings, localization | Built property list and displayed prompt |
+| Assets and models | Catalogs, model files, target membership | Compiled resources in the product |
+| App identity | Bundle IDs, groups, services, constants | App, extension, companion, and account configuration |
 
-| Concern | Inspect or edit the source owner | Prove the effective result |
-|---|---|---|
-| Project and target graph | Generator manifest when present; otherwise the source-controlled `.xcodeproj` or workspace composition | Regenerated diff, `xcodebuild -list`, and a target-specific build |
-| Swift package products and dependencies | `Package.swift`, resolved dependency policy, or generator/project dependency declarations | Platform-compatible resolution plus link or embed membership in the consuming target |
-| Shared build and test contract | Source-controlled `.xcscheme`, generator scheme declaration, and CI invocation | `xcodebuild -list`, scheme actions, test plans, and the same command shape used by CI |
-| Source and resource membership | Manifest target entries or target build phases | Target-specific build plus inspection of compiled sources or built resources as appropriate |
-| App icon pipeline | Canonical `.icon` package or asset catalog, generator resource entries, asset-name settings, and target membership | Compiled asset output, built-bundle icon resources, and runtime appearance through `apple-device-validation` |
-| `Info.plist` values | Source plist, manifest settings, or generated-info build settings | `xcodebuild -showBuildSettings` and the built product's `Info.plist` |
-| Capabilities and entitlements | Capability declaration, entitlement file, and `CODE_SIGN_ENTITLEMENTS` ownership | Resolved build setting and signed entitlements in the applicable built product |
-| Bundle and service identity | Manifest or target settings plus typed app constants | Effective product identifier and consistent values in every app, extension, widget, watch product, test, and service |
-| CI-only project behavior | Workflow, build script, environment, configuration, and scheme selection | Reproduce the narrow CI command or compare its explicit inputs with local evidence |
+Do not assume that a file visible in the repository belongs to a target. A resolved package is not proof that the intended target links it. A generator may own only part of the project: establish its scope before deleting or regenerating everything.
 
-Locate the manifest or establish that none exists. Generated projects invite plausible-looking but temporary hand edits; never assume the visible `.xcodeproj` owns a value.
+## Inspect without guessing
 
-## Cross-Product Propagation
+Use the workspace when it is the build entry point; use the project when that is the repository's contract. Discover names rather than substituting a remembered scheme. Run the installed tool's help for uncertain options.
 
-Before changing identity or capability configuration, inventory every app product and extension product. For each affected value, record:
+```bash
+xcodebuild -version
+xcodebuild -list -project Example.xcodeproj
+xcodebuild -showdestinations -project Example.xcodeproj -scheme Example
+xcodebuild -showBuildSettings -project Example.xcodeproj -scheme Example -configuration Debug
+```
 
-- the declaring source;
-- the consuming targets and configurations;
-- whether each consumer needs the same value, a derived value, or no value;
-- the typed runtime constant, if code also consumes it;
-- the provisioning or service-side expectation; and
-- the artifact that will prove the final value.
+These are command templates, not commands already executed. Add the selected destination when inspecting destination-dependent settings. Avoid dumping environment-derived credentials into logs. Keep command, toolchain, exit status, and relevant output with the validation record.
 
-Apply this check to bundle IDs, display names, app groups, keychain groups, suite names, CloudKit containers, HealthKit identifiers, associated domains, deep links, canonical icon sources, widgets, watch products, tests, and services. Duplicated strings and competing asset sources drift easily, while an apparently successful app build can leave a companion product miswired.
+`-list` establishes discovery; `-showdestinations` establishes available destinations; `-showBuildSettings` establishes resolved settings in its selected context. None of these proves runtime behavior. A successful debug simulator build does not establish release signing or device provisioning.
 
-## Evidence Matrix
+## Cross-product coherence
 
-Select the tool that answers the actual question:
+Trace identity through the main app, widgets, watch app, intents, tests, keychain groups, app groups, CloudKit containers, and associated domains that actually exist. Centralize repeated identifiers where the platform permits it, but do not hide configuration that must remain visible in entitlement or property-list files.
 
-| Evidence | What it proves | What it does not prove |
-|---|---|---|
-| Generator run plus generated diff | The source manifest can reproduce the intended project change without unexplained churn | That Xcode selects or builds the intended product |
-| `xcodebuild -list` | The chosen project or workspace exposes the expected targets, configurations, and schemes | Destination availability, effective settings, or runtime behavior |
-| `xcodebuild -showdestinations -scheme ...` | Xcode knows compatible destinations for that scheme | Target membership, resource inclusion, or successful compilation |
-| `xcodebuild -showBuildSettings ...` | Inherited and resolved settings for an explicit project or workspace, scheme, configuration, and destination | Built resources, signed entitlements, or runtime permission behavior |
-| Narrow target or scheme build | The selected graph compiles and its declared build phases execute | Correct runtime behavior or complete cross-product identity coherence |
-| Built `Info.plist` inspection | The product received generated or copied property-list values | Signed capabilities or resource presence outside the plist |
-| Built bundle resource inspection | The intended product contains a resource such as an asset, model, intent definition, or `PrivacyInfo.xcprivacy` | That the resource's semantics are correct |
-| Signed-entitlement inspection | The applicable built executable received the entitlements used for signing | Provisioning acceptance, service behavior, or user permission semantics |
-| Focused test or runtime proof | The chosen behavior works in that environment | Other schemes, configurations, destinations, or distribution channels |
+Preserve stable bundle identifiers and persistence keys unless migration is part of the request. Public naming, internal type names, and storage identities have different compatibility costs. Verify a renamed product's displayed name and asset pipeline without rewriting unrelated identifiers.
 
-Use explicit `-project` or `-workspace`, `-scheme`, `-configuration`, and destination inputs when comparing results. Otherwise, an apparently contradictory result may simply describe a different build context.
+Maintain a canonical editable app-icon source per chosen pipeline. Confirm the compiled output and supported variants before removing older assets; a source image is not proof of installed icon appearance.
 
-## Failure Routing
+## Build settings and dependencies
 
-| Symptom | Inspect first |
-|---|---|
-| File compiles nowhere or symbols are missing only in one product | Source membership, generated target entries, and platform availability |
-| Runtime cannot find an asset, model, privacy file, or intent definition | Resource build phase and built bundle contents |
-| Source icon looks correct but the installed icon is absent, stale, or uses the wrong variant | Canonical icon owner, competing catalogs or packages, generated resource membership, asset-name settings, compiled bundle contents, and installation proof |
-| Scheme is absent locally or in CI | Shared-scheme ownership, generated scheme declaration, workspace selection, and CI checkout |
-| Build succeeds but widget, watch app, app group, or deep link fails | Cross-product identity, signed entitlements, service-side registration, and runtime proof |
-| Package resolves but APIs are unavailable or binary is absent | Product selection, consuming target exposure, linkage or embedding, and deployment target |
-| Local and CI results differ | Exact project or workspace, scheme, configuration, destination, toolchain, environment, and generation step |
-| Xcode reports no destination or a service crash | Separate scheme compatibility from simulator, device, or Xcode-service infrastructure before editing source |
+Scope changes at project, target, or configuration level intentionally. Verify compiler version, language mode, strict concurrency settings, deployment minimums, supported destinations, and dependency versions separately. New compiler support does not guarantee that a runtime API exists on the deployment minimum.
 
-Target membership mistakes often masquerade as code defects. Shared schemes are also a hidden contract behind local tests, CI, screenshots, and device installs; inspect them whenever targets or tests change.
+Keep dependency changes reviewable: inspect package resolution, licenses, binary artifacts, target exposure, platform constraints, and privacy implications. Do not upgrade the whole graph merely to fix one configuration issue.
 
-## Completion Contract
+## Proof and failure routing
 
-Finish only when:
+After regeneration, review the diff before debugging runtime code. A missing privacy resource or extension may be a membership defect rather than a framework bug. Inspect the built Info.plist and resource bundle when those are the claim; inspect signed entitlements when meaningful signing is present.
 
-- the upstream owner contains the intended change;
-- regenerated output is reproducible and reviewed;
-- intended targets include the change and unintended targets do not;
-- identifiers and capabilities remain coherent across products;
-- one canonical shipping icon source is wired and its compiled product is inspected when icon work is in scope;
-- dependency availability and exposure are proven where relevant;
-- effective build settings, built resources, built `Info.plist`, and signed entitlements are inspected as applicable; and
-- project failures are distinguished from signing, permission-semantic, runtime-device, and infrastructure failures.
+Classify a failing build before editing source: unknown scheme, unsupported destination, unavailable SDK/runtime, compiler error, resource processing, dependency resolution, signing, or tool service. Preserve raw error context, then fix the demonstrated owner. Repeat affected checks after source or generated state changes.
+
+Finish with whitespace/diff checks and a concise configuration-to-product evidence table. Never describe an entitlement source file as proof of user authorization.
+
+## Sources
+
+- [xcode](https://developer.apple.com/documentation/xcode) — Xcode documentation.
+- [distribution](https://developer.apple.com/documentation/xcode/distributing-your-app-for-beta-testing-and-releases) — Distributing your app.
+- [privacy](https://developer.apple.com/documentation/bundleresources/describing-data-use-in-privacy-manifests) — Describing data use in privacy manifests.

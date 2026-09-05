@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {
+      "query": "SwiftUI native UI review",
+      "expected": [
+        "apple-swiftui-native-apps"
+      ]
+    },
+    {
+      "query": "Observation state ownership resets",
+      "expected": [
+        "swiftui-state-architecture"
+      ]
+    },
+    {
+      "query": "actor reentrancy and cancellation",
+      "expected": [
+        "swift-concurrency"
+      ]
+    },
+    {
+      "query": "navigation deep link restoration",
+      "expected": [
+        "swiftui-navigation"
+      ]
+    },
+    {
+      "query": "adaptive layout with geometry",
+      "expected": [
+        "swiftui-layout"
+      ]
+    },
+    {
+      "query": "button style and focus",
+      "expected": [
+        "swiftui-controls-input"
+      ]
+    },
+    {
+      "query": "accessibility VoiceOver audit",
+      "expected": [
+        "swiftui-accessibility"
+      ]
+    },
+    {
+      "query": "Liquid Glass design system",
+      "expected": [
+        "swiftui-design-system"
+      ]
+    },
+    {
+      "query": "SwiftData persistence migration",
+      "expected": [
+        "apple-data-persistence"
+      ]
+    },
+    {
+      "query": "URLSession networking retry",
+      "expected": [
+        "apple-networking"
+      ]
+    },
+    {
+      "query": "Swift Testing and XCTest",
+      "expected": [
+        "swiftui-testing"
+      ]
+    },
+    {
+      "query": "macOS window and tvOS focus",
+      "expected": [
+        "swiftui-platform-adaptation"
+      ]
+    },
+    {
+      "query": "UIViewRepresentable interop",
+      "expected": [
+        "swiftui-interop"
+      ]
+    },
+    {
+      "query": "WidgetKit and App Intents",
+      "expected": [
+        "apple-system-experiences"
+      ]
+    },
+    {
+      "query": "Xcode project target membership",
+      "expected": [
+        "apple-project-governance"
+      ]
+    },
+    {
+      "query": "privacy manifest purpose string",
+      "expected": [
+        "apple-privacy-system-integrations"
+      ]
+    },
+    {
+      "query": "performance memory leak Instruments",
+      "expected": [
+        "apple-performance-cleanup"
+      ]
+    },
+    {
+      "query": "simulator screenshot runtime proof",
+      "expected": [
+        "apple-device-validation"
+      ]
+    },
+    {
+      "query": "App Store TestFlight submission",
+      "expected": [
+        "apple-app-store-readiness"
+      ]
+    },
+    {
+      "query": "notarization Gatekeeper Developer ID",
+      "expected": [
+        "macos-productization"
+      ]
+    },
+    {
+      "query": "Bake sourdough bread",
+      "expected": []
+    },
+    {
+      "query": "Translate this sentence into French",
+      "expected": []
+    },
+    {
+      "query": "Write a SQL join for invoices",
+      "expected": []
+    },
+    {
+      "query": "Create a navigationless wordmark",
+      "expected": []
+    }
+  ]
+}

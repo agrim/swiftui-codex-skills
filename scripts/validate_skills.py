@@ -1,145 +1,190 @@
 #!/usr/bin/env python3
-"""Validate Codex skill folders without third-party dependencies."""
-
+"""Validate portable skill contracts, catalogs, source links, and public hygiene."""
 from __future__ import annotations
 
 import argparse
+import json
 import re
 import sys
 from pathlib import Path
+from urllib.parse import urlsplit
+
+from skilllib import (HEADINGS, PLATFORMS, PRIMARY_HOSTS, RULE, SLUG, catalog,
+                      frontmatter, generated_docs, iter_files, local_links,
+                      safe_path, source_registry, valid_review_date)
+
+SECRET = re.compile(r"(?:gh[pousr]_[A-Za-z0-9_]{20,}|github_pat_[A-Za-z0-9_]{20,}|sk-(?:proj-)?[A-Za-z0-9_-]{24,}|-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----)")
+LOCAL_PATH = re.compile("/" + "Users" + r"/[A-Za-z0-9._-]+|/(?:private/)?" + "var" + r"/folders/")
+VENDOR_CORE = re.compile(r"\b(?:Codex|ChatGPT|Claude|OpenAI|XcodeBuildMCP|CODEX_HOME)\b|\$[a-z]+-[a-z-]+", re.I)
+MAX_ENTRY_WORDS = 650
+MAX_REFERENCE_WORDS = 1800
 
 
-SKILL_NAME = re.compile(r"^[a-z0-9-]{1,63}$")
-FRONTMATTER = re.compile(r"^---\n(.*?)\n---\n", re.DOTALL)
-MAC_USER_PATH = re.compile("/" + "Users" + r"/[A-Za-z0-9._-]+")
-MAC_TEMP_PATH = re.compile(r"/(?:private/)?" + "var" + r"/folders/")
-CODEX_CLIPBOARD_PATH = re.compile("codex-" + r"clipboard-[A-Za-z0-9-]+")
-PUBLIC_SCRUB_PATTERNS = [
-    ("absolute macOS user path", MAC_USER_PATH),
-    ("temporary macOS folder", MAC_TEMP_PATH),
-    ("Codex private state path", re.compile(r"\.codex/(sessions|memories|state)")),
-    ("clipboard artifact", CODEX_CLIPBOARD_PATH),
-    ("GitHub token", re.compile(r"gh[oprsu]_[A-Za-z0-9_]+")),
-    ("GitHub fine-grained token", re.compile(r"github_pat_[A-Za-z0-9_]+")),
-    ("OpenAI API key", re.compile(r"sk-[A-Za-z0-9_-]{20,}")),
-    ("private key", re.compile(r"BEGIN [A-Z ]*PRIVATE KEY")),
-    ("email address", re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}")),
-]
-
-
-def parse_frontmatter(path: Path) -> dict[str, str]:
-    text = path.read_text(encoding="utf-8")
-    match = FRONTMATTER.match(text)
-    if not match:
-        raise ValueError("missing YAML frontmatter")
-
-    data: dict[str, str] = {}
-    for raw_line in match.group(1).splitlines():
-        line = raw_line.strip()
-        if not line or line.startswith("#"):
+def validate(root: Path, check_generated: bool = True) -> list[str]:
+    root = root.resolve()
+    errors: list[str] = []
+    if not root.is_dir():
+        return ["repository directory does not exist"]
+    try:
+        data, registry = catalog(root), source_registry(root)
+    except (OSError, ValueError, UnicodeError) as exc:
+        return [str(exc)]
+    items = data["skills"]
+    ids: set[str] = set()
+    source_ids: set[str] = set()
+    source_urls: dict[str, str] = {}
+    for item in registry["sources"]:
+        sid = item.get("id")
+        if not isinstance(sid, str) or not SLUG.fullmatch(sid):
+            errors.append("sources.json: invalid source id")
             continue
-        if ":" not in line:
-            raise ValueError(f"invalid frontmatter line: {raw_line}")
-        key, value = line.split(":", 1)
-        data[key.strip()] = value.strip().strip('"').strip("'")
-    return data
-
-
-def validate_agent_metadata(skill_dir: Path, skill_name: str, errors: list[str]) -> None:
-    metadata_path = skill_dir / "agents" / "openai.yaml"
-    if not metadata_path.exists():
-        errors.append(f"{skill_dir}: missing agents/openai.yaml")
-        return
-
-    text = metadata_path.read_text(encoding="utf-8")
-    for key in ("display_name", "short_description", "default_prompt"):
-        if re.search(rf"^\s*{key}\s*:", text, re.MULTILINE) is None:
-            errors.append(f"{metadata_path}: missing interface.{key}")
-
-    short_match = re.search(r"short_description:\s*['\"]?(.*?)['\"]?\s*$", text, re.MULTILINE)
-    if short_match:
-        short_description = short_match.group(1)
-        if not 25 <= len(short_description) <= 64:
-            errors.append(
-                f"{metadata_path}: short_description must be 25-64 characters"
-            )
-
-    prompt_match = re.search(r"default_prompt:\s*['\"]?(.*?)['\"]?\s*$", text, re.MULTILINE)
-    if prompt_match and f"${skill_name}" not in prompt_match.group(1):
-        errors.append(f"{metadata_path}: default_prompt must mention ${skill_name}")
-
-
-def iter_public_files(root: Path) -> list[Path]:
-    ignored_parts = {".git", "__pycache__"}
-    files: list[Path] = []
-    for path in root.rglob("*"):
-        if not path.is_file():
+        if sid in source_ids:
+            errors.append(f"sources.json: duplicate source {sid}")
+        source_ids.add(sid)
+        url = item.get("url", "")
+        if not isinstance(url, str):
+            errors.append(f"source {sid}: URL must be a string")
             continue
-        if any(part in ignored_parts for part in path.parts):
+        try:
+            parsed = urlsplit(url)
+        except ValueError:
+            errors.append(f"source {sid}: malformed URL")
             continue
-        files.append(path)
-    return files
-
-
-def validate_public_scrub(root: Path, errors: list[str]) -> None:
-    for path in iter_public_files(root):
+        if parsed.scheme != "https" or parsed.hostname not in PRIMARY_HOSTS or parsed.username or parsed.password:
+            errors.append(f"source {sid}: expected an HTTPS primary-source URL")
+        source_urls[sid] = url
+        if not isinstance(item.get("title"), str) or not item["title"].strip():
+            errors.append(f"source {sid}: missing title")
+        status, reviewed = item.get("status"), item.get("reviewed")
+        if status == "content-reviewed":
+            if not valid_review_date(reviewed):
+                errors.append(f"source {sid}: reviewed content requires an ISO date")
+        elif status == "reference-only":
+            if reviewed is not None:
+                errors.append(f"source {sid}: reference-only must not claim a review date")
+        else:
+            errors.append(f"source {sid}: unknown review status")
+    all_rules: set[str] = set()
+    for item in items:
+        sid = item.get("id")
+        if not isinstance(sid, str) or not SLUG.fullmatch(sid) or len(sid) > 64:
+            errors.append("catalog.json: invalid skill id")
+            continue
+        if sid in ids:
+            errors.append(f"catalog.json: duplicate skill {sid}")
+        ids.add(sid)
+        for field in ("title", "summary", "limits"):
+            if not isinstance(item.get(field), str) or not item[field].strip():
+                errors.append(f"{sid}: missing {field}")
+        if item.get("coverage") != "practical":
+            errors.append(f"{sid}: coverage must be practical; do not imply exhaustive coverage")
+        arrays_ok = True
+        for field in ("triggers", "platforms", "references", "sources"):
+            values = item.get(field)
+            if not isinstance(values, list) or not values or not all(isinstance(v, str) and v.strip() for v in values):
+                errors.append(f"{sid}: {field} must be a nonempty string array")
+                arrays_ok = False
+            elif len(values) != len(set(values)):
+                errors.append(f"{sid}: duplicate {field} entry")
+        if not arrays_ok:
+            continue
+        if not set(item["platforms"]) <= PLATFORMS:
+            errors.append(f"{sid}: unknown platform")
+        try:
+            folder = safe_path(root, f"skills/{sid}")
+            entry = safe_path(folder, "SKILL.md")
+            text = entry.read_text(encoding="utf-8")
+            meta = frontmatter(text)
+            if meta["name"] != sid:
+                errors.append(f"{sid}: frontmatter name must equal folder name")
+            if meta["description"] != item.get("summary"):
+                errors.append(f"{sid}: description and catalog summary differ")
+            if len(meta["description"]) > 1024:
+                errors.append(f"{sid}: description exceeds 1024 characters")
+            if len(text.split()) > MAX_ENTRY_WORDS:
+                errors.append(f"{sid}: entrypoint exceeds {MAX_ENTRY_WORDS} words")
+            for heading in HEADINGS:
+                if f"\n## {heading}\n" not in text:
+                    errors.append(f"{sid}: missing {heading} section")
+            rules = RULE.findall(text)
+            if not rules:
+                errors.append(f"{sid}: no stable rule IDs")
+            for rule in rules:
+                if rule in all_rules:
+                    errors.append(f"{sid}: duplicate rule ID {rule}")
+                all_rules.add(rule)
+            reference_texts = []
+            for relative in item["references"]:
+                reference = safe_path(folder, relative)
+                if not relative.startswith("references/") or reference.suffix != ".md":
+                    errors.append(f"{sid}: references must be Markdown under references/")
+                body = reference.read_text(encoding="utf-8")
+                reference_texts.append(body)
+                if relative not in set(local_links(text)):
+                    errors.append(f"{sid}: reference is not linked from SKILL.md: {relative}")
+                if len(body.split()) > MAX_REFERENCE_WORDS:
+                    errors.append(f"{sid}: reference exceeds {MAX_REFERENCE_WORDS} words: {relative}")
+            full_text = "\n".join([text, *reference_texts])
+            if VENDOR_CORE.search(full_text):
+                errors.append(f"{sid}: core guidance contains vendor-specific names/invocations")
+            for source in item["sources"]:
+                if source not in source_ids:
+                    errors.append(f"{sid}: unknown source {source}")
+                elif source_urls.get(source, "MISSING") not in full_text:
+                    errors.append(f"{sid}: source {source} is not linked from its playbook")
+            actual_refs = {str(p.relative_to(folder)) for p in (folder / "references").glob("*.md") if p.is_file()}
+            if actual_refs != set(item["references"]):
+                errors.append(f"{sid}: reference directory and catalog differ")
+        except (OSError, ValueError, UnicodeError) as exc:
+            errors.append(f"{sid}: {exc}")
+    if data.get("entrypoint") not in ids:
+        errors.append("catalog.json: unknown entrypoint")
+    actual_ids = {p.name for p in (root / "skills").iterdir() if p.is_dir()} if (root / "skills").is_dir() else set()
+    if actual_ids != ids:
+        errors.append("catalog.json: published skill directories and catalog differ")
+    for path in iter_files(root):
+        if path.suffix not in {".md", ".json", ".py", ".yaml", ".yml", ".swift", ".toml"}:
+            continue
+        relative = str(path.relative_to(root))
         try:
             text = path.read_text(encoding="utf-8")
-        except UnicodeDecodeError:
+        except (OSError, UnicodeError):
+            errors.append(f"{relative}: cannot read UTF-8 text")
             continue
-        for label, pattern in PUBLIC_SCRUB_PATTERNS:
-            for match in pattern.finditer(text):
-                line = text.count("\n", 0, match.start()) + 1
-                errors.append(f"{path}:{line}: possible {label}")
+        for label, pattern in (("possible credential", SECRET), ("local-machine path", LOCAL_PATH)):
+            if pattern.search(text):
+                errors.append(f"{relative}: {label}; content redacted")
+        if path.suffix == ".md":
+            for target in local_links(text):
+                # Documentation may link up to the repository, but never outside it.
+                destination = path.parent / target
+                if not destination.resolve().is_relative_to(root) or any(p.is_symlink() for p in [destination, *destination.parents] if p != root):
+                    errors.append(f"{relative}: unsafe local link")
+                elif not destination.exists():
+                    errors.append(f"{relative}: broken local link: {target}")
+    if check_generated and not errors:
+        try:
+            for relative, expected in generated_docs(root).items():
+                if not (root / relative).is_file() or (root / relative).read_text(encoding="utf-8") != expected:
+                    errors.append(f"{relative}: generated documentation is stale; run skillctl.py docs")
+        except (OSError, ValueError, KeyError, TypeError) as exc:
+            errors.append(f"generated docs: {exc}")
+    return errors
 
 
-def validate_skill(skill_dir: Path, errors: list[str]) -> None:
-    skill_name = skill_dir.name
-    if not SKILL_NAME.match(skill_name):
-        errors.append(f"{skill_dir}: invalid skill folder name")
-
-    skill_md = skill_dir / "SKILL.md"
-    if not skill_md.exists():
-        errors.append(f"{skill_dir}: missing SKILL.md")
-        return
-
-    try:
-        frontmatter = parse_frontmatter(skill_md)
-    except ValueError as exc:
-        errors.append(f"{skill_md}: {exc}")
-        return
-
-    if frontmatter.get("name") != skill_name:
-        errors.append(f"{skill_md}: frontmatter name must equal folder name")
-    if not frontmatter.get("description"):
-        errors.append(f"{skill_md}: missing frontmatter description")
-    validate_agent_metadata(skill_dir, skill_name, errors)
-
-
-def main() -> int:
-    parser = argparse.ArgumentParser()
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("repo", nargs="?", default=".", type=Path)
-    args = parser.parse_args()
-
-    root = args.repo.resolve()
-    skills_root = root / "skills"
-    errors: list[str] = []
-
-    if not skills_root.exists():
-        errors.append(f"{skills_root}: missing skills directory")
+    parser.add_argument("--format", choices=("text", "json"), default="text")
+    args = parser.parse_args(argv)
+    errors = validate(args.repo)
+    if args.format == "json":
+        print(json.dumps({"ok": not errors, "errors": errors}, indent=2))
+    elif errors:
+        print("\n".join(errors), file=sys.stderr)
     else:
-        for skill_dir in sorted(path for path in skills_root.iterdir() if path.is_dir()):
-            validate_skill(skill_dir, errors)
-
-    validate_public_scrub(root, errors)
-
-    if errors:
-        for error in errors:
-            print(error, file=sys.stderr)
-        return 1
-
-    print(f"ok: validated skills in {root}")
-    return 0
+        print("ok: skill contracts, catalogs, local links, generated docs, and public hygiene")
+    return 1 if errors else 0
 
 
 if __name__ == "__main__":

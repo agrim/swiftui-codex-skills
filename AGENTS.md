@@ -1,25 +1,20 @@
-# AGENTS.md
+# Repository maintenance contract
 
-This repository is the source of truth for published Swift/SwiftUI Codex skills.
+Maintain a provider-neutral, source-linked skill library. Read the current files before changing them. Preserve user edits and the requested action boundary.
 
-## Rules
+## Authoring
 
-- Keep each skill in `skills/<skill-name>/`.
-- Preserve Codex skill structure: `SKILL.md` is required; `agents/openai.yaml` is recommended; `references/` holds deeper guidance.
-- Keep `SKILL.md` short, imperative, and trigger-focused. Put examples, correction patterns, and longer domain notes in reference files.
-- Do not edit plugin-cache skills directly. Publish reusable changes here, then install or symlink the skill into `~/.codex/skills`.
-- When updating a skill, validate YAML frontmatter and metadata before committing.
-- If the skill affects active Apple-app work, update the relevant app-local instructions only when the rule is app-specific.
-- Do not commit local-machine absolute paths, secrets, device identifiers, private screenshots, or user-specific filesystem details.
-- Use `scripts/validate_skills.py .` before publishing.
-- Keep public literature domain-neutral and example-driven. Explain the app-engineering pattern without naming private apps, local folders, devices, sessions, or users.
+- Keep each skill self-contained in `skills/<id>/` with `SKILL.md` and local `references/`. Preserve published identifiers unless a documented migration is intended.
+- Use the documented scalar frontmatter profile: unquoted `name`, JSON-quoted single-line `description`. Both are valid YAML; advanced YAML is deliberately outside this repository profile.
+- Keep entry points within 650 words and playbooks within 1,800 words. Use Inputs, Rules, Workflow, Verify, Output, References. Give rules stable IDs.
+- Make rules scoped, actionable, and testable. Distinguish Apple requirements, documented API behavior, repository conventions, and engineering recommendations. Avoid universal bans derived from one app.
+- Link precise primary sources. Record reviewed content honestly; do not upgrade discovery links or review dates after an HTTP-only check. Verify availability in the current SDK before adding version-specific examples.
+- Keep core content free of vendor invocation syntax or mandatory plugins. Optional host adapters may live under `agents/`; they do not own engineering rules.
+- Update `catalog.json` and `sources.json` with the content, then regenerate docs. Do not hand-edit generated coverage/source tables.
+- Keep secrets, private device identifiers, machine paths, screenshots, and session artifacts out of published files. Do not choose or change the owner's license silently.
 
-## Current Published Skills
+## Verification
 
-- `apple-swiftui-native-apps`: native Apple UI, controls, button foreground behavior, navigation, accessibility, workflow hierarchy, and interaction-state semantics.
-- `apple-project-governance`: project files, targets, schemes, generated project state, bundle identifiers, and entitlements.
-- `apple-privacy-system-integrations`: permission, protected-data, disclosure, retention, and cross-boundary semantics for Apple system integrations.
-- `apple-device-validation`: simulator, Mac, physical-device, watch, screenshot, install, and infrastructure-aware runtime proof.
-- `apple-performance-cleanup`: startup, hot-path, memory, telemetry, and behavior-preserving simplification work.
-- `apple-app-store-readiness`: App Store release promise, public surfaces, metadata, reviewability, exact-candidate, submission, and release gates.
-- `macos-productization`: macOS signing, notarization, packaging, app icons, releases, and install verification.
+Run `python3 scripts/validate_skills.py .`, `python3 scripts/skillctl.py docs --check`, and `python3 -m unittest discover -s tests -v`. Run `swift test --package-path examples/SkillExamples` for example changes. Apple-only compilation requires an Apple SDK; Linux success does not prove SwiftUI compilation.
+
+Review the diff and run whitespace checks. Report exact commands, failures, and blocked Apple/device gates. Never fabricate screenshots, benchmarks, cross-model evaluation, or CI results. Keep external upload, submission, publication, destructive changes, and account administration within explicit authority.

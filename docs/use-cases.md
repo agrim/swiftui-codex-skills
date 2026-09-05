@@ -1,56 +1,39 @@
-# Use Cases
+# Task-to-skill examples
 
-This repository is useful when an AI coding agent can already write Swift or SwiftUI, but needs sharper Apple-app judgment.
+## A search screen shows an older result
 
-## Native SwiftUI UI
+Read `swift-concurrency`, then `apple-networking` if transport is involved. Trace request identity through success, failure, cancellation, and loading cleanup. Keep old completion from mutating a newer request's state. Use a controlled completion-order test, not a sleep that happens to pass.
 
-Use `apple-swiftui-native-apps` when a UI looks plausible but not native enough.
+## A sheet creates a record even after Cancel
 
-It pushes the agent to inspect actual SwiftUI control structure: `Button`, `Menu`, toolbar placement, role, button style, tint, foreground resolution, Dynamic Type, VoiceOver, and layout stability, then pair with device validation when screenshots or runtime proof are required.
+Read `swiftui-state-architecture` and `apple-data-persistence`. Identify whether the editor mutates a live persistence object or owns a value draft. Save only at the promised commit boundary; verify cancellation, failed save, duplicate submission, and relaunch.
 
-## Xcode Project Integrity
+## A screen feels custom-built rather than native
 
-Use `apple-project-governance` when the work touches targets, schemes, manifests, generated Xcode projects, bundle identifiers, app groups, entitlements, or build settings.
+Start with `apple-swiftui-native-apps`, then `swiftui-controls-input`, `swiftui-design-system`, and `swiftui-accessibility` as needed. Fix action semantics and hierarchy before recoloring. Custom styles are allowed; they still need a full appearance, disabled, focus, and accessibility contract. Prove visual claims with rendered output.
 
-It prevents "the code is right but the project is wrong" failures.
+## A phone layout is awkward on Mac or iPad
 
-## Privacy And Apple Frameworks
+Read `swiftui-platform-adaptation`, `swiftui-layout`, and `swiftui-navigation`. Separate shared domain state from per-window selection and presentation. Use platform scenes, commands, keyboard behavior, and adaptive navigation rather than scaling phone geometry.
 
-Use `apple-privacy-system-integrations` when adding or auditing permissions, privacy artifacts, or Apple framework work that crosses protected-data, account, service, process, extension, or companion-device boundaries.
+## A widget compiles but does not stay current
 
-It pushes the agent to handle user purpose, denied states, fallbacks, retention, system projection, and tests in one coherent change.
+Read `apple-system-experiences`, `apple-project-governance`, and `apple-device-validation`. Verify embedding, registration, shared projection, timeline generation, host rendering, delayed updates, and stale state. Do not promise an exact refresh cadence that the system does not guarantee.
 
-## Device And Screenshot Proof
+## A HealthKit permission label says “denied” when no samples appear
 
-Use `apple-device-validation` when a change needs proof on a simulator, phone, watch, screenshot, or real installation.
+Read `apple-privacy-system-integrations` and `apple-system-experiences`. Check the exact authorization contract: absence of query results is not a read-permission signal. Preserve empty/unknown/unavailable distinctions and test truthful UI rather than inferring protected state.
 
-It helps separate build success from visual proof, device proof, and infrastructure failure.
+## A refactor reduces lines but slows scrolling
 
-## Performance-Sensitive Cleanup
+Read `apple-performance-cleanup` and `swiftui-testing`. Compare the same workload and configuration, inspect invalidation and allocation behavior, and preserve unique regression tests. Fewer lines are not a performance measurement.
 
-Use `apple-performance-cleanup` when simplifying code that affects startup, parsing, telemetry, rendering, persistence, memory, or concurrency.
+## A macOS app runs locally but fails after download
 
-It keeps the agent from turning cleanup into a rewrite and losing edge-case behavior. For an explicitly requested whole-codebase compaction, it adds a reproducible baseline, complete pass reports, honest size and runtime metrics, repeated residual scans, and a stop rule.
+Read `macos-productization`. Inspect the exact packaged artifact, nested code, signing identity, entitlements, notarization, stapling, Gatekeeper, and installed launch. Do not “fix” it by disabling system security or blanket re-signing.
 
-## App Store Readiness
+## “Make the app ready for the App Store”
 
-Use `apple-app-store-readiness` when planning or auditing a first submission or update, preparing App Store Connect, checking common review blockers, aligning public identity and domains, freezing an exact candidate, or making the app reviewable.
+Start with `apple-app-store-readiness`. Separate auditing and preparation from authorized upload, submission, and release. Bind the real product promise, privacy disclosures, screenshots, reviewer access, and device evidence to one exact candidate.
 
-It keeps product scope, public support and privacy surfaces, binary identity, screenshots, metadata, review access, TestFlight evidence, submission, and release status in one gate sequence while routing configuration, privacy truth, runtime proof, and Mac artifacts to their owning skills.
-
-## macOS Productization
-
-Use `macos-productization` when preparing a macOS app for distribution.
-
-It focuses the agent on signing, entitlements, hardened runtime, notarization, packaging, app icons, release artifacts, install behavior, and Gatekeeper expectations.
-
-## Public Skill Hygiene
-
-Use the repository validators before publishing:
-
-```bash
-python3 scripts/validate_skills.py .
-python3 scripts/scan_apple_repo.py /path/to/apple-app-repo
-```
-
-They help keep skill packages structurally valid and reduce the chance of publishing local paths, secrets, or private artifacts.
+All skill identifiers above are indexed in the [coverage map](coverage.md). They are names, not model-specific commands.
