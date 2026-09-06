@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased — verification and publication follow-through
+
+Restores both generated documentation files. Hardens installer preflight against missing skill folders, missing or malformed entry points, missing references, symlinks, and special files before any selected skill is copied. Rejects empty programmatic selections and adds ten installer regression tests.
+
+Moves the search example onto one observable main-actor model shared with eight async integration tests. Adds a SwiftData local-creation example and five Apple-only persistence tests for save/cancel boundaries and context-local rollback. Extends CI to repeat async interleavings and compile persistence against iOS. Adds precise Apple references for cancellation, autosave, and rollback. These tests do not imply cross-model behavioral effectiveness or real-device validation.
+
 ## 2.0.0 — Portable skill-library redesign
 
 Carries forward the existing strengthened seven-skill branch rather than reverting to the older six-skill main branch. Preserves all existing published skill identifiers and optional adapter files.

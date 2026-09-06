@@ -95,7 +95,8 @@
       "sources": [
         "concurrency",
         "swift62",
-        "observation"
+        "observation",
+        "task-cancellation"
       ],
       "coverage": "practical",
       "limits": "Framework-specific API details require the linked documentation and the installed SDK."
@@ -307,7 +308,9 @@
         "model-context",
         "model-container",
         "cloudkit",
-        "keychain"
+        "keychain",
+        "swiftdata-autosave",
+        "swiftdata-rollback"
       ],
       "coverage": "practical",
       "limits": "Framework-specific API details require the linked documentation and the installed SDK."

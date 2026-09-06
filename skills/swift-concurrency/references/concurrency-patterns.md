@@ -19,6 +19,8 @@ On start, create a request identity and mark it current. Capture the query/accou
 
 A request token solves UI ordering, not remote exactly-once execution. Writes need their own operation identity, server contract, or reconciliation policy. A cancelled save may already have committed remotely; represent an uncertain result instead of retrying blindly or claiming rollback.
 
+Cancellation and invalidation are separate operations: invalidate publication authority immediately when an account or scope changes, and cancel the owned task to request resource cleanup. Cancellation alone does not stop an arbitrary service that ignores it. Do not hold a lock while calling `cancel()` on work whose cancellation handlers might acquire that lock.
+
 ## Actor reentrancy
 
 An actor can process another operation while one method is suspended. Read-check-await-write is not an atomic transaction. After `await`, revalidate the prerequisite or reserve the operation before suspension, with rollback rules. Do not hold a lock across suspension. Passing a non-Sendable persistence object between actors is not made safe by giving its surrounding method an `async` label.
@@ -33,6 +35,8 @@ For `AsyncStream`, select an explicit buffering policy where producers can outpa
 
 Use a fake service whose continuations can be completed by request ID. Start A, observe A registered, start B, observe B registered, finish B, then finish A; assert B remains visible. Repeat with A failing, cancellation during publication, and account replacement. Test that A's cleanup cannot clear B's loading state. Avoid tests that pass only because a sleep happens to schedule tasks in the desired order.
 
+The repository's `SearchIntegrationTests` exercise the same `SearchModel` used by its SwiftUI example. They await actual controlled service registrations and complete those requests in adversarial orders, including success, failure, cancellation, and invalidation. Every accepted continuation is resumed. A test time limit is a deadlock watchdog, never a substitute for the registration handshake. This is model/service integration evidence, not SwiftUI scheduler, actual-network, or rendered-screen proof.
+
 Thread Sanitizer and strict-concurrency diagnostics can identify classes of unsafe access. Neither establishes authorization, transaction ordering, or idempotency. Report those proofs separately.
 
 ## Sources
@@ -40,3 +44,4 @@ Thread Sanitizer and strict-concurrency diagnostics can identify classes of unsa
 - [concurrency](https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html) — The Swift Programming Language: Concurrency.
 - [swift62](https://www.swift.org/blog/swift-6.2-released/) — Swift 6.2 language and concurrency changes.
 - [observation](https://developer.apple.com/documentation/SwiftUI/Migrating-from-the-observable-object-protocol-to-the-observable-macro) — Migrating to Observation.
+- [task-cancellation](https://developer.apple.com/documentation/swift/task/cancel%28%29) — Cooperative cancellation and handler execution.

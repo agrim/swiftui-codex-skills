@@ -19,6 +19,14 @@ For a new record, create a value draft outside the persistent context. Validate,
 
 Autosave can be convenient for continuous editing. It is not automatically compatible with a Cancel button promising no changes. Name the product contract: autosaved document editing, staged form submission, or explicit transactional operation. Test interruption at the actual persistence boundary.
 
+## Context-local rollback
+
+For staged local creation, a dedicated writer context with autosave explicitly disabled can isolate a failed commit from unrelated pending edits in the shared main context. Validate the value first; create and insert the model only on Save; propagate any save failure and retain the user's draft. Roll back only that writer's pending changes. This is an engineering choice, not a requirement to create a context per operation in every app.
+
+`rollback()` affects pending inserts, deletes, edits, and the undo stack for its context. It is not a selective undo command and cannot reverse an already committed save or remote operation. Autosave defaults differ between a newly created context and the container's main context; inspect and set the policy intentionally rather than relying on a presumed universal default.
+
+The repository's `DraftNoteStoreTests` exercise this boundary with real SwiftData in-memory storage on Apple SDKs. An injected pre-save failure proves recovery from that failure point only. It does not simulate a disk-full error, partial disk write, migration, cold launch, or CloudKit conflict. Do not turn its retry test into an exactly-once claim: repeated successful Create calls intentionally create different records.
+
 ## Queries and observation
 
 Scope queries by the feature's data need. Avoid adding broad live queries to every sheet and row. Pass the necessary data or identifiers from a stable owner where that reduces redundant observation. Use fetch limits, sorting, paging, or indexes when supported and measured. Do not promise performance from changing wrappers alone.
@@ -47,3 +55,5 @@ Inject a save failure after validation; assert the editor remains recoverable. R
 - [model-container](https://developer.apple.com/documentation/swiftdata/modelcontainer) — SwiftData ModelContainer.
 - [cloudkit](https://developer.apple.com/documentation/cloudkit) — CloudKit.
 - [keychain](https://developer.apple.com/documentation/security/keychain-services) — Keychain services.
+- [swiftdata-autosave](https://developer.apple.com/documentation/swiftdata/modelcontext/autosaveenabled) — SwiftData autosave policy.
+- [swiftdata-rollback](https://developer.apple.com/documentation/swiftdata/modelcontext/rollback%28%29) — Context-wide rollback scope.

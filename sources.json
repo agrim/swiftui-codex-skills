@@ -483,6 +483,27 @@
       "url": "https://developer.apple.com/documentation/security/resolving-common-notarization-issues",
       "reviewed": "2026-09-06",
       "status": "content-reviewed"
+    },
+    {
+      "id": "swiftdata-autosave",
+      "title": "SwiftData ModelContext autosaveEnabled",
+      "url": "https://developer.apple.com/documentation/swiftdata/modelcontext/autosaveenabled",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "swiftdata-rollback",
+      "title": "SwiftData ModelContext rollback()",
+      "url": "https://developer.apple.com/documentation/swiftdata/modelcontext/rollback%28%29",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "task-cancellation",
+      "title": "Swift Task cancellation semantics",
+      "url": "https://developer.apple.com/documentation/swift/task/cancel%28%29",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
     }
   ]
 }

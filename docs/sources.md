@@ -58,8 +58,11 @@ Generated from `sources.json`; run `python3 scripts/skillctl.py docs` to update.
 | `spotlight` | [Core Spotlight](https://developer.apple.com/documentation/corespotlight) | reference-only | — |
 | `storekit` | [StoreKit](https://developer.apple.com/documentation/storekit) | reference-only | — |
 | `swift62` | [Swift 6.2 language and concurrency changes](https://www.swift.org/blog/swift-6.2-released/) | content-reviewed | 2026-09-06 |
+| `swiftdata-autosave` | [SwiftData ModelContext autosaveEnabled](https://developer.apple.com/documentation/swiftdata/modelcontext/autosaveenabled) | content-reviewed | 2026-09-06 |
+| `swiftdata-rollback` | [SwiftData ModelContext rollback()](https://developer.apple.com/documentation/swiftdata/modelcontext/rollback%28%29) | content-reviewed | 2026-09-06 |
 | `swiftui` | [SwiftUI framework overview](https://developer.apple.com/documentation/SwiftUI) | content-reviewed | 2026-09-06 |
 | `symbols` | [HIG: SF Symbols](https://developer.apple.com/design/human-interface-guidelines/sf-symbols) | reference-only | — |
+| `task-cancellation` | [Swift Task cancellation semantics](https://developer.apple.com/documentation/swift/task/cancel%28%29) | content-reviewed | 2026-09-06 |
 | `test-parallel` | [Swift Testing parallelization](https://developer.apple.com/documentation/Testing/Parallelization) | content-reviewed | 2026-09-06 |
 | `testing` | [Swift Testing](https://developer.apple.com/xcode/swift-testing/) | content-reviewed | 2026-09-06 |
 | `tvos` | [HIG: Designing for tvOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-tvos) | reference-only | — |
