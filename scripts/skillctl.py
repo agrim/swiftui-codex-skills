@@ -6,16 +6,19 @@ import argparse
 import json
 import re
 import shutil
+import stat
 import sys
 from pathlib import Path
 from typing import Any
 
-from skilllib import catalog, generated_docs, safe_path
+from skilllib import catalog, frontmatter, generated_docs, safe_path
 
 DEFAULT_ROOT = Path(__file__).resolve().parents[1]
 
 
 def select(root: Path, names: list[str]) -> list[dict[str, Any]]:
+    if not names:
+        raise ValueError("select at least one skill")
     items = {item["id"]: item for item in catalog(root)["skills"]}
     if len(names) != len(set(names)):
         raise ValueError("select each skill only once")
@@ -63,8 +66,10 @@ def bundle(root: Path, names: list[str], entrypoints_only: bool = False) -> str:
 def install(root: Path, names: list[str], destination: Path, dry_run: bool = False) -> list[str]:
     """Copy self-contained folders to an explicit directory without overwriting.
 
-Preflight all paths before copying. A disk/I/O failure can leave already-copied
-folders; never remove existing user folders to recover from that failure.
+Preflight every selected source, required file, file type, and target before
+copying. A disk/I/O failure or concurrent filesystem change can still leave
+already-copied folders; this is not a transaction or an adversarial-filesystem
+sandbox. Never remove existing user folders to recover from that failure.
 """
     items = select(root, names)
     if not destination.is_dir() or any(p.is_symlink() for p in [destination, *destination.parents]):
@@ -75,8 +80,20 @@ folders; never remove existing user folders to recover from that failure.
         target = safe_path(destination, item["id"])
         if target.exists():
             raise ValueError(f"refusing to overwrite installed skill: {item['id']}")
-        if any(path.is_symlink() for path in source.rglob("*")):
-            raise ValueError(f"refusing to copy symlinks in skill: {item['id']}")
+        if not source.is_dir():
+            raise ValueError(f"missing skill directory: {item['id']}")
+        for path in source.rglob("*"):
+            mode = path.lstat().st_mode
+            if not (stat.S_ISDIR(mode) or stat.S_ISREG(mode)):
+                raise ValueError(f"refusing symlink or special file in skill: {item['id']}")
+        entry = safe_path(source, "SKILL.md")
+        if not entry.is_file():
+            raise ValueError(f"missing SKILL.md: {item['id']}")
+        if frontmatter(entry.read_text(encoding="utf-8"))["name"] != item["id"]:
+            raise ValueError(f"frontmatter name differs from skill: {item['id']}")
+        for reference in item["references"]:
+            if not safe_path(source, reference).is_file():
+                raise ValueError(f"missing skill reference: {item['id']}/{reference}")
         pairs.append((source, target))
     if not dry_run:
         for source, target in pairs:

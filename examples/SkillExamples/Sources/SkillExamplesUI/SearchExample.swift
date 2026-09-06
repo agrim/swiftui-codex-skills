@@ -6,16 +6,16 @@ import SkillExamplesCore
 /// and stale-result safety, not a complete networking or debounce implementation.
 @MainActor
 public struct SearchExample: View {
-    private let search: @Sendable (String) async throws -> [String]
     @State private var query = ""
-    @State private var request = LatestRequestState<[String]>()
+    @State private var model: SearchModel
 
     public init(search: @escaping @Sendable (String) async throws -> [String]) {
-        self.search = search
+        _model = State(initialValue: SearchModel(search: search))
     }
 
     public var body: some View {
         let requestedQuery = query.trimmingCharacters(in: .whitespacesAndNewlines)
+        let request = model.request
         VStack(alignment: .leading) {
             TextField("Search", text: $query)
                 .textFieldStyle(.roundedBorder)
@@ -39,26 +39,10 @@ public struct SearchExample: View {
         }
         .padding()
         .task(id: requestedQuery) {
-            guard !Task.isCancelled else { return }
-            guard !requestedQuery.isEmpty else {
-                request.invalidate()
-                return
-            }
-            let token = request.begin()
-            do {
-                let results = try await search(requestedQuery)
-                try Task.checkCancellation()
-                request.succeed(results, for: token)
-            } catch is CancellationError {
-                request.cancel(for: token)
-            } catch {
-                if Task.isCancelled {
-                    request.cancel(for: token)
-                } else {
-                    // Do not expose arbitrary service error text or credentials.
-                    request.fail("Search could not be completed. Try again.", for: token)
-                }
-            }
+            await model.load(requestedQuery)
+        }
+        .onDisappear {
+            model.invalidate()
         }
     }
 }

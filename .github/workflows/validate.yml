@@ -47,10 +47,20 @@ jobs:
         run: |
           xcrun swift test --package-path examples/SkillExamples
           xcrun swift build --package-path examples/SkillExamples --target SkillExamplesUI
-      - name: Compile views against the installed iOS SDK
+      - name: Repeat deterministic async interleavings
+        run: |
+          for attempt in 1 2 3 4 5; do
+            xcrun swift test --package-path examples/SkillExamples --skip-build \
+              --filter SearchIntegrationTests
+          done
+      - name: Compile examples against the installed iOS SDK
         run: |
           SDK_PATH="$(xcrun --sdk iphoneos --show-sdk-path)"
           xcrun swift build --package-path examples/SkillExamples \
             --scratch-path examples/SkillExamples/.build-ios \
             --sdk "$SDK_PATH" --triple arm64-apple-ios17.0 \
             --target SkillExamplesUI
+          xcrun swift build --package-path examples/SkillExamples \
+            --scratch-path examples/SkillExamples/.build-ios \
+            --sdk "$SDK_PATH" --triple arm64-apple-ios17.0 \
+            --target SkillExamplesPersistence
