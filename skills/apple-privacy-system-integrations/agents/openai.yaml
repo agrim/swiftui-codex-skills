@@ -1,4 +1,4 @@
 interface:
   display_name: "Apple Privacy Integrations"
-  short_description: "Privacy and Apple system integration discipline."
-  default_prompt: "Use $apple-privacy-system-integrations to review this Apple framework integration."
+  short_description: "Privacy-safe permissions, data flows, and disclosures."
+  default_prompt: "Use $apple-privacy-system-integrations to map this Apple integration's data boundaries, permission states, truthful projections, and applicable privacy artifacts."

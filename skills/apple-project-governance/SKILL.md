@@ -1,31 +1,38 @@
 ---
 name: apple-project-governance
-description: Apple project governance for Swift, SwiftUI, Xcode, and XcodeGen app repositories. Use when modifying or reviewing project manifests, generated Xcode projects, targets, schemes, bundle identifiers, entitlements, build settings, package dependencies, app groups, CI project settings, or app identity.
+description: "Create, repair, or audit Xcode and Swift package configuration. Use for targets, schemes, resources, generated projects, entitlements, build settings, and configuration drift."
 ---
 
-# Apple Project Governance
+# Apple project governance
 
-## First Pass
+## Inputs
 
-- Find the source of truth before editing: `project.yml`, `.xcodeproj`, `.xcworkspace`, `Package.swift`, schemes, target membership, entitlements, `Info.plist`, build settings, app constants, and CI configuration.
-- If a generated project has a manifest, edit the manifest first and regenerate. Do not hand-edit generated project structure unless no manifest exists or the user explicitly asks for an emergency patch.
-- Map every app identity change across bundle identifiers, entitlements, app groups, associated domains, provisioning expectations, constants, widgets, extensions, watch targets, and tests.
-- Treat project configuration as product surface. A target, entitlement, scheme, or generated resource mistake can look like a runtime bug.
-- Read `references/project-governance-patterns.md` when the task touches multiple targets, generated files, signing, schemes, or app identity.
+Identify the affected products, targets, schemes, build configurations, generator inputs, dependencies, and CI path. Read current repository instructions before changing the project graph.
 
 ## Rules
 
-- Keep generated and source-owned files distinct. Do not make lasting design decisions in generated output when an upstream manifest owns the value.
-- Keep target membership explicit. When adding code, resources, privacy files, intents, widgets, watch assets, or tests, verify the intended targets include them and unintended targets do not.
-- Keep schemes reviewable. If tests or build actions change, inspect shared schemes and CI behavior rather than assuming Xcode inferred the right thing.
-- Keep app identity coherent. Bundle IDs, app groups, keychain groups, suite names, CloudKit containers, HealthKit identifiers, and deep-link constants must agree.
-- Prefer typed constants over string drift for identifiers used across app, extension, watch, widget, and tests.
-- Treat build settings as code. Avoid broad settings churn and document why the setting belongs at project, target, or configuration level.
+- **PROJ-001 — Edit the owner.** Change generator manifests or source configuration, not only their generated output. Inspect regeneration for unrelated churn.
+- **PROJ-002 — Verify membership.** Code, resources, models, privacy manifests, and extensions must reach each intended product and no unintended product.
+- **PROJ-003 — Preserve identity.** Reconcile bundle IDs, groups, containers, associated domains, and shared constants without renaming durable storage keys for cosmetic consistency.
+- **PROJ-004 — Inspect effective configuration.** Source declarations express intent; resolved build settings, bundled resources, and signed entitlements establish what shipped.
+- **PROJ-005 — Separate failure classes.** Configuration, compilation, signing, destination availability, and infrastructure require different corrections.
 
-## Validation
+## Workflow
 
-- Run the manifest generator if one exists.
-- Run `xcodebuild -showdestinations` or the equivalent project discovery step after scheme/project changes.
-- Run the narrowest build or test that proves target membership, resources, entitlements, and generated project state.
-- Inspect `git diff --check` and the generated project diff before committing.
-- If validation fails because simulator or Xcode services are broken, separate infrastructure failure from project failure before changing source.
+1. Map each changed value to its source owner and downstream targets.
+2. Edit the narrow source of truth and regenerate when applicable.
+3. Inspect discovered schemes, destinations, and resolved settings for the exact build context.
+4. Build the affected target graph; inspect the actual product for resource and capability claims.
+5. Review source and generated diffs together.
+
+## Verify
+
+Prove target membership, shared scheme selection, dependency exposure, deployment settings, built Info.plist/resources, and signed entitlements where relevant. Do not treat destination discovery as proof of effective settings.
+
+## Output
+
+Report the owning files, affected products, generated changes, exact build context, and remaining configuration or signing blockers.
+
+## References
+
+Read the [playbook](references/project-governance-patterns.md) for decisions, failure cases, and source links.

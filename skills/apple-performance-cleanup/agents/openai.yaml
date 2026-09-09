@@ -1,4 +1,4 @@
 interface:
   display_name: "Apple Performance Cleanup"
-  short_description: "Behavior-preserving Apple app performance work."
-  default_prompt: "Use $apple-performance-cleanup to simplify this Apple app code safely."
+  short_description: "Performance-safe cleanup and codebase compaction."
+  default_prompt: "Use $apple-performance-cleanup to simplify this performance-sensitive Apple app path or codebase without behavior or performance drift."

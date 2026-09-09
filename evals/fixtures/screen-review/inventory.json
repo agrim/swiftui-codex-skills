@@ -1,0 +1,12 @@
+{
+  "candidate": "candidate-b",
+  "required_states": ["library.populated", "picker.populated", "editor.keyboard", "editor.invalid", "history.empty"],
+  "captures": [
+    {"id":"cap-1", "state":"library.populated", "candidate":"candidate-b", "kind":"native-runtime", "content_hash":"same-image", "appearance":"light", "text_size":"default", "fixture":"demo"},
+    {"id":"cap-2", "state":"picker.populated", "candidate":"candidate-b", "kind":"native-runtime", "content_hash":"same-image", "appearance":"light", "text_size":"default", "fixture":"demo"},
+    {"id":"cap-3", "state":"editor.keyboard", "candidate":"candidate-a", "kind":"native-runtime", "content_hash":"old-editor", "appearance":"light", "text_size":"default", "fixture":"demo"},
+    {"id":"cap-4", "state":"editor.keyboard", "candidate":"candidate-b", "kind":"native-runtime", "content_hash":"new-editor", "appearance":"dark", "text_size":"accessibility", "fixture":"demo"},
+    {"id":"cap-5", "state":"history.empty", "candidate":"candidate-b", "kind":"generated-concept", "content_hash":"concept", "appearance":"light", "text_size":"default", "fixture":"staged"}
+  ],
+  "artifacts_available": false
+}
