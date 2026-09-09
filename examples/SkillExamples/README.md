@@ -10,6 +10,7 @@ Swift 6 package with no third-party dependencies. `SkillExamplesCore` uses Found
 | `SearchModel` | Main-actor state ownership and guarded async service completion | Actual network, debounce, account authentication, or pagination |
 | `SearchExample` | Uses the tested model from a view-bound task; invalidates on disappearance | Rendered UI, focus, VoiceOver, or SwiftUI scheduler tests |
 | `NoteDraft` / `NoteRoute` | Value draft validation and stable route identity | On-disk persistence or navigation restoration |
+| `CountDraft` / `CountRecord` | Separate planned, estimated, confirmed, and projected counts; repeat creates a fresh draft | Sensor accuracy, localized number parsing, durable save, or export acknowledgement |
 | `DraftNoteStore` | Explicit local creation; isolated writer rollback on failure | CloudKit, migrations, crash recovery, general idempotency, or an asynchronous storage architecture |
 
 `SearchIntegrationTests` start real tasks and use a controlled actor service with registration handshakes. They finish requests out of order and deliberately ignore cancellation in the fake service. No sleep establishes test ordering. The suite's time limit is only a deadlock watchdog. The UI and tests use the same model implementation, not duplicated algorithms. Keep the injected service stable for a view's identity; account replacement must invalidate the existing model and update the service/context ownership deliberately.
@@ -19,6 +20,8 @@ Swift 6 package with no third-party dependencies. `SkillExamplesCore` uses Found
 The synchronous store is deliberately tiny. Do not put expensive storage work into a SwiftUI button callback merely because this example has a synchronous `create` method. Choose actor ownership and an asynchronous commit state for larger workloads. `titles()` is an unbounded teaching query, not a pagination strategy. A creation context isolated from the main context may also require deliberate UI query refresh/reconciliation in a real app.
 
 `DraftEditor` and `DraftNavigationExample` remain in-memory UI examples. Their cancel/save callbacks are separate from the SwiftData store tests; connecting them is not evidence of tested disk durability.
+
+`CountRecordTests` exercise plan/observation/result separation, correction, unknown versus zero, and repeat/cancel behavior. Item counts use a nonnegative integer type; fractional input parsing belongs to the UI adapter. Confirming a value constructs a record but does not persist it. The export value is a payload, never proof of delivery. Repeating copies the previous plan into a new draft; copying a previous confirmed result into a new target is a different product policy.
 
 ## Run
 

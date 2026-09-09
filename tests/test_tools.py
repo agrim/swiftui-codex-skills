@@ -79,6 +79,13 @@ class CatalogTests(unittest.TestCase):
         path.write_text(path.read_text() + "\n" + "extra " * 700)
         self.assertTrue(any("exceeds 650" in e for e in validate_skills.validate(self.root)))
 
+    def test_review_scope_cannot_upgrade_discovery_source(self):
+        data = skilllib.source_registry(self.root)
+        source = next(item for item in data["sources"] if item["status"] == "reference-only")
+        source["review_scope"] = "A purported review without content inspection"
+        (self.root / "sources.json").write_text(json.dumps(data))
+        self.assertTrue(any("review_scope requires" in e for e in validate_skills.validate(self.root)))
+
     def test_broken_link_rejected(self):
         path = self.root / "README.md"
         path.write_text(path.read_text() + "\n[Broken](no-such-file.md)\n")
@@ -141,6 +148,8 @@ class PortableToolsTests(unittest.TestCase):
             self.assertTrue(set(scenario["skills"]) <= known)
             for field in ("prompt", "skills", "must_do", "must_not", "evidence"):
                 self.assertTrue(scenario[field])
+            if "fixture" in scenario:
+                self.assertTrue(skilllib.safe_path(ROOT / "evals", scenario["fixture"]).is_file())
 
     def test_bundle_is_deterministic_and_self_contained(self):
         names = ["swiftui-navigation", "swift-concurrency"]
@@ -154,6 +163,14 @@ class PortableToolsTests(unittest.TestCase):
         text = skillctl.bundle(ROOT, ["swiftui-navigation"], True)
         self.assertIn("not included", text)
         self.assertNotIn("](#swiftui-navigation-reference", text)
+
+    def test_multiple_references_remain_locatable_in_both_bundle_modes(self):
+        text = skillctl.bundle(ROOT, ["apple-device-validation"])
+        self.assertIn('<a id="apple-device-validation-reference-2"></a>', text)
+        self.assertNotIn("](references/", text)
+        entry = skillctl.bundle(ROOT, ["apple-device-validation"], True)
+        self.assertIn("screen review workflow (not included", entry)
+        self.assertNotIn("](#apple-device-validation-reference", entry)
 
     def test_unknown_skill_rejected(self):
         with self.assertRaises(ValueError):
@@ -170,7 +187,9 @@ class PortableToolsTests(unittest.TestCase):
 
     def test_installer_dry_run_and_refusal(self):
         with tempfile.TemporaryDirectory() as directory:
-            destination = Path(directory)
+            # Canonicalize our own temporary fixture; keep real destination
+            # symlinks rejected by the installer on every platform.
+            destination = Path(directory).resolve()
             names = ["swiftui-navigation"]
             self.assertEqual(skillctl.install(ROOT, names, destination, True), names)
             self.assertEqual(list(destination.iterdir()), [])
@@ -181,7 +200,7 @@ class PortableToolsTests(unittest.TestCase):
 
     def test_installer_preflights_all_targets(self):
         with tempfile.TemporaryDirectory() as directory:
-            destination = Path(directory)
+            destination = Path(directory).resolve()
             (destination / "swift-concurrency").mkdir()
             with self.assertRaises(ValueError):
                 skillctl.install(ROOT, ["swiftui-navigation", "swift-concurrency"], destination)

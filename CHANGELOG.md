@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased — evidence workflows and installation tracking
+
+Adds a screen/state review inventory with capture-specific feedback, current evidence and authorization reconciliation, repeated-surface/theme guidance, and planned/observed/confirmed value boundaries. Keeps existing skill identifiers and moves the detail into optional playbooks. Replaces generic catalog limits with module-specific boundaries and distinguishes platform applicability from execution evidence. Reviews the relevant Apple HIG color guidance and records that limited scope.
+
+Adds local installation receipts and read-only three-way status/file comparisons. Existing copies remain untracked; replacements are never automatic. Canonicalizes installer test fixtures so the documented Python command works on macOS without relaxing destination symlink checks. Extends tooling CI to macOS as well as Linux.
+
+Adds a portable count-state example, regression tests, five behavioral scenario contracts, and two offline workflow fixtures. Independent guided and baseline runs exercise the release and screen-review fixtures; see the evaluation pilot record for results and limits. These simulations do not establish real Apple delivery, rendered UI, or a comparative quality improvement.
+
 ## Unreleased — verification and publication follow-through
 
 Restores both generated documentation files. Hardens installer preflight against missing skill folders, missing or malformed entry points, missing references, symlinks, and special files before any selected skill is copied. Rejects empty programmatic selections and adds ten installer regression tests.

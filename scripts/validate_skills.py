@@ -64,6 +64,10 @@ def validate(root: Path, check_generated: bool = True) -> list[str]:
                 errors.append(f"source {sid}: reference-only must not claim a review date")
         else:
             errors.append(f"source {sid}: unknown review status")
+        if "review_scope" in item and (status != "content-reviewed" or
+                                       not isinstance(item["review_scope"], str) or
+                                       not item["review_scope"].strip()):
+            errors.append(f"source {sid}: review_scope requires reviewed content and nonempty text")
     all_rules: set[str] = set()
     for item in items:
         sid = item.get("id")

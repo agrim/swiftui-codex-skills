@@ -18,7 +18,7 @@ Generated from `sources.json`; run `python3 scripts/skillctl.py docs` to update.
 | `button` | [SwiftUI Button](https://developer.apple.com/documentation/SwiftUI/Button) | content-reviewed | 2026-09-06 |
 | `charts` | [Swift Charts](https://developer.apple.com/documentation/charts) | reference-only | — |
 | `cloudkit` | [CloudKit](https://developer.apple.com/documentation/cloudkit) | reference-only | — |
-| `color` | [HIG: Color](https://developer.apple.com/design/human-interface-guidelines/color) | reference-only | — |
+| `color` | [HIG: Color](https://developer.apple.com/design/human-interface-guidelines/color) | content-reviewed | 2026-09-09 |
 | `concurrency` | [The Swift Programming Language: Concurrency](https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html) | content-reviewed | 2026-09-06 |
 | `design` | [HIG: Design principles](https://developer.apple.com/design/human-interface-guidelines/design-principles) | content-reviewed | 2026-09-06 |
 | `developer-id` | [Signing Mac software with Developer ID](https://developer.apple.com/developer-id/) | content-reviewed | 2026-09-06 |
@@ -78,6 +78,11 @@ Generated from `sources.json`; run `python3 scripts/skillctl.py docs` to update.
 | `widgets` | [WidgetKit](https://developer.apple.com/documentation/widgetkit) | reference-only | — |
 | `windows` | [HIG: Windows](https://developer.apple.com/design/human-interface-guidelines/windows) | content-reviewed | 2026-09-06 |
 | `xcode` | [Xcode documentation](https://developer.apple.com/documentation/xcode) | reference-only | — |
+
+## Scoped review notes
+
+`color`: Color meaning, custom appearance and increased-contrast variants, and semantic system colors; inspected official documentation content for the repeated-surface and theme guidance.
+
 
 ## Refresh policy
 

@@ -136,6 +136,18 @@
     {
       "query": "Create a navigationless wordmark",
       "expected": []
+    },
+    {
+      "query": "screenshot review with a screen inventory",
+      "expected": [
+        "apple-device-validation"
+      ]
+    },
+    {
+      "query": "reconcile the release ledger and superseded blocker",
+      "expected": [
+        "apple-app-store-readiness"
+      ]
     }
   ]
 }

@@ -28,6 +28,17 @@ python3 scripts/skillctl.py install swiftui-navigation --dest /path/to/skill-dir
 
 Review changes before replacing an installed version. The installer deliberately has no force-overwrite option. An I/O failure may leave folders already copied; it will not remove user folders to recover.
 
+New installations record content hashes and available Git identity. Inspect them later without writing to the destination:
+
+```bash
+python3 scripts/skillctl.py status swiftui-navigation --dest /path/to/skill-directory --diff
+python3 scripts/skillctl.py status swiftui-navigation --dest /path/to/skill-directory --json
+```
+
+Status distinguishes `missing`, `untracked`, `current`, `source-changed`, `local-changed`, and `both-changed`. `matches_source` reports byte agreement independently: two sides can make the same change after installation. `--diff` lists installed-only, source-only, and modified file names, never file contents. Legacy copies without receipts cannot establish which side changed. Status exit code zero means inspection succeeded, not that every skill matches. No automatic replacement is performed.
+
+The destination must exist and have no symlink ancestors. Resolve a trusted directory explicitly before passing it when your host exposes a canonical location through an alias. Tests canonicalize their own temporary directories; the installer retains its link-rejection policy.
+
 ## The library
 
 | Work | Skills |
@@ -64,7 +75,7 @@ The validator checks metadata, budgets, rule IDs, catalog/source consistency, lo
 
 The scanner is **advisory lexical triage**, not an AST, compiler, accessibility audit, secret scanner replacement, or HIG certification. It ignores comments and strings for Swift code hints, distinguishes informational review prompts from warnings/errors, and never prints matched secret content. By default only error-level findings fail the command. Use `--fail-on warning` or `--fail-on info` deliberately. Skipped files and known blind spots are reported.
 
-The [examples](examples/SkillExamples/README.md) exercise draft ownership, typed routes, and stale-request protection. The [evaluation protocol](docs/evaluation.md) separates mechanical checks from real agent behavior. Passing repository tests does not establish that every model follows the skills or that an app is production-ready.
+The [examples](examples/SkillExamples/README.md) exercise draft ownership, typed routes, value authority, and stale-request protection. The [evaluation protocol](docs/evaluation.md) separates mechanical checks from real agent behavior. A [small offline pilot](evals/pilot-2026-09-09.md) found both guided and baseline runs satisfied two workflow contracts; it does not establish a comparative quality improvement. Passing repository tests does not establish that every model follows the skills or that an app is production-ready.
 
 ## Source and maintenance policy
 

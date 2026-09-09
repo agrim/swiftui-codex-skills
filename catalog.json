@@ -31,7 +31,7 @@
         "accessibility"
       ],
       "coverage": "practical",
-      "limits": "Framework-specific API details require the linked documentation and the installed SDK."
+      "limits": "Task scoping and native semantics across Apple platforms; this entry point is not an exhaustive API or HIG index."
     },
     {
       "id": "swiftui-state-architecture",
@@ -64,7 +64,7 @@
         "navigation"
       ],
       "coverage": "practical",
-      "limits": "Framework-specific API details require the linked documentation and the installed SDK."
+      "limits": "Ownership and identity patterns; executable core and selected SwiftUI examples do not cover every platform observation lifecycle."
     },
     {
       "id": "swift-concurrency",
@@ -99,7 +99,7 @@
         "task-cancellation"
       ],
       "coverage": "practical",
-      "limits": "Framework-specific API details require the linked documentation and the installed SDK."
+      "limits": "Isolation, cancellation, and stale-result patterns with controlled async examples; no general concurrency verifier or workload benchmark."
     },
     {
       "id": "swiftui-navigation",
@@ -131,7 +131,7 @@
         "windows"
       ],
       "coverage": "practical",
-      "limits": "Framework-specific API details require the linked documentation and the installed SDK."
+      "limits": "Typed routes, presentation, restoration, and scene ownership; platform navigation journeys require their own runtime evidence."
     },
     {
       "id": "swiftui-layout",
@@ -167,7 +167,7 @@
         "accessibility"
       ],
       "coverage": "practical",
-      "limits": "Framework-specific API details require the linked documentation and the installed SDK."
+      "limits": "Layout diagnosis and risky-size checks; no exhaustive device, locale, keyboard, or window-size screenshot matrix."
     },
     {
       "id": "swiftui-controls-input",
@@ -201,7 +201,7 @@
         "accessibility"
       ],
       "coverage": "practical",
-      "limits": "Framework-specific API details require the linked documentation and the installed SDK."
+      "limits": "Control and commit semantics; IME, keyboard, pointer, and assistive interactions need destination-specific execution."
     },
     {
       "id": "swiftui-accessibility",
@@ -238,7 +238,7 @@
         "localization"
       ],
       "coverage": "practical",
-      "limits": "Framework-specific API details require the linked documentation and the installed SDK."
+      "limits": "Accessibility workflows and failure probes; static inspection and automated audits do not certify assistive-technology journeys."
     },
     {
       "id": "swiftui-design-system",
@@ -277,7 +277,7 @@
         "charts"
       ],
       "coverage": "practical",
-      "limits": "Framework-specific API details require the linked documentation and the installed SDK."
+      "limits": "Hierarchy, repeated surfaces, optional themes, and materials; palettes and runtime rendering remain product-specific."
     },
     {
       "id": "apple-data-persistence",
@@ -313,7 +313,7 @@
         "swiftdata-rollback"
       ],
       "coverage": "practical",
-      "limits": "Framework-specific API details require the linked documentation and the installed SDK."
+      "limits": "Drafts, value authority, local persistence, migration and sync boundaries; SwiftData examples do not prove disk recovery or CloudKit behavior."
     },
     {
       "id": "apple-networking",
@@ -346,7 +346,7 @@
         "privacy"
       ],
       "coverage": "practical",
-      "limits": "Framework-specific API details require the linked documentation and the installed SDK."
+      "limits": "Client response, retry, identity, and cache contracts; not a backend implementation or production delivery guarantee."
     },
     {
       "id": "swiftui-testing",
@@ -379,7 +379,7 @@
         "xcode"
       ],
       "coverage": "practical",
-      "limits": "Framework-specific API details require the linked documentation and the installed SDK."
+      "limits": "Test design and evidence classification; example tests and evaluation contracts are distinct from completed agent evaluations."
     },
     {
       "id": "swiftui-platform-adaptation",
@@ -419,7 +419,7 @@
         "swiftui"
       ],
       "coverage": "practical",
-      "limits": "Practical interaction and scene guidance for six platforms; not an exhaustive catalog of spatial, media, or background APIs."
+      "limits": "Platform decision guidance; framework availability and actual focus, window, spatial, or watch interactions need separate verification."
     },
     {
       "id": "swiftui-interop",
@@ -454,7 +454,7 @@
         "appkit-view-bridge"
       ],
       "coverage": "practical",
-      "limits": "Framework-specific API details require the linked documentation and the installed SDK."
+      "limits": "Representable lifecycle and ownership patterns; specialized text, media, and graphics bridges need focused implementation and tests."
     },
     {
       "id": "apple-system-experiences",
@@ -530,7 +530,7 @@
         "privacy"
       ],
       "coverage": "practical",
-      "limits": "Framework-specific API details require the linked documentation and the installed SDK."
+      "limits": "Project ownership and artifact inspection; signing, capabilities, and generated state must be checked for the actual product graph."
     },
     {
       "id": "apple-privacy-system-integrations",
@@ -569,7 +569,7 @@
         "account-deletion"
       ],
       "coverage": "practical",
-      "limits": "Framework-specific API details require the linked documentation and the installed SDK."
+      "limits": "Data-flow and permission boundary review; neither legal certification nor proof of live protected-data behavior."
     },
     {
       "id": "apple-performance-cleanup",
@@ -603,7 +603,7 @@
         "model-context"
       ],
       "coverage": "practical",
-      "limits": "Framework-specific API details require the linked documentation and the installed SDK."
+      "limits": "Measurement and behavior-preserving cleanup workflows; no speed, energy, or memory improvement is implied without a comparable workload."
     },
     {
       "id": "apple-device-validation",
@@ -617,7 +617,9 @@
         "install app",
         "runtime proof",
         "watch pairing",
-        "simctl"
+        "simctl",
+        "screen inventory",
+        "screenshot review"
       ],
       "platforms": [
         "iOS",
@@ -628,7 +630,8 @@
         "visionOS"
       ],
       "references": [
-        "references/device-validation-patterns.md"
+        "references/device-validation-patterns.md",
+        "references/screen-review.md"
       ],
       "sources": [
         "xcode",
@@ -637,7 +640,7 @@
         "distribution"
       ],
       "coverage": "practical",
-      "limits": "Framework-specific API details require the linked documentation and the installed SDK."
+      "limits": "Claim-specific runtime proof and screen-review inventory; artifacts from one environment do not cover untested hardware or services."
     },
     {
       "id": "apple-app-store-readiness",
@@ -649,7 +652,9 @@
         "testflight",
         "submission",
         "storefront",
-        "release candidate"
+        "release candidate",
+        "release ledger",
+        "superseded blocker"
       ],
       "platforms": [
         "iOS",
@@ -670,7 +675,7 @@
         "account-deletion"
       ],
       "coverage": "practical",
-      "limits": "Framework-specific API details require the linked documentation and the installed SDK."
+      "limits": "Candidate, authority, and release-ledger reconciliation; account service state and current submission rules require live verification."
     },
     {
       "id": "macos-productization",
@@ -700,7 +705,7 @@
         "notary-errors"
       ],
       "coverage": "practical",
-      "limits": "Framework-specific API details require the linked documentation and the installed SDK."
+      "limits": "macOS distribution and trust workflow; local compilation does not establish notarization or downloaded-install behavior."
     }
   ]
 }

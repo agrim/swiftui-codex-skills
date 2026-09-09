@@ -6,12 +6,13 @@ import argparse
 import json
 import re
 import shutil
-import stat
 import sys
 from pathlib import Path
 from typing import Any
 
 from skilllib import catalog, frontmatter, generated_docs, safe_path
+from skill_installation import (check_destination, fingerprint, installation_status,
+                                revision, write_receipt)
 
 DEFAULT_ROOT = Path(__file__).resolve().parents[1]
 
@@ -51,10 +52,11 @@ def bundle(root: Path, names: list[str], entrypoints_only: bool = False) -> str:
         for index, reference in enumerate(item["references"]):
             # Generated anchors avoid basename collisions between selected skills.
             destination = f"#{sid}-reference-{index + 1}"
-            text = text.replace(f"]({reference})", f"]({destination})")
-        if entrypoints_only:
-            # Keep references locatable without pretending omitted files are bundled.
-            text = re.sub(r"\[playbook\]\(#[^)]+\)", "playbook (not included; load it from the skill folder)", text)
+            if entrypoints_only:
+                text = re.sub(r"\[([^\]\n]+)\]\(" + re.escape(reference) + r"\)",
+                              r"\1 (not included; load it from the skill folder)", text)
+            else:
+                text = text.replace(f"]({reference})", f"]({destination})")
         lines += [f'<a id="{sid}"></a>', "", text.strip(), ""]
         if not entrypoints_only:
             for index, reference in enumerate(item["references"]):
@@ -72,8 +74,7 @@ already-copied folders; this is not a transaction or an adversarial-filesystem
 sandbox. Never remove existing user folders to recover from that failure.
 """
     items = select(root, names)
-    if not destination.is_dir() or any(p.is_symlink() for p in [destination, *destination.parents]):
-        raise ValueError("destination must be an existing, non-symlink directory")
+    check_destination(destination)
     pairs = []
     for item in items:
         source = safe_path(root, f'skills/{item["id"]}')
@@ -82,10 +83,7 @@ sandbox. Never remove existing user folders to recover from that failure.
             raise ValueError(f"refusing to overwrite installed skill: {item['id']}")
         if not source.is_dir():
             raise ValueError(f"missing skill directory: {item['id']}")
-        for path in source.rglob("*"):
-            mode = path.lstat().st_mode
-            if not (stat.S_ISDIR(mode) or stat.S_ISREG(mode)):
-                raise ValueError(f"refusing symlink or special file in skill: {item['id']}")
+        files = fingerprint(source)
         entry = safe_path(source, "SKILL.md")
         if not entry.is_file():
             raise ValueError(f"missing SKILL.md: {item['id']}")
@@ -94,11 +92,12 @@ sandbox. Never remove existing user folders to recover from that failure.
         for reference in item["references"]:
             if not safe_path(source, reference).is_file():
                 raise ValueError(f"missing skill reference: {item['id']}/{reference}")
-        pairs.append((source, target))
+        pairs.append((source, target, files, revision(root, item["id"])))
     if not dry_run:
-        for source, target in pairs:
+        for source, target, files, identity in pairs:
             shutil.copytree(source, target, symlinks=True)
-    return [target.name for _, target in pairs]
+            write_receipt(target, target.name, files, identity)
+    return [target.name for _, target, _, _ in pairs]
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -119,6 +118,11 @@ def main(argv: list[str] | None = None) -> int:
     installing.add_argument("skills", nargs="+")
     installing.add_argument("--dest", required=True, type=Path)
     installing.add_argument("--dry-run", action="store_true")
+    status = subs.add_parser("status", help="compare installed bytes without changing them")
+    status.add_argument("skills", nargs="+")
+    status.add_argument("--dest", required=True, type=Path)
+    status.add_argument("--json", action="store_true")
+    status.add_argument("--diff", action="store_true", help="list changed file names, never file contents")
     subs.add_parser("docs").add_argument("--check", action="store_true")
     args = parser.parse_args(argv)
     try:
@@ -142,6 +146,18 @@ def main(argv: list[str] | None = None) -> int:
         elif args.command == "install":
             names = install(args.repo, args.skills, args.dest, args.dry_run)
             print(("Would install: " if args.dry_run else "Installed: ") + ", ".join(names))
+        elif args.command == "status":
+            names = [item["id"] for item in select(args.repo, args.skills)]
+            results = installation_status(args.repo, names, args.dest)
+            if args.json:
+                print(json.dumps(results, indent=2))
+            else:
+                for item in results:
+                    print(f'{item["id"]}: {item["state"]}; matches source: {item["matches_source"]}')
+                    if args.diff:
+                        for kind, files in item.get("changes", {}).items():
+                            for filename in files:
+                                print(f"  {kind}: {filename}")
         elif args.command == "docs":
             stale = []
             for relative, expected in generated_docs(args.repo).items():

@@ -131,8 +131,9 @@
       "id": "color",
       "title": "HIG: Color",
       "url": "https://developer.apple.com/design/human-interface-guidelines/color",
-      "reviewed": null,
-      "status": "reference-only"
+      "reviewed": "2026-09-09",
+      "status": "content-reviewed",
+      "review_scope": "Color meaning, custom appearance and increased-contrast variants, and semantic system colors; inspected official documentation content for the repeated-surface and theme guidance."
     },
     {
       "id": "animation",

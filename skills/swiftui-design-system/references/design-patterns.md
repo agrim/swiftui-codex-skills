@@ -36,6 +36,14 @@ Charts need a question, labeled units, honest scales, meaningful empty/missing s
 
 A reusable component states its role, inputs, supported states, style ownership, accessibility semantics, and layout behavior. Share this contract when semantics repeat; do not force every rounded shape through a mega-component with dozens of booleans. Audit the real rendered result instead of measuring quality by the number of native modifiers.
 
+## Repeated surfaces and optional themes
+
+For an app-wide refinement, inventory where the same entity appears: selection, library, summary, and history, for example. Identify the common typography, information order, spacing, and state presentation. Share those pieces while keeping the surrounding command distinct: selecting a template, editing it, and viewing a confirmed record are different actions. Compare the resulting screens side by side using equivalent data.
+
+If themes are requested, define semantic foreground/background pairs and state tokens once; avoid separate palettes in each screen. Preserve selected, disabled, destructive, and error meanings across themes. Check theme selection and persistence, light/dark and increased-contrast variants, long labels, and large text. If a palette depends on list rank, test filtering and reordering so color does not become a false entity identifier. Palette checks support rendered review; they do not replace it.
+
+Apple HIG recommends consistent color meaning and testing custom colors across appearance and contrast settings [color]. The inventory, component boundaries, theme persistence checks, and sampling strategy here are engineering recommendations. Do not add a theme selector or impose one visual aesthetic without a product reason.
+
 ## Sources
 
 - [design](https://developer.apple.com/design/human-interface-guidelines/design-principles) — HIG: Design principles.

@@ -23,7 +23,7 @@ Identify the behavior contract, failure reproduction, test target/toolchain, inj
 2. Cover normal, boundary, failure, cancellation, and restoration paths relevant to the change.
 3. Add deterministic previews for the important visual states without invoking production services.
 4. Run targeted tests, then affected broader suites and destination builds.
-5. Review failures before updating baselines or disabling checks.
+5. Review failures before updating baselines or disabling checks; a replaced test must preserve its distinct proof claim.
 
 ## Verify
 

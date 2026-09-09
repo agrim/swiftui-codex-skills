@@ -45,6 +45,14 @@ A readiness audit does not authorize upload, submission, account administration,
 
 Return blockers ordered by the next gate, with an owner category such as product scope, project configuration, privacy, runtime, service, metadata, account administration, or review. An unverified gate remains unverified even when the repository looks ready.
 
+## Reconcile a release ledger
+
+Use one current gate table: claim, candidate/environment, latest evidence, verdict, authorization scope, and next action. Keep older receipts as history with an explicit superseded-by reference. Sort by the actual dependency, not by the order notes were written. When records conflict, inspect current source or service state; the newest prose is not automatically the strongest evidence.
+
+For example, an earlier note says upload is unauthorized and processing unverified. A later user approval permits uploading build 12 to internal testing, and the service now reports that exact build processed. Resolve those two old blockers; do not ask for the same upload permission or upload it again. External invitations remain outside that approval. If the approved build is still absent, execute the approved upload after candidate checks instead of treating a past blocked note as a veto.
+
+This ledger is an engineering workflow, not an Apple requirement. Record authority separately from capability: credentials, an unlocked device, or service availability can still block an authorized operation. Progress on independent preparation while the specific prerequisite is unavailable.
+
 ## Sources
 
 - [review](https://developer.apple.com/app-store/review/guidelines/) — App Review Guidelines.

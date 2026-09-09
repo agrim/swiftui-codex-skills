@@ -15,7 +15,7 @@ Define the exact claim, authorized actions, source state, project/workspace, sch
 - **PROOF-002 — Respect action boundaries.** Installation does not authorize uninstall, data reset, account changes, or unrelated source edits. Advance only as the requested validation requires.
 - **PROOF-003 — Reproduce the environment.** Record exact source, toolchain, destination/runtime, fixture state, commands, exit status, and relevant artifacts.
 - **PROOF-004 — Classify infrastructure first.** Separate unavailable runtimes, pairing, service health, provisioning, installation, and application defects before changing code.
-- **PROOF-005 — Validate the current candidate.** Repeat affected checks after changes. Remove temporary harness state unless it is an intentional maintained test facility.
+- **PROOF-005 — Validate the current candidate.** Repeat affected checks after changes; reconcile superseded receipts before reporting a blocker. Remove temporary harness state unless it is an intentional maintained test facility.
 
 ## Workflow
 
@@ -35,4 +35,4 @@ Return a compact evidence matrix with pass/fail/blocked/not-run, exact candidate
 
 ## References
 
-Read the [playbook](references/device-validation-patterns.md) for decisions, failure cases, and source links.
+Read the [playbook](references/device-validation-patterns.md) for decisions, failure cases, and source links. For a whole-app review or batch feedback, use the [screen review workflow](references/screen-review.md).

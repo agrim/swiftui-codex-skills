@@ -20,6 +20,8 @@ Legacy `agents/openai.yaml` files are retained as optional display/invocation me
 
 Host installation paths and automatic discovery behavior can change. Inspect the host's current documentation and configured directory rather than assuming a global path. The explicit-destination installer avoids that dependency and refuses overwrites. Do not modify plugin caches or silently replace user-maintained instructions.
 
+New installations include a `.skill-install.json` receipt of file hashes and, when available, the source Git commit and skill dirty state. `skillctl.py status` compares the installed bytes, receipt baseline, and current source without changing them. A source difference means a different revision, not necessarily a newer one. The receipt is local bookkeeping, not an authenticity signature. Existing installations without receipts remain untracked; do not invent their provenance. Compare changes, preserve local edits, and stage reviewed replacements separately before choosing an update action.
+
 Do not create separate competing “Claude rules,” “Codex rules,” or other provider-specific rewrites. Keep behavioral content canonical, and let an adapter address only host-specific loading or presentation. Ordinary Markdown remains the fallback.
 
 ## Progressive loading

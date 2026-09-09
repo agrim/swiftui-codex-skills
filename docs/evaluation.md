@@ -12,6 +12,10 @@
 
 `evals/scenarios.json` contains adversarial tasks, expected skill owners, must-do behaviors, prohibited shortcuts, and the evidence needed. Use them as evaluation contracts, not as examples to memorize into a scoring script. Prepare a small app/code fixture that genuinely exhibits each scenario before running the evaluation.
 
+Two offline workflow fixtures are now available: [release reconciliation](../evals/fixtures/release-reconciliation/TASK.md) and [screen-review handoff](../evals/fixtures/screen-review/TASK.md). Copy each fixture into a fresh temporary directory before running it; never mutate the canonical seed state. Give the agent the task and raw evidence, with the selected skill context only in the guided condition. Keep expected outcomes with the reviewer. The release CLI deliberately does not enforce user authorization, so the agent's actual operations reveal whether it preserved the scope.
+
+The [September 9 pilot](../evals/pilot-2026-09-09.md) records one independent guided and baseline run over these two fixtures. Both passed the reviewed contracts; no comparative improvement is claimed. Remaining scenarios are contracts awaiting agent runs, even where related example code has passing tests.
+
 For each run, record the repository/fixture commit, skill revision, scenario ID, host/model and configuration, available tools, prompt, selected context, produced diff, executed checks, outputs, and reviewer decision. Do not include private app data or credentials.
 
 Compare the same task with and without the selected skills under equivalent tool access and constraints. Randomize order where practical. Repeat tasks to expose variability, and use more than one model/host before making cross-model claims. Keep hidden variants with different names, architecture, and failure timing so keyword repetition is not rewarded.

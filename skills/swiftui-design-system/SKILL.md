@@ -21,7 +21,7 @@ Identify the product task, primary and secondary actions, platform, appearances,
 
 1. Identify the screen's immediate purpose and remove competing emphasis.
 2. Prefer semantic text styles, colors, symbol roles, and spacing derived from actual composition.
-3. Create shared components only for repeated semantics, not superficial resemblance.
+3. Map repeated surfaces and share components for repeated semantics; preserve context-specific actions and data authority.
 4. Adopt new visual APIs behind correct availability checks with a coherent fallback.
 5. Inspect rendered states across appearances, sizes, and accessibility settings.
 

@@ -49,6 +49,14 @@ Keep local delete, tombstone propagation, export deletion, search-index removal,
 
 Inject a save failure after validation; assert the editor remains recoverable. Relaunch after successful save and after interrupted save. Retry an operation with the same ID. Upgrade each supported schema fixture. Exercise quota, offline, account replacement, and inaccessible storage. Verify a delete reaches every representation that the product promises to remove.
 
+## Value meaning before storage
+
+For products with plans and measured outcomes, represent a target, an observation or estimate, a user-confirmed result, and an external projection as different states. Preserve unit, provenance, and correction ownership. Unknown is not zero; a planned value is not evidence of a completed result. Confirming an estimate creates a new authoritative value without rewriting where the estimate came from.
+
+For example, a count-based inspection may target 12 items, observe an estimated 10, and confirm 9 after correction. History and export use the confirmed 9 with its unit; the plan remains 12. Repeating that inspection creates a fresh draft with no result or export acknowledgement. Whether it copies the plan or the previous result into a new target is a product choice that must be explicit.
+
+Validate quantities at their semantic boundary: whole-item counts reject fractional or negative values; other measurements may legitimately allow them. Keep this policy in domain code, independent of the keyboard. Test unknown versus zero, correction, repeat/cancel, unit mismatch, and failed export. These are engineering patterns, not a prescribed Apple data model.
+
 ## Sources
 
 - [model-context](https://developer.apple.com/documentation/swiftdata/modelcontext) — SwiftData ModelContext.

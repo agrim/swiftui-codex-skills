@@ -11,7 +11,7 @@ Identify the requested stage and authority, platform/product set, actual release
 
 ## Rules
 
-- **STORE-001 — Separate stages.** Prepare, upload, process, TestFlight, submit, approve, and release are different gates. Readiness is not permission to publish.
+- **STORE-001 — Separate stages.** Prepare, upload, process, TestFlight, submit, approve, and release are different gates. Readiness is not permission to publish; existing scoped approval remains usable until changed or revoked.
 - **STORE-002 — Audit the real promise.** The binary, metadata, screenshots, services, and review instructions must describe the same complete experience.
 - **STORE-003 — Recheck current requirements.** Consult current Apple requirements for toolchains, privacy, business model, region, and review; do not hard-code remembered policy as permanent law.
 - **STORE-004 — Make review reproducible.** Provide live services, working links, access, sample data, and instructions for material dependencies.
@@ -23,7 +23,7 @@ Identify the requested stage and authority, platform/product set, actual release
 2. Reconcile identity, public surfaces, privacy, monetization, and account/deletion behavior.
 3. Inspect the exact candidate and its runtime/device evidence.
 4. Prepare truthful storefront material and the review packet.
-5. Perform only authorized external stages and record resulting service state.
+5. Reconcile current receipts and prior authorization, perform the authorized stage, and record resulting service state.
 
 ## Verify
 

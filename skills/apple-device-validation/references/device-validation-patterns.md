@@ -45,6 +45,14 @@ Preserve raw output until you can separate compiler errors, wrong settings, unsu
 
 A failed or blocked gate is useful information. Record the minimum next verification step, without pretending work will happen later automatically. Clean temporary fixtures and re-run affected checks after the final source change. Never hand off an older green result as proof of a newer candidate.
 
+## Current evidence and authorized continuation
+
+Treat a receipt as a scoped observation with a candidate, environment, operation, result, and time. A newer successful check supersedes an older blocker only for that same claim. Preserve historical records, but make the current verdict easy to find. A changed candidate invalidates affected proof; it does not erase the user's unchanged authorization.
+
+Before repeating a check or asking for permission, reconcile the current request, prior approvals, revocations, and actual tool capability. Continue already-authorized steps within their stated bounds. If a tool or approval system blocks an action, describe the specific constraint and finish independent permitted work; do not relabel every device or account task as permanently owner-only.
+
+Keep fresh install, preserved-container reinstall, restored backup, and in-place upgrade as different test paths. An empty-store launch cannot prove migration. Likewise, an observed token change does not prove delivery to the replacement token; a provider acknowledgement does not prove notification presentation or tap routing. Each boundary needs its own receipt.
+
 ## Sources
 
 - [xcode](https://developer.apple.com/documentation/xcode) — Xcode documentation.

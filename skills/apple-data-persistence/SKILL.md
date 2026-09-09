@@ -11,7 +11,7 @@ Identify the canonical store, schema history, context/actor ownership, draft bou
 
 ## Rules
 
-- **DATA-001 — Define the commit boundary.** Separate transient drafts, in-memory tracked changes, saved local data, and acknowledged remote data.
+- **DATA-001 — Define the commit boundary.** Separate transient drafts, in-memory tracked changes, saved local data, and acknowledged remote data; distinguish targets, observations, and confirmed records.
 - **DATA-002 — Preserve isolation.** Use contexts on their intended isolation domain; transfer IDs or immutable values rather than live managed objects between actors.
 - **DATA-003 — Migrate real history.** Test upgrades from shipped schemas and realistic fixtures. Never silently delete a store to make a migration or launch succeed.
 - **DATA-004 — Model synchronization explicitly.** Account changes, conflicts, retries, deletions, and partial failure are first-class states; local save is not remote delivery.

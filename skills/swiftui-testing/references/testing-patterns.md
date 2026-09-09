@@ -46,6 +46,12 @@ A test should fail if the intended bug returns. For a save/cancel defect, assert
 
 Report which exact source state was tested and which result belongs to source inspection, unit/integration, UI, visual, or hardware validation. Keep raw failing output until it is classified. If Apple tooling is unavailable, run portable checks and clearly list Apple build/runtime gates as unverified.
 
+## Regression probes from visual review
+
+Turn an observed UI defect into the smallest relevant executable probe. For a bottom-field editor, enter text, reveal the actual keyboard, reach the commit action, and recover from invalid input at a risky size. A source assertion that a safe-area modifier exists does not exercise this contract. For repeated surfaces, compare the same entity and state across both contexts, including the shared component's affected appearances.
+
+Keep screenshot fixtures labeled as staged or real. A forced sensor count or injected save error demonstrates that presentation state, not a successful sensor or storage operation. When an interaction test passes but a unit runner stalls, report both outcomes; do not silently substitute the former for the latter. Stop and classify a bounded stalled run before adding more retries.
+
 ## Sources
 
 - [testing](https://developer.apple.com/xcode/swift-testing/) — Swift Testing.

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "evaluation-contracts-not-executed-model-runs",
+  "status": "evaluation-contracts-with-limited-offline-pilot",
   "scenarios": [
     {
       "id": "state-owner",
@@ -404,6 +404,102 @@
         "Blanket deep re-signing as an unexplained repair"
       ],
       "evidence": "Distribution-path trust evidence"
+    },
+    {
+      "id": "authority-continuation",
+      "prompt": "Continue a previously approved candidate upload and internal assignment while an older ledger still says approval is missing.",
+      "skills": [
+        "apple-app-store-readiness",
+        "apple-device-validation"
+      ],
+      "must_do": [
+        "Reconcile current service state and candidate identity with later scoped approval",
+        "Complete remaining approved actions without redundant permission requests",
+        "Keep historical receipts and distinguish simulated from real service evidence"
+      ],
+      "must_not": [
+        "Treat a superseded blocker as current",
+        "Repeat an already completed upload",
+        "Expand approval to external invitations"
+      ],
+      "evidence": "Candidate hash, resulting service state, action log, and reconciled handoff",
+      "fixture": "fixtures/release-reconciliation/TASK.md"
+    },
+    {
+      "id": "screen-review-batch",
+      "prompt": "Prepare one whole-app review handoff from captures and comments spanning multiple candidates.",
+      "skills": [
+        "apple-device-validation"
+      ],
+      "must_do": [
+        "Preserve feedback against stable screen and capture IDs",
+        "Identify duplicate, stale, missing, and concept-only evidence",
+        "Keep visual, interaction, and user-acceptance status separate"
+      ],
+      "must_not": [
+        "Transfer an older capture acceptance to a replacement",
+        "Claim full coverage from screenshot count",
+        "Claim visual inspection without accessible images"
+      ],
+      "evidence": "Saved/reopened handoff with preserved comments, capture links, current coverage, and remaining checks",
+      "fixture": "fixtures/screen-review/TASK.md"
+    },
+    {
+      "id": "value-authority",
+      "prompt": "A record displays its planned count as completed when measurement is unavailable, and Repeat carries over its confirmed result.",
+      "skills": [
+        "apple-data-persistence",
+        "swiftui-state-architecture"
+      ],
+      "must_do": [
+        "Keep unknown, planned, estimated, and confirmed values distinct",
+        "Preserve provenance and corrections",
+        "Repeat into a fresh draft with explicit target-copy policy"
+      ],
+      "must_not": [
+        "Coalesce unknown with zero or a planned target",
+        "Treat an export payload as a delivery receipt"
+      ],
+      "evidence": "Executable value-state, correction, repeat/cancel, and projection tests"
+    },
+    {
+      "id": "repeated-surfaces",
+      "prompt": "The same entity has different row hierarchy in its picker and library, and a requested theme breaks dark-mode labels.",
+      "skills": [
+        "swiftui-design-system",
+        "swiftui-accessibility"
+      ],
+      "must_do": [
+        "Map shared information and style ownership while preserving different actions",
+        "Inspect equivalent entities across affected appearances and states"
+      ],
+      "must_not": [
+        "Unify commands just because rows look similar",
+        "Infer readable custom foregrounds from tint alone"
+      ],
+      "evidence": "Rendered shared-surface comparisons and relevant theme/interaction checks"
+    },
+    {
+      "id": "keyboard-commit",
+      "prompt": "Apply exists in the editor but the actual keyboard obscures it at accessibility text sizes.",
+      "skills": [
+        "swiftui-layout",
+        "swiftui-controls-input",
+        "swiftui-testing"
+      ],
+      "must_do": [
+        "Reproduce with actual focus and keyboard presentation",
+        "Make Apply reachable while preserving the draft and invalid-input recovery"
+      ],
+      "must_not": [
+        "Claim success from a safe-area source match",
+        "Discard input to dismiss the keyboard"
+      ],
+      "evidence": "Native interaction with keyboard present at the risky size and recovery from invalid input"
     }
+  ],
+  "executed_pilot_scenarios": [
+    "authority-continuation",
+    "screen-review-batch"
   ]
 }
