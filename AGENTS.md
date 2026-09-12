@@ -11,6 +11,7 @@ Maintain a provider-neutral, source-linked skill library. Read the current files
 - Link precise primary sources. Record reviewed content honestly; do not upgrade discovery links or review dates after an HTTP-only check. Verify availability in the current SDK before adding version-specific examples.
 - Keep core content free of vendor invocation syntax or mandatory plugins. Optional host adapters may live under `agents/`; they do not own engineering rules.
 - Update `catalog.json` and `sources.json` with the content, then regenerate docs. Do not hand-edit generated coverage/source tables.
+- Keep community/plugin review provenance in `upstreams.json`, not the Apple authority registry. Preserve explicit access limits and source receipts; do not infer reuse permission. Run `python3 scripts/upstream_audit.py --check` after changes.
 - Keep secrets, private device identifiers, machine paths, screenshots, and session artifacts out of published files. Do not choose or change the owner's license silently.
 
 ## Verification

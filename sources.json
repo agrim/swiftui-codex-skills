@@ -505,6 +505,108 @@
       "url": "https://developer.apple.com/documentation/swift/task/cancel%28%29",
       "reviewed": "2026-09-06",
       "status": "content-reviewed"
+    },
+    {
+      "id": "api-design",
+      "title": "Swift API design guidelines",
+      "url": "https://www.swift.org/documentation/api-design-guidelines/",
+      "reviewed": "2026-09-12",
+      "status": "content-reviewed",
+      "review_scope": "Naming at call sites, side effects, complexity, defaults, and documentation; not a review of every standard-library API."
+    },
+    {
+      "id": "build-speed",
+      "title": "Improving incremental build speed",
+      "url": "https://developer.apple.com/documentation/xcode/improving-the-speed-of-incremental-builds",
+      "reviewed": "2026-09-12",
+      "status": "content-reviewed",
+      "review_scope": "Read the official documentation JSON: timing summaries, accurate dependencies, script input/output declarations, module reuse, and measured target refactoring."
+    },
+    {
+      "id": "build-coding",
+      "title": "Improving build efficiency with good coding practices",
+      "url": "https://developer.apple.com/documentation/xcode/improving-build-efficiency-with-good-coding-practices",
+      "reviewed": null,
+      "status": "reference-only"
+    },
+    {
+      "id": "coredata-confinement",
+      "title": "Core Data concurrency programming guide (archived)",
+      "url": "https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CoreData/Concurrency.html",
+      "reviewed": "2026-09-12",
+      "status": "content-reviewed",
+      "review_scope": "Queue confinement, perform-based access, and managed object ID transfer. Archived conceptual guidance; compile current APIs against the installed SDK."
+    },
+    {
+      "id": "coredata-batch",
+      "title": "Core Data batch delete guide (archived)",
+      "url": "https://developer.apple.com/library/archive/featuredarticles/CoreData_Batch_Guide/BatchDeletes/BatchDeletes.html",
+      "reviewed": "2026-09-12",
+      "status": "content-reviewed",
+      "review_scope": "Store-level deletion and merging deleted object IDs into registered contexts; archived conceptual guidance, not current API availability proof."
+    },
+    {
+      "id": "coredata-history",
+      "title": "Consuming relevant store changes",
+      "url": "https://developer.apple.com/documentation/coredata/consuming-relevant-store-changes",
+      "reviewed": null,
+      "status": "reference-only"
+    },
+    {
+      "id": "swiftdata-migration",
+      "title": "SwiftData SchemaMigrationPlan",
+      "url": "https://developer.apple.com/documentation/swiftdata/schemamigrationplan",
+      "reviewed": null,
+      "status": "reference-only"
+    },
+    {
+      "id": "swiftdata-sync",
+      "title": "Syncing SwiftData across devices",
+      "url": "https://developer.apple.com/documentation/swiftdata/syncing-model-data-across-a-persons-devices",
+      "reviewed": null,
+      "status": "reference-only"
+    },
+    {
+      "id": "intent-entity",
+      "title": "AppEntity",
+      "url": "https://developer.apple.com/documentation/appintents/appentity",
+      "reviewed": null,
+      "status": "reference-only"
+    },
+    {
+      "id": "intent-query",
+      "title": "EntityQuery",
+      "url": "https://developer.apple.com/documentation/appintents/entityquery",
+      "reviewed": null,
+      "status": "reference-only"
+    },
+    {
+      "id": "intent-auth",
+      "title": "AppIntent authentication policy",
+      "url": "https://developer.apple.com/documentation/appintents/appintent/authenticationpolicy",
+      "reviewed": null,
+      "status": "reference-only"
+    },
+    {
+      "id": "logger",
+      "title": "Unified logging Logger",
+      "url": "https://developer.apple.com/documentation/os/logger",
+      "reviewed": null,
+      "status": "reference-only"
+    },
+    {
+      "id": "backgroundtasks",
+      "title": "Background Tasks",
+      "url": "https://developer.apple.com/documentation/backgroundtasks",
+      "reviewed": null,
+      "status": "reference-only"
+    },
+    {
+      "id": "app-transport",
+      "title": "Preventing insecure network connections",
+      "url": "https://developer.apple.com/documentation/security/preventing-insecure-network-connections",
+      "reviewed": null,
+      "status": "reference-only"
     }
   ]
 }

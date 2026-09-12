@@ -1,0 +1,914 @@
+{
+  "schema_version": 1,
+  "inventory_date": "2026-09-12",
+  "article": {
+    "url": "https://x.com/paulsolt/status/2042716870512353294",
+    "title": "Install These Skills Before Codex Touches Your Xcode Project",
+    "access": "reconstructed",
+    "limitation": "The original full X article body was unavailable. The author newsletter and an explicitly linked resource-list witness establish a best-effort inventory, not a guarantee of every original hyperlink. Current collection members and one-level directory discoveries are classified separately."
+  },
+  "reuse": "Original synthesis and new implementation only. No upstream skill bodies, scripts, gated course files, or license terms are vendored. Review relevant licenses at an exact revision before any later copying. This registry does not select a license for this repository.",
+  "resources": [
+    {
+      "id": "hudson-directory",
+      "url": "https://github.com/twostraws/Swift-Agent-Skills",
+      "relation": "recovered-list",
+      "status": "overview-reviewed",
+      "scope": "Directory entries reviewed for discovery, not endorsement or a review of every linked implementation.",
+      "maps_to": [
+        "apple-swiftui-native-apps"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "a9ed5f456e8c8c1c7ebdb5cd913cfee19e10fa09",
+      "path": "README.md"
+    },
+    {
+      "id": "hudson-swiftui",
+      "url": "https://github.com/twostraws/SwiftUI-Agent-Skill",
+      "relation": "recovered-list",
+      "status": "entrypoint-reviewed",
+      "scope": "SKILL.md entry point reviewed; supporting references and implementation are not exhaustively audited.",
+      "maps_to": [
+        "apple-swiftui-native-apps",
+        "swiftui-state-architecture",
+        "swiftui-accessibility",
+        "swiftui-design-system"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "f6015f2bfbd7c11ed4457a32ceba05e23ef340ee",
+      "path": "swiftui-pro/SKILL.md"
+    },
+    {
+      "id": "hudson-concurrency",
+      "url": "https://github.com/twostraws/Swift-Concurrency-Agent-Skill",
+      "relation": "recovered-list",
+      "status": "entrypoint-reviewed",
+      "scope": "SKILL.md entry point reviewed; supporting references and implementation are not exhaustively audited.",
+      "maps_to": [
+        "swift-concurrency"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "5549099b5473626ad78da0c61546706f3ea6b30d",
+      "path": "swift-concurrency-pro/SKILL.md"
+    },
+    {
+      "id": "hudson-testing",
+      "url": "https://github.com/twostraws/Swift-Testing-Agent-Skill",
+      "relation": "recovered-list",
+      "status": "entrypoint-reviewed",
+      "scope": "SKILL.md entry point reviewed; supporting references and implementation are not exhaustively audited.",
+      "maps_to": [
+        "swiftui-testing"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "b26429479c8615d293bd41b23ed0e6a02b2e1ad7",
+      "path": "swift-testing-pro/SKILL.md"
+    },
+    {
+      "id": "hudson-swiftdata",
+      "url": "https://github.com/twostraws/SwiftData-Agent-Skill",
+      "relation": "recovered-list",
+      "status": "entrypoint-reviewed",
+      "scope": "SKILL.md entry point reviewed; supporting references and implementation are not exhaustively audited.",
+      "maps_to": [
+        "swiftdata"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "83735a31b8b58e3d8087e188fc858733807decde",
+      "path": "swiftdata-pro/SKILL.md"
+    },
+    {
+      "id": "swiftlee-swiftui",
+      "url": "https://github.com/AvdLee/SwiftUI-Agent-Skill",
+      "relation": "recovered-list",
+      "status": "entrypoint-reviewed",
+      "scope": "SKILL.md entry point reviewed; supporting references and implementation are not exhaustively audited.",
+      "maps_to": [
+        "swiftui-layout",
+        "swiftui-controls-input",
+        "swiftui-design-system",
+        "apple-observability"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "21df4309f88594b0a5968f87447fe07ce4114b45",
+      "path": "skills/swiftui-expert-skill/SKILL.md"
+    },
+    {
+      "id": "swiftlee-concurrency",
+      "url": "https://github.com/AvdLee/Swift-Concurrency-Agent-Skill",
+      "relation": "recovered-list",
+      "status": "entrypoint-reviewed",
+      "scope": "SKILL.md entry point reviewed; supporting references and implementation are not exhaustively audited.",
+      "maps_to": [
+        "swift-concurrency"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "1dd24dff6546529bc516290002ded5debe002487",
+      "path": "skills/swift-concurrency/SKILL.md"
+    },
+    {
+      "id": "swiftlee-testing",
+      "url": "https://github.com/AvdLee/Swift-Testing-Agent-Skill",
+      "relation": "recovered-list",
+      "status": "entrypoint-reviewed",
+      "scope": "SKILL.md entry point reviewed; supporting references and implementation are not exhaustively audited.",
+      "maps_to": [
+        "swiftui-testing"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "a5c7d8cf59ee6ba5f13ffaef951127a94cb17bd1",
+      "path": "swift-testing-expert/SKILL.md"
+    },
+    {
+      "id": "swiftlee-coredata",
+      "url": "https://github.com/AvdLee/Core-Data-Agent-Skill",
+      "relation": "recovered-list",
+      "status": "entrypoint-reviewed",
+      "scope": "SKILL.md entry point reviewed; supporting references and implementation are not exhaustively audited.",
+      "maps_to": [
+        "core-data"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "95f2c66f709eca60306855d5da53fa9123adba8f",
+      "path": "core-data-expert/SKILL.md"
+    },
+    {
+      "id": "swiftlee-xcode-build-orchestrator",
+      "url": "https://github.com/AvdLee/Xcode-Build-Optimization-Agent-Skill",
+      "relation": "collection-member",
+      "status": "entrypoint-reviewed",
+      "scope": "End-to-end measurement, prioritization, and approved implementation. Entry point reviewed, not every bundled script.",
+      "maps_to": [
+        "xcode-build-optimization"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "98eb94c55b4e80c3ebb7cd7352429811a8aecd26",
+      "path": "skills/xcode-build-orchestrator/SKILL.md"
+    },
+    {
+      "id": "swiftlee-xcode-build-benchmark",
+      "url": "https://github.com/AvdLee/Xcode-Build-Optimization-Agent-Skill",
+      "relation": "collection-member",
+      "status": "entrypoint-reviewed",
+      "scope": "Separate clean, cached, no-change, and edited workloads. Entry point reviewed, not every bundled script.",
+      "maps_to": [
+        "xcode-build-optimization"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "32ff2f3d54db92d5cb64d2dbc3ed170f366c2278",
+      "path": "skills/xcode-build-benchmark/SKILL.md"
+    },
+    {
+      "id": "swiftlee-xcode-compilation-analyzer",
+      "url": "https://github.com/AvdLee/Xcode-Build-Optimization-Agent-Skill",
+      "relation": "collection-member",
+      "status": "entrypoint-reviewed",
+      "scope": "Type-check and module diagnostics; cumulative task time is not wait time. Entry point reviewed, not every bundled script.",
+      "maps_to": [
+        "xcode-build-optimization"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "0ecf5d0fc7750c611cff4e8274ace375d213bb8c",
+      "path": "skills/xcode-compilation-analyzer/SKILL.md"
+    },
+    {
+      "id": "swiftlee-xcode-project-analyzer",
+      "url": "https://github.com/AvdLee/Xcode-Build-Optimization-Agent-Skill",
+      "relation": "collection-member",
+      "status": "entrypoint-reviewed",
+      "scope": "Target graph, scripts, resolved settings, and invalidation. Entry point reviewed, not every bundled script.",
+      "maps_to": [
+        "xcode-build-optimization"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "329045474abc7a8b7bbbc921e396d9a1835047b9",
+      "path": "skills/xcode-project-analyzer/SKILL.md"
+    },
+    {
+      "id": "swiftlee-spm-build-analysis",
+      "url": "https://github.com/AvdLee/Xcode-Build-Optimization-Agent-Skill",
+      "relation": "collection-member",
+      "status": "entrypoint-reviewed",
+      "scope": "Package reachability, plugins, module variants, and lockfile reproducibility. Entry point reviewed, not every bundled script.",
+      "maps_to": [
+        "xcode-build-optimization"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "34ce475e429deb67fe469b0ebb42643bad88f5ff",
+      "path": "skills/spm-build-analysis/SKILL.md"
+    },
+    {
+      "id": "swiftlee-xcode-build-fixer",
+      "url": "https://github.com/AvdLee/Xcode-Build-Optimization-Agent-Skill",
+      "relation": "collection-member",
+      "status": "entrypoint-reviewed",
+      "scope": "Small approved fixes and comparable remeasurement; universal irreversible settings were not adopted. Entry point reviewed, not every bundled script.",
+      "maps_to": [
+        "xcode-build-optimization"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "34781613fac62e153a4eaafd0987fe474f2ecaa1",
+      "path": "skills/xcode-build-fixer/SKILL.md"
+    },
+    {
+      "id": "openai-ios-ios-app-intents",
+      "url": "https://github.com/openai/plugins",
+      "relation": "collection-member",
+      "status": "entrypoint-reviewed",
+      "scope": "Full entry point reviewed; bundled scripts and references are not exhaustively audited. Current collection membership is not proof of original article membership.",
+      "maps_to": [
+        "apple-app-intents"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "098e520f93a4618f00b07975b8692e070f362d44",
+      "path": "plugins/build-ios-apps/skills/ios-app-intents/SKILL.md"
+    },
+    {
+      "id": "openai-ios-ios-debugger-agent",
+      "url": "https://github.com/openai/plugins",
+      "relation": "collection-member",
+      "status": "entrypoint-reviewed",
+      "scope": "Full entry point reviewed; bundled scripts and references are not exhaustively audited. Current collection membership is not proof of original article membership.",
+      "maps_to": [
+        "apple-device-validation",
+        "apple-build-workflows"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "092e79abdff23ba94f95f37c584395aac6a51491",
+      "path": "plugins/build-ios-apps/skills/ios-debugger-agent/SKILL.md"
+    },
+    {
+      "id": "openai-ios-ios-ettrace-performance",
+      "url": "https://github.com/openai/plugins",
+      "relation": "collection-member",
+      "status": "excerpt-reviewed",
+      "scope": "Entry point lines 1–180: setup, symbols, focused capture, fresh processed output reviewed; bundled scripts and references are not exhaustively audited. Current collection membership is not proof of original article membership.",
+      "maps_to": [
+        "apple-observability",
+        "apple-performance-cleanup"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "a2538d4d81584596ba265de639b39e99fbebe403",
+      "path": "plugins/build-ios-apps/skills/ios-ettrace-performance/SKILL.md"
+    },
+    {
+      "id": "openai-ios-ios-memgraph-leaks",
+      "url": "https://github.com/openai/plugins",
+      "relation": "collection-member",
+      "status": "entrypoint-reviewed",
+      "scope": "Entry point lines 1–160 reviewed; bundled scripts and references are not exhaustively audited. Current collection membership is not proof of original article membership.",
+      "maps_to": [
+        "apple-observability"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "bddac5965753192bf4000f6a62a3faf54d1bab08",
+      "path": "plugins/build-ios-apps/skills/ios-memgraph-leaks/SKILL.md"
+    },
+    {
+      "id": "openai-ios-ios-simulator-browser",
+      "url": "https://github.com/openai/plugins",
+      "relation": "collection-member",
+      "status": "entrypoint-reviewed",
+      "scope": "Entry point lines 1–160 reviewed; bundled scripts and references are not exhaustively audited. Current collection membership is not proof of original article membership.",
+      "maps_to": [
+        "apple-device-validation"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "d5f0dd1e88f77f52eac99515673987bbf76e9caa",
+      "path": "plugins/build-ios-apps/skills/ios-simulator-browser/SKILL.md"
+    },
+    {
+      "id": "openai-ios-swiftui-liquid-glass",
+      "url": "https://github.com/openai/plugins",
+      "relation": "collection-member",
+      "status": "entrypoint-reviewed",
+      "scope": "Entry point lines 1–160 reviewed; bundled scripts and references are not exhaustively audited. Current collection membership is not proof of original article membership.",
+      "maps_to": [
+        "swiftui-design-system"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "9a0fb205669c695db6430a32304eb49dfcce4a1c",
+      "path": "plugins/build-ios-apps/skills/swiftui-liquid-glass/SKILL.md"
+    },
+    {
+      "id": "openai-ios-swiftui-performance-audit",
+      "url": "https://github.com/openai/plugins",
+      "relation": "collection-member",
+      "status": "entrypoint-reviewed",
+      "scope": "Entry point lines 1–150 reviewed; bundled scripts and references are not exhaustively audited. Current collection membership is not proof of original article membership.",
+      "maps_to": [
+        "apple-performance-cleanup"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "db22c9dfb7afa5038243669756e1cb235450ca91",
+      "path": "plugins/build-ios-apps/skills/swiftui-performance-audit/SKILL.md"
+    },
+    {
+      "id": "openai-ios-swiftui-ui-patterns",
+      "url": "https://github.com/openai/plugins",
+      "relation": "collection-member",
+      "status": "entrypoint-reviewed",
+      "scope": "Entry point lines 1–150 reviewed; bundled scripts and references are not exhaustively audited. Current collection membership is not proof of original article membership.",
+      "maps_to": [
+        "swiftui-navigation",
+        "swiftui-layout",
+        "swiftui-controls-input"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "bb1c733651c178514d3a60e88793a539094cbfbf",
+      "path": "plugins/build-ios-apps/skills/swiftui-ui-patterns/SKILL.md"
+    },
+    {
+      "id": "openai-ios-swiftui-view-refactor",
+      "url": "https://github.com/openai/plugins",
+      "relation": "collection-member",
+      "status": "excerpt-reviewed",
+      "scope": "Entry point lines 1–160; not the remainder reviewed; bundled scripts and references are not exhaustively audited. Current collection membership is not proof of original article membership.",
+      "maps_to": [
+        "swiftui-state-architecture"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "5617e31f0fc4980dadfb5276cb102a337d845e36",
+      "path": "plugins/build-ios-apps/skills/swiftui-view-refactor/SKILL.md"
+    },
+    {
+      "id": "openai-macos-appkit-interop",
+      "url": "https://github.com/openai/plugins",
+      "relation": "collection-member",
+      "status": "entrypoint-reviewed",
+      "scope": "Full entry point reviewed; bundled scripts and references are not exhaustively audited. Current collection membership is not proof of original article membership.",
+      "maps_to": [
+        "swiftui-interop"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "76783efaece7d8dbb0e8f514d627b5612ad75994",
+      "path": "plugins/build-macos-apps/skills/appkit-interop/SKILL.md"
+    },
+    {
+      "id": "openai-macos-build-run-debug",
+      "url": "https://github.com/openai/plugins",
+      "relation": "collection-member",
+      "status": "entrypoint-reviewed",
+      "scope": "Entry point lines 1–140 reviewed; bundled scripts and references are not exhaustively audited. Current collection membership is not proof of original article membership.",
+      "maps_to": [
+        "apple-build-workflows"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "d01792112c8ef8bce476f7d53f6174198486a15f",
+      "path": "plugins/build-macos-apps/skills/build-run-debug/SKILL.md"
+    },
+    {
+      "id": "openai-macos-liquid-glass",
+      "url": "https://github.com/openai/plugins",
+      "relation": "collection-member",
+      "status": "entrypoint-reviewed",
+      "scope": "Full entry point reviewed; bundled scripts and references are not exhaustively audited. Current collection membership is not proof of original article membership.",
+      "maps_to": [
+        "swiftui-design-system"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "9095a81ac1aa478afaee3fe3530bf3d00df7052b",
+      "path": "plugins/build-macos-apps/skills/liquid-glass/SKILL.md"
+    },
+    {
+      "id": "openai-macos-packaging-notarization",
+      "url": "https://github.com/openai/plugins",
+      "relation": "collection-member",
+      "status": "entrypoint-reviewed",
+      "scope": "Full entry point reviewed; bundled scripts and references are not exhaustively audited. Current collection membership is not proof of original article membership.",
+      "maps_to": [
+        "macos-productization"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "13312f11e0f9e145c8f3ccd071c8b1d7451af7da",
+      "path": "plugins/build-macos-apps/skills/packaging-notarization/SKILL.md"
+    },
+    {
+      "id": "openai-macos-signing-entitlements",
+      "url": "https://github.com/openai/plugins",
+      "relation": "collection-member",
+      "status": "entrypoint-reviewed",
+      "scope": "Full entry point reviewed; bundled scripts and references are not exhaustively audited. Current collection membership is not proof of original article membership.",
+      "maps_to": [
+        "apple-project-governance",
+        "macos-productization"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "02a6c6633597bdc9ae3c5062a7b62b93b3d2d747",
+      "path": "plugins/build-macos-apps/skills/signing-entitlements/SKILL.md"
+    },
+    {
+      "id": "openai-macos-swiftpm-macos",
+      "url": "https://github.com/openai/plugins",
+      "relation": "collection-member",
+      "status": "entrypoint-reviewed",
+      "scope": "Full entry point reviewed; bundled scripts and references are not exhaustively audited. Current collection membership is not proof of original article membership.",
+      "maps_to": [
+        "apple-build-workflows"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "a1e6c7727c28b0ab63bbb594f4c090a6638b00b3",
+      "path": "plugins/build-macos-apps/skills/swiftpm-macos/SKILL.md"
+    },
+    {
+      "id": "openai-macos-swiftui-patterns",
+      "url": "https://github.com/openai/plugins",
+      "relation": "collection-member",
+      "status": "entrypoint-reviewed",
+      "scope": "Entry point lines 1–160 reviewed; bundled scripts and references are not exhaustively audited. Current collection membership is not proof of original article membership.",
+      "maps_to": [
+        "swiftui-platform-adaptation"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "1453b20ff0ba9618e3afb23cf318a2b740ac80af",
+      "path": "plugins/build-macos-apps/skills/swiftui-patterns/SKILL.md"
+    },
+    {
+      "id": "openai-macos-telemetry",
+      "url": "https://github.com/openai/plugins",
+      "relation": "collection-member",
+      "status": "entrypoint-reviewed",
+      "scope": "Full entry point reviewed; bundled scripts and references are not exhaustively audited. Current collection membership is not proof of original article membership.",
+      "maps_to": [
+        "apple-observability"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "c1ba13a5debe597b0bf021d43bfdbec4b91dd294",
+      "path": "plugins/build-macos-apps/skills/telemetry/SKILL.md"
+    },
+    {
+      "id": "openai-macos-test-triage",
+      "url": "https://github.com/openai/plugins",
+      "relation": "collection-member",
+      "status": "entrypoint-reviewed",
+      "scope": "Full entry point reviewed; bundled scripts and references are not exhaustively audited. Current collection membership is not proof of original article membership.",
+      "maps_to": [
+        "swiftui-testing"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "3b303e21ec082f1c222c174e42243e5146d2b6d4",
+      "path": "plugins/build-macos-apps/skills/test-triage/SKILL.md"
+    },
+    {
+      "id": "openai-macos-view-refactor",
+      "url": "https://github.com/openai/plugins",
+      "relation": "collection-member",
+      "status": "entrypoint-reviewed",
+      "scope": "Full entry point reviewed; bundled scripts and references are not exhaustively audited. Current collection membership is not proof of original article membership.",
+      "maps_to": [
+        "swiftui-state-architecture",
+        "swiftui-platform-adaptation"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "89ccaf7fb79fa23ad361f5d83c85acc6795ee445",
+      "path": "plugins/build-macos-apps/skills/view-refactor/SKILL.md"
+    },
+    {
+      "id": "openai-macos-window-management",
+      "url": "https://github.com/openai/plugins",
+      "relation": "collection-member",
+      "status": "entrypoint-reviewed",
+      "scope": "Full entry point reviewed; bundled scripts and references are not exhaustively audited. Current collection membership is not proof of original article membership.",
+      "maps_to": [
+        "swiftui-platform-adaptation"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "a5a66a4eca2c3b7b55eb8836f284dbaa6c95a914",
+      "path": "plugins/build-macos-apps/skills/window-management/SKILL.md"
+    },
+    {
+      "id": "dimillian-skills",
+      "url": "https://github.com/Dimillian/Skills",
+      "relation": "collection-member",
+      "status": "overview-reviewed",
+      "scope": "README skill inventory reviewed; not every skill body. Non-Apple and multi-agent orchestration tools remain optional. Reviewed as a directory-linked collection, not asserted as a direct article reference.",
+      "maps_to": [
+        "apple-swiftui-native-apps",
+        "swift-concurrency",
+        "apple-performance-cleanup"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "c4e96bbddaa7d043189021c4a19d29938da4137f",
+      "path": "README.md"
+    },
+    {
+      "id": "codexmonitor",
+      "url": "https://github.com/Dimillian/CodexMonitor",
+      "relation": "recovered-list",
+      "status": "overview-reviewed",
+      "scope": "README lines 1–180. Agent/workspace host, not an Apple engineering dependency.",
+      "maps_to": [
+        "apple-build-workflows"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "8b21f43dd88bd0a974000aa2f4ad250632408bb1",
+      "path": "README.md"
+    },
+    {
+      "id": "inject",
+      "url": "https://github.com/krzysztofzablocki/Inject",
+      "relation": "recovered-list",
+      "status": "overview-reviewed",
+      "scope": "README lines 1–200. Optional hot reload; automatic source-modification script is not imported.",
+      "maps_to": [
+        "apple-build-workflows",
+        "swiftui-interop"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "5a5686d368ae22f02219a86d509f83bab591c6ab",
+      "path": "README.md"
+    },
+    {
+      "id": "sourcery",
+      "url": "https://github.com/krzysztofzablocki/Sourcery",
+      "relation": "recovered-list",
+      "status": "overview-reviewed",
+      "scope": "README lines 1–145. Optional code generation; generated inputs require ownership and deterministic validation.",
+      "maps_to": [
+        "apple-project-governance",
+        "swift-language"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "f46d76202470721005273042092a9b1c34616df1",
+      "path": "README.md"
+    },
+    {
+      "id": "xcodebuildmcp",
+      "url": "https://github.com/getsentry/XcodeBuildMCP",
+      "relation": "recovered-list",
+      "status": "overview-reviewed",
+      "scope": "README lines 1–200. MCP and CLI skills described, not audited or vendored; macro-trust and telemetry defaults need review before use.",
+      "maps_to": [
+        "apple-build-workflows",
+        "apple-device-validation"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "5e111a3eb21d4ca3048032b8bd6477ad26ee2be4",
+      "path": "README.md"
+    },
+    {
+      "id": "paul-newsletter",
+      "url": "https://super-easy-apps.kit.com/posts/install-these-skills-before-codex-touches-your-xcode-project",
+      "relation": "supporting-source",
+      "status": "overview-reviewed",
+      "scope": "Author newsletter links the exact article and identifies the main domains; its unrelated weekly links are not imported.",
+      "maps_to": [
+        "apple-swiftui-native-apps"
+      ],
+      "reviewed": "2026-09-12"
+    },
+    {
+      "id": "zablocki-public-rules",
+      "url": "https://merowing.info/posts/stop-getting-average-code-from-your-llm/",
+      "relation": "recovered-list",
+      "status": "overview-reviewed",
+      "scope": "Public article and embedded excerpts reviewed. Progressive loading and explicit dependencies inform original guidance; no mandatory architecture imported.",
+      "maps_to": [
+        "swift-language",
+        "swiftui-state-architecture"
+      ],
+      "reviewed": "2026-09-12"
+    },
+    {
+      "id": "zablocki-general",
+      "url": "https://merowing.info/assets/files/general.md",
+      "relation": "recovered-list",
+      "status": "excerpt-reviewed",
+      "scope": "Only the excerpt embedded in the public article was inspected; standalone download was not retrieved.",
+      "maps_to": [
+        "swift-language",
+        "apple-swiftui-native-apps"
+      ],
+      "reviewed": "2026-09-12"
+    },
+    {
+      "id": "zablocki-rule-loading",
+      "url": "https://merowing.info/assets/files/rule-loading.md",
+      "relation": "recovered-list",
+      "status": "excerpt-reviewed",
+      "scope": "Only the excerpt embedded in the public article was inspected; standalone download was not retrieved.",
+      "maps_to": [
+        "swift-language",
+        "apple-swiftui-native-apps"
+      ],
+      "reviewed": "2026-09-12"
+    },
+    {
+      "id": "swiftystack",
+      "url": "https://swiftystack.com/",
+      "relation": "recovered-list",
+      "status": "unavailable",
+      "scope": "Full course rule set was not accessed, purchased, or copied. The public article describes it; no implementation coverage is claimed.",
+      "maps_to": [
+        "swift-language"
+      ]
+    },
+    {
+      "id": "appcreator",
+      "url": "https://super-easy-apps.kit.com/app-creator",
+      "relation": "recovered-list",
+      "status": "landing-page-only",
+      "scope": "Public landing page reviewed. Download requires email signup; no signup performed and no skill payload imported. A new original build helper implements the general CLI-loop idea.",
+      "maps_to": [
+        "apple-build-workflows"
+      ],
+      "reviewed": "2026-09-12"
+    },
+    {
+      "id": "swiftlee-site",
+      "url": "https://www.avanderlee.com/",
+      "relation": "recovered-list",
+      "status": "discovery-only",
+      "scope": "Author site identified through the resource list; actual skill repositories were reviewed separately.",
+      "maps_to": [
+        "swift-concurrency"
+      ]
+    },
+    {
+      "id": "xcodebuildmcp-docs",
+      "url": "https://xcodebuildmcp.com/docs",
+      "relation": "recovered-list",
+      "status": "discovery-only",
+      "scope": "Documentation route from the README; no claim of tool execution or full documentation review.",
+      "maps_to": [
+        "apple-build-workflows"
+      ]
+    },
+    {
+      "id": "resource-list-witness",
+      "url": "https://github.com/RayFernando1337/rayfernando-skills",
+      "relation": "supporting-source",
+      "status": "overview-reviewed",
+      "scope": "Explicitly links the exact Paul Solt article and lists its resources. Used as a reconstruction witness, not a substitute for unavailable full article content.",
+      "maps_to": [
+        "apple-swiftui-native-apps"
+      ],
+      "reviewed": "2026-09-12",
+      "blob_sha": "035dbf259e2e657294a71d57d167bf7b033c769e",
+      "path": "plugins/bootstrap-ios/skills/bootstrap-ios/references/sources.md"
+    },
+    {
+      "id": "arjit-design",
+      "url": "https://github.com/arjitj2/swiftui-design-principles",
+      "relation": "directory-discovery",
+      "status": "discovery-only",
+      "scope": "Listed by the reviewed directory. Not a direct article claim, content review, endorsement, or copied implementation; mapping is topical only.",
+      "maps_to": [
+        "swiftui-design-system"
+      ]
+    },
+    {
+      "id": "vanab-data",
+      "url": "https://github.com/vanab/swiftdata-agent-skill",
+      "relation": "directory-discovery",
+      "status": "discovery-only",
+      "scope": "Listed by the reviewed directory. Not a direct article claim, content review, endorsement, or copied implementation; mapping is topical only.",
+      "maps_to": [
+        "swiftdata"
+      ]
+    },
+    {
+      "id": "swiftdata-tests",
+      "url": "https://github.com/akshaypimprikar/ios-swiftdata-testing-agent-skill",
+      "relation": "directory-discovery",
+      "status": "discovery-only",
+      "scope": "Listed by the reviewed directory. Not a direct article claim, content review, endorsement, or copied implementation; mapping is topical only.",
+      "maps_to": [
+        "swiftdata",
+        "swiftui-testing"
+      ]
+    },
+    {
+      "id": "bocato-testing",
+      "url": "https://github.com/bocato/swift-testing-agent-skill",
+      "relation": "directory-discovery",
+      "status": "discovery-only",
+      "scope": "Listed by the reviewed directory. Not a direct article claim, content review, endorsement, or copied implementation; mapping is topical only.",
+      "maps_to": [
+        "swiftui-testing"
+      ]
+    },
+    {
+      "id": "api-design-community",
+      "url": "https://github.com/Erikote04/Swift-API-Design-Guidelines-Agent-Skill",
+      "relation": "directory-discovery",
+      "status": "discovery-only",
+      "scope": "Listed by the reviewed directory. Not a direct article claim, content review, endorsement, or copied implementation; mapping is topical only.",
+      "maps_to": [
+        "swift-language"
+      ]
+    },
+    {
+      "id": "formatstyle",
+      "url": "https://github.com/n0an/Swift-FormatStyle-Agent-Skill",
+      "relation": "directory-discovery",
+      "status": "discovery-only",
+      "scope": "Listed by the reviewed directory. Not a direct article claim, content review, endorsement, or copied implementation; mapping is topical only.",
+      "maps_to": [
+        "swift-language",
+        "swiftui-accessibility"
+      ]
+    },
+    {
+      "id": "a11y-dadederk",
+      "url": "https://github.com/dadederk/iOS-Accessibility-Agent-Skill",
+      "relation": "directory-discovery",
+      "status": "discovery-only",
+      "scope": "Listed by the reviewed directory. Not a direct article claim, content review, endorsement, or copied implementation; mapping is topical only.",
+      "maps_to": [
+        "swiftui-accessibility"
+      ]
+    },
+    {
+      "id": "a11y-vittoriosi",
+      "url": "https://github.com/PasqualeVittoriosi/swift-accessibility-skill",
+      "relation": "directory-discovery",
+      "status": "discovery-only",
+      "scope": "Listed by the reviewed directory. Not a direct article claim, content review, endorsement, or copied implementation; mapping is topical only.",
+      "maps_to": [
+        "swiftui-accessibility"
+      ]
+    },
+    {
+      "id": "a11y-rgmez",
+      "url": "https://github.com/rgmez/apple-accessibility-skills",
+      "relation": "directory-discovery",
+      "status": "discovery-only",
+      "scope": "Listed by the reviewed directory. Not a direct article claim, content review, endorsement, or copied implementation; mapping is topical only.",
+      "maps_to": [
+        "swiftui-accessibility"
+      ]
+    },
+    {
+      "id": "n0an-intents",
+      "url": "https://github.com/n0an/App-Intents-Agent-Skill",
+      "relation": "directory-discovery",
+      "status": "discovery-only",
+      "scope": "Listed by the reviewed directory. Not a direct article claim, content review, endorsement, or copied implementation; mapping is topical only.",
+      "maps_to": [
+        "apple-app-intents"
+      ]
+    },
+    {
+      "id": "asc-cli",
+      "url": "https://github.com/rudrankriyam/app-store-connect-cli-skills",
+      "relation": "directory-discovery",
+      "status": "discovery-only",
+      "scope": "Listed by the reviewed directory. Not a direct article claim, content review, endorsement, or copied implementation; mapping is topical only.",
+      "maps_to": [
+        "apple-app-store-readiness"
+      ]
+    },
+    {
+      "id": "aso",
+      "url": "https://github.com/timbroddin/app-store-aso-skill",
+      "relation": "directory-discovery",
+      "status": "discovery-only",
+      "scope": "Listed by the reviewed directory. Not a direct article claim, content review, endorsement, or copied implementation; mapping is topical only.",
+      "maps_to": [
+        "apple-app-store-readiness"
+      ]
+    },
+    {
+      "id": "app-review",
+      "url": "https://github.com/3paws-ai/mobile-ai-skills",
+      "relation": "directory-discovery",
+      "status": "discovery-only",
+      "scope": "Listed by the reviewed directory. Not a direct article claim, content review, endorsement, or copied implementation; mapping is topical only.",
+      "maps_to": [
+        "apple-app-store-readiness"
+      ]
+    },
+    {
+      "id": "architecture",
+      "url": "https://github.com/efremidze/swift-architecture-skill",
+      "relation": "directory-discovery",
+      "status": "discovery-only",
+      "scope": "Listed by the reviewed directory. Not a direct article claim, content review, endorsement, or copied implementation; mapping is topical only.",
+      "maps_to": [
+        "swiftui-state-architecture"
+      ]
+    },
+    {
+      "id": "n0an-background",
+      "url": "https://github.com/n0an/Background-Execution-Agent-Skill",
+      "relation": "directory-discovery",
+      "status": "discovery-only",
+      "scope": "Listed by the reviewed directory. Not a direct article claim, content review, endorsement, or copied implementation; mapping is topical only.",
+      "maps_to": [
+        "apple-background-execution"
+      ]
+    },
+    {
+      "id": "focus-engine",
+      "url": "https://github.com/mhaviv/Swift-FocusEngine-Agent-Skill",
+      "relation": "directory-discovery",
+      "status": "discovery-only",
+      "scope": "Listed by the reviewed directory. Not a direct article claim, content review, endorsement, or copied implementation; mapping is topical only.",
+      "maps_to": [
+        "swiftui-controls-input",
+        "swiftui-platform-adaptation"
+      ]
+    },
+    {
+      "id": "n0an-observability",
+      "url": "https://github.com/n0an/Observability-Agent-Skill",
+      "relation": "directory-discovery",
+      "status": "discovery-only",
+      "scope": "Listed by the reviewed directory. Not a direct article claim, content review, endorsement, or copied implementation; mapping is topical only.",
+      "maps_to": [
+        "apple-observability"
+      ]
+    },
+    {
+      "id": "security-community",
+      "url": "https://github.com/ivan-magda/swift-security-skill",
+      "relation": "directory-discovery",
+      "status": "discovery-only",
+      "scope": "Listed by the reviewed directory. Not a direct article claim, content review, endorsement, or copied implementation; mapping is topical only.",
+      "maps_to": [
+        "apple-security"
+      ]
+    },
+    {
+      "id": "code-audit",
+      "url": "https://github.com/jazzychad/ios-code-audit",
+      "relation": "directory-discovery",
+      "status": "discovery-only",
+      "scope": "Listed by the reviewed directory. Not a direct article claim, content review, endorsement, or copied implementation; mapping is topical only.",
+      "maps_to": [
+        "apple-swiftui-native-apps"
+      ]
+    },
+    {
+      "id": "simulator-community",
+      "url": "https://github.com/conorluddy/ios-simulator-skill",
+      "relation": "directory-discovery",
+      "status": "discovery-only",
+      "scope": "Listed by the reviewed directory. Not a direct article claim, content review, endorsement, or copied implementation; mapping is topical only.",
+      "maps_to": [
+        "apple-device-validation"
+      ]
+    },
+    {
+      "id": "figma-swiftui",
+      "url": "https://github.com/daetojemax/figma-to-swiftui-skill",
+      "relation": "directory-discovery",
+      "status": "discovery-only",
+      "scope": "Listed by the reviewed directory. Not a direct article claim, content review, endorsement, or copied implementation; mapping is topical only.",
+      "maps_to": [
+        "swiftui-design-system"
+      ]
+    },
+    {
+      "id": "interface-writing",
+      "url": "https://github.com/andrewgleave/skills",
+      "relation": "directory-discovery",
+      "status": "discovery-only",
+      "scope": "Listed by the reviewed directory. Not a direct article claim, content review, endorsement, or copied implementation; mapping is topical only.",
+      "maps_to": [
+        "swiftui-controls-input"
+      ]
+    },
+    {
+      "id": "n0an-widgets",
+      "url": "https://github.com/n0an/Widgets-Agent-Skill",
+      "relation": "directory-discovery",
+      "status": "discovery-only",
+      "scope": "Listed by the reviewed directory. Not a direct article claim, content review, endorsement, or copied implementation; mapping is topical only.",
+      "maps_to": [
+        "apple-system-experiences"
+      ]
+    },
+    {
+      "id": "swiftagents",
+      "url": "https://github.com/twostraws/SwiftAgents",
+      "relation": "directory-discovery",
+      "status": "discovery-only",
+      "scope": "Listed by the reviewed directory. Not a direct article claim, content review, endorsement, or copied implementation; mapping is topical only.",
+      "maps_to": [
+        "apple-swiftui-native-apps"
+      ]
+    },
+    {
+      "id": "xcode-prompts",
+      "url": "https://github.com/artemnovichkov/xcode-26-system-prompts",
+      "relation": "directory-discovery",
+      "status": "discovery-only",
+      "scope": "Listed by the reviewed directory. Not a direct article claim, content review, endorsement, or copied implementation; mapping is topical only.",
+      "maps_to": [
+        "apple-project-governance"
+      ]
+    },
+    {
+      "id": "awesome-ios-ai",
+      "url": "https://github.com/Techopolis/awesome-ios-ai",
+      "relation": "directory-discovery",
+      "status": "discovery-only",
+      "scope": "Listed by the reviewed directory. Not a direct article claim, content review, endorsement, or copied implementation; mapping is topical only.",
+      "maps_to": [
+        "apple-swiftui-native-apps"
+      ]
+    }
+  ]
+}

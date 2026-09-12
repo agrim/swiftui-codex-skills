@@ -36,3 +36,5 @@ Report the bottleneck evidence, code change, preserved invariants, measurement m
 ## References
 
 Read the [playbook](references/performance-cleanup-patterns.md) for decisions, failure cases, and source links.
+
+For trace-led runtime performance work, read the [focused reference](references/trace-led-performance.md).

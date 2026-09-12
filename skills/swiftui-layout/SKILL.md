@@ -36,3 +36,5 @@ Return the layout decision, boundary cases, visual evidence, and any fixed-size 
 ## References
 
 Read the [playbook](references/layout-patterns.md) for decisions, failure cases, and source links.
+
+For layout proposals, lists, and scroll state, read the [focused reference](references/layout-and-scroll-edge-cases.md).

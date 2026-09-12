@@ -36,3 +36,5 @@ Return a platform matrix, shared versus specialized boundaries, availability dec
 ## References
 
 Read the [playbook](references/platform-patterns.md) for decisions, failure cases, and source links.
+
+For scenes, desktop behavior, and focus platforms, read the [focused reference](references/scenes-and-focus.md).

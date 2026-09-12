@@ -36,3 +36,5 @@ Return the data/commit model, migration and recovery plan, tested upgrade paths,
 ## References
 
 Read the [playbook](references/persistence-patterns.md) for decisions, failure cases, and source links.
+
+For store selection and recovery boundaries, read the [focused reference](references/store-selection-and-recovery.md).

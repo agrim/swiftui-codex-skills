@@ -36,3 +36,5 @@ Report the exact artifact and channel, checks performed, external actions taken,
 ## References
 
 Read the [playbook](references/macos-productization-patterns.md) for decisions, failure cases, and source links.
+
+For reproducible distribution and installed-artifact proof, read the [focused reference](references/distribution-reproducibility.md).
