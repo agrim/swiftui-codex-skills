@@ -19,10 +19,11 @@ struct NoteDeepLinkTests {
         "http://notes.example/notes/", "file://notes.example/notes/",
         "https://notes.example.evil/notes/", "https://evil.notes.example/notes/",
         "https://notes.example@evil.example/notes/", "https://person@notes.example/notes/",
-        "https://notes.example:443/notes/", "https://notes.example./notes/",
-        "https://notes.example/Notes/", "https://notes.example/notes//",
-        "https://notes.example/a/../notes/", "//notes.example/notes/",
-        " https://notes.example/notes/", "https://notes.example/notes/%35"
+        "https://notes.example:443/notes/", "https://notes.example:/notes/",
+        "https://notes.example./notes/", "https://notes.example/Notes/",
+        "https://notes.example/notes//", "https://notes.example/a/../notes/",
+        "//notes.example/notes/", " https://notes.example/notes/",
+        "https://notes.example/notes/%35"
     ]) func rejectsUntrustedOriginAndNoncanonicalPath(prefix: String) {
         #expect(NoteDeepLink.parse(prefix + idText) == nil)
     }
