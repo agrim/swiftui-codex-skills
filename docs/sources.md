@@ -12,14 +12,22 @@ Generated from `sources.json`; run `python3 scripts/skillctl.py docs` to update.
 | `account-deletion` | [Offering account deletion in your app](https://developer.apple.com/support/offering-account-deletion-in-your-app/) | content-reviewed | 2026-09-06 |
 | `activities` | [ActivityKit](https://developer.apple.com/documentation/activitykit) | reference-only | — |
 | `animation` | [SwiftUI Animation](https://developer.apple.com/documentation/SwiftUI/Animation) | content-reviewed | 2026-09-06 |
+| `api-design` | [Swift API design guidelines](https://www.swift.org/documentation/api-design-guidelines/) | content-reviewed | 2026-09-12 |
 | `app-intent` | [AppIntent protocol](https://developer.apple.com/documentation/appintents/appintent) | content-reviewed | 2026-09-06 |
+| `app-transport` | [Preventing insecure network connections](https://developer.apple.com/documentation/security/preventing-insecure-network-connections) | reference-only | — |
 | `appkit` | [SwiftUI AppKit integration](https://developer.apple.com/documentation/swiftui/appkit-integration) | reference-only | — |
 | `appkit-view-bridge` | [NSViewRepresentable](https://developer.apple.com/documentation/SwiftUI/NSViewRepresentable/) | content-reviewed | 2026-09-06 |
+| `backgroundtasks` | [Background Tasks](https://developer.apple.com/documentation/backgroundtasks) | reference-only | — |
+| `build-coding` | [Improving build efficiency with good coding practices](https://developer.apple.com/documentation/xcode/improving-build-efficiency-with-good-coding-practices) | reference-only | — |
+| `build-speed` | [Improving incremental build speed](https://developer.apple.com/documentation/xcode/improving-the-speed-of-incremental-builds) | content-reviewed | 2026-09-12 |
 | `button` | [SwiftUI Button](https://developer.apple.com/documentation/SwiftUI/Button) | content-reviewed | 2026-09-06 |
 | `charts` | [Swift Charts](https://developer.apple.com/documentation/charts) | reference-only | — |
 | `cloudkit` | [CloudKit](https://developer.apple.com/documentation/cloudkit) | reference-only | — |
 | `color` | [HIG: Color](https://developer.apple.com/design/human-interface-guidelines/color) | content-reviewed | 2026-09-09 |
 | `concurrency` | [The Swift Programming Language: Concurrency](https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html) | content-reviewed | 2026-09-06 |
+| `coredata-batch` | [Core Data batch delete guide (archived)](https://developer.apple.com/library/archive/featuredarticles/CoreData_Batch_Guide/BatchDeletes/BatchDeletes.html) | content-reviewed | 2026-09-12 |
+| `coredata-confinement` | [Core Data concurrency programming guide (archived)](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CoreData/Concurrency.html) | content-reviewed | 2026-09-12 |
+| `coredata-history` | [Consuming relevant store changes](https://developer.apple.com/documentation/coredata/consuming-relevant-store-changes) | reference-only | — |
 | `design` | [HIG: Design principles](https://developer.apple.com/design/human-interface-guidelines/design-principles) | content-reviewed | 2026-09-06 |
 | `developer-id` | [Signing Mac software with Developer ID](https://developer.apple.com/developer-id/) | content-reviewed | 2026-09-06 |
 | `distribution` | [Distributing your app](https://developer.apple.com/documentation/xcode/distributing-your-app-for-beta-testing-and-releases) | reference-only | — |
@@ -29,12 +37,16 @@ Generated from `sources.json`; run `python3 scripts/skillctl.py docs` to update.
 | `health-privacy` | [Protecting user privacy with HealthKit](https://developer.apple.com/documentation/healthkit/protecting-user-privacy) | content-reviewed | 2026-09-06 |
 | `healthkit` | [HealthKit](https://developer.apple.com/documentation/healthkit) | content-reviewed | 2026-09-06 |
 | `hig-layout` | [HIG: Layout](https://developer.apple.com/design/human-interface-guidelines/layout) | reference-only | — |
+| `intent-auth` | [AppIntent authentication policy](https://developer.apple.com/documentation/appintents/appintent/authenticationpolicy) | reference-only | — |
+| `intent-entity` | [AppEntity](https://developer.apple.com/documentation/appintents/appentity) | reference-only | — |
+| `intent-query` | [EntityQuery](https://developer.apple.com/documentation/appintents/entityquery) | reference-only | — |
 | `intents` | [App Intents](https://developer.apple.com/documentation/appintents) | reference-only | — |
 | `ios` | [HIG: Designing for iOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-ios) | reference-only | — |
 | `ipados` | [HIG: Designing for iPadOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-ipados) | reference-only | — |
 | `keychain` | [Keychain services](https://developer.apple.com/documentation/security/keychain-services) | reference-only | — |
 | `layout` | [SwiftUI Layout protocol](https://developer.apple.com/documentation/swiftui/layout) | reference-only | — |
 | `localization` | [Preparing views for localization](https://developer.apple.com/documentation/swiftui/preparing-views-for-localization) | reference-only | — |
+| `logger` | [Unified logging Logger](https://developer.apple.com/documentation/os/logger) | reference-only | — |
 | `macos` | [HIG: Designing for macOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-macos) | reference-only | — |
 | `materials` | [HIG: Materials](https://developer.apple.com/design/human-interface-guidelines/materials) | content-reviewed | 2026-09-06 |
 | `model-container` | [SwiftData ModelContainer](https://developer.apple.com/documentation/swiftdata/modelcontainer) | content-reviewed | 2026-09-06 |
@@ -59,7 +71,9 @@ Generated from `sources.json`; run `python3 scripts/skillctl.py docs` to update.
 | `storekit` | [StoreKit](https://developer.apple.com/documentation/storekit) | reference-only | — |
 | `swift62` | [Swift 6.2 language and concurrency changes](https://www.swift.org/blog/swift-6.2-released/) | content-reviewed | 2026-09-06 |
 | `swiftdata-autosave` | [SwiftData ModelContext autosaveEnabled](https://developer.apple.com/documentation/swiftdata/modelcontext/autosaveenabled) | content-reviewed | 2026-09-06 |
+| `swiftdata-migration` | [SwiftData SchemaMigrationPlan](https://developer.apple.com/documentation/swiftdata/schemamigrationplan) | reference-only | — |
 | `swiftdata-rollback` | [SwiftData ModelContext rollback()](https://developer.apple.com/documentation/swiftdata/modelcontext/rollback%28%29) | content-reviewed | 2026-09-06 |
+| `swiftdata-sync` | [Syncing SwiftData across devices](https://developer.apple.com/documentation/swiftdata/syncing-model-data-across-a-persons-devices) | reference-only | — |
 | `swiftui` | [SwiftUI framework overview](https://developer.apple.com/documentation/SwiftUI) | content-reviewed | 2026-09-06 |
 | `symbols` | [HIG: SF Symbols](https://developer.apple.com/design/human-interface-guidelines/sf-symbols) | reference-only | — |
 | `task-cancellation` | [Swift Task cancellation semantics](https://developer.apple.com/documentation/swift/task/cancel%28%29) | content-reviewed | 2026-09-06 |
@@ -81,7 +95,15 @@ Generated from `sources.json`; run `python3 scripts/skillctl.py docs` to update.
 
 ## Scoped review notes
 
+`api-design`: Naming at call sites, side effects, complexity, defaults, and documentation; not a review of every standard-library API.
+
+`build-speed`: Read the official documentation JSON: timing summaries, accurate dependencies, script input/output declarations, module reuse, and measured target refactoring.
+
 `color`: Color meaning, custom appearance and increased-contrast variants, and semantic system colors; inspected official documentation content for the repeated-surface and theme guidance.
+
+`coredata-batch`: Store-level deletion and merging deleted object IDs into registered contexts; archived conceptual guidance, not current API availability proof.
+
+`coredata-confinement`: Queue confinement, perform-based access, and managed object ID transfer. Archived conceptual guidance; compile current APIs against the installed SDK.
 
 
 ## Refresh policy

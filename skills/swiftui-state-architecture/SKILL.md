@@ -36,3 +36,5 @@ Provide the ownership map, chosen wrappers, compatibility boundary, and focused 
 ## References
 
 Read the [playbook](references/state-patterns.md) for decisions, failure cases, and source links.
+
+For observation, bindings, and dependency seams, read the [focused reference](references/observation-and-bindings.md).

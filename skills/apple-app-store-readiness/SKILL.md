@@ -36,3 +36,5 @@ Report each gate as passed, failed, not applicable, not authorized, or unverifie
 ## References
 
 Read the [playbook](references/app-store-readiness-patterns.md) for decisions, failure cases, and source links.
+
+For review packets, cli adapters, and release ledgers, read the [focused reference](references/review-and-release-ledger.md).

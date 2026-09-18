@@ -36,3 +36,5 @@ Return an isolation/lifetime map, failure scenario, fix, and deterministic tests
 ## References
 
 Read the [playbook](references/concurrency-patterns.md) for decisions, failure cases, and source links.
+
+For streams, continuations, and compiler migration, read the [focused reference](references/streams-and-migration.md).

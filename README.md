@@ -41,15 +41,20 @@ The destination must exist and have no symlink ancestors. Resolve a trusted dire
 
 ## The library
 
+The catalog contains 29 focused skills and 145 stable rules. All twenty original IDs remain; additional detail loads through local references.
+
 | Work | Skills |
 | --- | --- |
 | Feature engineering | [Entry point](skills/apple-swiftui-native-apps/SKILL.md), [state and architecture](skills/swiftui-state-architecture/SKILL.md), [concurrency](skills/swift-concurrency/SKILL.md) |
 | UI and interaction | [Navigation](skills/swiftui-navigation/SKILL.md), [layout](skills/swiftui-layout/SKILL.md), [controls and input](skills/swiftui-controls-input/SKILL.md), [accessibility](skills/swiftui-accessibility/SKILL.md), [design system](skills/swiftui-design-system/SKILL.md) |
 | Data and boundaries | [Persistence](skills/apple-data-persistence/SKILL.md), [networking](skills/apple-networking/SKILL.md), [system experiences](skills/apple-system-experiences/SKILL.md), [privacy](skills/apple-privacy-system-integrations/SKILL.md) |
 | Platform engineering | [Platform adaptation](skills/swiftui-platform-adaptation/SKILL.md), [UIKit/AppKit interop](skills/swiftui-interop/SKILL.md), [project governance](skills/apple-project-governance/SKILL.md) |
+| Specialist engineering | [Swift language](skills/swift-language/SKILL.md), [build workflows](skills/apple-build-workflows/SKILL.md), [build optimization](skills/xcode-build-optimization/SKILL.md), [SwiftData](skills/swiftdata/SKILL.md), [Core Data](skills/core-data/SKILL.md), [App Intents](skills/apple-app-intents/SKILL.md), [observability](skills/apple-observability/SKILL.md), [background execution](skills/apple-background-execution/SKILL.md), [security](skills/apple-security/SKILL.md) |
 | Verification and delivery | [Testing](skills/swiftui-testing/SKILL.md), [performance](skills/apple-performance-cleanup/SKILL.md), [device validation](skills/apple-device-validation/SKILL.md), [App Store readiness](skills/apple-app-store-readiness/SKILL.md), [macOS distribution](skills/macos-productization/SKILL.md) |
 
 Coverage spans common iOS, iPadOS, macOS, watchOS, tvOS, and visionOS decisions. It is **not an exhaustive mirror of Apple documentation**, a guarantee of API availability, or a claim that every platform receives equal depth. The [coverage map](docs/coverage.md) states boundaries; the [source registry](docs/sources.md) distinguishes reviewed content from discovery links.
+
+The [ecosystem integration guide](docs/ecosystem-integration.md) explains the Paul Solt resource review and deliberate limits. The [provenance ledger](docs/ecosystem.md) distinguishes reviewed entry points, public overviews, gated material, and discovery-only links. No third-party prompt pack is a mandatory dependency.
 
 ## What makes the rules useful
 
@@ -66,6 +71,7 @@ Repository tooling requires Python 3.10+ and only the standard library. The Swif
 ```bash
 python3 scripts/validate_skills.py .
 python3 scripts/skillctl.py docs --check
+python3 scripts/upstream_audit.py --check
 python3 -m unittest discover -s tests -v
 python3 scripts/scan_apple_repo.py /path/to/apple-app --format json
 swift test --package-path examples/SkillExamples
@@ -75,7 +81,11 @@ The validator checks metadata, budgets, rule IDs, catalog/source consistency, lo
 
 The scanner is **advisory lexical triage**, not an AST, compiler, accessibility audit, secret scanner replacement, or HIG certification. It ignores comments and strings for Swift code hints, distinguishes informational review prompts from warnings/errors, and never prints matched secret content. By default only error-level findings fail the command. Use `--fail-on warning` or `--fail-on info` deliberately. Skipped files and known blind spots are reported.
 
+For a plan-first CLI build loop, see [build workflows](docs/build-workflows.md). The helper preserves raw logs and process failures; it does not certify an app or silently install tooling. [The verification matrix](docs/verification-matrix.md) separates implemented checks from remaining runtime and agent evaluations.
+
 The [examples](examples/SkillExamples/README.md) exercise draft ownership, typed routes, value authority, and stale-request protection. The [evaluation protocol](docs/evaluation.md) separates mechanical checks from real agent behavior. A [small offline pilot](evals/pilot-2026-09-09.md) found both guided and baseline runs satisfied two workflow contracts; it does not establish a comparative quality improvement. Passing repository tests does not establish that every model follows the skills or that an app is production-ready.
+
+The [deep-link parser](examples/SkillExamples/Sources/SkillExamplesCore/NoteDeepLink.swift) and [its tests](examples/SkillExamples/Tests/SkillExamplesCoreTests/NoteDeepLinkTests.swift) demonstrate a narrow input contract. Parsing a valid route does not establish object access or authorize a mutation.
 
 ## Source and maintenance policy
 
