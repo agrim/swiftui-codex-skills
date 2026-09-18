@@ -13,6 +13,7 @@ public enum NoteDeepLink: Equatable, Sendable {
         guard !raw.isEmpty,
               raw.unicodeScalars.allSatisfy({ (33...126).contains($0.value) }),
               !raw.contains("%"),
+              raw.lowercased().hasPrefix("https://notes.example/"),
               let parts = URLComponents(string: raw),
               parts.scheme?.lowercased() == "https",
               parts.host?.lowercased() == "notes.example",
