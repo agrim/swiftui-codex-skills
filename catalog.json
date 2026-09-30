@@ -1,0 +1,711 @@
+{
+  "schema_version": 1,
+  "version": "2.0.0",
+  "entrypoint": "apple-swiftui-native-apps",
+  "skills": [
+    {
+      "id": "apple-swiftui-native-apps",
+      "title": "SwiftUI engineering entry point",
+      "summary": "Build, review, or repair a SwiftUI feature. Start here for native UI semantics, task scoping, SDK verification, and selecting focused Apple-platform skills.",
+      "triggers": [
+        "swiftui",
+        "native ui",
+        "apple app",
+        "hig audit"
+      ],
+      "platforms": [
+        "iOS",
+        "iPadOS",
+        "macOS",
+        "watchOS",
+        "tvOS",
+        "visionOS"
+      ],
+      "references": [
+        "references/correction-patterns.md"
+      ],
+      "sources": [
+        "swiftui",
+        "design",
+        "button",
+        "accessibility"
+      ],
+      "coverage": "practical",
+      "limits": "Task scoping and native semantics across Apple platforms; this entry point is not an exhaustive API or HIG index."
+    },
+    {
+      "id": "swiftui-state-architecture",
+      "title": "State, identity, and architecture",
+      "summary": "Fix SwiftUI state ownership, Observation, bindings, environment injection, view identity, scene scope, and testable feature boundaries without imposing an architecture.",
+      "triggers": [
+        "state ownership",
+        "observation",
+        "observableobject",
+        "stateobject",
+        "binding",
+        "view identity",
+        "mvvm",
+        "environmentobject"
+      ],
+      "platforms": [
+        "iOS",
+        "iPadOS",
+        "macOS",
+        "watchOS",
+        "tvOS",
+        "visionOS"
+      ],
+      "references": [
+        "references/state-patterns.md"
+      ],
+      "sources": [
+        "observation",
+        "model-data",
+        "navigation"
+      ],
+      "coverage": "practical",
+      "limits": "Ownership and identity patterns; executable core and selected SwiftUI examples do not cover every platform observation lifecycle."
+    },
+    {
+      "id": "swift-concurrency",
+      "title": "Concurrency and lifecycle",
+      "summary": "Design or repair Swift async/await, actors, Sendable boundaries, cancellation, task ownership, stale results, continuations, and Swift 6 migration.",
+      "triggers": [
+        "concurrency",
+        "async await",
+        "sendable",
+        "mainactor",
+        "task cancellation",
+        "race condition",
+        "stale result",
+        "task.detached",
+        "actor reentrancy"
+      ],
+      "platforms": [
+        "iOS",
+        "iPadOS",
+        "macOS",
+        "watchOS",
+        "tvOS",
+        "visionOS"
+      ],
+      "references": [
+        "references/concurrency-patterns.md"
+      ],
+      "sources": [
+        "concurrency",
+        "swift62",
+        "observation",
+        "task-cancellation"
+      ],
+      "coverage": "practical",
+      "limits": "Isolation, cancellation, and stale-result patterns with controlled async examples; no general concurrency verifier or workload benchmark."
+    },
+    {
+      "id": "swiftui-navigation",
+      "title": "Navigation and presentation",
+      "summary": "Build or fix SwiftUI NavigationStack, NavigationSplitView, tabs, sheets, deep links, route restoration, and scene-specific selection.",
+      "triggers": [
+        "navigationstack",
+        "navigationsplitview",
+        "deep link",
+        "navigation path",
+        "sheet presentation",
+        "route restoration",
+        "tab navigation"
+      ],
+      "platforms": [
+        "iOS",
+        "iPadOS",
+        "macOS",
+        "watchOS",
+        "tvOS",
+        "visionOS"
+      ],
+      "references": [
+        "references/navigation-patterns.md"
+      ],
+      "sources": [
+        "navigation",
+        "navigation-migration",
+        "windows"
+      ],
+      "coverage": "practical",
+      "limits": "Typed routes, presentation, restoration, and scene ownership; platform navigation journeys require their own runtime evidence."
+    },
+    {
+      "id": "swiftui-layout",
+      "title": "Adaptive layout and scrolling",
+      "summary": "Repair SwiftUI layout, safe areas, stacks, grids, lists, scrolling, custom Layout, GeometryReader, Dynamic Type, and right-to-left adaptation.",
+      "triggers": [
+        "geometryreader",
+        "safe area",
+        "dynamic layout",
+        "truncation",
+        "layout protocol",
+        "viewthatfits",
+        "scroll position",
+        "lazyvgrid",
+        "adaptive layout",
+        "swiftui geometry"
+      ],
+      "platforms": [
+        "iOS",
+        "iPadOS",
+        "macOS",
+        "watchOS",
+        "tvOS",
+        "visionOS"
+      ],
+      "references": [
+        "references/layout-patterns.md"
+      ],
+      "sources": [
+        "layout",
+        "hig-layout",
+        "rtl",
+        "accessibility"
+      ],
+      "coverage": "practical",
+      "limits": "Layout diagnosis and risky-size checks; no exhaustive device, locale, keyboard, or window-size screenshot matrix."
+    },
+    {
+      "id": "swiftui-controls-input",
+      "title": "Controls, forms, and input",
+      "summary": "Implement SwiftUI buttons, menus, pickers, forms, focus, keyboard submission, text entry, gestures, drag and drop, and validation with native semantics.",
+      "triggers": [
+        "button style",
+        "button foreground",
+        "picker",
+        "text field",
+        "focusstate",
+        "keyboard submission",
+        "ontapgesture",
+        "drag and drop"
+      ],
+      "platforms": [
+        "iOS",
+        "iPadOS",
+        "macOS",
+        "watchOS",
+        "tvOS",
+        "visionOS"
+      ],
+      "references": [
+        "references/control-patterns.md"
+      ],
+      "sources": [
+        "button",
+        "focus",
+        "accessible-controls",
+        "accessibility"
+      ],
+      "coverage": "practical",
+      "limits": "Control and commit semantics; IME, keyboard, pointer, and assistive interactions need destination-specific execution."
+    },
+    {
+      "id": "swiftui-accessibility",
+      "title": "Accessibility and localization",
+      "summary": "Audit or implement VoiceOver, Dynamic Type, accessible controls, contrast, Reduce Motion, keyboard access, localization, and right-to-left SwiftUI behavior.",
+      "triggers": [
+        "accessibility",
+        "voiceover",
+        "dynamic type",
+        "reduce motion",
+        "right to left",
+        "localization",
+        "screen reader",
+        "keyboard access"
+      ],
+      "platforms": [
+        "iOS",
+        "iPadOS",
+        "macOS",
+        "watchOS",
+        "tvOS",
+        "visionOS"
+      ],
+      "references": [
+        "references/accessibility-patterns.md"
+      ],
+      "sources": [
+        "accessibility",
+        "accessible-controls",
+        "accessibility-focus",
+        "rtl",
+        "reduced-motion",
+        "ui-audit",
+        "localization"
+      ],
+      "coverage": "practical",
+      "limits": "Accessibility workflows and failure probes; static inspection and automated audits do not certify assistive-technology journeys."
+    },
+    {
+      "id": "swiftui-design-system",
+      "title": "Visual language, materials, and motion",
+      "summary": "Refine SwiftUI hierarchy, typography, color, SF Symbols, materials, Liquid Glass, animation, charts, and consistent native-feeling components using Apple HIG principles.",
+      "triggers": [
+        "liquid glass",
+        "visual hierarchy",
+        "design system",
+        "typography",
+        "sf symbols",
+        "animation",
+        "material",
+        "swift charts"
+      ],
+      "platforms": [
+        "iOS",
+        "iPadOS",
+        "macOS",
+        "watchOS",
+        "tvOS",
+        "visionOS"
+      ],
+      "references": [
+        "references/design-patterns.md"
+      ],
+      "sources": [
+        "design",
+        "materials",
+        "glass",
+        "typography",
+        "symbols",
+        "color",
+        "animation",
+        "reduced-motion",
+        "charts"
+      ],
+      "coverage": "practical",
+      "limits": "Hierarchy, repeated surfaces, optional themes, and materials; palettes and runtime rendering remain product-specific."
+    },
+    {
+      "id": "apple-data-persistence",
+      "title": "Persistence, drafts, and synchronization",
+      "summary": "Design or repair SwiftData, Core Data, file storage, migrations, save/cancel semantics, local-first data, CloudKit synchronization, and durable operation identity.",
+      "triggers": [
+        "swiftdata",
+        "core data",
+        "modelcontext",
+        "schema migration",
+        "persistence",
+        "cloudkit",
+        "autosave",
+        "cancel draft"
+      ],
+      "platforms": [
+        "iOS",
+        "iPadOS",
+        "macOS",
+        "watchOS",
+        "tvOS",
+        "visionOS"
+      ],
+      "references": [
+        "references/persistence-patterns.md"
+      ],
+      "sources": [
+        "model-context",
+        "model-container",
+        "cloudkit",
+        "keychain",
+        "swiftdata-autosave",
+        "swiftdata-rollback"
+      ],
+      "coverage": "practical",
+      "limits": "Drafts, value authority, local persistence, migration and sync boundaries; SwiftData examples do not prove disk recovery or CloudKit behavior."
+    },
+    {
+      "id": "apple-networking",
+      "title": "Networking, caching, and remote state",
+      "summary": "Implement or audit URLSession clients, authentication, retries, cancellation, pagination, image loading, caching, and truthful offline SwiftUI state.",
+      "triggers": [
+        "urlsession",
+        "network request",
+        "http retry",
+        "offline cache",
+        "image loading",
+        "pagination",
+        "authentication token"
+      ],
+      "platforms": [
+        "iOS",
+        "iPadOS",
+        "macOS",
+        "watchOS",
+        "tvOS",
+        "visionOS"
+      ],
+      "references": [
+        "references/networking-patterns.md"
+      ],
+      "sources": [
+        "urlsession",
+        "keychain",
+        "concurrency",
+        "privacy"
+      ],
+      "coverage": "practical",
+      "limits": "Client response, retry, identity, and cache contracts; not a backend implementation or production delivery guarantee."
+    },
+    {
+      "id": "swiftui-testing",
+      "title": "Behavior tests, previews, and evidence",
+      "summary": "Design Swift Testing, XCTest, UI automation, preview fixtures, accessibility checks, and deterministic regression tests for SwiftUI features.",
+      "triggers": [
+        "swift testing",
+        "xctest",
+        "unit test",
+        "ui test",
+        "preview fixture",
+        "regression test",
+        "snapshot test"
+      ],
+      "platforms": [
+        "iOS",
+        "iPadOS",
+        "macOS",
+        "watchOS",
+        "tvOS",
+        "visionOS"
+      ],
+      "references": [
+        "references/testing-patterns.md"
+      ],
+      "sources": [
+        "testing",
+        "test-parallel",
+        "ui-audit",
+        "xcode"
+      ],
+      "coverage": "practical",
+      "limits": "Test design and evidence classification; example tests and evaluation contracts are distinct from completed agent evaluations."
+    },
+    {
+      "id": "swiftui-platform-adaptation",
+      "title": "Platform-native scenes and interaction",
+      "summary": "Adapt SwiftUI apps for iOS, iPadOS, macOS, watchOS, tvOS, and visionOS with appropriate scenes, navigation, input, windows, focus, and lifecycle.",
+      "triggers": [
+        "multiplatform",
+        "ipados",
+        "watchos",
+        "tvos",
+        "visionos",
+        "macos window",
+        "menu bar",
+        "windowgroup",
+        "documentgroup"
+      ],
+      "platforms": [
+        "iOS",
+        "iPadOS",
+        "macOS",
+        "watchOS",
+        "tvOS",
+        "visionOS"
+      ],
+      "references": [
+        "references/platform-patterns.md"
+      ],
+      "sources": [
+        "ios",
+        "ipados",
+        "macos",
+        "watchos",
+        "tvos",
+        "visionos",
+        "windows",
+        "settings",
+        "swiftui"
+      ],
+      "coverage": "practical",
+      "limits": "Platform decision guidance; framework availability and actual focus, window, spatial, or watch interactions need separate verification."
+    },
+    {
+      "id": "swiftui-interop",
+      "title": "UIKit and AppKit interoperability",
+      "summary": "Bridge SwiftUI with UIKit or AppKit using representables, hosting, coordinators, delegates, text systems, and explicit lifecycle ownership.",
+      "triggers": [
+        "uiviewrepresentable",
+        "nsviewrepresentable",
+        "hostingcontroller",
+        "appkit bridge",
+        "uikit bridge",
+        "representable",
+        "coordinator"
+      ],
+      "platforms": [
+        "iOS",
+        "iPadOS",
+        "macOS",
+        "watchOS",
+        "tvOS",
+        "visionOS"
+      ],
+      "references": [
+        "references/interop-patterns.md"
+      ],
+      "sources": [
+        "uikit",
+        "appkit",
+        "concurrency",
+        "accessibility",
+        "view-controller-bridge",
+        "appkit-view-bridge"
+      ],
+      "coverage": "practical",
+      "limits": "Representable lifecycle and ownership patterns; specialized text, media, and graphics bridges need focused implementation and tests."
+    },
+    {
+      "id": "apple-system-experiences",
+      "title": "System surfaces and framework integration",
+      "summary": "Integrate WidgetKit, App Intents, ActivityKit, notifications, Spotlight, WatchConnectivity, HealthKit, and StoreKit through truthful shared commands and projections.",
+      "triggers": [
+        "widgetkit",
+        "app intents",
+        "activitykit",
+        "live activity",
+        "healthkit",
+        "watchconnectivity",
+        "storekit",
+        "spotlight",
+        "notification delivery"
+      ],
+      "platforms": [
+        "iOS",
+        "iPadOS",
+        "macOS",
+        "watchOS",
+        "tvOS",
+        "visionOS"
+      ],
+      "references": [
+        "references/system-patterns.md"
+      ],
+      "sources": [
+        "widgets",
+        "intents",
+        "activities",
+        "notifications",
+        "spotlight",
+        "watch-connectivity",
+        "healthkit",
+        "storekit",
+        "widget-refresh",
+        "health-authorization",
+        "health-privacy",
+        "app-intent"
+      ],
+      "coverage": "practical",
+      "limits": "Boundary and failure-mode playbooks for eight frameworks; specialized domain algorithms, backend receipt systems, and exhaustive API catalogs remain out of scope."
+    },
+    {
+      "id": "apple-project-governance",
+      "title": "Apple project governance",
+      "summary": "Create, repair, or audit Xcode and Swift package configuration. Use for targets, schemes, resources, generated projects, entitlements, build settings, and configuration drift.",
+      "triggers": [
+        "xcode project",
+        "target membership",
+        "entitlements",
+        "build settings",
+        "xcodegen",
+        "scheme",
+        "package.swift",
+        "project configuration"
+      ],
+      "platforms": [
+        "iOS",
+        "iPadOS",
+        "macOS",
+        "watchOS",
+        "tvOS",
+        "visionOS"
+      ],
+      "references": [
+        "references/project-governance-patterns.md"
+      ],
+      "sources": [
+        "xcode",
+        "distribution",
+        "privacy"
+      ],
+      "coverage": "practical",
+      "limits": "Project ownership and artifact inspection; signing, capabilities, and generated state must be checked for the actual product graph."
+    },
+    {
+      "id": "apple-privacy-system-integrations",
+      "title": "Apple privacy and integration safety",
+      "summary": "Design or audit protected-data access and system boundaries. Use for permissions, purpose strings, privacy manifests, data minimization, retention, deletion, disclosures, and account changes.",
+      "triggers": [
+        "privacy",
+        "permission",
+        "purpose string",
+        "privacy manifest",
+        "required reason",
+        "protected data",
+        "account deletion",
+        "retention"
+      ],
+      "platforms": [
+        "iOS",
+        "iPadOS",
+        "macOS",
+        "watchOS",
+        "tvOS",
+        "visionOS"
+      ],
+      "references": [
+        "references/privacy-system-patterns.md"
+      ],
+      "sources": [
+        "privacy",
+        "required-reasons",
+        "sdk-privacy",
+        "healthkit",
+        "keychain",
+        "review",
+        "health-authorization",
+        "health-privacy",
+        "account-deletion"
+      ],
+      "coverage": "practical",
+      "limits": "Data-flow and permission boundary review; neither legal certification nor proof of live protected-data behavior."
+    },
+    {
+      "id": "apple-performance-cleanup",
+      "title": "Apple performance and behavior-preserving cleanup",
+      "summary": "Diagnose or improve SwiftUI responsiveness, startup, memory, energy, and hot paths. Use measurements and explicit behavior contracts before optimization or broad compaction.",
+      "triggers": [
+        "performance",
+        "slow",
+        "hitch",
+        "memory leak",
+        "startup",
+        "instruments",
+        "optimization",
+        "compaction"
+      ],
+      "platforms": [
+        "iOS",
+        "iPadOS",
+        "macOS",
+        "watchOS",
+        "tvOS",
+        "visionOS"
+      ],
+      "references": [
+        "references/performance-cleanup-patterns.md"
+      ],
+      "sources": [
+        "performance",
+        "rendering",
+        "concurrency",
+        "model-context"
+      ],
+      "coverage": "practical",
+      "limits": "Measurement and behavior-preserving cleanup workflows; no speed, energy, or memory improvement is implied without a comparable workload."
+    },
+    {
+      "id": "apple-device-validation",
+      "title": "Apple runtime and device validation",
+      "summary": "Build, install, run, render, and validate Apple apps on the correct destination. Use for simulator/device evidence, screenshots, hardware, paired devices, and infrastructure triage.",
+      "triggers": [
+        "simulator",
+        "physical device",
+        "device validation",
+        "screenshot",
+        "install app",
+        "runtime proof",
+        "watch pairing",
+        "simctl",
+        "screen inventory",
+        "screenshot review"
+      ],
+      "platforms": [
+        "iOS",
+        "iPadOS",
+        "macOS",
+        "watchOS",
+        "tvOS",
+        "visionOS"
+      ],
+      "references": [
+        "references/device-validation-patterns.md",
+        "references/screen-review.md"
+      ],
+      "sources": [
+        "xcode",
+        "testing",
+        "ui-audit",
+        "distribution"
+      ],
+      "coverage": "practical",
+      "limits": "Claim-specific runtime proof and screen-review inventory; artifacts from one environment do not cover untested hardware or services."
+    },
+    {
+      "id": "apple-app-store-readiness",
+      "title": "App Store readiness",
+      "summary": "Plan, audit, or prepare an App Store candidate. Use for release scope, storefront metadata, privacy disclosures, review access, TestFlight, and explicit submission or release gates.",
+      "triggers": [
+        "app store",
+        "app review",
+        "testflight",
+        "submission",
+        "storefront",
+        "release candidate",
+        "release ledger",
+        "superseded blocker"
+      ],
+      "platforms": [
+        "iOS",
+        "iPadOS",
+        "macOS",
+        "watchOS",
+        "tvOS",
+        "visionOS"
+      ],
+      "references": [
+        "references/app-store-readiness-patterns.md"
+      ],
+      "sources": [
+        "review",
+        "distribution",
+        "privacy",
+        "sdk-privacy",
+        "account-deletion"
+      ],
+      "coverage": "practical",
+      "limits": "Candidate, authority, and release-ledger reconciliation; account service state and current submission rules require live verification."
+    },
+    {
+      "id": "macos-productization",
+      "title": "macOS productization and distribution",
+      "summary": "Prepare or inspect a macOS distribution artifact. Use for Developer ID or Mac App Store signing, hardened runtime, notarization, packaging, Gatekeeper, installation, and update integrity.",
+      "triggers": [
+        "notarization",
+        "gatekeeper",
+        "developer id",
+        "dmg",
+        "macos distribution",
+        "codesign",
+        "stapler"
+      ],
+      "platforms": [
+        "macOS"
+      ],
+      "references": [
+        "references/macos-productization-patterns.md"
+      ],
+      "sources": [
+        "notarization",
+        "distribution",
+        "review",
+        "xcode",
+        "developer-id",
+        "notary-errors"
+      ],
+      "coverage": "practical",
+      "limits": "macOS distribution and trust workflow; local compilation does not establish notarization or downloaded-install behavior."
+    }
+  ]
+}

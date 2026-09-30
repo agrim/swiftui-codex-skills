@@ -1,0 +1,7 @@
+{
+  "global": "Keep picker and library styling consistent while preserving their different actions.",
+  "comments": [
+    {"id":"note-1", "state":"editor.keyboard", "capture":"cap-3", "status":"accepted", "text":"Apply is now reachable.", "mark":{"x":0.5,"y":0.9}},
+    {"id":"note-2", "state":"library.populated", "capture":"cap-1", "status":"changes-requested", "text":"Long titles need review."}
+  ]
+}

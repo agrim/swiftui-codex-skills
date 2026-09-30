@@ -1,29 +1,38 @@
 ---
 name: macos-productization
-description: macOS app productization for Swift and SwiftUI apps. Use when preparing or reviewing signing, entitlements, hardened runtime, notarization, packaging, DMG creation, app icons, release notes, installation, Gatekeeper behavior, Sparkle/update distribution, or App Store versus direct distribution.
+description: "Prepare or inspect a macOS distribution artifact. Use for Developer ID or Mac App Store signing, hardened runtime, notarization, packaging, Gatekeeper, installation, and update integrity."
 ---
 
-# macOS Productization
+# macOS productization and distribution
 
-## First Pass
+## Inputs
 
-- Identify the distribution channel: local development, direct download, enterprise/internal, or App Store.
-- Inspect bundle identifiers, signing identity, entitlements, hardened runtime, sandboxing, app icon source, packaging scripts, release artifacts, and install path expectations.
-- Read `references/macos-productization-patterns.md` for signing, notarization, packaging, icon, or release-flow work.
-- Treat packaging and signing as user-facing product behavior, not an afterthought.
+Identify the authorized stage, distribution channel, candidate source/version, bundle and nested code, signing/entitlement requirements, packaging pipeline, update channel, and available artifact evidence.
 
 ## Rules
 
-- Do not claim an app is notarized, signed for distribution, or Gatekeeper-clean unless verified.
-- Keep local ad hoc signing distinct from Developer ID signing, App Store signing, and notarized distribution.
-- Prefer reproducible packaging scripts over hand-built archives.
-- Verify app icons through the current Apple asset pipeline. Do not flatten or simplify assets in a way that breaks platform presentation.
-- Keep privileged installs, deletion, and system-wide changes explicit and user-approved.
-- Preserve release notes, version numbers, build numbers, and attached artifacts as a coherent release.
+- **MAC-001 — Choose the channel.** Development, internal, direct distribution, and Mac App Store have different signing, sandbox, packaging, and review requirements.
+- **MAC-002 — Inspect the artifact.** Project settings are intent; the signed app, package, receipts, and installed copy establish distribution facts.
+- **MAC-003 — Preserve the trust chain.** Verify nested code and entitlements deliberately. Do not use blanket re-signing to hide an unexplained signing failure.
+- **MAC-004 — Separate trust gates.** Signing, notarization acceptance, stapling, Gatekeeper assessment, installation, and launch are distinct checks.
+- **MAC-005 — Respect release authority.** Private credentials, notarization/upload, installation, publication, deletion, and system-wide changes require the corresponding authorization.
 
-## Validation
+## Workflow
 
-- Run signing inspection, entitlement inspection, and Gatekeeper/notarization checks appropriate to the distribution channel.
-- Mount or install packaged artifacts and launch the installed app when packaging changes.
-- Verify app icon appearance in the built product, not only source assets.
-- Confirm release artifacts match the commit and version being published.
+1. Map channel requirements and inspect the exact bundle/packaging pipeline.
+2. Fix the source owner of signing, entitlements, resources, or identity problems.
+3. Build/export and inspect the authorized candidate and nested components.
+4. Run applicable trust and installed-artifact checks without broad destructive workarounds.
+5. Bind release notes, version, hashes, receipts, and update metadata to the same artifact.
+
+## Verify
+
+Verify distribution identity, embedded entitlements, nested code, hardened runtime/sandbox as applicable, notarization status, stapled ticket, Gatekeeper behavior, installed launch, icons, and update authenticity for the chosen channel.
+
+## Output
+
+Report the exact artifact and channel, checks performed, external actions taken, and remaining trust/install/release gates. Do not claim “notarized” or “Gatekeeper-clean” from a local build alone.
+
+## References
+
+Read the [playbook](references/macos-productization-patterns.md) for decisions, failure cases, and source links.

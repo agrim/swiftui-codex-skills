@@ -1,29 +1,38 @@
 ---
 name: apple-privacy-system-integrations
-description: Privacy-safe Apple system integration for Swift and SwiftUI apps. Use when adding, changing, auditing, or debugging HealthKit, CloudKit, App Intents, WidgetKit, ActivityKit, Live Activities, Core Spotlight, WatchConnectivity, permissions, privacy manifests, Info.plist purpose strings, sensitive data flows, or App Store privacy behavior.
+description: "Design or audit protected-data access and system boundaries. Use for permissions, purpose strings, privacy manifests, data minimization, retention, deletion, disclosures, and account changes."
 ---
 
-# Apple Privacy System Integrations
+# Apple privacy and integration safety
 
-## First Pass
+## Inputs
 
-- Identify the user value, data touched, permission boundary, fallback behavior, retention model, and export/sync path before writing integration code.
-- Inspect entitlements, `Info.plist` purpose strings, privacy manifests, app constants, system-service wrappers, settings/onboarding copy, tests, and existing denial/unavailable handling.
-- Read `references/privacy-system-patterns.md` when a change touches sensitive data, Apple system frameworks, companion devices, app extensions, or App Store privacy claims.
-- Prefer local-first behavior and best-effort integrations. The app should remain useful when a permission, account, device, service, or framework is unavailable.
+Inventory the user purpose, exact data categories, source and destination, operators, permissions, storage, projections, retention, and deletion. Identify which integrations are essential versus supplementary.
 
 ## Rules
 
-- Bundle privacy work. A sensitive framework change should include code, entitlements, purpose strings, privacy manifest updates, user-facing explanation, storage/retention mapping, and tests in the same change.
-- Never add hidden permission paths. Every camera, microphone, health, location, contacts, Bluetooth, speech, notification, or similar access path needs a clear user-facing purpose.
-- Do not invent system data. Export truthful system-compatible projections only; keep app-only details in the app's own store unless the platform provides a truthful representation.
-- Keep sync and export distinct. Local persistence, cloud sync, health export, widget projection, live activity projection, and companion-device transfer have different guarantees.
-- Use typed permission scopes and typed integration state. Avoid scattered booleans and string commands.
-- Treat denial, absence, account mismatch, and device unavailability as normal states, not exceptional surprises.
+- **PRIV-001 — Describe actual boundaries.** No developer server does not mean no storage or sharing. Include local files, system stores, cloud containers, SDKs, logs, and derived data.
+- **PRIV-002 — Request minimum access in context.** Use truthful purpose text and framework-supported states. Do not invent an authorization signal the framework intentionally withholds.
+- **PRIV-003 — Keep artifacts distinct.** Entitlements, purpose strings, privacy manifests, store disclosures, and consent serve different purposes; validate each applicable layer.
+- **PRIV-004 — Preserve truthful outcomes.** Denial, no data, revoked access, account mismatch, unavailable service, and retry are not interchangeable success states.
+- **PRIV-005 — Complete the data lifecycle.** Define minimization, secure storage, logging, retention, export, deletion, and stale-projection cleanup before adding persistence or transfer.
 
-## Validation
+## Workflow
 
-- Test first-run, granted, denied, unavailable, revoked, and retry states where relevant.
-- Verify entitlement and purpose-string changes compile into the intended targets.
-- Verify widgets, intents, live activities, spotlight, watch, or cloud projections do not expose private data beyond their stated purpose.
-- Run focused tests around data mapping and fallback behavior before broad UI tests.
+1. Map data flows through the app, frameworks, extensions, devices, cloud, and third parties.
+2. Verify current framework permission contracts and official privacy requirements.
+3. Implement scoped access, typed states, safe fallback, and deletion/reconciliation behavior.
+4. Update the applicable declarations and disclosures from the actual behavior.
+5. Test transitions and inspect built products plus exposed system surfaces.
+
+## Verify
+
+Exercise first use, denial, partial scope, revocation, no data, account change, offline retry, and deletion where supported. Check logs and projections for unintended sensitive fields. Pair with project governance and device validation for artifact/runtime proof.
+
+## Output
+
+Return the data-flow contract, permission behavior, required artifacts, tested failure paths, and unresolved privacy or compliance questions. Do not claim legal certification.
+
+## References
+
+Read the [playbook](references/privacy-system-patterns.md) for decisions, failure cases, and source links.

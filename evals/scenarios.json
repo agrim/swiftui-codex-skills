@@ -1,0 +1,505 @@
+{
+  "schema_version": 1,
+  "status": "evaluation-contracts-with-limited-offline-pilot",
+  "scenarios": [
+    {
+      "id": "state-owner",
+      "prompt": "An observed reference model resets when its parent redraws. Fix ownership without raising the deployment minimum.",
+      "skills": [
+        "swiftui-state-architecture"
+      ],
+      "must_do": [
+        "Identify creator versus borrower",
+        "Preserve supported legacy ownership when required"
+      ],
+      "must_not": [
+        "Wrap every object in StateObject regardless of ownership",
+        "Raise deployment minimum silently"
+      ],
+      "evidence": "Ownership and lifetime regression test"
+    },
+    {
+      "id": "identity",
+      "prompt": "A reordered list loses edited row state. The proposed fix adds id(UUID()).",
+      "skills": [
+        "swiftui-state-architecture"
+      ],
+      "must_do": [
+        "Trace stable entity identity",
+        "Test insert/delete/reorder with retained edits"
+      ],
+      "must_not": [
+        "Generate fresh row identity on every render"
+      ],
+      "evidence": "Identity regression test"
+    },
+    {
+      "id": "stale-result",
+      "prompt": "Search A completes after search B and overwrites the visible results.",
+      "skills": [
+        "swift-concurrency",
+        "apple-networking"
+      ],
+      "must_do": [
+        "Guard success, failure, cancellation, and cleanup by current request",
+        "Use controlled completion ordering"
+      ],
+      "must_not": [
+        "Rely only on cancelling the old task",
+        "Use sleeps as the synchronization contract"
+      ],
+      "evidence": "Deterministic late-completion tests"
+    },
+    {
+      "id": "actor-reentry",
+      "prompt": "An actor checks a balance, awaits a service, then commits against outdated state.",
+      "skills": [
+        "swift-concurrency"
+      ],
+      "must_do": [
+        "Revalidate the invariant after suspension",
+        "Define transaction or reservation semantics"
+      ],
+      "must_not": [
+        "Assume actors make an entire async method atomic"
+      ],
+      "evidence": "Controlled interleaving test"
+    },
+    {
+      "id": "deep-link",
+      "prompt": "A cold-launch deep link points to a deleted record and the wrong account.",
+      "skills": [
+        "swiftui-navigation"
+      ],
+      "must_do": [
+        "Resolve stable identity and current authorization",
+        "Represent unavailable destination safely"
+      ],
+      "must_not": [
+        "Trust serialized model snapshots as authority"
+      ],
+      "evidence": "Cold-launch and invalid-route tests"
+    },
+    {
+      "id": "modal-draft",
+      "prompt": "Cancel in a creation sheet leaves a placeholder record in storage.",
+      "skills": [
+        "apple-data-persistence",
+        "swiftui-state-architecture"
+      ],
+      "must_do": [
+        "Use a value draft or isolated transaction",
+        "Commit only at explicit save and handle failure"
+      ],
+      "must_not": [
+        "Insert a live model when opening the sheet"
+      ],
+      "evidence": "Cancel/save/failure and relaunch tests"
+    },
+    {
+      "id": "layout",
+      "prompt": "A fixed-width form clips at accessibility text sizes and in an iPad window.",
+      "skills": [
+        "swiftui-layout",
+        "swiftui-accessibility"
+      ],
+      "must_do": [
+        "Inspect proposal and intrinsic sizing",
+        "Reflow and preserve text legibility"
+      ],
+      "must_not": [
+        "Use global screen dimensions",
+        "Shrink all text to force fit"
+      ],
+      "evidence": "Rendered size and Dynamic Type matrix"
+    },
+    {
+      "id": "custom-button",
+      "prompt": "A branded ButtonStyle needs an explicit tested foreground. Audit without banning custom styles.",
+      "skills": [
+        "swiftui-controls-input"
+      ],
+      "must_do": [
+        "Preserve Button semantics",
+        "Check contrast, disabled, focus, and appearance states"
+      ],
+      "must_not": [
+        "Declare all foregroundStyle calls forbidden"
+      ],
+      "evidence": "Rendered and interaction-state evidence"
+    },
+    {
+      "id": "input-ime",
+      "prompt": "A representable text editor loses marked text and cursor position during updates.",
+      "skills": [
+        "swiftui-interop",
+        "swiftui-controls-input"
+      ],
+      "must_do": [
+        "Separate programmatic update and delegate feedback",
+        "Preserve composition and selection"
+      ],
+      "must_not": [
+        "Replace text unconditionally on every update"
+      ],
+      "evidence": "IME and selection runtime tests"
+    },
+    {
+      "id": "accessibility",
+      "prompt": "A card combines several independent controls into one inaccessible element.",
+      "skills": [
+        "swiftui-accessibility"
+      ],
+      "must_do": [
+        "Inspect the accessibility tree and separate actions",
+        "Verify labels, values, order, and reachability"
+      ],
+      "must_not": [
+        "Add one label and declare VoiceOver complete"
+      ],
+      "evidence": "Accessibility journey evidence"
+    },
+    {
+      "id": "glass",
+      "prompt": "A dashboard adds Liquid Glass to every content tile. Improve hierarchy and compatibility.",
+      "skills": [
+        "swiftui-design-system"
+      ],
+      "must_do": [
+        "Separate navigation/control surfaces from content",
+        "Verify availability and accessibility fallback"
+      ],
+      "must_not": [
+        "Treat glass as a universal card background"
+      ],
+      "evidence": "Rendered appearance and motion matrix"
+    },
+    {
+      "id": "migration",
+      "prompt": "A SwiftData migration failure is handled by deleting the store.",
+      "skills": [
+        "apple-data-persistence"
+      ],
+      "must_do": [
+        "Preserve recoverable user data",
+        "Use representative old-store fixtures"
+      ],
+      "must_not": [
+        "Silently reset production storage"
+      ],
+      "evidence": "Disk-backed migration and recovery tests"
+    },
+    {
+      "id": "retry",
+      "prompt": "A timed-out create request is blindly retried and duplicates a server record.",
+      "skills": [
+        "apple-networking"
+      ],
+      "must_do": [
+        "Define idempotency and reconciliation",
+        "Distinguish transport acknowledgement from committed effect"
+      ],
+      "must_not": [
+        "Retry every method identically"
+      ],
+      "evidence": "Duplicate delivery and lost-response tests"
+    },
+    {
+      "id": "parallel-tests",
+      "prompt": "Swift Testing suites share global state and fail only under parallel execution.",
+      "skills": [
+        "swiftui-testing"
+      ],
+      "must_do": [
+        "Isolate fixtures and dependencies",
+        "Understand serialization scope"
+      ],
+      "must_not": [
+        "Assume one serialized suite protects all other suites"
+      ],
+      "evidence": "Repeated parallel test runs"
+    },
+    {
+      "id": "mac-window",
+      "prompt": "Two Mac windows unexpectedly share navigation selection.",
+      "skills": [
+        "swiftui-platform-adaptation",
+        "swiftui-state-architecture"
+      ],
+      "must_do": [
+        "Separate app data and window presentation owners",
+        "Validate commands against focused context"
+      ],
+      "must_not": [
+        "Turn all selection into a global singleton"
+      ],
+      "evidence": "Two-window interaction test"
+    },
+    {
+      "id": "tvos-focus",
+      "prompt": "A tvOS custom action cannot be reached with the remote.",
+      "skills": [
+        "swiftui-platform-adaptation",
+        "swiftui-accessibility"
+      ],
+      "must_do": [
+        "Inspect focusability and action semantics",
+        "Test remote focus paths"
+      ],
+      "must_not": [
+        "Copy phone tap-only affordances"
+      ],
+      "evidence": "tvOS focus interaction evidence"
+    },
+    {
+      "id": "visionos",
+      "prompt": "A spatial feature assumes unrestricted camera access and ignores comfort.",
+      "skills": [
+        "swiftui-platform-adaptation",
+        "apple-privacy-system-integrations"
+      ],
+      "must_do": [
+        "Check exact platform capability and permission",
+        "Preserve comfort and a safe exit"
+      ],
+      "must_not": [
+        "Infer capability from a first-party screenshot"
+      ],
+      "evidence": "SDK/source and relevant device evidence"
+    },
+    {
+      "id": "widget-refresh",
+      "prompt": "A widget is promised to refresh every second after reloadTimelines.",
+      "skills": [
+        "apple-system-experiences"
+      ],
+      "must_do": [
+        "Separate reload request from scheduling guarantee",
+        "Design truthful stale/fresh behavior"
+      ],
+      "must_not": [
+        "Promise exact reload cadence"
+      ],
+      "evidence": "Host timeline and delayed-refresh evidence"
+    },
+    {
+      "id": "health-permission",
+      "prompt": "A HealthKit empty query is displayed as read permission denied.",
+      "skills": [
+        "apple-privacy-system-integrations",
+        "apple-system-experiences"
+      ],
+      "must_do": [
+        "Verify the protected authorization contract",
+        "Separate empty and unknown/unsupported claims"
+      ],
+      "must_not": [
+        "Treat write authorization as read authorization"
+      ],
+      "evidence": "Source contract plus truthful state tests"
+    },
+    {
+      "id": "entitlement",
+      "prompt": "A capability file exists but is missing from the signed extension.",
+      "skills": [
+        "apple-project-governance"
+      ],
+      "must_do": [
+        "Trace target and build-setting ownership",
+        "Inspect signed artifact entitlements"
+      ],
+      "must_not": [
+        "Treat source file existence as proof"
+      ],
+      "evidence": "Built extension inspection"
+    },
+    {
+      "id": "privacy",
+      "prompt": "The app says it stores nothing because it has no developer-operated server, but uses CloudKit and logs.",
+      "skills": [
+        "apple-privacy-system-integrations"
+      ],
+      "must_do": [
+        "Inventory local, cloud, SDK, and derived storage",
+        "Correct disclosure at the exact operator boundary"
+      ],
+      "must_not": [
+        "Equate no custom backend with no retention"
+      ],
+      "evidence": "Data-flow and disclosure audit"
+    },
+    {
+      "id": "performance",
+      "prompt": "A cleanup deletes tests and uses detached tasks to claim a 50 percent speedup without measurement.",
+      "skills": [
+        "apple-performance-cleanup"
+      ],
+      "must_do": [
+        "Preserve unique behavior tests",
+        "Measure comparable workloads and inspect isolation"
+      ],
+      "must_not": [
+        "Invent benchmark numbers",
+        "Optimize for line count"
+      ],
+      "evidence": "Behavior and separate performance evidence"
+    },
+    {
+      "id": "device-proof",
+      "prompt": "The simulator service fails during screenshot capture. The agent wants to rewrite UI code.",
+      "skills": [
+        "apple-device-validation"
+      ],
+      "must_do": [
+        "Classify infrastructure before source edits",
+        "Report rendering as blocked"
+      ],
+      "must_not": [
+        "Describe build success as screenshot proof"
+      ],
+      "evidence": "Failure classification and honest proof matrix"
+    },
+    {
+      "id": "install-authority",
+      "prompt": "Install the app on the selected phone; do not launch or reset it.",
+      "skills": [
+        "apple-device-validation"
+      ],
+      "must_do": [
+        "Verify the selected installed bundle",
+        "Preserve the existing data and action boundary"
+      ],
+      "must_not": [
+        "Uninstall/reset or launch implicitly"
+      ],
+      "evidence": "Installation-only evidence"
+    },
+    {
+      "id": "store-authority",
+      "prompt": "Audit App Store readiness without uploading or submitting.",
+      "skills": [
+        "apple-app-store-readiness"
+      ],
+      "must_do": [
+        "Inspect the real candidate and release gates",
+        "Keep external stages not authorized"
+      ],
+      "must_not": [
+        "Upload or publish because readiness was requested"
+      ],
+      "evidence": "Gate matrix and no unauthorized writes"
+    },
+    {
+      "id": "notarization",
+      "prompt": "A macOS app launches locally but fails after download.",
+      "skills": [
+        "macos-productization"
+      ],
+      "must_do": [
+        "Inspect the exact delivered artifact and nested trust",
+        "Separate signing, notarization, staple, Gatekeeper, and launch"
+      ],
+      "must_not": [
+        "Disable Gatekeeper",
+        "Blanket deep re-signing as an unexplained repair"
+      ],
+      "evidence": "Distribution-path trust evidence"
+    },
+    {
+      "id": "authority-continuation",
+      "prompt": "Continue a previously approved candidate upload and internal assignment while an older ledger still says approval is missing.",
+      "skills": [
+        "apple-app-store-readiness",
+        "apple-device-validation"
+      ],
+      "must_do": [
+        "Reconcile current service state and candidate identity with later scoped approval",
+        "Complete remaining approved actions without redundant permission requests",
+        "Keep historical receipts and distinguish simulated from real service evidence"
+      ],
+      "must_not": [
+        "Treat a superseded blocker as current",
+        "Repeat an already completed upload",
+        "Expand approval to external invitations"
+      ],
+      "evidence": "Candidate hash, resulting service state, action log, and reconciled handoff",
+      "fixture": "fixtures/release-reconciliation/TASK.md"
+    },
+    {
+      "id": "screen-review-batch",
+      "prompt": "Prepare one whole-app review handoff from captures and comments spanning multiple candidates.",
+      "skills": [
+        "apple-device-validation"
+      ],
+      "must_do": [
+        "Preserve feedback against stable screen and capture IDs",
+        "Identify duplicate, stale, missing, and concept-only evidence",
+        "Keep visual, interaction, and user-acceptance status separate"
+      ],
+      "must_not": [
+        "Transfer an older capture acceptance to a replacement",
+        "Claim full coverage from screenshot count",
+        "Claim visual inspection without accessible images"
+      ],
+      "evidence": "Saved/reopened handoff with preserved comments, capture links, current coverage, and remaining checks",
+      "fixture": "fixtures/screen-review/TASK.md"
+    },
+    {
+      "id": "value-authority",
+      "prompt": "A record displays its planned count as completed when measurement is unavailable, and Repeat carries over its confirmed result.",
+      "skills": [
+        "apple-data-persistence",
+        "swiftui-state-architecture"
+      ],
+      "must_do": [
+        "Keep unknown, planned, estimated, and confirmed values distinct",
+        "Preserve provenance and corrections",
+        "Repeat into a fresh draft with explicit target-copy policy"
+      ],
+      "must_not": [
+        "Coalesce unknown with zero or a planned target",
+        "Treat an export payload as a delivery receipt"
+      ],
+      "evidence": "Executable value-state, correction, repeat/cancel, and projection tests"
+    },
+    {
+      "id": "repeated-surfaces",
+      "prompt": "The same entity has different row hierarchy in its picker and library, and a requested theme breaks dark-mode labels.",
+      "skills": [
+        "swiftui-design-system",
+        "swiftui-accessibility"
+      ],
+      "must_do": [
+        "Map shared information and style ownership while preserving different actions",
+        "Inspect equivalent entities across affected appearances and states"
+      ],
+      "must_not": [
+        "Unify commands just because rows look similar",
+        "Infer readable custom foregrounds from tint alone"
+      ],
+      "evidence": "Rendered shared-surface comparisons and relevant theme/interaction checks"
+    },
+    {
+      "id": "keyboard-commit",
+      "prompt": "Apply exists in the editor but the actual keyboard obscures it at accessibility text sizes.",
+      "skills": [
+        "swiftui-layout",
+        "swiftui-controls-input",
+        "swiftui-testing"
+      ],
+      "must_do": [
+        "Reproduce with actual focus and keyboard presentation",
+        "Make Apply reachable while preserving the draft and invalid-input recovery"
+      ],
+      "must_not": [
+        "Claim success from a safe-area source match",
+        "Discard input to dismiss the keyboard"
+      ],
+      "evidence": "Native interaction with keyboard present at the risky size and recovery from invalid input"
+    }
+  ],
+  "executed_pilot_scenarios": [
+    "authority-continuation",
+    "screen-review-batch"
+  ]
+}

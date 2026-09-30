@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-09",
+  "base_commit": "f97352f",
+  "fixture_files": {
+    "release-reconciliation/TASK.md": "13953305de3a0d0bb6383d0b2091ae8ee422430b3c1ee67cea109391590f1153",
+    "release-reconciliation/candidate.json": "799e73ae5eac66fe0a0f3a6551a468ffd9baa0a4364167b75f97f22e01491c4a",
+    "release-reconciliation/candidate.txt": "224e704e1fef7f0517d950459adf929861991cd4dd3b0e12e3e71a6a533d23dc",
+    "release-reconciliation/history.md": "f91c43a50fe0ee852381cc95893e6b534cd762aaccdc7542ef31b6b4a797a526",
+    "release-reconciliation/service-state.json": "d329b01004f078f45ae14e4a9e417153aa956b3053f0e6b5f2b4797e52b08d83",
+    "release-reconciliation/service.py": "7f60932a61ef1b432f8801b3978eb8642c1c917bded6fdee6065ca4b903c8fdc",
+    "screen-review/TASK.md": "3bb9e6a406ead18afd8ebed73042d4baa57796e6447f96b009c2e9b3484c38c3",
+    "screen-review/feedback.json": "6ec57b9bddd1cd216866ec7d06fed28ca82c3912a859b84f89fb8e62664cbd01",
+    "screen-review/inventory.json": "787910d686ce730a6834c05f1f52478ae8b091701fe013c150b890d43f2a9102"
+  },
+  "guided_skill_files": {
+    "apple-app-store-readiness/SKILL.md": "acaf302920814d2c5fdd72ade0b12dbfd5619a3ab73ba321f450cf87e7a764e4",
+    "apple-app-store-readiness/agents/openai.yaml": "317a20aff22fdb39dedf5aecc18ec51e99de8c91047462acac44f9bf1bbe1f91",
+    "apple-app-store-readiness/references/app-store-readiness-patterns.md": "aba66c1c53c0973af94ff70d9917890426b607d3b4b1c1b27a6314e15e1d929e",
+    "apple-device-validation/SKILL.md": "34539ef45e64f3f21bd70401789bf4cf746d6cfeb10545f7ecff352eb32b2e5e",
+    "apple-device-validation/agents/openai.yaml": "67f50fed2738b2f366f34bd4410080803f35084cdaae7f47e2fd08ceebe5c316",
+    "apple-device-validation/references/device-validation-patterns.md": "d8fd9e69cea1996e2180c6b6cee3ee5c3f29b3de5ce22b0bf15e03d424e4ffe4",
+    "apple-device-validation/references/screen-review.md": "036ea2da1873f7d5c41a2ffc1b2dc6b805d42cad3ded78fc91c3fb1965d9f36d"
+  },
+  "output_hashes": {
+    "baseline": {
+      "release-reconciliation/result.md": "984a3c3e655b3572b228e8b5add4f1aebc56571c4a3a400553f402712710912c",
+      "release-reconciliation/service-state.json": "146e811cba8fe570f93b76abff6d8b31dd8f5c3a8e566a9dd434b01e09213960",
+      "screen-review/result.md": "59ab7abe204877c690f2196bb704a1a8df1d6207c6aa3e7587f5335295d6c3b8",
+      "screen-review/handoff.json": "00dd373aa977c85e896bbd501b1d0bd2574d123be7427f54dc81d834ff60e023"
+    },
+    "guided": {
+      "release-reconciliation/result.md": "ab60218fa753ac9f61f261e9ee7dd2ebd0a54d0ee9a2897eafd07c0070e11c86",
+      "release-reconciliation/service-state.json": "146e811cba8fe570f93b76abff6d8b31dd8f5c3a8e566a9dd434b01e09213960",
+      "screen-review/result.md": "cb77c6f98fc77a4e6fd49eb056f3359ed16fb9e766e82d0918a872241ff4b3b6",
+      "screen-review/handoff.json": "2fe0b698cf050cdc994721f7d5f19cc48ce2d673bb87ad0aaa98f1dc6da10bb5"
+    }
+  },
+  "results": {
+    "authority-continuation": {
+      "baseline": "passed",
+      "guided": "passed"
+    },
+    "screen-review-batch": {
+      "baseline": "passed",
+      "guided": "passed"
+    }
+  }
+}

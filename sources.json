@@ -1,0 +1,510 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "id": "swiftui",
+      "title": "SwiftUI framework overview",
+      "url": "https://developer.apple.com/documentation/SwiftUI",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "design",
+      "title": "HIG: Design principles",
+      "url": "https://developer.apple.com/design/human-interface-guidelines/design-principles",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "observation",
+      "title": "Migrating to Observation",
+      "url": "https://developer.apple.com/documentation/SwiftUI/Migrating-from-the-observable-object-protocol-to-the-observable-macro",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "model-data",
+      "title": "Managing model data",
+      "url": "https://developer.apple.com/documentation/SwiftUI/Managing-model-data-in-your-app",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "navigation",
+      "title": "Understanding the navigation stack",
+      "url": "https://developer.apple.com/documentation/swiftui/understanding-the-navigation-stack",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "navigation-migration",
+      "title": "Migrating to new navigation types",
+      "url": "https://developer.apple.com/documentation/swiftui/migrating-to-new-navigation-types",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "layout",
+      "title": "SwiftUI Layout protocol",
+      "url": "https://developer.apple.com/documentation/swiftui/layout",
+      "reviewed": null,
+      "status": "reference-only"
+    },
+    {
+      "id": "hig-layout",
+      "title": "HIG: Layout",
+      "url": "https://developer.apple.com/design/human-interface-guidelines/layout",
+      "reviewed": null,
+      "status": "reference-only"
+    },
+    {
+      "id": "rtl",
+      "title": "HIG: Right to left",
+      "url": "https://developer.apple.com/design/human-interface-guidelines/right-to-left",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "button",
+      "title": "SwiftUI Button",
+      "url": "https://developer.apple.com/documentation/SwiftUI/Button",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "focus",
+      "title": "SwiftUI FocusState",
+      "url": "https://developer.apple.com/documentation/swiftui/focusstate",
+      "reviewed": null,
+      "status": "reference-only"
+    },
+    {
+      "id": "accessibility",
+      "title": "HIG: Accessibility",
+      "url": "https://developer.apple.com/design/human-interface-guidelines/accessibility",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "accessible-controls",
+      "title": "SwiftUI accessible controls",
+      "url": "https://developer.apple.com/documentation/swiftui/accessible-controls",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "accessibility-focus",
+      "title": "SwiftUI AccessibilityFocusState",
+      "url": "https://developer.apple.com/documentation/swiftui/accessibilityfocusstate",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "materials",
+      "title": "HIG: Materials",
+      "url": "https://developer.apple.com/design/human-interface-guidelines/materials",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "glass",
+      "title": "Liquid Glass technology overview",
+      "url": "https://developer.apple.com/documentation/TechnologyOverviews/liquid-glass",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "typography",
+      "title": "HIG: Typography",
+      "url": "https://developer.apple.com/design/human-interface-guidelines/typography",
+      "reviewed": null,
+      "status": "reference-only"
+    },
+    {
+      "id": "symbols",
+      "title": "HIG: SF Symbols",
+      "url": "https://developer.apple.com/design/human-interface-guidelines/sf-symbols",
+      "reviewed": null,
+      "status": "reference-only"
+    },
+    {
+      "id": "color",
+      "title": "HIG: Color",
+      "url": "https://developer.apple.com/design/human-interface-guidelines/color",
+      "reviewed": "2026-09-09",
+      "status": "content-reviewed",
+      "review_scope": "Color meaning, custom appearance and increased-contrast variants, and semantic system colors; inspected official documentation content for the repeated-surface and theme guidance."
+    },
+    {
+      "id": "animation",
+      "title": "SwiftUI Animation",
+      "url": "https://developer.apple.com/documentation/SwiftUI/Animation",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "reduced-motion",
+      "title": "Reduced Motion evaluation criteria",
+      "url": "https://developer.apple.com/help/app-store-connect/manage-app-accessibility/reduced-motion-evaluation-criteria",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "concurrency",
+      "title": "The Swift Programming Language: Concurrency",
+      "url": "https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "swift62",
+      "title": "Swift 6.2 language and concurrency changes",
+      "url": "https://www.swift.org/blog/swift-6.2-released/",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "performance",
+      "title": "Understanding and improving SwiftUI performance",
+      "url": "https://developer.apple.com/documentation/xcode/understanding-and-improving-swiftui-performance",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "rendering",
+      "title": "Improving rendering efficiency",
+      "url": "https://developer.apple.com/documentation/xcode/improving-your-app-s-rendering-efficiency",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "model-context",
+      "title": "SwiftData ModelContext",
+      "url": "https://developer.apple.com/documentation/swiftdata/modelcontext",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "model-container",
+      "title": "SwiftData ModelContainer",
+      "url": "https://developer.apple.com/documentation/swiftdata/modelcontainer",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "testing",
+      "title": "Swift Testing",
+      "url": "https://developer.apple.com/xcode/swift-testing/",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "test-parallel",
+      "title": "Swift Testing parallelization",
+      "url": "https://developer.apple.com/documentation/Testing/Parallelization",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "ui-audit",
+      "title": "XCUI accessibility audits",
+      "url": "https://developer.apple.com/documentation/xcuiautomation/xcuiaccessibilityauditissue",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "privacy",
+      "title": "Describing data use in privacy manifests",
+      "url": "https://developer.apple.com/documentation/bundleresources/describing-data-use-in-privacy-manifests",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "required-reasons",
+      "title": "Required reason APIs",
+      "url": "https://developer.apple.com/documentation/bundleresources/describing-use-of-required-reason-api",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "sdk-privacy",
+      "title": "Third-party SDK requirements",
+      "url": "https://developer.apple.com/support/third-party-SDK-requirements/",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "urlsession",
+      "title": "URLSession",
+      "url": "https://developer.apple.com/documentation/foundation/urlsession",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "keychain",
+      "title": "Keychain services",
+      "url": "https://developer.apple.com/documentation/security/keychain-services",
+      "reviewed": null,
+      "status": "reference-only"
+    },
+    {
+      "id": "widgets",
+      "title": "WidgetKit",
+      "url": "https://developer.apple.com/documentation/widgetkit",
+      "reviewed": null,
+      "status": "reference-only"
+    },
+    {
+      "id": "intents",
+      "title": "App Intents",
+      "url": "https://developer.apple.com/documentation/appintents",
+      "reviewed": null,
+      "status": "reference-only"
+    },
+    {
+      "id": "activities",
+      "title": "ActivityKit",
+      "url": "https://developer.apple.com/documentation/activitykit",
+      "reviewed": null,
+      "status": "reference-only"
+    },
+    {
+      "id": "healthkit",
+      "title": "HealthKit",
+      "url": "https://developer.apple.com/documentation/healthkit",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "watch-connectivity",
+      "title": "WatchConnectivity",
+      "url": "https://developer.apple.com/documentation/watchconnectivity",
+      "reviewed": null,
+      "status": "reference-only"
+    },
+    {
+      "id": "cloudkit",
+      "title": "CloudKit",
+      "url": "https://developer.apple.com/documentation/cloudkit",
+      "reviewed": null,
+      "status": "reference-only"
+    },
+    {
+      "id": "storekit",
+      "title": "StoreKit",
+      "url": "https://developer.apple.com/documentation/storekit",
+      "reviewed": null,
+      "status": "reference-only"
+    },
+    {
+      "id": "notifications",
+      "title": "User Notifications",
+      "url": "https://developer.apple.com/documentation/usernotifications",
+      "reviewed": null,
+      "status": "reference-only"
+    },
+    {
+      "id": "spotlight",
+      "title": "Core Spotlight",
+      "url": "https://developer.apple.com/documentation/corespotlight",
+      "reviewed": null,
+      "status": "reference-only"
+    },
+    {
+      "id": "review",
+      "title": "App Review Guidelines",
+      "url": "https://developer.apple.com/app-store/review/guidelines/",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "notarization",
+      "title": "Notarizing macOS software before distribution",
+      "url": "https://developer.apple.com/documentation/security/notarizing-macos-software-before-distribution",
+      "reviewed": null,
+      "status": "reference-only"
+    },
+    {
+      "id": "distribution",
+      "title": "Distributing your app",
+      "url": "https://developer.apple.com/documentation/xcode/distributing-your-app-for-beta-testing-and-releases",
+      "reviewed": null,
+      "status": "reference-only"
+    },
+    {
+      "id": "xcode",
+      "title": "Xcode documentation",
+      "url": "https://developer.apple.com/documentation/xcode",
+      "reviewed": null,
+      "status": "reference-only"
+    },
+    {
+      "id": "windows",
+      "title": "HIG: Windows",
+      "url": "https://developer.apple.com/design/human-interface-guidelines/windows",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "settings",
+      "title": "HIG: Settings",
+      "url": "https://developer.apple.com/design/human-interface-guidelines/settings",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "ios",
+      "title": "HIG: Designing for iOS",
+      "url": "https://developer.apple.com/design/human-interface-guidelines/designing-for-ios",
+      "reviewed": null,
+      "status": "reference-only"
+    },
+    {
+      "id": "ipados",
+      "title": "HIG: Designing for iPadOS",
+      "url": "https://developer.apple.com/design/human-interface-guidelines/designing-for-ipados",
+      "reviewed": null,
+      "status": "reference-only"
+    },
+    {
+      "id": "macos",
+      "title": "HIG: Designing for macOS",
+      "url": "https://developer.apple.com/design/human-interface-guidelines/designing-for-macos",
+      "reviewed": null,
+      "status": "reference-only"
+    },
+    {
+      "id": "watchos",
+      "title": "HIG: Designing for watchOS",
+      "url": "https://developer.apple.com/design/human-interface-guidelines/designing-for-watchos",
+      "reviewed": null,
+      "status": "reference-only"
+    },
+    {
+      "id": "tvos",
+      "title": "HIG: Designing for tvOS",
+      "url": "https://developer.apple.com/design/human-interface-guidelines/designing-for-tvos",
+      "reviewed": null,
+      "status": "reference-only"
+    },
+    {
+      "id": "visionos",
+      "title": "HIG: Designing for visionOS",
+      "url": "https://developer.apple.com/design/human-interface-guidelines/designing-for-visionos",
+      "reviewed": null,
+      "status": "reference-only"
+    },
+    {
+      "id": "uikit",
+      "title": "SwiftUI UIKit integration",
+      "url": "https://developer.apple.com/documentation/swiftui/uikit-integration",
+      "reviewed": null,
+      "status": "reference-only"
+    },
+    {
+      "id": "appkit",
+      "title": "SwiftUI AppKit integration",
+      "url": "https://developer.apple.com/documentation/swiftui/appkit-integration",
+      "reviewed": null,
+      "status": "reference-only"
+    },
+    {
+      "id": "charts",
+      "title": "Swift Charts",
+      "url": "https://developer.apple.com/documentation/charts",
+      "reviewed": null,
+      "status": "reference-only"
+    },
+    {
+      "id": "localization",
+      "title": "Preparing views for localization",
+      "url": "https://developer.apple.com/documentation/swiftui/preparing-views-for-localization",
+      "reviewed": null,
+      "status": "reference-only"
+    },
+    {
+      "id": "widget-refresh",
+      "title": "Keeping a widget up to date",
+      "url": "https://developer.apple.com/documentation/widgetkit/keeping-a-widget-up-to-date/",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "health-authorization",
+      "title": "HealthKit authorizationStatus(for:)",
+      "url": "https://developer.apple.com/documentation/healthkit/hkhealthstore/authorizationstatus(for:)",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "health-privacy",
+      "title": "Protecting user privacy with HealthKit",
+      "url": "https://developer.apple.com/documentation/healthkit/protecting-user-privacy",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "account-deletion",
+      "title": "Offering account deletion in your app",
+      "url": "https://developer.apple.com/support/offering-account-deletion-in-your-app/",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "developer-id",
+      "title": "Signing Mac software with Developer ID",
+      "url": "https://developer.apple.com/developer-id/",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "app-intent",
+      "title": "AppIntent protocol",
+      "url": "https://developer.apple.com/documentation/appintents/appintent",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "view-controller-bridge",
+      "title": "UIViewControllerRepresentable",
+      "url": "https://developer.apple.com/documentation/SwiftUI/uiviewcontrollerrepresentable",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "appkit-view-bridge",
+      "title": "NSViewRepresentable",
+      "url": "https://developer.apple.com/documentation/SwiftUI/NSViewRepresentable/",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "notary-errors",
+      "title": "Resolving common notarization issues",
+      "url": "https://developer.apple.com/documentation/security/resolving-common-notarization-issues",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "swiftdata-autosave",
+      "title": "SwiftData ModelContext autosaveEnabled",
+      "url": "https://developer.apple.com/documentation/swiftdata/modelcontext/autosaveenabled",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "swiftdata-rollback",
+      "title": "SwiftData ModelContext rollback()",
+      "url": "https://developer.apple.com/documentation/swiftdata/modelcontext/rollback%28%29",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    },
+    {
+      "id": "task-cancellation",
+      "title": "Swift Task cancellation semantics",
+      "url": "https://developer.apple.com/documentation/swift/task/cancel%28%29",
+      "reviewed": "2026-09-06",
+      "status": "content-reviewed"
+    }
+  ]
+}

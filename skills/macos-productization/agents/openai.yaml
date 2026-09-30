@@ -1,4 +1,4 @@
 interface:
   display_name: "macOS Productization"
-  short_description: "macOS signing, packaging, and release hygiene."
-  default_prompt: "Use $macos-productization to review this macOS app release work."
+  short_description: "macOS release and distribution artifact proof."
+  default_prompt: "Use $macos-productization to prepare or verify this macOS release artifact for its intended distribution channel."

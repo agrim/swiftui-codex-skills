@@ -1,0 +1,4 @@
+interface:
+  display_name: "Apple App Store Readiness"
+  short_description: "Prepare review-ready App Store releases."
+  default_prompt: "Use $apple-app-store-readiness to audit this app and its App Store submission for release readiness."
