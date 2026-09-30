@@ -8,6 +8,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
@@ -24,7 +25,7 @@ class FrontmatterTests(unittest.TestCase):
 
     def test_duplicate_key_rejected(self):
         with self.assertRaisesRegex(ValueError, "duplicate"):
-            skilllib.frontmatter('---\nname: one\nname: two\ndescription: x\n---\n')
+            skilllib.frontmatter('---\nname: one\nname: two\ndescription: "x"\n---\n')
 
     def test_missing_description_rejected(self):
         with self.assertRaises(ValueError):
@@ -35,15 +36,20 @@ class FrontmatterTests(unittest.TestCase):
             skilllib.frontmatter('---\nname: example\ndescription: |\n  text\n---\n')
 
     def test_unknown_key_rejected(self):
-        with self.assertRaises(ValueError):
-            skilllib.frontmatter('---\nname: example\ndescription: text\nallowed-tools: shell\n---\n')
+        with self.assertRaisesRegex(ValueError, "unsupported"):
+            skilllib.frontmatter('---\nname: example\ndescription: "text"\nallowed-tools: shell\n---\n')
 
     def test_crlf_supported(self):
-        self.assertEqual(skilllib.frontmatter('---\r\nname: example\r\ndescription: text\r\n---\r\n')["name"], "example")
+        self.assertEqual(skilllib.frontmatter('---\r\nname: example\r\ndescription: "text"\r\n---\r\n')["name"], "example")
 
     def test_ambiguous_plain_scalar_rejected(self):
         with self.assertRaises(ValueError):
-            skilllib.frontmatter('---\nname: example\ndescription: this: that\n---\n')
+            skilllib.frontmatter('---\nname: this: that\ndescription: "text"\n---\n')
+
+    def test_description_requires_json_quotes(self):
+        for scalar in ("plain text", "'single quoted'", "|", "true"):
+            with self.subTest(scalar=scalar), self.assertRaisesRegex(ValueError, "description must be a JSON-quoted"):
+                skilllib.frontmatter(f"---\nname: example\ndescription: {scalar}\n---\n")
 
 
 class CatalogTests(unittest.TestCase):
@@ -56,6 +62,56 @@ class CatalogTests(unittest.TestCase):
     def test_repository_valid_without_vendor_metadata(self):
         for path in self.root.glob("skills/*/agents"):
             shutil.rmtree(path)
+        self.assertEqual(validate_skills.validate(self.root), [])
+
+    def test_unquoted_description_rejected_with_matching_catalog(self):
+        item = skilllib.catalog(self.root)["skills"][0]
+        path = self.root / "skills" / item["id"] / "SKILL.md"
+        original = path.read_text()
+        quoted = "description: " + json.dumps(item["summary"])
+        self.assertIn(quoted, original)
+        path.write_text(original.replace(quoted, "description: " + item["summary"], 1))
+        self.assertTrue(any("description must be a JSON-quoted" in e for e in validate_skills.validate(self.root)))
+
+    def test_hygiene_scans_text_regardless_of_suffix(self):
+        credential = "github_" + "pat_" + "A" * 24
+        machine_path = "/" + "Users/example/private-file"
+        for filename in ("probe.txt", "probe.plist", "probe.sh", "probe", "probe.unknown", "probe.py"):
+            path = self.root / filename
+            for content, label in ((credential, "possible credential"), (machine_path, "local-machine path")):
+                with self.subTest(filename=filename, label=label):
+                    path.write_text(content)
+                    self.assertEqual(validate_skills.validate(self.root), [f"{filename}: {label}; content redacted"])
+                    path.unlink()
+
+    def test_hygiene_accepts_clean_text_and_binary_assets(self):
+        for filename, content in (("clean.txt", b"ordinary text"), ("image.bin", b"\x00\xff"),
+                                  ("nul.bin", b"ascii\x00data"), ("encoded.bin", b"\xff")):
+            (self.root / filename).write_bytes(content)
+        self.assertEqual(validate_skills.validate(self.root), [])
+
+    def test_hygiene_rejects_malformed_source_text(self):
+        path = self.root / "malformed.py"
+        for content in (b"\xff", b"text\x00data"):
+            with self.subTest(content=content):
+                path.write_bytes(content)
+                self.assertEqual(validate_skills.validate(self.root), ["malformed.py: cannot read UTF-8 text"])
+
+    def test_hygiene_reports_read_failure_without_content(self):
+        path = (self.root / "unreadable.txt").resolve()
+        path.write_text("ordinary text")
+        read_bytes = Path.read_bytes
+
+        def read(candidate):
+            if candidate == path:
+                raise PermissionError("private exception details")
+            return read_bytes(candidate)
+
+        with patch.object(Path, "read_bytes", read):
+            self.assertEqual(validate_skills.validate(self.root), ["unreadable.txt: cannot read file"])
+
+    def test_hygiene_excludes_worktree_git_metadata(self):
+        (self.root / ".git").write_text("gitdir: /" + "Users/example/private-repository")
         self.assertEqual(validate_skills.validate(self.root), [])
 
     def test_duplicate_json_key_rejected(self):

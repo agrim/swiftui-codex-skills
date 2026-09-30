@@ -63,6 +63,9 @@ def iter_files(root: Path) -> Iterator[Path]:
         base = Path(directory)
         dirs[:] = sorted(d for d in dirs if d not in IGNORED and not (base / d).is_symlink())
         for name in sorted(names):
+            # Linked worktrees store their private Git pointer as a file.
+            if name == ".git":
+                continue
             path = base / name
             if not path.is_symlink() and path.is_file():
                 yield path
@@ -85,6 +88,8 @@ def frontmatter(text: str) -> dict[str, str]:
             raise ValueError(f"duplicate frontmatter key: {key}")
         if key not in {"name", "description"}:
             raise ValueError(f"unsupported frontmatter key: {key}")
+        if key == "description" and not raw.startswith('"'):
+            raise ValueError("description must be a JSON-quoted single-line string")
         if raw.startswith('"'):
             try:
                 value = json.loads(raw)

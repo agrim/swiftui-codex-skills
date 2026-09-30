@@ -79,6 +79,8 @@ swift test --package-path examples/SkillExamples
 
 The validator checks metadata, budgets, rule IDs, catalog/source consistency, local file links, portability, generated documentation, and selected public-hygiene risks. It accepts a documented scalar frontmatter profile, not arbitrary YAML. Optional `agents/openai.yaml` files are neither required nor interpreted by the core validator.
 
+Hygiene checks scan UTF-8 text without NUL bytes regardless of filename, including extensionless files. Binary and other encoded assets are outside these pattern checks. Unreadable files fail validation, as do malformed Markdown, JSON, Python, YAML, Swift, and TOML files. Diagnostics redact matched content. Git metadata, symlinks, and ignored build/dependency directories remain excluded.
+
 The scanner is **advisory lexical triage**, not an AST, compiler, accessibility audit, secret scanner replacement, or HIG certification. It ignores comments and strings for Swift code hints, distinguishes informational review prompts from warnings/errors, and never prints matched secret content. By default only error-level findings fail the command. Use `--fail-on warning` or `--fail-on info` deliberately. Skipped files and known blind spots are reported.
 
 For a plan-first CLI build loop, see [build workflows](docs/build-workflows.md). The helper preserves raw logs and process failures; it does not certify an app or silently install tooling. [The verification matrix](docs/verification-matrix.md) separates implemented checks from remaining runtime and agent evaluations.
