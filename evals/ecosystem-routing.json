@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "purpose": "Deterministic routing fixtures only; not model effectiveness evaluations.",
+  "cases": [
+    {
+      "query": "Review Swift API design and dependency injection",
+      "expected": "swift-language"
+    },
+    {
+      "query": "Explain FormatStyle for localized measures",
+      "expected": "swift-language"
+    },
+    {
+      "query": "Set up a Makefile build workflow",
+      "expected": "apple-build-workflows"
+    },
+    {
+      "query": "Choose the xcodebuild scheme for build and run",
+      "expected": "apple-build-workflows"
+    },
+    {
+      "query": "Measure an incremental build benchmark",
+      "expected": "xcode-build-optimization"
+    },
+    {
+      "query": "Investigate SPM build analysis and compile hotspot",
+      "expected": "xcode-build-optimization"
+    },
+    {
+      "query": "Fix SwiftData predicate and FetchDescriptor",
+      "expected": "swiftdata"
+    },
+    {
+      "query": "Plan a SwiftData migration with VersionedSchema",
+      "expected": "swiftdata"
+    },
+    {
+      "query": "Debug Core Data threading with NSManagedObject",
+      "expected": "core-data"
+    },
+    {
+      "query": "Reconcile persistent history after NSBatchDeleteRequest",
+      "expected": "core-data"
+    },
+    {
+      "query": "Expose AppEntity with EntityQuery",
+      "expected": "apple-app-intents"
+    },
+    {
+      "query": "Test intent authentication and app shortcuts",
+      "expected": "apple-app-intents"
+    },
+    {
+      "query": "Investigate a memgraph leak diagnosis",
+      "expected": "apple-observability"
+    },
+    {
+      "query": "Correlate signpost with xctrace",
+      "expected": "apple-observability"
+    },
+    {
+      "query": "Make an expiration handler for BGProcessingTask",
+      "expected": "apple-background-execution"
+    },
+    {
+      "query": "Design background transfer recovery",
+      "expected": "apple-background-execution"
+    },
+    {
+      "query": "Audit deep link validation and untrusted input",
+      "expected": "apple-security"
+    },
+    {
+      "query": "Review keychain storage and transport security",
+      "expected": "apple-security"
+    }
+  ]
+}

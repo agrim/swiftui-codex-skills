@@ -36,3 +36,5 @@ Return prioritized barriers, exact controls, corrections, and tested settings/jo
 ## References
 
 Read the [playbook](references/accessibility-patterns.md) for decisions, failure cases, and source links.
+
+For assistive journeys and localized content, read the [focused reference](references/assistive-and-localized-flows.md).

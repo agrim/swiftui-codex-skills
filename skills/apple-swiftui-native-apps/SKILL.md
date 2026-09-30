@@ -36,3 +36,5 @@ Return the change or finding, exact files/symbols, rationale, verification perfo
 ## References
 
 Read the [playbook](references/correction-patterns.md) for decisions, failure cases, and source links.
+
+For review and modernization decisions, read the [focused reference](references/review-and-modernization.md).

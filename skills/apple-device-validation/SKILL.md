@@ -36,3 +36,5 @@ Return a compact evidence matrix with pass/fail/blocked/not-run, exact candidate
 ## References
 
 Read the [playbook](references/device-validation-patterns.md) for decisions, failure cases, and source links. For a whole-app review or batch feedback, use the [screen review workflow](references/screen-review.md).
+
+For debugger, simulator, and evidence integrity, read the [focused reference](references/debugger-and-simulator-evidence.md).

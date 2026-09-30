@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased — 2.1 ecosystem integration
+
+Expands twenty existing skills with focused references and adds nine specialists, preserving current IDs, evidence workflows, installation tracking, and evaluation records. The catalog contains 29 skills and 145 stable rules. Build optimization has separate orchestration, benchmarking, compiler, project, package, and verification tracks.
+
+Adds a review-provenance ledger with explicit article-access limits, current plugin members, exact read-file blob receipts, gated resources, and one-level directory discoveries. Community provenance stays separate from primary Apple/Swift authority. No third-party skill bodies, scripts, paid resources, or license terms are copied.
+
+Adds a plan-first standard-library build/test helper, failure-preserving result capture, descriptive benchmark summaries, an optional Makefile, provenance/routing tests, and a narrow Swift deep-link parser with negative cases. CI checks provenance and packages the exact tracked source candidate for reproducible inspection. Mechanical test results do not establish model effectiveness, app build-speed gains, or physical-device behavior.
+
 ## Unreleased — evidence workflows and installation tracking
 
 Adds a screen/state review inventory with capture-specific feedback, current evidence and authorization reconciliation, repeated-surface/theme guidance, and planned/observed/confirmed value boundaries. Keeps existing skill identifiers and moves the detail into optional playbooks. Replaces generic catalog limits with module-specific boundaries and distinguishes platform applicability from execution evidence. Reviews the relevant Apple HIG color guidance and records that limited scope.

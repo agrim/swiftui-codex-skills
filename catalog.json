@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "version": "2.0.0",
+  "version": "2.1.0",
   "entrypoint": "apple-swiftui-native-apps",
   "skills": [
     {
@@ -22,13 +22,15 @@
         "visionOS"
       ],
       "references": [
-        "references/correction-patterns.md"
+        "references/correction-patterns.md",
+        "references/review-and-modernization.md"
       ],
       "sources": [
         "swiftui",
         "design",
         "button",
-        "accessibility"
+        "accessibility",
+        "api-design"
       ],
       "coverage": "practical",
       "limits": "Task scoping and native semantics across Apple platforms; this entry point is not an exhaustive API or HIG index."
@@ -56,12 +58,14 @@
         "visionOS"
       ],
       "references": [
-        "references/state-patterns.md"
+        "references/state-patterns.md",
+        "references/observation-and-bindings.md"
       ],
       "sources": [
         "observation",
         "model-data",
-        "navigation"
+        "navigation",
+        "api-design"
       ],
       "coverage": "practical",
       "limits": "Ownership and identity patterns; executable core and selected SwiftUI examples do not cover every platform observation lifecycle."
@@ -90,7 +94,8 @@
         "visionOS"
       ],
       "references": [
-        "references/concurrency-patterns.md"
+        "references/concurrency-patterns.md",
+        "references/streams-and-migration.md"
       ],
       "sources": [
         "concurrency",
@@ -123,7 +128,8 @@
         "visionOS"
       ],
       "references": [
-        "references/navigation-patterns.md"
+        "references/navigation-patterns.md",
+        "references/routing-and-restoration.md"
       ],
       "sources": [
         "navigation",
@@ -158,7 +164,8 @@
         "visionOS"
       ],
       "references": [
-        "references/layout-patterns.md"
+        "references/layout-patterns.md",
+        "references/layout-and-scroll-edge-cases.md"
       ],
       "sources": [
         "layout",
@@ -192,7 +199,8 @@
         "visionOS"
       ],
       "references": [
-        "references/control-patterns.md"
+        "references/control-patterns.md",
+        "references/focus-and-form-contracts.md"
       ],
       "sources": [
         "button",
@@ -226,7 +234,8 @@
         "visionOS"
       ],
       "references": [
-        "references/accessibility-patterns.md"
+        "references/accessibility-patterns.md",
+        "references/assistive-and-localized-flows.md"
       ],
       "sources": [
         "accessibility",
@@ -263,7 +272,8 @@
         "visionOS"
       ],
       "references": [
-        "references/design-patterns.md"
+        "references/design-patterns.md",
+        "references/glass-charts-and-motion.md"
       ],
       "sources": [
         "design",
@@ -302,7 +312,8 @@
         "visionOS"
       ],
       "references": [
-        "references/persistence-patterns.md"
+        "references/persistence-patterns.md",
+        "references/store-selection-and-recovery.md"
       ],
       "sources": [
         "model-context",
@@ -337,13 +348,15 @@
         "visionOS"
       ],
       "references": [
-        "references/networking-patterns.md"
+        "references/networking-patterns.md",
+        "references/transport-and-cache-boundaries.md"
       ],
       "sources": [
         "urlsession",
         "keychain",
         "concurrency",
-        "privacy"
+        "privacy",
+        "app-transport"
       ],
       "coverage": "practical",
       "limits": "Client response, retry, identity, and cache contracts; not a backend implementation or production delivery guarantee."
@@ -370,13 +383,15 @@
         "visionOS"
       ],
       "references": [
-        "references/testing-patterns.md"
+        "references/testing-patterns.md",
+        "references/async-and-migration-tests.md"
       ],
       "sources": [
         "testing",
         "test-parallel",
         "ui-audit",
-        "xcode"
+        "xcode",
+        "task-cancellation"
       ],
       "coverage": "practical",
       "limits": "Test design and evidence classification; example tests and evaluation contracts are distinct from completed agent evaluations."
@@ -405,7 +420,8 @@
         "visionOS"
       ],
       "references": [
-        "references/platform-patterns.md"
+        "references/platform-patterns.md",
+        "references/scenes-and-focus.md"
       ],
       "sources": [
         "ios",
@@ -443,7 +459,8 @@
         "visionOS"
       ],
       "references": [
-        "references/interop-patterns.md"
+        "references/interop-patterns.md",
+        "references/representable-lifecycle.md"
       ],
       "sources": [
         "uikit",
@@ -480,7 +497,8 @@
         "visionOS"
       ],
       "references": [
-        "references/system-patterns.md"
+        "references/system-patterns.md",
+        "references/system-surface-contracts.md"
       ],
       "sources": [
         "widgets",
@@ -522,12 +540,14 @@
         "visionOS"
       ],
       "references": [
-        "references/project-governance-patterns.md"
+        "references/project-governance-patterns.md",
+        "references/build-and-generated-inputs.md"
       ],
       "sources": [
         "xcode",
         "distribution",
-        "privacy"
+        "privacy",
+        "build-speed"
       ],
       "coverage": "practical",
       "limits": "Project ownership and artifact inspection; signing, capabilities, and generated state must be checked for the actual product graph."
@@ -555,7 +575,8 @@
         "visionOS"
       ],
       "references": [
-        "references/privacy-system-patterns.md"
+        "references/privacy-system-patterns.md",
+        "references/integration-data-inventory.md"
       ],
       "sources": [
         "privacy",
@@ -594,13 +615,15 @@
         "visionOS"
       ],
       "references": [
-        "references/performance-cleanup-patterns.md"
+        "references/performance-cleanup-patterns.md",
+        "references/trace-led-performance.md"
       ],
       "sources": [
         "performance",
         "rendering",
         "concurrency",
-        "model-context"
+        "model-context",
+        "logger"
       ],
       "coverage": "practical",
       "limits": "Measurement and behavior-preserving cleanup workflows; no speed, energy, or memory improvement is implied without a comparable workload."
@@ -631,7 +654,8 @@
       ],
       "references": [
         "references/device-validation-patterns.md",
-        "references/screen-review.md"
+        "references/screen-review.md",
+        "references/debugger-and-simulator-evidence.md"
       ],
       "sources": [
         "xcode",
@@ -665,7 +689,8 @@
         "visionOS"
       ],
       "references": [
-        "references/app-store-readiness-patterns.md"
+        "references/app-store-readiness-patterns.md",
+        "references/review-and-release-ledger.md"
       ],
       "sources": [
         "review",
@@ -694,7 +719,8 @@
         "macOS"
       ],
       "references": [
-        "references/macos-productization-patterns.md"
+        "references/macos-productization-patterns.md",
+        "references/distribution-reproducibility.md"
       ],
       "sources": [
         "notarization",
@@ -706,6 +732,313 @@
       ],
       "coverage": "practical",
       "limits": "macOS distribution and trust workflow; local compilation does not establish notarization or downloaded-install behavior."
+    },
+    {
+      "id": "swift-language",
+      "title": "Swift API design and dependency boundaries",
+      "summary": "Write or review Swift APIs, value models, dependency injection, error contracts, access control, formatting, and language-version migrations without imposing an app architecture.",
+      "triggers": [
+        "swift api design",
+        "dependency injection",
+        "value semantics",
+        "error contract",
+        "formatstyle",
+        "swift language",
+        "protocol boundary"
+      ],
+      "platforms": [
+        "iOS",
+        "iPadOS",
+        "macOS",
+        "watchOS",
+        "tvOS",
+        "visionOS"
+      ],
+      "references": [
+        "references/api-and-dependencies.md"
+      ],
+      "sources": [
+        "api-design",
+        "concurrency",
+        "localization"
+      ],
+      "coverage": "practical",
+      "limits": "API design and dependency-boundary guidance; not a complete Swift language manual or a mandatory architecture."
+    },
+    {
+      "id": "apple-build-workflows",
+      "title": "Reproducible Apple build and debug workflows",
+      "summary": "Create or repair reproducible Xcode and SwiftPM build, test, debug, and simulator workflows with explicit destinations, raw logs, safe tooling, and truthful evidence.",
+      "triggers": [
+        "build workflow",
+        "build and run",
+        "xcodebuild",
+        "makefile",
+        "xcode debugger",
+        "build bootstrap",
+        "buildable folders"
+      ],
+      "platforms": [
+        "iOS",
+        "iPadOS",
+        "macOS",
+        "watchOS",
+        "tvOS",
+        "visionOS"
+      ],
+      "references": [
+        "references/bootstrap-and-cli.md"
+      ],
+      "sources": [
+        "xcode",
+        "build-speed",
+        "distribution"
+      ],
+      "coverage": "practical",
+      "limits": "Reproducible build/test plans with a tested command wrapper; actual schemes, destinations, signing, and debugger behavior require Xcode execution."
+    },
+    {
+      "id": "xcode-build-optimization",
+      "title": "Evidence-based Xcode build optimization",
+      "summary": "Benchmark and improve Xcode clean, no-change, and edit-build latency; analyze compiler hotspots, script phases, target graphs, SwiftPM plugins, and measured rollback decisions.",
+      "triggers": [
+        "xcode build optimization",
+        "slow builds",
+        "build time",
+        "incremental build",
+        "compile hotspot",
+        "spm build analysis",
+        "build benchmark",
+        "type checking performance"
+      ],
+      "platforms": [
+        "iOS",
+        "iPadOS",
+        "macOS",
+        "watchOS",
+        "tvOS",
+        "visionOS"
+      ],
+      "references": [
+        "references/orchestration.md",
+        "references/benchmarking.md",
+        "references/compiler.md",
+        "references/project.md",
+        "references/packages.md",
+        "references/verification.md"
+      ],
+      "sources": [
+        "build-speed",
+        "build-coding",
+        "xcode"
+      ],
+      "coverage": "practical",
+      "limits": "Six diagnostic and measurement tracks with descriptive statistics; no project-specific speedup or critical path is inferred automatically."
+    },
+    {
+      "id": "swiftdata",
+      "title": "SwiftData schemas, queries, and migrations",
+      "summary": "Design and repair SwiftData models, relationships, predicates, contexts, disk-backed migrations, indexes, history, and CloudKit-compatible schema evolution.",
+      "triggers": [
+        "swiftdata schema",
+        "swiftdata predicate",
+        "swiftdata migration",
+        "swiftdata cloudkit",
+        "versionedschema",
+        "schemamigrationplan",
+        "fetchdescriptor",
+        "modelactor"
+      ],
+      "platforms": [
+        "iOS",
+        "iPadOS",
+        "macOS",
+        "watchOS",
+        "tvOS",
+        "visionOS"
+      ],
+      "references": [
+        "references/models-and-queries.md",
+        "references/migration-and-sync.md"
+      ],
+      "sources": [
+        "model-context",
+        "model-container",
+        "swiftdata-migration",
+        "swiftdata-sync",
+        "swiftdata-autosave",
+        "swiftdata-rollback"
+      ],
+      "coverage": "practical",
+      "limits": "Schema, query, context, and migration guidance; existing in-memory examples do not establish disk upgrades, history processing, or CloudKit convergence."
+    },
+    {
+      "id": "core-data",
+      "title": "Core Data confinement, history, and migration",
+      "summary": "Diagnose Core Data contexts, managed object identity, fetches, batch changes, persistent history, SQLite migrations, merge policies, and CloudKit mirroring.",
+      "triggers": [
+        "core data threading",
+        "core data migration",
+        "persistent history",
+        "nsmanagedobject",
+        "nsbatchdeleterequest",
+        "nspersistentcontainer",
+        "nsfetchedresultscontroller"
+      ],
+      "platforms": [
+        "iOS",
+        "iPadOS",
+        "macOS",
+        "watchOS",
+        "tvOS",
+        "visionOS"
+      ],
+      "references": [
+        "references/contexts-and-history.md",
+        "references/migration-and-fetches.md"
+      ],
+      "sources": [
+        "coredata-confinement",
+        "coredata-batch",
+        "coredata-history",
+        "cloudkit"
+      ],
+      "coverage": "practical",
+      "limits": "Context, batch, history, and migration decision guidance; this revision adds no executable Core Data migration or mirroring fixture."
+    },
+    {
+      "id": "apple-app-intents",
+      "title": "App Intents, entities, and system actions",
+      "summary": "Implement App Intents, App Entities, entity queries, App Shortcuts, and system actions with shared commands, authorization, process isolation, and runtime registration evidence.",
+      "triggers": [
+        "appintent",
+        "appentity",
+        "entityquery",
+        "app shortcuts",
+        "siri action",
+        "intent authentication",
+        "intent registration"
+      ],
+      "platforms": [
+        "iOS",
+        "iPadOS",
+        "macOS",
+        "watchOS",
+        "tvOS",
+        "visionOS"
+      ],
+      "references": [
+        "references/entities-and-actions.md"
+      ],
+      "sources": [
+        "app-intent",
+        "intent-entity",
+        "intent-query",
+        "intent-auth",
+        "privacy"
+      ],
+      "coverage": "practical",
+      "limits": "Entity, authorization, and invocation contracts; system registration, discoverability, and actual Siri/Shortcuts execution remain destination-specific."
+    },
+    {
+      "id": "apple-observability",
+      "title": "Privacy-safe logs and performance diagnostics",
+      "summary": "Instrument and diagnose Apple apps using unified logging, signposts, Instruments traces, crash symbolication, memory graphs, and reproducible evidence without leaking user data.",
+      "triggers": [
+        "unified logging",
+        "logger",
+        "signpost",
+        "xctrace",
+        "memgraph",
+        "crash symbolication",
+        "hang diagnosis",
+        "leak diagnosis"
+      ],
+      "platforms": [
+        "iOS",
+        "iPadOS",
+        "macOS",
+        "watchOS",
+        "tvOS",
+        "visionOS"
+      ],
+      "references": [
+        "references/logging-and-traces.md",
+        "references/memory-and-crashes.md"
+      ],
+      "sources": [
+        "logger",
+        "performance",
+        "rendering",
+        "concurrency"
+      ],
+      "coverage": "practical",
+      "limits": "Privacy-safe diagnostic workflows; no captured trace, symbolication result, or leak-free claim is supplied by the guidance alone."
+    },
+    {
+      "id": "apple-background-execution",
+      "title": "Background execution and resumable work",
+      "summary": "Design Apple background refresh, processing, background transfers, and expiration-safe work with durable progress, bounded execution, and truthful scheduling state.",
+      "triggers": [
+        "background execution",
+        "bgprocessingtask",
+        "bgapprefreshtask",
+        "background transfer",
+        "expiration handler",
+        "background task scheduler"
+      ],
+      "platforms": [
+        "iOS",
+        "iPadOS",
+        "macOS",
+        "watchOS",
+        "tvOS",
+        "visionOS"
+      ],
+      "references": [
+        "references/lifetimes-and-recovery.md"
+      ],
+      "sources": [
+        "backgroundtasks",
+        "urlsession",
+        "privacy",
+        "task-cancellation"
+      ],
+      "coverage": "practical",
+      "limits": "Expiration and recovery contracts across applicable mechanisms; no exact scheduling guarantee or live background-delivery proof."
+    },
+    {
+      "id": "apple-security",
+      "title": "Apple app trust boundaries and secure data",
+      "summary": "Review Apple app credentials, Keychain use, transport trust, deep links, untrusted input, sandbox boundaries, dependencies, and secure failure handling.",
+      "triggers": [
+        "security audit",
+        "keychain storage",
+        "transport security",
+        "untrusted input",
+        "deep link validation",
+        "secret handling",
+        "sandbox boundary"
+      ],
+      "platforms": [
+        "iOS",
+        "iPadOS",
+        "macOS",
+        "watchOS",
+        "tvOS",
+        "visionOS"
+      ],
+      "references": [
+        "references/trust-and-input.md"
+      ],
+      "sources": [
+        "keychain",
+        "app-transport",
+        "privacy",
+        "app-intent"
+      ],
+      "coverage": "practical",
+      "limits": "Trust-boundary guidance and a narrow tested route parser; parsing does not authorize access or replace a full application security review."
     }
   ]
 }

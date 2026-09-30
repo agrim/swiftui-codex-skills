@@ -36,3 +36,5 @@ Return the chosen control semantics, state/commit contract, and interaction chec
 ## References
 
 Read the [playbook](references/control-patterns.md) for decisions, failure cases, and source links.
+
+For focus, forms, and editable control contracts, read the [focused reference](references/focus-and-form-contracts.md).

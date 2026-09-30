@@ -36,3 +36,5 @@ Return the route/presentation model, ownership boundaries, fallback behavior, an
 ## References
 
 Read the [playbook](references/navigation-patterns.md) for decisions, failure cases, and source links.
+
+For deep links, restoration, and presentation identity, read the [focused reference](references/routing-and-restoration.md).

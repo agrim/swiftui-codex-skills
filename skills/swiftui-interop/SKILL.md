@@ -36,3 +36,5 @@ Return the bridge contract, lifecycle map, reason native SwiftUI was insufficien
 ## References
 
 Read the [playbook](references/interop-patterns.md) for decisions, failure cases, and source links.
+
+For representable updates and teardown, read the [focused reference](references/representable-lifecycle.md).

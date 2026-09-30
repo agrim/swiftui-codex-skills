@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "project": "MyApp.xcodeproj",
+  "scheme": "MyApp",
+  "configuration": "Debug",
+  "destination": "generic/platform=iOS Simulator"
+}

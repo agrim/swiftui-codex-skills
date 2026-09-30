@@ -36,3 +36,5 @@ Return the design rationale, reusable component boundaries, version fallback, an
 ## References
 
 Read the [playbook](references/design-patterns.md) for decisions, failure cases, and source links.
+
+For glass, charts, and motion as semantic components, read the [focused reference](references/glass-charts-and-motion.md).

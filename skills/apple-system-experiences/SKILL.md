@@ -36,3 +36,5 @@ Return the boundary diagram, integration-specific guarantees, privacy/project ch
 ## References
 
 Read the [playbook](references/system-patterns.md) for decisions, failure cases, and source links.
+
+For system surfaces and framework-specific contracts, read the [focused reference](references/system-surface-contracts.md).

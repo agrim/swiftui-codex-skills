@@ -36,3 +36,5 @@ Report the owning files, affected products, generated changes, exact build conte
 ## References
 
 Read the [playbook](references/project-governance-patterns.md) for decisions, failure cases, and source links.
+
+For generated inputs, toolchains, and target membership, read the [focused reference](references/build-and-generated-inputs.md).

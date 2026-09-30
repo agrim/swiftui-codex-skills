@@ -36,3 +36,5 @@ Return the data-flow contract, permission behavior, required artifacts, tested f
 ## References
 
 Read the [playbook](references/privacy-system-patterns.md) for decisions, failure cases, and source links.
+
+For data inventory across tools and system surfaces, read the [focused reference](references/integration-data-inventory.md).

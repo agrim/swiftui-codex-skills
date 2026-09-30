@@ -36,3 +36,5 @@ Return the test matrix, results, artifact locations, and explicitly untested cla
 ## References
 
 Read the [playbook](references/testing-patterns.md) for decisions, failure cases, and source links.
+
+For async tests, parameterization, and framework coexistence, read the [focused reference](references/async-and-migration-tests.md).

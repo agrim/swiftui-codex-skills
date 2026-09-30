@@ -1,0 +1,19 @@
+# Optional template. Set these explicit paths in a local, reviewed wrapper.
+# Treat Make variables as trusted configuration, not untrusted input.
+.DEFAULT_GOAL := plan
+PYTHON ?= python3
+
+.PHONY: check-config plan build test
+check-config:
+	@test -n "$(SKILLS_ROOT)" && test -n "$(APP_ROOT)" && test -n "$(BUILD_CONFIG)" || { echo "Set SKILLS_ROOT, APP_ROOT, and BUILD_CONFIG" >&2; exit 2; }
+
+plan: check-config
+	"$(PYTHON)" "$(SKILLS_ROOT)/scripts/apple_build.py" plan --root "$(APP_ROOT)" --config "$(BUILD_CONFIG)"
+
+build: check-config
+	@test -n "$(RUN_OUTPUT)" || { echo "Set a fresh RUN_OUTPUT directory" >&2; exit 2; }
+	"$(PYTHON)" "$(SKILLS_ROOT)/scripts/apple_build.py" run --root "$(APP_ROOT)" --config "$(BUILD_CONFIG)" --output "$(RUN_OUTPUT)" --execute
+
+test: check-config
+	@test -n "$(RUN_OUTPUT)" || { echo "Set a fresh RUN_OUTPUT directory" >&2; exit 2; }
+	"$(PYTHON)" "$(SKILLS_ROOT)/scripts/apple_build.py" run --root "$(APP_ROOT)" --config "$(BUILD_CONFIG)" --action test --output "$(RUN_OUTPUT)" --execute

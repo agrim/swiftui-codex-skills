@@ -26,11 +26,16 @@ Add precise Apple or Swift primary sources to `sources.json` and the skill's cat
 
 For new or beta APIs, distinguish SDK version, language mode, deployment minimum, runtime availability, and fallback behavior. Preserve older supported targets unless changing them is explicitly part of the work. Recheck legal/store/privacy-sensitive requirements at use time rather than freezing an unconditional rule.
 
+## Upstream integration
+
+Record community and plugin provenance separately in `upstreams.json`; keep platform authority in `sources.json`. State the exact read file, blob receipt, scope, and local mapping. Directory discovery, landing-page access, and entry-point review are different statuses. Do not turn a review into permission to copy third-party code. Inspect license terms and preserve notices before any future vendoring. Regenerate `docs/ecosystem.md` with `python3 scripts/upstream_audit.py --write`.
+
 ## Checks and evaluation
 
 ```bash
 python3 scripts/skillctl.py docs
 python3 scripts/validate_skills.py .
+python3 scripts/upstream_audit.py --check
 python3 -m unittest discover -s tests -v
 swift test --package-path examples/SkillExamples
 ```

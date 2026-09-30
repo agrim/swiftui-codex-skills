@@ -36,3 +36,5 @@ Return the client/state contract, security and retry decisions, deterministic te
 ## References
 
 Read the [playbook](references/networking-patterns.md) for decisions, failure cases, and source links.
+
+For transport, pagination, images, and cache identity, read the [focused reference](references/transport-and-cache-boundaries.md).
