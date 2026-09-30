@@ -18,6 +18,7 @@ LOCAL_PATH = re.compile("/" + "Users" + r"/[A-Za-z0-9._-]+|/(?:private/)?" + "va
 VENDOR_CORE = re.compile(r"\b(?:Codex|ChatGPT|Claude|OpenAI|XcodeBuildMCP|CODEX_HOME)\b|\$[a-z]+-[a-z-]+", re.I)
 MAX_ENTRY_WORDS = 650
 MAX_REFERENCE_WORDS = 1800
+TEXT_SUFFIXES = {".md", ".json", ".py", ".yaml", ".yml", ".swift", ".toml"}
 
 
 def validate(root: Path, check_generated: bool = True) -> list[str]:
@@ -147,13 +148,21 @@ def validate(root: Path, check_generated: bool = True) -> list[str]:
     if actual_ids != ids:
         errors.append("catalog.json: published skill directories and catalog differ")
     for path in iter_files(root):
-        if path.suffix not in {".md", ".json", ".py", ".yaml", ".yml", ".swift", ".toml"}:
-            continue
         relative = str(path.relative_to(root))
         try:
-            text = path.read_text(encoding="utf-8")
-        except (OSError, UnicodeError):
-            errors.append(f"{relative}: cannot read UTF-8 text")
+            raw = path.read_bytes()
+        except OSError:
+            errors.append(f"{relative}: cannot read file")
+            continue
+        try:
+            text = raw.decode("utf-8")
+        except UnicodeError:
+            text = None
+        if text is None or "\x00" in text:
+            # Source formats must remain readable. Other binary/encoded assets
+            # are outside these UTF-8 pattern checks, regardless of filename.
+            if path.suffix in TEXT_SUFFIXES:
+                errors.append(f"{relative}: cannot read UTF-8 text")
             continue
         for label, pattern in (("possible credential", SECRET), ("local-machine path", LOCAL_PATH)):
             if pattern.search(text):
