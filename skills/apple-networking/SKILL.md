@@ -21,7 +21,7 @@ Identify endpoint and trust boundaries, HTTP contract, authentication owner, dat
 
 1. Put network behavior behind a small injectable client boundary.
 2. Map transport/HTTP/decoding/domain errors into actionable feature states.
-3. Implement cancellation and latest-request checks at the publication boundary.
+3. Identify which consumer owns each request. For a shared image download, track each consumer separately so a disappearing row can leave while a detail view keeps loading. Check request identity before publishing or clearing in-flight work.
 4. Define cache key, freshness, account scope, invalidation, and eviction.
 5. Test controlled responses and real integration separately.
 
@@ -37,4 +37,4 @@ Return the client/state contract, security and retry decisions, deterministic te
 
 Read the [playbook](references/networking-patterns.md) for decisions, failure cases, and source links.
 
-For transport, pagination, images, and cache identity, read the [focused reference](references/transport-and-cache-boundaries.md).
+For transport, pagination, cache identity, and cancellation of shared image downloads, read the [focused reference](references/transport-and-cache-boundaries.md).

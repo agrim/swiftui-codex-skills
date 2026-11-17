@@ -1,6 +1,6 @@
 ---
 name: swiftui-accessibility
-description: "Audit or implement VoiceOver, Dynamic Type, accessible controls, contrast, Reduce Motion, keyboard access, localization, and right-to-left SwiftUI behavior."
+description: "Audit or implement VoiceOver, Voice Control, Dynamic Type, accessible controls, contrast, Reduce Motion, keyboard access, localization, and right-to-left SwiftUI behavior."
 ---
 
 # Accessibility and localization
@@ -21,7 +21,7 @@ Identify the core user journeys, supported platforms/input methods, content mean
 
 1. Inspect the accessibility tree and complete the core journey with an assistive technology.
 2. Correct semantics before adding hints or traits indiscriminately.
-3. Reflow at accessibility text sizes and verify nonvisual state changes.
+3. Reflow at accessibility text sizes. Check that essential actions remain reachable and that users can identify them by their visible names with Voice Control where supported.
 4. Localize user-facing strings, pluralization, formatting, and directional layout.
 5. Record defects with affected users, reproduction, and validation evidence.
 
@@ -37,4 +37,4 @@ Return prioritized barriers, exact controls, corrections, and tested settings/jo
 
 Read the [playbook](references/accessibility-patterns.md) for decisions, failure cases, and source links.
 
-For assistive journeys and localized content, read the [focused reference](references/assistive-and-localized-flows.md).
+For a speech-only editing test, localized command names, and focus after updates, read [assistive journeys and localized content](references/assistive-and-localized-flows.md).

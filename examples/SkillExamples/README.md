@@ -12,10 +12,13 @@ Swift 6 package with no third-party dependencies. `SkillExamplesCore` uses Found
 | `NoteDraft` / `NoteRoute` | Value draft validation and stable route identity | On-disk persistence or navigation restoration |
 | `CountDraft` / `CountRecord` | Separate planned, estimated, confirmed, and projected counts; repeat creates a fresh draft | Sensor accuracy, localized number parsing, durable save, or export acknowledgement |
 | `DraftNoteStore` | Explicit local creation; isolated writer rollback on failure | CloudKit, migrations, crash recovery, general idempotency, or an asynchronous storage architecture |
+| `DiskMigrationTests` | V1 disk store upgraded to V2 with a renamed field, plus a V2 write read on a second open | Stores from a released app or earlier SDK, custom transformations, or CloudKit |
 
 `SearchIntegrationTests` start real tasks and use a controlled actor service with registration handshakes. They finish requests out of order and deliberately ignore cancellation in the fake service. No sleep establishes test ordering. The suite's time limit is only a deadlock watchdog. The UI and tests use the same model implementation, not duplicated algorithms. Keep the injected service stable for a view's identity; account replacement must invalidate the existing model and update the service/context ownership deliberately.
 
 `DraftNoteStoreTests` run against real SwiftData with a fresh in-memory container per test. They cover untouched/canceled value drafts, explicit save through a fresh context, validation failure, injected pre-save failure, preservation of unrelated main-context work, and retry after a proven pre-save failure. They do not claim a disk-full or partial-write simulation. Repeating a successful `create` intentionally creates another record; external operations need their own durable identity and reconciliation.
+
+`DiskMigrationTests` creates its own versioned schemas inside the test target. It writes two distinguishable rows to a new temporary V1 store, opens the same URL with the V2 migration plan, then verifies both original captions under the new property name. A third container checks that a V2 edit persisted and both rows survived. The test disables CloudKit and removes only the directory it created.
 
 The synchronous store is deliberately tiny. Do not put expensive storage work into a SwiftUI button callback merely because this example has a synchronous `create` method. Choose actor ownership and an asynchronous commit state for larger workloads. `titles()` is an unbounded teaching query, not a pagination strategy. A creation context isolated from the main context may also require deliberate UI query refresh/reconciliation in a real app.
 
@@ -28,6 +31,7 @@ The synchronous store is deliberately tiny. Do not put expensive storage work in
 ```bash
 swift test --package-path examples/SkillExamples
 swift test --package-path examples/SkillExamples --filter SearchIntegrationTests
+swift test --package-path examples/SkillExamples --filter DiskMigrationTests  # Apple SDK required
 swift build --package-path examples/SkillExamples --target SkillExamplesUI
 swift build --package-path examples/SkillExamples --target SkillExamplesPersistence
 ```

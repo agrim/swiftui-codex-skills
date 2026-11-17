@@ -18,7 +18,20 @@ All twenty original skill IDs remain. Each gains a focused optional reference; n
 | Krzysztof Zabłocki's public rules and related tools | Progressive loading, explicit dependencies, meaningful contracts, and source-owned generation; no prescribed architecture or course content copied |
 | Paul Solt's AppCreator | Publicly described build-loop idea implemented independently with an explicit JSON plan, raw logs, return codes, and an optional Makefile |
 
-The registry holds exact read-file blob hashes where available. These identify the fetched file bytes, not a complete repository audit or an immutable URL to the entire repository revision. Supporting files and tool implementations can have different coverage.
+The registry holds exact read-file blob hashes where available. New receipts include the commit and link directly to the file at that revision.
+
+## Failure cases from the wider review
+
+| Public example or skill | Local decision it helped clarify |
+| --- | --- |
+| Point-Free's identified collections and Paul Hudson's navigation review | Resolve a late save against the current record and edit. Check the visible Back history when direct-view and value links share a stack. |
+| Hudson's accessibility review and CVS Health's spoken-label examples | Carry a draft through a layout change, then invoke the relocated action by its localized visible title. |
+| Antoine van der Lee’s async sequence and testing references and the write-swift skill | Stage overflow before reading a stream. Join observer teardown and inject a late callback while the stream remains alive. |
+| Nuke's request-coalescing tests | Let one caller leave a shared download while another continues. Reject late callbacks after a same-key replacement. |
+| Dimillian’s performance audit | Inspect the CPU samples inside the hitch interval and check the same gesture after a change. |
+| Hudson's SwiftData rules and the SwiftData Expert migration reference | Open a store at the previous schema, match each renamed field to its business ID, save an edit, and reopen again. |
+
+The [provenance map](ecosystem.md) links the exact files inspected. The [primary-source registry](sources.md) records the Apple and Swift sources used to check the resulting platform guidance.
 
 ## Decisions deliberately not imported
 

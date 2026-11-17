@@ -47,7 +47,9 @@
         "binding",
         "view identity",
         "mvvm",
-        "environmentobject"
+        "environmentobject",
+        "wrong row",
+        "row identity"
       ],
       "platforms": [
         "iOS",
@@ -65,7 +67,9 @@
         "observation",
         "model-data",
         "navigation",
-        "api-design"
+        "api-design",
+        "identifiable",
+        "concurrency"
       ],
       "coverage": "practical",
       "limits": "Ownership and identity patterns; executable core and selected SwiftUI examples do not cover every platform observation lifecycle."
@@ -83,7 +87,9 @@
         "race condition",
         "stale result",
         "task.detached",
-        "actor reentrancy"
+        "actor reentrancy",
+        "asyncstream",
+        "observer teardown"
       ],
       "platforms": [
         "iOS",
@@ -101,7 +107,10 @@
         "concurrency",
         "swift62",
         "observation",
-        "task-cancellation"
+        "task-cancellation",
+        "stream-buffering",
+        "stream-yield",
+        "stream-termination"
       ],
       "coverage": "practical",
       "limits": "Isolation, cancellation, and stale-result patterns with controlled async examples; no general concurrency verifier or workload benchmark."
@@ -117,7 +126,9 @@
         "navigation path",
         "sheet presentation",
         "route restoration",
-        "tab navigation"
+        "tab navigation",
+        "back skips",
+        "mixed navigation links"
       ],
       "platforms": [
         "iOS",
@@ -153,7 +164,8 @@
         "scroll position",
         "lazyvgrid",
         "adaptive layout",
-        "swiftui geometry"
+        "swiftui geometry",
+        "anylayout"
       ],
       "platforms": [
         "iOS",
@@ -171,7 +183,9 @@
         "layout",
         "hig-layout",
         "rtl",
-        "accessibility"
+        "accessibility",
+        "view-that-fits",
+        "any-layout"
       ],
       "coverage": "practical",
       "limits": "Layout diagnosis and risky-size checks; no exhaustive device, locale, keyboard, or window-size screenshot matrix."
@@ -214,7 +228,7 @@
     {
       "id": "swiftui-accessibility",
       "title": "Accessibility and localization",
-      "summary": "Audit or implement VoiceOver, Dynamic Type, accessible controls, contrast, Reduce Motion, keyboard access, localization, and right-to-left SwiftUI behavior.",
+      "summary": "Audit or implement VoiceOver, Voice Control, Dynamic Type, accessible controls, contrast, Reduce Motion, keyboard access, localization, and right-to-left SwiftUI behavior.",
       "triggers": [
         "accessibility",
         "voiceover",
@@ -223,7 +237,8 @@
         "right to left",
         "localization",
         "screen reader",
-        "keyboard access"
+        "keyboard access",
+        "voice control"
       ],
       "platforms": [
         "iOS",
@@ -244,7 +259,9 @@
         "rtl",
         "reduced-motion",
         "ui-audit",
-        "localization"
+        "localization",
+        "accessibility-input-labels",
+        "voice-control-criteria"
       ],
       "coverage": "practical",
       "limits": "Accessibility workflows and failure probes; static inspection and automated audits do not certify assistive-technology journeys."
@@ -337,7 +354,9 @@
         "offline cache",
         "image loading",
         "pagination",
-        "authentication token"
+        "authentication token",
+        "shared image download",
+        "request coalescing"
       ],
       "platforms": [
         "iOS",
@@ -356,7 +375,8 @@
         "keychain",
         "concurrency",
         "privacy",
-        "app-transport"
+        "app-transport",
+        "urlsession-task-cancel"
       ],
       "coverage": "practical",
       "limits": "Client response, retry, identity, and cache contracts; not a backend implementation or production delivery guarantee."
@@ -372,7 +392,8 @@
         "ui test",
         "preview fixture",
         "regression test",
-        "snapshot test"
+        "snapshot test",
+        "zero-count confirmation"
       ],
       "platforms": [
         "iOS",
@@ -391,7 +412,9 @@
         "test-parallel",
         "ui-audit",
         "xcode",
-        "task-cancellation"
+        "task-cancellation",
+        "testing-async-events",
+        "stream-buffering"
       ],
       "coverage": "practical",
       "limits": "Test design and evidence classification; example tests and evaluation contracts are distinct from completed agent evaluations."
@@ -604,7 +627,9 @@
         "startup",
         "instruments",
         "optimization",
-        "compaction"
+        "compaction",
+        "scrolling hitch",
+        "row body updates"
       ],
       "platforms": [
         "iOS",
@@ -623,7 +648,9 @@
         "rendering",
         "concurrency",
         "model-context",
-        "logger"
+        "logger",
+        "swiftui-instruments",
+        "list-performance"
       ],
       "coverage": "practical",
       "limits": "Measurement and behavior-preserving cleanup workflows; no speed, energy, or memory improvement is implied without a comparable workload."
@@ -847,7 +874,8 @@
         "versionedschema",
         "schemamigrationplan",
         "fetchdescriptor",
-        "modelactor"
+        "modelactor",
+        "swiftdata attribute rename"
       ],
       "platforms": [
         "iOS",
@@ -867,10 +895,11 @@
         "swiftdata-migration",
         "swiftdata-sync",
         "swiftdata-autosave",
-        "swiftdata-rollback"
+        "swiftdata-rollback",
+        "swiftdata-schema-stages"
       ],
       "coverage": "practical",
-      "limits": "Schema, query, context, and migration guidance; existing in-memory examples do not establish disk upgrades, history processing, or CloudKit convergence."
+      "limits": "Includes a synthetic disk-backed attribute rename and reopen test. Released-store recovery, persistent history, and CloudKit convergence need separate fixtures."
     },
     {
       "id": "core-data",

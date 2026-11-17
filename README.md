@@ -85,7 +85,7 @@ The scanner is **advisory lexical triage**, not an AST, compiler, accessibility 
 
 For a plan-first CLI build loop, see [build workflows](docs/build-workflows.md). The helper preserves raw logs and process failures; it does not certify an app or silently install tooling. [The verification matrix](docs/verification-matrix.md) separates implemented checks from remaining runtime and agent evaluations.
 
-The [examples](examples/SkillExamples/README.md) exercise draft ownership, typed routes, value authority, and stale-request protection. The [evaluation protocol](docs/evaluation.md) separates mechanical checks from real agent behavior. A [small offline pilot](evals/pilot-2026-09-09.md) found both guided and baseline runs satisfied two workflow contracts; it does not establish a comparative quality improvement. Passing repository tests does not establish that every model follows the skills or that an app is production-ready.
+The [examples](examples/SkillExamples/README.md) exercise draft ownership, typed routes, value authority, stale-request protection, and a SwiftData rename on disk. The [evaluation protocol](docs/evaluation.md) covers mechanical checks and agent behavior. Two offline pilots record [release and screen-review decisions](evals/pilot-2026-09-09.md) and [interpretation of a scrolling trace](evals/scroll-trace-pilot.md), each with one attempt per condition.
 
 The [deep-link parser](examples/SkillExamples/Sources/SkillExamplesCore/NoteDeepLink.swift) and [its tests](examples/SkillExamples/Tests/SkillExamplesCoreTests/NoteDeepLinkTests.swift) demonstrate a narrow input contract. Parsing a valid route does not establish object access or authorize a mutation.
 

@@ -19,7 +19,7 @@ Identify the workload, affected devices/build configuration, observed cost, user
 
 ## Workflow
 
-1. Reproduce and classify the cost with the available profiler or trace.
+1. Reproduce one interaction. For a scrolling hitch, mark its time range and inspect the SwiftUI and CPU tracks over that interval.
 2. Find the owner and smallest useful correction; state the expected mechanism.
 3. Add or retain focused behavior tests before changing a hot path.
 4. Measure before/after under comparable conditions and inspect regressions.
@@ -37,4 +37,4 @@ Report the bottleneck evidence, code change, preserved invariants, measurement m
 
 Read the [playbook](references/performance-cleanup-patterns.md) for decisions, failure cases, and source links.
 
-For trace-led runtime performance work, read the [focused reference](references/trace-led-performance.md).
+For a hitch, frequent body updates, or a slow filtered list, follow the [trace walkthrough](references/trace-led-performance.md).

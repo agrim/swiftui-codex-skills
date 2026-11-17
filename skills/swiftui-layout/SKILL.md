@@ -23,7 +23,7 @@ Identify the actual container proposal, safe areas, content size, supported wind
 2. Remove conflicting frames, padding, overlays, and nested scrolling before adding constraints.
 3. Choose eager versus lazy containers from semantics and measured content scale.
 4. Handle keyboard, window resizing, localization, and scroll restoration explicitly.
-5. Verify adjacent supported sizes rather than one fixed preview.
+5. Cross the failing breakpoint in both directions. For editable content, change the width or text size with a draft in progress and check its value and focus afterward.
 
 ## Verify
 
@@ -37,4 +37,4 @@ Return the layout decision, boundary cases, visual evidence, and any fixed-size 
 
 Read the [playbook](references/layout-patterns.md) for decisions, failure cases, and source links.
 
-For layout proposals, lists, and scroll state, read the [focused reference](references/layout-and-scroll-edge-cases.md).
+For choosing between fitting alternatives and rearranging stateful children, or for restoring a scroll position, read [layout proposals and scroll state](references/layout-and-scroll-edge-cases.md).

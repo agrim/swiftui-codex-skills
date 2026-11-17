@@ -148,6 +148,64 @@
       "expected": [
         "apple-app-store-readiness"
       ]
+    },
+    {
+      "query": "After renaming a document and reordering, the wrong row changes.",
+      "expected": [
+        "swiftui-state-architecture"
+      ]
+    },
+    {
+      "query": "Back skips the guide after I open a document from it.",
+      "expected": [
+        "swiftui-navigation"
+      ]
+    },
+    {
+      "query": "When AnyLayout changes the form, the draft disappears.",
+      "expected": [
+        "swiftui-layout"
+      ]
+    },
+    {
+      "query": "Voice Control can't press the button by its visible name.",
+      "expected": [
+        "swiftui-accessibility"
+      ]
+    },
+    {
+      "query": "AsyncStream keeps sending when I dismiss the screen.",
+      "expected": [
+        "swift-concurrency"
+      ]
+    },
+    {
+      "query": "Why does our zero-count confirmation pass before a callback runs?",
+      "expected": [
+        "swiftui-testing"
+      ]
+    },
+    {
+      "query": "Cancelling a shared image download in the feed blanks the detail screen.",
+      "expected": [
+        "apple-networking"
+      ]
+    },
+    {
+      "query": "Row body updates spike during the gesture but CPU is down.",
+      "expected": [
+        "apple-performance-cleanup"
+      ]
+    },
+    {
+      "query": "How do I verify a SwiftData attribute rename on a store written by v1?",
+      "expected": [
+        "swiftdata"
+      ]
+    },
+    {
+      "query": "Reorder the columns in a spreadsheet.",
+      "expected": []
     }
   ]
 }

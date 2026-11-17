@@ -8,10 +8,12 @@ Generated from `sources.json`; run `python3 scripts/skillctl.py docs` to update.
 | --- | --- | --- | --- |
 | `accessibility` | [HIG: Accessibility](https://developer.apple.com/design/human-interface-guidelines/accessibility) | content-reviewed | 2026-09-06 |
 | `accessibility-focus` | [SwiftUI AccessibilityFocusState](https://developer.apple.com/documentation/swiftui/accessibilityfocusstate) | content-reviewed | 2026-09-06 |
+| `accessibility-input-labels` | [SwiftUI accessibilityInputLabels(_:)](https://developer.apple.com/documentation/swiftui/view/accessibilityinputlabels%28_%3A%29) | content-reviewed | 2026-11-17 |
 | `accessible-controls` | [SwiftUI accessible controls](https://developer.apple.com/documentation/swiftui/accessible-controls) | content-reviewed | 2026-09-06 |
 | `account-deletion` | [Offering account deletion in your app](https://developer.apple.com/support/offering-account-deletion-in-your-app/) | content-reviewed | 2026-09-06 |
 | `activities` | [ActivityKit](https://developer.apple.com/documentation/activitykit) | reference-only | — |
 | `animation` | [SwiftUI Animation](https://developer.apple.com/documentation/SwiftUI/Animation) | content-reviewed | 2026-09-06 |
+| `any-layout` | [AnyLayout](https://developer.apple.com/documentation/swiftui/anylayout) | content-reviewed | 2026-11-17 |
 | `api-design` | [Swift API design guidelines](https://www.swift.org/documentation/api-design-guidelines/) | content-reviewed | 2026-09-12 |
 | `app-intent` | [AppIntent protocol](https://developer.apple.com/documentation/appintents/appintent) | content-reviewed | 2026-09-06 |
 | `app-transport` | [Preventing insecure network connections](https://developer.apple.com/documentation/security/preventing-insecure-network-connections) | reference-only | — |
@@ -37,6 +39,7 @@ Generated from `sources.json`; run `python3 scripts/skillctl.py docs` to update.
 | `health-privacy` | [Protecting user privacy with HealthKit](https://developer.apple.com/documentation/healthkit/protecting-user-privacy) | content-reviewed | 2026-09-06 |
 | `healthkit` | [HealthKit](https://developer.apple.com/documentation/healthkit) | content-reviewed | 2026-09-06 |
 | `hig-layout` | [HIG: Layout](https://developer.apple.com/design/human-interface-guidelines/layout) | reference-only | — |
+| `identifiable` | [Identifiable](https://developer.apple.com/documentation/swift/identifiable) | content-reviewed | 2026-11-17 |
 | `intent-auth` | [AppIntent authentication policy](https://developer.apple.com/documentation/appintents/appintent/authenticationpolicy) | reference-only | — |
 | `intent-entity` | [AppEntity](https://developer.apple.com/documentation/appintents/appentity) | reference-only | — |
 | `intent-query` | [EntityQuery](https://developer.apple.com/documentation/appintents/entityquery) | reference-only | — |
@@ -45,6 +48,7 @@ Generated from `sources.json`; run `python3 scripts/skillctl.py docs` to update.
 | `ipados` | [HIG: Designing for iPadOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-ipados) | reference-only | — |
 | `keychain` | [Keychain services](https://developer.apple.com/documentation/security/keychain-services) | reference-only | — |
 | `layout` | [SwiftUI Layout protocol](https://developer.apple.com/documentation/swiftui/layout) | reference-only | — |
+| `list-performance` | [Demystify SwiftUI performance](https://developer.apple.com/videos/play/wwdc2023/10160/) | content-reviewed | 2026-11-17 |
 | `localization` | [Preparing views for localization](https://developer.apple.com/documentation/swiftui/preparing-views-for-localization) | reference-only | — |
 | `logger` | [Unified logging Logger](https://developer.apple.com/documentation/os/logger) | reference-only | — |
 | `macos` | [HIG: Designing for macOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-macos) | reference-only | — |
@@ -52,7 +56,7 @@ Generated from `sources.json`; run `python3 scripts/skillctl.py docs` to update.
 | `model-container` | [SwiftData ModelContainer](https://developer.apple.com/documentation/swiftdata/modelcontainer) | content-reviewed | 2026-09-06 |
 | `model-context` | [SwiftData ModelContext](https://developer.apple.com/documentation/swiftdata/modelcontext) | content-reviewed | 2026-09-06 |
 | `model-data` | [Managing model data](https://developer.apple.com/documentation/SwiftUI/Managing-model-data-in-your-app) | content-reviewed | 2026-09-06 |
-| `navigation` | [Understanding the navigation stack](https://developer.apple.com/documentation/swiftui/understanding-the-navigation-stack) | content-reviewed | 2026-09-06 |
+| `navigation` | [Understanding the navigation stack](https://developer.apple.com/documentation/swiftui/understanding-the-navigation-stack) | content-reviewed | 2026-11-17 |
 | `navigation-migration` | [Migrating to new navigation types](https://developer.apple.com/documentation/swiftui/migrating-to-new-navigation-types) | content-reviewed | 2026-09-06 |
 | `notarization` | [Notarizing macOS software before distribution](https://developer.apple.com/documentation/security/notarizing-macos-software-before-distribution) | reference-only | — |
 | `notary-errors` | [Resolving common notarization issues](https://developer.apple.com/documentation/security/resolving-common-notarization-issues) | content-reviewed | 2026-09-06 |
@@ -69,23 +73,32 @@ Generated from `sources.json`; run `python3 scripts/skillctl.py docs` to update.
 | `settings` | [HIG: Settings](https://developer.apple.com/design/human-interface-guidelines/settings) | content-reviewed | 2026-09-06 |
 | `spotlight` | [Core Spotlight](https://developer.apple.com/documentation/corespotlight) | reference-only | — |
 | `storekit` | [StoreKit](https://developer.apple.com/documentation/storekit) | reference-only | — |
+| `stream-buffering` | [AsyncStream buffering policies](https://developer.apple.com/documentation/swift/asyncstream/continuation/bufferingpolicy) | content-reviewed | 2026-11-17 |
+| `stream-termination` | [AsyncStream.Continuation.onTermination](https://developer.apple.com/documentation/swift/asyncstream/continuation/ontermination) | content-reviewed | 2026-11-17 |
+| `stream-yield` | [AsyncStream.Continuation.yield(_:)](https://developer.apple.com/documentation/swift/asyncstream/continuation/yield%28_%3A%29) | content-reviewed | 2026-11-17 |
 | `swift62` | [Swift 6.2 language and concurrency changes](https://www.swift.org/blog/swift-6.2-released/) | content-reviewed | 2026-09-06 |
 | `swiftdata-autosave` | [SwiftData ModelContext autosaveEnabled](https://developer.apple.com/documentation/swiftdata/modelcontext/autosaveenabled) | content-reviewed | 2026-09-06 |
-| `swiftdata-migration` | [SwiftData SchemaMigrationPlan](https://developer.apple.com/documentation/swiftdata/schemamigrationplan) | reference-only | — |
+| `swiftdata-migration` | [SwiftData SchemaMigrationPlan](https://developer.apple.com/documentation/swiftdata/schemamigrationplan) | content-reviewed | 2026-11-17 |
 | `swiftdata-rollback` | [SwiftData ModelContext rollback()](https://developer.apple.com/documentation/swiftdata/modelcontext/rollback%28%29) | content-reviewed | 2026-09-06 |
+| `swiftdata-schema-stages` | [Model your schema with SwiftData](https://developer.apple.com/videos/play/wwdc2023/10195/) | content-reviewed | 2026-11-17 |
 | `swiftdata-sync` | [Syncing SwiftData across devices](https://developer.apple.com/documentation/swiftdata/syncing-model-data-across-a-persons-devices) | reference-only | — |
 | `swiftui` | [SwiftUI framework overview](https://developer.apple.com/documentation/SwiftUI) | content-reviewed | 2026-09-06 |
+| `swiftui-instruments` | [Optimize SwiftUI performance with Instruments](https://developer.apple.com/videos/play/wwdc2025/306/) | content-reviewed | 2026-11-17 |
 | `symbols` | [HIG: SF Symbols](https://developer.apple.com/design/human-interface-guidelines/sf-symbols) | reference-only | — |
 | `task-cancellation` | [Swift Task cancellation semantics](https://developer.apple.com/documentation/swift/task/cancel%28%29) | content-reviewed | 2026-09-06 |
 | `test-parallel` | [Swift Testing parallelization](https://developer.apple.com/documentation/Testing/Parallelization) | content-reviewed | 2026-09-06 |
 | `testing` | [Swift Testing](https://developer.apple.com/xcode/swift-testing/) | content-reviewed | 2026-09-06 |
+| `testing-async-events` | [Testing asynchronous code](https://developer.apple.com/documentation/testing/testing-asynchronous-code) | content-reviewed | 2026-11-17 |
 | `tvos` | [HIG: Designing for tvOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-tvos) | reference-only | — |
 | `typography` | [HIG: Typography](https://developer.apple.com/design/human-interface-guidelines/typography) | reference-only | — |
 | `ui-audit` | [XCUI accessibility audits](https://developer.apple.com/documentation/xcuiautomation/xcuiaccessibilityauditissue) | content-reviewed | 2026-09-06 |
 | `uikit` | [SwiftUI UIKit integration](https://developer.apple.com/documentation/swiftui/uikit-integration) | reference-only | — |
 | `urlsession` | [URLSession](https://developer.apple.com/documentation/foundation/urlsession) | content-reviewed | 2026-09-06 |
+| `urlsession-task-cancel` | [URLSessionTask.cancel()](https://developer.apple.com/documentation/foundation/urlsessiontask/cancel%28%29) | content-reviewed | 2026-11-17 |
 | `view-controller-bridge` | [UIViewControllerRepresentable](https://developer.apple.com/documentation/SwiftUI/uiviewcontrollerrepresentable) | content-reviewed | 2026-09-06 |
+| `view-that-fits` | [ViewThatFits](https://developer.apple.com/documentation/swiftui/viewthatfits) | content-reviewed | 2026-11-17 |
 | `visionos` | [HIG: Designing for visionOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-visionos) | reference-only | — |
+| `voice-control-criteria` | [Voice Control evaluation criteria](https://developer.apple.com/help/app-store-connect/manage-app-accessibility/voice-control-evaluation-criteria) | content-reviewed | 2026-11-17 |
 | `watch-connectivity` | [WatchConnectivity](https://developer.apple.com/documentation/watchconnectivity) | reference-only | — |
 | `watchos` | [HIG: Designing for watchOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-watchos) | reference-only | — |
 | `widget-refresh` | [Keeping a widget up to date](https://developer.apple.com/documentation/widgetkit/keeping-a-widget-up-to-date/) | content-reviewed | 2026-09-06 |
@@ -94,6 +107,10 @@ Generated from `sources.json`; run `python3 scripts/skillctl.py docs` to update.
 | `xcode` | [Xcode documentation](https://developer.apple.com/documentation/xcode) | reference-only | — |
 
 ## Scoped review notes
+
+`accessibility-input-labels`: Localized alternatives and their priority for voice input.
+
+`any-layout`: Switching layout types while preserving the state of the same subviews.
 
 `api-design`: Naming at call sites, side effects, complexity, defaults, and documentation; not a review of every standard-library API.
 
@@ -104,6 +121,32 @@ Generated from `sources.json`; run `python3 scripts/skillctl.py docs` to update.
 `coredata-batch`: Store-level deletion and merging deleted object IDs into registered contexts; archived conceptual guidance, not current API availability proof.
 
 `coredata-confinement`: Queue confinement, perform-based access, and managed object ID transfer. Archived conceptual guidance; compile current APIs against the installed SDK.
+
+`identifiable`: The type defines the scope and duration for which an ID identifies the same entity.
+
+`list-performance`: Row identity gathering, conditional row counts, and the cost of inline filtering.
+
+`navigation`: Value-based navigation paths and the removal of direct-view destinations above them when pushing a value.
+
+`stream-buffering`: Retention of oldest or newest pending elements at capacity.
+
+`stream-termination`: Cancellation of active iteration and termination callback behavior.
+
+`stream-yield`: Immediate return and results for enqueued, dropped, or terminated delivery.
+
+`swiftdata-migration`: Ordered schemas and migration stages used when opening a versioned store.
+
+`swiftdata-schema-stages`: Versioned schemas, lightweight attribute renames, and resolving duplicates before enforcing uniqueness.
+
+`swiftui-instruments`: Selecting an update interval, inspecting CPU samples, and tracing frequent updates to dependencies.
+
+`testing-async-events`: A confirmation checks its count at the end of the supplied closure.
+
+`urlsession-task-cancel`: A cancel request returns immediately and delegate messages can still arrive.
+
+`view-that-fits`: Candidate order, ideal size, and fitting along the specified axes.
+
+`voice-control-criteria`: Interaction by visible name, overlays, dictation, and navigation to controls.
 
 
 ## Refresh policy

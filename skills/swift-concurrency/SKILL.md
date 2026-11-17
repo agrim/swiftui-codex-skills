@@ -21,7 +21,7 @@ Record Swift compiler version, language mode, default actor isolation, upcoming 
 
 1. Trace start, suspend, resume, cancel, and teardown for each operation.
 2. Use a request generation or domain identity to reject obsolete results; make cleanup generation-aware too.
-3. Bound fan-out, buffering, retries, and resource use. Specify stream termination and backpressure.
+3. For a callback stream, decide which events can be lost when the consumer falls behind and who unsubscribes on early exit. Bound fan-out, buffering, and retries.
 4. Adapt callbacks with exactly-once continuation completion and race-safe cancellation.
 5. Test controlled completion order, not wall-clock sleeps.
 
@@ -37,4 +37,4 @@ Return an isolation/lifetime map, failure scenario, fix, and deterministic tests
 
 Read the [playbook](references/concurrency-patterns.md) for decisions, failure cases, and source links.
 
-For streams, continuations, and compiler migration, read the [focused reference](references/streams-and-migration.md).
+For an overflowing `AsyncStream`, a producer that keeps running after dismissal, or a continuation race, read [streams and compiler migration](references/streams-and-migration.md).

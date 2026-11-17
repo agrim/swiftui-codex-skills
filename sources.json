@@ -33,8 +33,9 @@
       "id": "navigation",
       "title": "Understanding the navigation stack",
       "url": "https://developer.apple.com/documentation/swiftui/understanding-the-navigation-stack",
-      "reviewed": "2026-09-06",
-      "status": "content-reviewed"
+      "reviewed": "2026-11-17",
+      "status": "content-reviewed",
+      "review_scope": "Value-based navigation paths and the removal of direct-view destinations above them when pushing a value."
     },
     {
       "id": "navigation-migration",
@@ -556,8 +557,9 @@
       "id": "swiftdata-migration",
       "title": "SwiftData SchemaMigrationPlan",
       "url": "https://developer.apple.com/documentation/swiftdata/schemamigrationplan",
-      "reviewed": null,
-      "status": "reference-only"
+      "reviewed": "2026-11-17",
+      "status": "content-reviewed",
+      "review_scope": "Ordered schemas and migration stages used when opening a versioned store."
     },
     {
       "id": "swiftdata-sync",
@@ -607,6 +609,110 @@
       "url": "https://developer.apple.com/documentation/security/preventing-insecure-network-connections",
       "reviewed": null,
       "status": "reference-only"
+    },
+    {
+      "id": "identifiable",
+      "title": "Identifiable",
+      "url": "https://developer.apple.com/documentation/swift/identifiable",
+      "reviewed": "2026-11-17",
+      "status": "content-reviewed",
+      "review_scope": "The type defines the scope and duration for which an ID identifies the same entity."
+    },
+    {
+      "id": "view-that-fits",
+      "title": "ViewThatFits",
+      "url": "https://developer.apple.com/documentation/swiftui/viewthatfits",
+      "reviewed": "2026-11-17",
+      "status": "content-reviewed",
+      "review_scope": "Candidate order, ideal size, and fitting along the specified axes."
+    },
+    {
+      "id": "any-layout",
+      "title": "AnyLayout",
+      "url": "https://developer.apple.com/documentation/swiftui/anylayout",
+      "reviewed": "2026-11-17",
+      "status": "content-reviewed",
+      "review_scope": "Switching layout types while preserving the state of the same subviews."
+    },
+    {
+      "id": "accessibility-input-labels",
+      "title": "SwiftUI accessibilityInputLabels(_:)",
+      "url": "https://developer.apple.com/documentation/swiftui/view/accessibilityinputlabels%28_%3A%29",
+      "reviewed": "2026-11-17",
+      "status": "content-reviewed",
+      "review_scope": "Localized alternatives and their priority for voice input."
+    },
+    {
+      "id": "voice-control-criteria",
+      "title": "Voice Control evaluation criteria",
+      "url": "https://developer.apple.com/help/app-store-connect/manage-app-accessibility/voice-control-evaluation-criteria",
+      "reviewed": "2026-11-17",
+      "status": "content-reviewed",
+      "review_scope": "Interaction by visible name, overlays, dictation, and navigation to controls."
+    },
+    {
+      "id": "stream-buffering",
+      "title": "AsyncStream buffering policies",
+      "url": "https://developer.apple.com/documentation/swift/asyncstream/continuation/bufferingpolicy",
+      "reviewed": "2026-11-17",
+      "status": "content-reviewed",
+      "review_scope": "Retention of oldest or newest pending elements at capacity."
+    },
+    {
+      "id": "stream-yield",
+      "title": "AsyncStream.Continuation.yield(_:)",
+      "url": "https://developer.apple.com/documentation/swift/asyncstream/continuation/yield%28_%3A%29",
+      "reviewed": "2026-11-17",
+      "status": "content-reviewed",
+      "review_scope": "Immediate return and results for enqueued, dropped, or terminated delivery."
+    },
+    {
+      "id": "stream-termination",
+      "title": "AsyncStream.Continuation.onTermination",
+      "url": "https://developer.apple.com/documentation/swift/asyncstream/continuation/ontermination",
+      "reviewed": "2026-11-17",
+      "status": "content-reviewed",
+      "review_scope": "Cancellation of active iteration and termination callback behavior."
+    },
+    {
+      "id": "testing-async-events",
+      "title": "Testing asynchronous code",
+      "url": "https://developer.apple.com/documentation/testing/testing-asynchronous-code",
+      "reviewed": "2026-11-17",
+      "status": "content-reviewed",
+      "review_scope": "A confirmation checks its count at the end of the supplied closure."
+    },
+    {
+      "id": "urlsession-task-cancel",
+      "title": "URLSessionTask.cancel()",
+      "url": "https://developer.apple.com/documentation/foundation/urlsessiontask/cancel%28%29",
+      "reviewed": "2026-11-17",
+      "status": "content-reviewed",
+      "review_scope": "A cancel request returns immediately and delegate messages can still arrive."
+    },
+    {
+      "id": "swiftui-instruments",
+      "title": "Optimize SwiftUI performance with Instruments",
+      "url": "https://developer.apple.com/videos/play/wwdc2025/306/",
+      "reviewed": "2026-11-17",
+      "status": "content-reviewed",
+      "review_scope": "Selecting an update interval, inspecting CPU samples, and tracing frequent updates to dependencies."
+    },
+    {
+      "id": "list-performance",
+      "title": "Demystify SwiftUI performance",
+      "url": "https://developer.apple.com/videos/play/wwdc2023/10160/",
+      "reviewed": "2026-11-17",
+      "status": "content-reviewed",
+      "review_scope": "Row identity gathering, conditional row counts, and the cost of inline filtering."
+    },
+    {
+      "id": "swiftdata-schema-stages",
+      "title": "Model your schema with SwiftData",
+      "url": "https://developer.apple.com/videos/play/wwdc2023/10195/",
+      "reviewed": "2026-11-17",
+      "status": "content-reviewed",
+      "review_scope": "Versioned schemas, lightweight attribute renames, and resolving duplicates before enforcing uniqueness."
     }
   ]
 }

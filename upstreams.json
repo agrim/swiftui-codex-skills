@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "inventory_date": "2026-09-12",
+  "inventory_date": "2026-11-17",
   "article": {
     "url": "https://x.com/paulsolt/status/2042716870512353294",
     "title": "Install These Skills Before Codex Touches Your Xcode Project",
@@ -909,6 +909,162 @@
       "maps_to": [
         "apple-swiftui-native-apps"
       ]
+    },
+    {
+      "id": "hudson-navigation-links",
+      "url": "https://github.com/twostraws/SwiftUI-Agent-Skill",
+      "relation": "supporting-source",
+      "status": "excerpt-reviewed",
+      "scope": "Review of mixed link styles motivated the Back-history example. Apple's stack rules determine which direct destinations can stay.",
+      "maps_to": [
+        "swiftui-navigation"
+      ],
+      "reviewed": "2026-11-17",
+      "blob_sha": "3505c401749fdab85a18cebef41c8572d07dc347",
+      "path": "swiftui-pro/references/navigation.md",
+      "commit_sha": "f2920b63995263f57b3e198674e89a602efba6d2"
+    },
+    {
+      "id": "pointfree-row-identity",
+      "url": "https://github.com/pointfreeco/swift-identified-collections",
+      "relation": "supporting-source",
+      "status": "excerpt-reviewed",
+      "scope": "The asynchronous row-edit example illustrates how an index can become stale. The local probe also exercises overlapping edits to one ID.",
+      "maps_to": [
+        "swiftui-state-architecture"
+      ],
+      "reviewed": "2026-11-17",
+      "blob_sha": "e0ae3a3680bd62134762f4e05d6a372abe4a6add",
+      "path": "README.md",
+      "commit_sha": "3abaf5156efa9437192f8608fa94e6e4e7abf36a"
+    },
+    {
+      "id": "hudson-adaptive-text",
+      "url": "https://github.com/twostraws/SwiftUI-Agent-Skill",
+      "relation": "supporting-source",
+      "status": "excerpt-reviewed",
+      "scope": "Large-text layout alternatives informed a form reflow check with an in-progress edit.",
+      "maps_to": [
+        "swiftui-layout",
+        "swiftui-accessibility"
+      ],
+      "reviewed": "2026-11-17",
+      "blob_sha": "6c020cff7a74238407be6371cb09fec72913bb09",
+      "path": "swiftui-pro/references/accessibility.md",
+      "commit_sha": "f2920b63995263f57b3e198674e89a602efba6d2"
+    },
+    {
+      "id": "cvs-spoken-labels",
+      "url": "https://github.com/cvs-health/ios-swiftui-accessibility-techniques",
+      "relation": "supporting-source",
+      "status": "excerpt-reviewed",
+      "scope": "Examples of spoken aliases informed the localized visible-title and Voice Control verification steps.",
+      "maps_to": [
+        "swiftui-accessibility"
+      ],
+      "reviewed": "2026-11-17",
+      "blob_sha": "06ec5e51e8694bf6fdaea3f72ae0a6453ec41080",
+      "path": "iOSswiftUIa11yTechniques/Documentation/AccessibilityInputLabels.md",
+      "commit_sha": "3aa074c381ca951ee93acb2e0ac8c1453dc8d3be"
+    },
+    {
+      "id": "swiftlee-streams",
+      "url": "https://github.com/AvdLee/Swift-Concurrency-Agent-Skill",
+      "relation": "supporting-source",
+      "status": "excerpt-reviewed",
+      "scope": "Reviewed the async-sequence reference for producer lifetime and buffering choices.",
+      "maps_to": [
+        "swift-concurrency"
+      ],
+      "reviewed": "2026-11-17",
+      "blob_sha": "24fdfdae26f14e670b6778fb9ca4a834fe521324",
+      "path": "skills/swift-concurrency/references/async-sequences.md",
+      "commit_sha": "3b1580d8398e0b5408b3bf0bada0e941a1cfc642"
+    },
+    {
+      "id": "swiftlee-async-testing",
+      "url": "https://github.com/AvdLee/Swift-Testing-Agent-Skill",
+      "relation": "supporting-source",
+      "status": "excerpt-reviewed",
+      "scope": "Callback confirmation and waiting guidance informed the early-exit and late-delivery probes.",
+      "maps_to": [
+        "swiftui-testing"
+      ],
+      "reviewed": "2026-11-17",
+      "blob_sha": "077399a0b5461ef08c678957eb075ac7982a678c",
+      "path": "swift-testing-expert/references/async-testing-and-waiting.md",
+      "commit_sha": "798e9b1a2bcac164d4f0c781908199e754f0bab6"
+    },
+    {
+      "id": "write-swift-stream-testing",
+      "url": "https://github.com/emilkowalski/skills",
+      "relation": "supporting-source",
+      "status": "entrypoint-reviewed",
+      "scope": "Reviewed callback adaptation, async sequences, and Swift Testing confirmation advice.",
+      "maps_to": [
+        "swift-concurrency",
+        "swiftui-testing"
+      ],
+      "reviewed": "2026-11-17",
+      "blob_sha": "9fdf55eaf5f490da0c5712a3fdcdfb30195c9fc0",
+      "path": "skills/write-swift/SKILL.md",
+      "commit_sha": "64eb3deb9a5fbfa041faf783e0bc3fd635872e9c"
+    },
+    {
+      "id": "nuke-shared-downloads",
+      "url": "https://github.com/kean/Nuke",
+      "relation": "supporting-source",
+      "status": "excerpt-reviewed",
+      "scope": "Read transfer-sharing tests for independent subscriber cancellation, processed variants, and replacement work.",
+      "maps_to": [
+        "apple-networking"
+      ],
+      "reviewed": "2026-11-17",
+      "blob_sha": "64dd877bc1c553f71410c89e00bd0be1c76070fd",
+      "path": "Tests/NukeTests/ImagePipelineTests/ImagePipelineCoalescingTests.swift",
+      "commit_sha": "740dff31db9d4b1916a1651e5e50abccd1f18cdf"
+    },
+    {
+      "id": "dimillian-runtime-audit",
+      "url": "https://github.com/Dimillian/Skills",
+      "relation": "supporting-source",
+      "status": "entrypoint-reviewed",
+      "scope": "The performance intake ties a specific interaction to a SwiftUI timeline, call tree, and repeatable comparison.",
+      "maps_to": [
+        "apple-performance-cleanup"
+      ],
+      "reviewed": "2026-11-17",
+      "blob_sha": "7d1fdc737c60b3f0b4dad96279b0646e6856a97a",
+      "path": "swiftui-performance-audit/SKILL.md",
+      "commit_sha": "05ba982bfeb0d77d3c97d4542b0ee15034d05f84"
+    },
+    {
+      "id": "hudson-swiftdata-migrations",
+      "url": "https://github.com/twostraws/SwiftData-Agent-Skill",
+      "relation": "supporting-source",
+      "status": "excerpt-reviewed",
+      "scope": "Reviewed migration-plan guidance for released apps and checked the example against Apple's schema migration session.",
+      "maps_to": [
+        "swiftdata"
+      ],
+      "reviewed": "2026-11-17",
+      "blob_sha": "647894adb5dc9a2e8111ad2d33438f523df7052f",
+      "path": "swiftdata-pro/references/core-rules.md",
+      "commit_sha": "8051f177a0076e7fd45bdf4ee687b070ba58fdc6"
+    },
+    {
+      "id": "vanab-swiftdata-stages",
+      "url": "https://github.com/vanab/swiftdata-agent-skill",
+      "relation": "supporting-source",
+      "status": "excerpt-reviewed",
+      "scope": "The migration reference distinguishes ordered schema versions and stages. The local test creates and reopens its own synthetic store.",
+      "maps_to": [
+        "swiftdata"
+      ],
+      "reviewed": "2026-11-17",
+      "blob_sha": "8521b2ddd38a920ead18ef145470ec7946444792",
+      "path": "swiftdata-expert-skill/references/migrations-and-history.md",
+      "commit_sha": "4819a5381fa5fdce894451822917b1135c19e050"
     }
   ]
 }

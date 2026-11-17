@@ -23,7 +23,8 @@ Identify deployment minimums, existing observation system, view identity, creati
 2. Select wrappers from the playbook; avoid mirrored booleans and unnecessary view models.
 3. Model mutually exclusive states as an enum when independent flags admit impossible combinations.
 4. Extract services or reducers only where side effects, reuse, or deterministic tests justify them.
-5. Check lifetime across navigation, sheets, list changes, multiple windows, and relaunch.
+5. For an asynchronous row edit, follow its write back to the current collection. Resolve the record by stable ID after suspension and check whether the reply still owns that edit.
+6. Check lifetime across navigation, sheets, list changes, multiple windows, and relaunch.
 
 ## Verify
 

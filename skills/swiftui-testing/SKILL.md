@@ -37,4 +37,4 @@ Return the test matrix, results, artifact locations, and explicitly untested cla
 
 Read the [playbook](references/testing-patterns.md) for decisions, failure cases, and source links.
 
-For async tests, parameterization, and framework coexistence, read the [focused reference](references/async-and-migration-tests.md).
+For a callback that arrives after dismissal or a stream that drops updates under load, use the [async test probes](references/async-and-migration-tests.md). The same reference covers parameterization and framework coexistence.

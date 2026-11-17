@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased — SwiftUI failure cases
+
+Nine existing skills now cover late row edits, mixed navigation links, form reflow, Voice Control, stream overflow and teardown, shared image downloads, scrolling hitches, and SwiftData upgrades. The catalog includes symptom-based routes. The provenance map links reviewed community files at their exact commits, and the source registry records the relevant Apple and Swift documentation.
+
+Adds a SwiftData disk-backed rename and reopen regression test, seven behavioral scenarios, and a synthetic performance trace with independently reviewed baseline and guided responses.
+
 ## Unreleased — 2.1 ecosystem integration
 
 Expands twenty existing skills with focused references and adds nine specialists, preserving current IDs, evidence workflows, installation tracking, and evaluation records. The catalog contains 29 skills and 145 stable rules. Build optimization has separate orchestration, benchmarking, compiler, project, package, and verification tracks.

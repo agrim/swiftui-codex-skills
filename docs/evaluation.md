@@ -14,7 +14,9 @@
 
 Two offline workflow fixtures are now available: [release reconciliation](../evals/fixtures/release-reconciliation/TASK.md) and [screen-review handoff](../evals/fixtures/screen-review/TASK.md). Copy each fixture into a fresh temporary directory before running it; never mutate the canonical seed state. Give the agent the task and raw evidence, with the selected skill context only in the guided condition. Keep expected outcomes with the reviewer. The release CLI deliberately does not enforce user authorization, so the agent's actual operations reveal whether it preserved the scope.
 
-The [September 9 pilot](../evals/pilot-2026-09-09.md) records one independent guided and baseline run over these two fixtures. Both passed the reviewed contracts; no comparative improvement is claimed. Remaining scenarios are contracts awaiting agent runs, even where related example code has passing tests.
+The [September 9 pilot](../evals/pilot-2026-09-09.md) records one independent guided and baseline run over these two fixtures. Both passed the reviewed contracts.
+
+The [scrolling trace fixture](../evals/fixtures/scroll-trace/TASK.md) tests whether a reader can make a release decision from repeated hitch durations and a matching timeline. The [pilot responses and blind review](../evals/scroll-trace-pilot.md) show where both readers agreed and what each left unverified. Each received one attempt. The remaining scenarios await agent runs.
 
 For each run, record the repository/fixture commit, skill revision, scenario ID, host/model and configuration, available tools, prompt, selected context, produced diff, executed checks, outputs, and reviewer decision. Do not include private app data or credentials.
 

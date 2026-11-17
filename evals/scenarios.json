@@ -496,10 +496,128 @@
         "Discard input to dismiss the keyboard"
       ],
       "evidence": "Native interaction with keyboard present at the risky size and recovery from invalid input"
+    },
+    {
+      "id": "late-row-save",
+      "prompt": "A rename completes after the list reorders. The user may have deleted the record or submitted a second rename.",
+      "skills": [
+        "swiftui-state-architecture",
+        "swift-concurrency"
+      ],
+      "must_do": [
+        "Resolve the current record and account by identity",
+        "Apply a same-record late success or error only when it still owns that edit"
+      ],
+      "must_not": [
+        "Write back through the captured array offset",
+        "Let an old failure clear the newer pending state"
+      ],
+      "evidence": "Controlled completions after reorder, delete, and a second edit, with assertions by record ID"
+    },
+    {
+      "id": "mixed-navigation-back",
+      "prompt": "A folder opens a guide. Following a link from the guide to a document makes Back skip the guide, which should be restorable.",
+      "skills": [
+        "swiftui-navigation"
+      ],
+      "must_do": [
+        "Identify each link style and record both the visible screen and bound path",
+        "Represent the intermediate step in the restorable route and repeat Back"
+      ],
+      "must_not": [
+        "Assume each visible destination appears in the path",
+        "Rewrite unrelated disposable destinations without a history requirement"
+      ],
+      "evidence": "Screen and path after each action, including restoration in a fresh scene"
+    },
+    {
+      "id": "reflow-spoken-save",
+      "prompt": "An unsaved reminder loses its title when the window narrows. At large text sizes users cannot invoke Save draft by voice.",
+      "skills": [
+        "swiftui-layout",
+        "swiftui-accessibility"
+      ],
+      "must_do": [
+        "Exercise width and text size independently while preserving one draft",
+        "Dictate and edit text, then invoke the visible action by voice and verify the intended record"
+      ],
+      "must_not": [
+        "Cap the text size to fit",
+        "Accept a screenshot or numbered overlay as proof of invocation by name"
+      ],
+      "evidence": "A round trip through both layouts and a Voice Control journey in the supported locale"
+    },
+    {
+      "id": "callback-stream-dismissal",
+      "prompt": "A download-progress stream shows an old value after a burst. Its observer remains registered after the screen reads one value and closes.",
+      "skills": [
+        "swift-concurrency",
+        "swiftui-testing"
+      ],
+      "must_do": [
+        "Test overflow with known ordered samples before reading",
+        "Retain the stream across early exit, await teardown and drive a late callback through the adapter"
+      ],
+      "must_not": [
+        "Rely on a sleep to stage the burst",
+        "End a zero-count check before the late callback can run"
+      ],
+      "evidence": "Newest pending value followed by normal termination in one test, and exact observer removal plus no late publication in another"
+    },
+    {
+      "id": "shared-download-cancellation",
+      "prompt": "Leaving a thumbnail row cancels the photo still open in the detail screen. Refresh can then deliver an older image.",
+      "skills": [
+        "apple-networking"
+      ],
+      "must_do": [
+        "Determine compatible source bytes and separate rendition and account identity",
+        "Retire individual subscribers and reject callbacks from a retired transfer after a same-key replacement"
+      ],
+      "must_not": [
+        "Cancel a transfer while a live consumer still needs it",
+        "Use a URL alone to share private responses across accounts"
+      ],
+      "evidence": "Controlled starts, cancellations, rendition delivery, and late callbacks for two consumers and a replacement"
+    },
+    {
+      "id": "disk-schema-rename",
+      "prompt": "An older store opens after a SwiftData property rename, but imported titles are empty and a second launch loses an edit.",
+      "skills": [
+        "swiftdata",
+        "swiftui-testing"
+      ],
+      "must_do": [
+        "Write or obtain a historical disk store with distinguishable values",
+        "Use the migration plan on the same URL, check ID–value pairs, save an edit, and verify it on a fresh reopen"
+      ],
+      "must_not": [
+        "Prove migration with a newly created destination store",
+        "Discard an original store to recover from a failed upgrade"
+      ],
+      "evidence": "Source schema and provenance, destination schema, row values, and the result of the second open"
+    },
+    {
+      "id": "scroll-trace",
+      "prompt": "Decide whether the Saved Places scrolling fix is ready using the supplied recordings.",
+      "skills": [
+        "apple-performance-cleanup"
+      ],
+      "must_do": [
+        "Decide from repeated hitch durations and inspect the matching update and CPU intervals",
+        "Test a specific dependency while preserving row edits and toolbar progress"
+      ],
+      "must_not": [
+        "Attribute the hitch to the recording-wide CPU leader",
+        "Claim a real device result from the supplied synthetic excerpts"
+      ],
+      "evidence": "Trace-based decision, testable cause, and matched outcome and behavior criteria",
+      "fixture": "fixtures/scroll-trace/TASK.md"
     }
   ],
   "executed_pilot_scenarios": [
     "authority-continuation",
-    "screen-review-batch"
+    "screen-review-batch",
+    "scroll-trace"
   ]
 }

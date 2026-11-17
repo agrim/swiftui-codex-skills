@@ -9,11 +9,11 @@ Use this matrix to plan evidence, not as a record that checks have run. Individu
 | Task routing | Original and ecosystem phrase fixtures | Semantic retrieval quality or comparative model effectiveness |
 | Build helper | Injected runner tests, malformed input, preserved failures, descriptive statistics | A real app's build speed, Xcode behavior, or complete process sandboxing |
 | Swift domain examples | Actual Swift Testing execution | Apple-only framework behavior when executed on a non-Apple host |
-| SwiftUI and persistence | Existing Apple SDK compilation and framework tests | Rendered layout, assistive interaction, disk migration, or live cloud services |
+| SwiftUI and persistence | Apple SDK compilation, in-memory persistence tests, and a synthetic V1 → V2 disk rename with a second reopen | Rendered layout, assistive interaction, stores produced by released binaries, or live cloud services |
 | New deep-link parser | Canonical origin/path and negative-input tests | Authorization, associated-domain deployment, or navigation presentation |
 | Installation | Existing preflight and receipt/status regression suites | Atomic filesystem transactions or updates to a user's installation |
 
-The existing offline workflow pilot remains an exploratory record with its stated limitations; it is not replaced or inflated by these new mechanical tests. Additional agent scenarios below are evaluation contracts, not performed model runs.
+See the [evaluation protocol](evaluation.md) for the offline workflow and scrolling-trace pilots. Each records the inputs, scope, and outcomes of the performed runs. The scenarios below specify additional evidence to collect.
 
 ## Adversarial scenarios to run next
 

@@ -77,6 +77,43 @@ class ProvenanceTests(unittest.TestCase):
             data = copy.deepcopy(self.data); data["resources"][0]["blob_sha"] = value
             with self.assertRaises(ValueError): audit.validate(ROOT, data)
 
+    def test_commit_receipt_links_to_exact_file_and_preserves_blob(self):
+        row = self.data["resources"][0]
+        row.update(url="https://github.com/example/project/", path="skills/Page #1 (old).md",
+                   blob_sha="a" * 40, commit_sha="b" * 40)
+        self.data["resources"] = [row]
+        audit.validate(ROOT, self.data)
+        expected_url = "https://github.com/example/project/blob/" + "b" * 40 + "/skills/Page%20%231%20%28old%29.md"
+        self.assertIn(f"[File at reviewed commit]({expected_url})", audit.render(self.data))
+        del row["commit_sha"]
+        audit.validate(ROOT, self.data)
+        legacy = audit.render(self.data)
+        self.assertIn(f'Git blob `{row["blob_sha"]}`', legacy)
+        self.assertNotIn("/blob/", legacy)
+
+    def test_commit_receipt_requires_full_commit_and_blob_receipt(self):
+        row = self.data["resources"][0]
+        for invalid in ["main", "abc123", "g" * 40, None, 1]:
+            with self.subTest(commit=invalid):
+                row["commit_sha"] = invalid
+                with self.assertRaisesRegex(ValueError, "invalid Git commit SHA"):
+                    audit.validate(ROOT, self.data)
+        row["commit_sha"] = "a" * 40
+        del row["blob_sha"], row["path"]
+        with self.assertRaisesRegex(ValueError, "commit_sha requires blob_sha and path"):
+            audit.validate(ROOT, self.data)
+
+    def test_commit_receipt_rejects_non_repository_urls(self):
+        row = self.data["resources"][0]
+        row["commit_sha"] = "a" * 40
+        for url in ["https://example.com/owner/repo", "https://github.com/owner/repo?tab=readme",
+                    "https://github.com/owner/repo#readme", "https://github.com/owner/repo/tree/main",
+                    "https://github.com/owner/.."]:
+            with self.subTest(url=url):
+                row["url"] = url
+                with self.assertRaisesRegex(ValueError, "GitHub repository URL"):
+                    audit.validate(ROOT, self.data)
+
     def test_remote_receipt_path_rejects_traversal(self):
         for value in ["../SKILL.md", "/absolute/SKILL.md", "skills\\SKILL.md"]:
             data = copy.deepcopy(self.data); data["resources"][0]["path"] = value

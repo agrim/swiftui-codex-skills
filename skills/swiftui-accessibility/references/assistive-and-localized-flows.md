@@ -6,6 +6,16 @@ Use semantic labels even when visual presentation is icon-only. A symbol's visua
 
 When content updates, move accessibility focus only for a meaningful user-facing change; avoid stealing focus on every refresh. Announce completion or error at a useful frequency, not each progress sample. Test alternative interactions rather than relying solely on a custom gesture.
 
+## An action that works by touch but fails by voice
+
+An editor shows a button titled “Save draft”. At larger text sizes the same action moves into a menu. Test the full journey with Voice Control on a supported destination, using the command language and locale under test.
+
+1. Say the command for the visible title, such as “Tap Save draft” on iPhone. If it fails, use “Show names” to compare the exposed name with the visible title and “Show numbers” to check whether the button is individually reachable.
+2. An ordinary labeled button may already respond to its visible title. If it needs spoken aliases, include that localized title in `accessibilityInputLabels(_:)` alongside the alternatives. For “Save draft”, put the localized visible title first, add any shorter alias, and try both. Keep changing values and status accessible to VoiceOver.
+3. Repeat after reflow. Dictate a draft, edit a word, open the menu by voice, and invoke Save. Confirm that the intended record shows the edited text. If several records expose the same visible action title, exercise the app’s disambiguation path and check which record changed.
+
+Record the spoken phrase, the name the system displayed, the destination, and the observed outcome. A number can help locate the failure even when the visible name still fails as a command.
+
 ## Text and locale matrix
 
 Exercise large accessibility text, long translations, plural forms, interpolated content, dates/numbers, RTL, reduced motion, increased contrast, and reduced transparency. Keep storage/wire formatting separate from localized display. Layout direction should follow the environment unless the content has a genuine directional meaning.
@@ -23,3 +33,5 @@ Record the destination, settings, tested journey, and what the audit tool did or
 - [SwiftUI AccessibilityFocusState](https://developer.apple.com/documentation/swiftui/accessibilityfocusstate).
 - [Preparing views for localization](https://developer.apple.com/documentation/swiftui/preparing-views-for-localization).
 - [HIG: Right to left](https://developer.apple.com/design/human-interface-guidelines/right-to-left).
+- [SwiftUI accessibility input labels](https://developer.apple.com/documentation/swiftui/view/accessibilityinputlabels%28_%3A%29).
+- [Voice Control evaluation criteria](https://developer.apple.com/help/app-store-connect/manage-app-accessibility/voice-control-evaluation-criteria).

@@ -20,7 +20,7 @@ Identify platform, deployment minimum, hierarchy versus task presentation, scene
 ## Workflow
 
 1. Map the journey and presentation owner before choosing APIs.
-2. Prefer typed routes for controlled navigation; register destinations in a stable scope outside lazy row creation.
+2. Trace each push as a route value or a direct destination view. Use route values for steps the app must restore or retain beneath a later value push. Register destinations in a stable scope outside lazy row creation.
 3. Keep data-driven selection and navigation synchronized without circular update loops.
 4. Define deep-link, cancellation, and restoration behavior, including unavailable destinations.
 5. Test compact/expanded transitions and independent windows.

@@ -10,6 +10,18 @@ For pagination, tie responses to both request generation and query identity. Ded
 
 Image loading needs bounds for network data, decoded pixel dimensions, in-flight work, and memory/disk caches. Downsample for the displayed size where appropriate; compressed byte size alone does not describe decoded memory. Cancel obsolete work and avoid repeatedly decoding during view updates. An `AsyncImage` usage is not a comprehensive cache policy.
 
+## Two views share an image download
+
+A feed row and a detail screen request the same photo. When the row scrolls away, the detail screen still needs its image. Inspect which layer actually starts the transfer and which callers still need the result.
+
+- **Match the work being shared.** Two reads may share a download when their resource, account, representation, and cache policy are compatible. A cache-only caller must keep its offline contract. If a thumbnail and a full-size view need the same source bytes, they can share those bytes and cache their processed images separately by rendition.
+- **Give each caller a way to leave.** Register a caller and find or create the transfer in one serialized operation. On cancellation, detach that caller and finish its wait promptly. Count an intentional prefetch as a consumer. When the last consumer leaves, retire the entry and request transport cancellation.
+- **Identify each transfer as well as its key.** A fresh caller can start another transfer for the same key while the old task is cancelling. Match callbacks against the current transfer identity before removing its entry, updating the cache, or delivering to subscribers. Apple's `cancel()` returns immediately and delegate messages may still arrive. [URLSessionTask cancellation](https://developer.apple.com/documentation/foundation/urlsessiontask/cancel%28%29).
+
+Hold a fake transport at a known point while two consumers join. Check that one transfer starts, cancelling the row leaves the detail consumer active, and the detail receives its requested rendition. In a second run, cancel both, start a replacement, then deliver the old completion. Check that the first transfer was cancelled once, the replacement still has its subscribers, and only its result is published. Repeat across accounts at the same URL and verify separate transfers.
+
+## Verify transport behavior
+
 Test invalid payloads, unauthorized responses, cancellation, out-of-order pages, repeated cursors, server throttling, oversized images, and account switches. Use isolated transport fakes for ordering, then exercise real platform networking where the claim concerns trust, background delivery, or cache implementation.
 
 ## Official sources

@@ -7,7 +7,7 @@ import datetime as dt
 import re
 import sys
 from pathlib import Path
-from urllib.parse import urlsplit
+from urllib.parse import quote, urlsplit
 
 from skilllib import catalog, read_json, safe_path, valid_review_date
 
@@ -86,6 +86,16 @@ source was read, that its content is correct, or that every article link exists.
         sha, path = row.get("blob_sha"), row.get("path")
         if (sha is None) != (path is None):
             raise ValueError(sid + ": blob_sha and path must occur together")
+        if "commit_sha" in row:
+            commit = row["commit_sha"]
+            if not isinstance(commit, str) or not re.fullmatch(r"[0-9a-f]{40}", commit):
+                raise ValueError(sid + ": invalid Git commit SHA")
+            if sha is None:
+                raise ValueError(sid + ": commit_sha requires blob_sha and path")
+            repo_url = row["url"].rstrip("/")
+            if (not re.fullmatch(r"https://github\.com/[A-Za-z0-9-]+/[A-Za-z0-9_.-]+", repo_url)
+                    or repo_url.rsplit("/", 1)[1] in {".", ".."}):
+                raise ValueError(sid + ": commit receipt requires a plain GitHub repository URL")
         if sha is not None:
             if not isinstance(sha, str) or not re.fullmatch(r"[0-9a-f]{40}", sha):
                 raise ValueError(sid + ": invalid Git blob SHA")
@@ -113,6 +123,9 @@ def render(data: dict) -> str:
         scope = row["scope"]
         if row.get("blob_sha"):
             scope += f' Receipt: `{row["path"]}` at Git blob `{row["blob_sha"]}`.'
+            if "commit_sha" in row:
+                file_url = f'{row["url"].rstrip("/")}/blob/{row["commit_sha"]}/{quote(row["path"])}'
+                scope += f' [File at reviewed commit]({file_url}).'
         lines.append("| " + " | ".join([f'[{row["id"]}]({row["url"]})', row["relation"] + " / " + row["status"], mapping, cell(scope)]) + " |")
     return "\n".join(lines) + "\n"
 

@@ -21,7 +21,7 @@ Inspect model/container registration, store configuration, context ownership, sc
 
 1. Map each model and relationship to the configured schema and store.
 2. Define draft/commit and query contracts before adding modifiers.
-3. Choose a supported migration with realistic historical fixtures.
+3. Match the proposed change to the shipped schema. For a property rename, preserve its original persisted name and test with distinct old values. For a new uniqueness constraint, resolve existing duplicates according to a declared survivor policy before enforcing it.
 4. Exercise failures, relationships, reopens, and synchronization boundaries.
 
 ## Verify

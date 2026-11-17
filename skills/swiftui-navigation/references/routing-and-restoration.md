@@ -6,6 +6,19 @@ Keep navigation state scoped to the right scene or tab. Restoring a path may req
 
 Use value-based navigation and destination registration where the intended stack can see it. Do not hide essential destination registration inside a lazy row whose lifetime is unrelated to the route. For presentation, use an item carrying stable identity when the presented content is selected data. Separate dismissal from commit: dismissing a draft is not proof of a save.
 
+## Back skips an intermediate screen
+
+In a `NavigationStack(path:)`, a link that supplies a destination view directly can show a screen without adding a value to the bound path. Pushing a value while these view destinations are on top removes them before the new destination appears. Inspect the sequence of link initializers when the Back button skips a screen or restoration loses a step. [Understanding the navigation stack](https://developer.apple.com/documentation/swiftui/understanding-the-navigation-stack)
+
+| Action in one stack | Bound path | Visible screen |
+| --- | --- | --- |
+| Open a folder by value | `[folder]` | Folder |
+| Open a guide using a direct destination view | `[folder]` | Guide |
+| Follow a value link from the guide to a document | `[folder, document]` | Document |
+| Press Back | `[folder]` | Folder |
+
+If Back must return to the guide, represent the guide as a route value too. Repeat the journey, check that Back reveals the guide, and restore the saved path in a fresh scene if restoration is part of the feature. A disposable help screen at the end of a journey can keep its direct link. Check both the actual screen and the bound path when testing mixed links.
+
 ## Failure probes
 
 Open the same link twice, a malformed link, a deleted item, an unauthorized item, and a valid route before login/store initialization. Reopen with an old route version, switch accounts mid-resolution, and open a second window. Assert one intended destination and no hidden mutation.
