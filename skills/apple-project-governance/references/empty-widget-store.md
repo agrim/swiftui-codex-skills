@@ -1,19 +1,16 @@
-# The app writes a trip but its widget reads an empty store
+# The signed widget reads an empty store
 
-Start with a known trip ID. Identify the app that wrote it and the extension embedded in the installed build. The two products have different bundle IDs. An App Group shares a container on one device. Getting a trip onto a paired watch needs its own transport, such as WatchConnectivity. Where the widget reads a shared App Group, the relevant signed products and the runtime suite or container name must agree on that group.
+Pick one trip ID written by the app. Locate the containing app and its embedded widget in the failing device archive. They have separate bundle IDs. Shared storage on one device requires the same intended App Group in both signed products and in the runtime container or suite lookup. A paired watch needs a separate data transfer.
 
-For a workspace, compare the scheme and effective configuration with:
+Inspect the same workspace, shared scheme, configuration and destination that built the archive. Identify which target each block of settings describes. Use the generator manifest or target’s xcconfig when that file owns the setting.
 
 ```sh
 xcodebuild -list -workspace "$workspace"
-xcodebuild -showBuildSettings -workspace "$workspace" -scheme "$scheme" -configuration Release
-```
-
-If the workspace uses a project generator, change its manifest and inspect the generated diff. Check the target’s configuration overrides, entitlement path and copy phases. Inspect a signed device archive for the exact app and extension. With paths set to those two bundles, these commands display the entitlements each signature contains:
-
-```sh
+xcodebuild -showBuildSettings -workspace "$workspace" -scheme "$scheme" -configuration Release -destination 'generic/platform=iOS'
 codesign -d --entitlements - "$app"
 codesign -d --entitlements - "$extension"
 ```
 
-Compare the group, built Info.plists and extension membership. If the products agree, inspect the runtime suite and the written snapshot before changing the timeline provider. A Swift package dependency or Xcode group can make source visible in the editor while the extension still lacks a needed resource.
+Set the last two paths to the archived app and its embedded extension. Compare the signed application groups with the runtime suite. If the extension is missing, inspect embedding and target membership. If a model or asset is missing, check the built bundle that loads it, including a package resource bundle where applicable.
+
+When the signed products agree, read the shared snapshot from the extension. A missing trip there points to the write or container lookup. A correct trip there moves the investigation to timeline selection and host rendering. Stop changing signing settings once the value has crossed that boundary.

@@ -1,24 +1,24 @@
 ---
 name: apple-swiftui-native-apps
-description: "Design or repair a native SwiftUI feature, from the main action and state owner to toolbar controls, button contrast, and Liquid Glass."
+description: "Build or refine SwiftUI screens using native controls, clear action hierarchy, system styling and one owner for each interaction."
 ---
 
 # Build a feature that feels at home in SwiftUI
 
-Start with one moment in the app. During a workout, the person needs the current interval, its next action, and a way out. For a place they saved yesterday, they need a recognizable list and a way to find it. Let that difference shape the screen.
+During a workout, the current interval and Pause belong together. Session settings can wait. Build the feature around one task someone can finish and recognize afterward.
 
 ## Design choices
 
-1. **Give the current task priority.** Name the main action, safe exit, and what can wait. Use toolbar placements for app commands and content controls for choices about an item. A timer beside an exercise should measure that exercise. <!-- FEATURE-001 -->
-2. **Trace the control before restyling it.** Follow the rendered label through its Button or Menu, role, style, tint and parent environment. For unreadable button text, remove competing foregrounds or custom backgrounds and try the system style in context. Use prominent styling for the action that deserves it. <!-- FEATURE-002 -->
-3. **Give each transition one owner.** A draft belongs to its editor until Save. Pause and Resume are two states of one action. Have the timer, enabled actions and companion display read that same transition, including after relaunch. <!-- FEATURE-003 -->
+1. **Choose what belongs on screen.** Give the next action priority and keep an exit reachable. Put screen commands in the toolbar and item choices beside the item. <!-- FEATURE-001 -->
+2. **Start with the native control.** Use a Button for an action or a Picker for a choice. For a disappearing toolbar label, trace role, style, tint and inherited foreground. Remove the conflict and render again before choosing a custom fill or foreground. <!-- FEATURE-002 -->
+3. **Change state once.** Let Pause and Resume act on the same session. Derive the label, clock and automatic advance from its phase. For a Save form, keep typing in a draft until the person commits. <!-- FEATURE-003 -->
 
 ## Try it
 
-Pick a state that makes a wrong implementation visible.
+Exercise the actual control in its container.
 
-- Pause during an interval, background the app, and return. The clock and automatic progression agree with the action shown. For a creation flow, cancel once and reopen a successfully saved item. <!-- FEATURE-001 FEATURE-003 -->
-- Run the real toolbar or sheet in light and dark appearance at a large text size. Check the label, hit target, VoiceOver action and prominence in their surrounding chrome. <!-- FEATURE-002 -->
+- Pause just before an interval boundary and return afterward. The same interval is paused and Resume is available. In a creation flow, only a committed item survives relaunch. <!-- FEATURE-001 FEATURE-003 -->
+- At large text size in both appearances, the primary label stays legible. VoiceOver names the action and activates it once. <!-- FEATURE-002 -->
 
 - [Choosing the first screen for Saved Places](references/saved-places.md)
 - [An unreadable button, a glass toolbar, or a jumping Save action](references/native-controls.md)

@@ -1,23 +1,23 @@
 ---
 name: apple-app-store-readiness
-description: "Match an Xcode archive and TestFlight build to the app’s storefront promise, production services, screenshots and App Review access."
+description: "Verify that a specific TestFlight or App Store build delivers its listing, works for a reviewer and has reached the requested distribution stage."
 ---
 
 # Prepare an App Store build a reviewer can actually use
 
-Choose one advertised journey and try it from the reviewer’s starting point. A sharing feature that works between two development accounts still needs a working invitation, production service and usable recipient path in the candidate.
+Can a reviewer open a shared-trip invitation on a clean install and finish as the recipient? Start there, with the build the listing describes.
 
 ## Design choices
 
-1. **Identify the same candidate everywhere.** Match the Xcode archive’s bundle ID, version and build with the processed build in App Store Connect and the installed TestFlight build. Include any embedded watch app or extension the promise relies on. <!-- STORE-101 -->
-2. **Make the journey repeatable outside development.** Use functioning support and privacy URLs, production links and a review account or sample where needed. If hardware, subscriptions or a second user are essential, provide a reproducible route for review. <!-- STORE-102 -->
-3. **Reconcile the listing with the installed experience.** Capture the shipping states, check the installed icon and compare the description and privacy answers to actual behavior. Track processing, TestFlight access, review submission, approval and public availability separately. <!-- STORE-103 -->
+1. **Pin the build.** Trace the Xcode archive to the uploaded build number and match that build in App Store Connect and TestFlight. Check the companion if the feature uses it. <!-- STORE-101 -->
+2. **Give the reviewer a working route.** Provide the access, sample data and hardware instructions the feature needs. Exercise its public links and services, including support and privacy pages. <!-- STORE-102 -->
+3. **Check what testers or customers can get.** Compare screenshots, icon, description and privacy answers with that build. Check the exact group’s TestFlight access or the storefront’s availability before reporting delivery. Processing, approval and release are separate events. <!-- STORE-103 -->
 
 ## Try it
 
-Exercise the feature using only the candidate, access and instructions available to a reviewer.
+Start with the supplied review notes and access.
 
-- Install the selected build via TestFlight and follow the review notes from a clean state. Open any required public link and finish the action through its production path. <!-- STORE-101 STORE-102 -->
-- Compare the resulting screens and icon to the storefront assets. Read the exact build’s status in App Store Connect before describing it as available. <!-- STORE-103 -->
+- Open the invitation in the selected candidate. After signing in, the recipient lands on that trip and can join it. <!-- STORE-101 STORE-102 -->
+- For beta delivery, a tester in the named group can install that build. For public release, the intended storefront offers that version and its listing matches the installed result. <!-- STORE-103 -->
 
 - [A reviewer opens an invitation to a shared trip](references/review-a-shared-trip.md)

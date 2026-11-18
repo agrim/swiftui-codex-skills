@@ -437,8 +437,9 @@
       "id": "health-authorization",
       "title": "HealthKit authorizationStatus(for:)",
       "url": "https://developer.apple.com/documentation/healthkit/hkhealthstore/authorizationstatus(for:)",
-      "reviewed": "2026-09-06",
-      "status": "content-reviewed"
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "Authorization status concerns saving the specified type. HealthKit deliberately does not disclose read authorization to the app."
     },
     {
       "id": "health-privacy",
@@ -500,8 +501,9 @@
       "id": "swiftdata-rollback",
       "title": "SwiftData ModelContext rollback()",
       "url": "https://developer.apple.com/documentation/swiftdata/modelcontext/rollback%28%29",
-      "reviewed": "2026-09-06",
-      "status": "content-reviewed"
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "Rollback discards pending inserts and deletes and restores changed models to their last committed state across that context."
     },
     {
       "id": "task-cancellation",
@@ -996,6 +998,38 @@
       "reviewed": "2026-11-18",
       "status": "content-reviewed",
       "review_scope": "Changing the bound identifier resets view identity, including state."
+    },
+    {
+      "id": "watch-context-replacement",
+      "title": "WCSession updateApplicationContext(_:)",
+      "url": "https://developer.apple.com/documentation/watchconnectivity/wcsession/updateapplicationcontext(_:)",
+      "status": "content-reviewed",
+      "reviewed": "2026-11-18",
+      "review_scope": "A later application context replaces the preceding dictionary. Delivery is opportunistic, including while the counterpart is unreachable."
+    },
+    {
+      "id": "activity-stale-date",
+      "title": "ActivityContent staleDate",
+      "url": "https://developer.apple.com/documentation/activitykit/activitycontent/staledate",
+      "status": "content-reviewed",
+      "reviewed": "2026-11-18",
+      "review_scope": "Reaching the stale date changes activity state to stale. The case distinguishes that from ending the trip."
+    },
+    {
+      "id": "distribution-build-number",
+      "title": "Distributing your app for beta testing and releases",
+      "url": "https://developer.apple.com/documentation/xcode/distributing-your-app-for-beta-testing-and-releases",
+      "status": "content-reviewed",
+      "reviewed": "2026-11-18",
+      "review_scope": "Xcode distribution settings can update the build number of the archive content during distribution. The uploaded number identifies the candidate in App Store Connect."
+    },
+    {
+      "id": "testflight-storekit-sandbox",
+      "title": "Testing Apple In-App Purchases with sandbox",
+      "url": "https://developer.apple.com/documentation/storekit/testing-in-app-purchases-with-sandbox",
+      "status": "content-reviewed",
+      "reviewed": "2026-11-18",
+      "review_scope": "In-app purchases in TestFlight builds use the StoreKit sandbox. A successful beta purchase cannot establish production product availability."
     }
   ]
 }

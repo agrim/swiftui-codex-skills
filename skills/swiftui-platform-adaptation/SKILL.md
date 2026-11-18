@@ -1,24 +1,24 @@
 ---
 name: swiftui-platform-adaptation
-description: "Adapt SwiftUI navigation, focus and controls across Apple devices while keeping the selected item and unfinished task intact."
+description: "Adapt a SwiftUI task across window sizes, input methods and Apple devices while preserving selection, edits and navigation."
 ---
 
 # Keep a task usable as the interface changes
 
-Let the destination fit the device. A phone can push the selected note, an iPad or Mac can show it beside a sidebar, and a watch may offer only capture. Decide what someone must be able to finish in each place.
+When an iPad sidebar collapses, keep the same note, unfinished sentence and route back to the list.
 
 ## Design choices
 
-1. **Keep selection with the scene that owns it.** Bind compact and split presentations to the same record identity and editing session. Independent windows can share the saved records and still work on different items. <!-- ADAPT-001 -->
-2. **Preserve the route when the layout changes.** Trace the selection through NavigationStack or NavigationSplitView and back to its collection. On watch, lead with the current metric and action. Move infrequent controls to another surface before shortening the primary label. <!-- ADAPT-002 -->
-3. **Give each input a deliberate result.** Route keyboard commands and VoiceOver actions through the same operation as touch. When replacing a focused form, end editing in its owning view and return focus to a useful destination. In an editor with explicit Save, label Return according to what it actually does. <!-- ADAPT-003 -->
+1. **Own selection per window.** Share saved records. Keep the selected ID and draft with the scene that survives resizing. Sorting can change a row’s position. <!-- ADAPT-001 -->
+2. **Decide what each destination can finish.** Use the same selection in a NavigationStack or NavigationSplitView. On watch, lead with the current action. Carry the item and progress into any handoff. <!-- ADAPT-002 -->
+3. **Keep input attached to the task.** Send toolbar, keyboard and VoiceOver activation to the same Save operation. After dismissal, focus the edited item or another useful target. Let Return do what its label promises. <!-- ADAPT-003 -->
 
 ## Try it
 
-Change the presentation while the task is in progress.
+Make the transition halfway through an edit.
 
-- Type into one of two note windows. Narrow it, open the same selection in compact detail, and go Back. The draft survives and the second window keeps its own note. <!-- ADAPT-001 ADAPT-002 -->
-- Try Save at an accessibility text size with VoiceOver or a keyboard. On a companion watch, read and activate the current action at the smallest supported size. <!-- ADAPT-002 ADAPT-003 -->
+- Open Monday and Tuesday in separate windows. Edit Monday, reorder the list and narrow its window. Monday keeps the draft, Back reaches the list and Tuesday stays selected in its window. <!-- ADAPT-001 ADAPT-002 -->
+- At large text size, save by keyboard or VoiceOver and find the updated note. On watch, activate the primary action at the smallest supported size. <!-- ADAPT-002 ADAPT-003 -->
 
 - [An iPad editor becomes a compact detail](references/editing-across-layouts.md)
 - [Pause on the watch and resume on the phone](references/watch-session.md)

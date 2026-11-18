@@ -1,9 +1,9 @@
-# Which update delayed this scroll?
+# The CPU graph improved and scrolling still catches
 
-A places list scrolls smoothly until a download starts. Moving thumbnail decoding to a worker lowers overall CPU usage. The scroll still catches.
+In a sample trace, thumbnail decoding finished on a worker before the gesture. During a roughly 40 ms hitch, 24 visible rows received hundreds of short updates as download progress changed. Moving decoding off the main thread helped a different interval. The hitch remains open.
 
-In an illustrative trace, the worker finishes before the gesture. During the missed frame, 24 visible rows receive hundreds of short updates while the toolbar’s download percentage changes. That gives you a specific experiment. Have the toolbar observe aggregate progress. Give each row only the item data it displays. Leave thumbnail decoding alone for this comparison.
+Select the missed frame in Instruments. If main-thread samples span row updates and the update cause leads back to aggregate progress, let the toolbar observe that progress and each row observe the title and saved flag it displays. Leave decoding alone for this experiment. If the main thread is waiting instead, follow the work it awaits.
 
-Repeat the same scroll during a download at the same refresh rate. Compare missed frames and hitch duration across runs. Edit a title, toggle a saved flag and watch the progress indicator. If frames arrive on time because those updates silently stopped, the experiment failed. If the hitch remains with few row updates, follow the remaining wait in that frame.
+Repeat the same scroll on the same build configuration, device, cache state and refresh rate with downloads active. Compare hitch durations and missed deadlines across runs. Edit one title, toggle another row’s flag and watch progress advance. Smoother scrolling caused by the UI no longer refreshing is a regression.
 
-For a measured row-update problem, trace a gesture in Instruments with the SwiftUI instrument available in the installed toolchain. Select the missed frames, find the view updates in that interval and inspect their changing dependencies. If the main thread is waiting during the missed frame, follow what it is waiting on. If repeated view updates occupy the frame, try narrowing the row inputs. Repeat with identical data, gesture and download progress.
+**For a cleanup without a measured slowdown**, pick the smallest transformation that removes duplicate work. Keep a fixture for distinct values such as missing, stale and zero and compare results and side effects before and after. A simpler implementation can be worthwhile on those terms alone.

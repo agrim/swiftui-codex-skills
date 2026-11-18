@@ -1,7 +1,9 @@
-# A widget still shows a departed train
+# A widget shows a train that has already left
 
-Follow one departure from the timetable to the Home Screen. First inspect the source record and its time zone. Then inspect the timestamp and service ID written to the shared container, the entry read by the timeline provider, and the entry rendered in the affected widget family. A fresh preview can hide an old entry being served by the host.
+Follow one departure by service ID and source time. Check what the app wrote to the shared container, what the timeline provider read, and what the installed widget family displayed. A fresh preview can coexist with an old entry on the Home Screen.
 
-If the departure time is known, supply an entry for the transition to the next useful state. A requested timeline reload is scheduled by the system. If the feed has expired, display the last update or an unavailable state appropriate to the decision. A cancelled service and a feed that has not refreshed mean different things to someone standing on the platform.
+For a known departure, supply a timeline entry for the next useful state. The system schedules refresh and display, so a reload request cannot guarantee a particular minute. A dated “Last updated” or scheduled departure can remain truthful when the network drops. Only describe a train as cancelled when the feed actually says so.
 
-Run the containing app, add the actual widget, cross the known deadline, then open its link. Check the selected service as well as the label. Repeat with an empty cache and, for personal itineraries, with the device locked or the account signed out.
+If the trip also has a Live Activity, its stale date marks information as out of date. The trip owner must separately end the activity when the trip ends. Choose a final state and dismissal policy that make sense if it remains visible.
+
+Take the feed offline across a departure and open the widget’s link. Check the displayed time and selected service. For a personal itinerary, also observe the locked or signed-out presentation for details that should be hidden.

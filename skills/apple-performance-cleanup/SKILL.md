@@ -1,23 +1,23 @@
 ---
 name: apple-performance-cleanup
-description: "Use Instruments to diagnose launch delays, UI hangs, scrolling hitches and retained memory, then verify the original interaction."
+description: "Use Instruments to fix a measured delay or memory problem, and simplify Swift code without losing behavior on the affected path."
 ---
 
 # Make a slow interaction feel responsive
 
-Start with the moment someone waits. A sheet that hangs on its first presentation and a list that misses frames while scrolling call for different evidence.
+For a delayed sheet, measure tap to first usable frame. For a cleanup, name the behavior to preserve, such as a missing sensor reading staying distinct from zero.
 
 ## Design choices
 
-1. **Record the affected interaction.** Profile a representative build and destination with Instruments. Use Hangs for a blocked tap, Time Profiler for CPU work, or the SwiftUI instrument for repeated view updates where available. Separate cold and warm runs. <!-- SPEED-001 -->
-2. **Change the work that delays the result.** Select the troubled interval and follow the main thread. A broad fetch, formatter in a row body, or wait on a worker suggests different fixes. Keep a short navigation tap free of unrelated migrations, disk I/O and telemetry. <!-- SPEED-002 -->
-3. **Preserve what the person sees.** Narrow observation to the views that use each value. Keep missing, zero, stale and failed readings distinct. For suspected retention, repeat a present/dismiss cycle and follow surviving owners in Xcode’s Memory Graph or Instruments Allocations. <!-- SPEED-003 -->
+1. **Capture a repeatable baseline.** Match device, configuration and data. Use Hangs for a stall, Time Profiler for CPU work or the SwiftUI instrument for view updates. Separate cold and warm runs. <!-- SPEED-001 -->
+2. **Follow work inside the delay.** Select the missed frame or blocked tap. If the main thread waits, follow the dependency. If many short row updates fill the frame, find the changing input they share. Change one suspected cause. <!-- SPEED-002 -->
+3. **Preserve the visible behavior.** Keep ordering, cancellation and missing values intact. For memory growth, repeat a present/dismiss cycle and find the surviving owner in Xcode’s Memory Graph. <!-- SPEED-003 -->
 
 ## Try it
 
-Repeat the original interaction on the same destination and configuration.
+Choose a pass condition before comparing builds.
 
-- Compare the same cold and warm gesture before and after. For a slow editor, measure first presentation and then tapping the field. Deferred keyboard or database work can move the delay to the next tap. <!-- SPEED-001 SPEED-002 -->
-- During a scroll, change a row and advance a download. Both still update within the chosen frame target. For retained memory, repeat the same cycles and check whether the suspected objects are released. <!-- SPEED-003 -->
+- Repeat the original gesture. If deferring work speeds up a sheet, also measure the first field tap that now triggers it. <!-- SPEED-001 SPEED-002 -->
+- During a scroll, edit a visible row and advance a download. The row and toolbar still update, and hitch durations meet the chosen target across repeats. For a cleanup, compare the same edge cases before and after. <!-- SPEED-003 -->
 
 - [Which update delayed this scroll?](references/a-scrolling-hitch.md)

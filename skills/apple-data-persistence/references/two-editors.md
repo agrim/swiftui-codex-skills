@@ -1,7 +1,9 @@
-# A rename meets a newer edit
+# Rename a walk while its favorite changes
 
-One window renames a saved walk while another marks it as a favorite. If the rename editor holds an entire old copy of the record and writes it back, Save can silently undo the favorite.
+Window A opens a walk called Ridge. Window B favorites it while A is typing. If A writes back its entire opening snapshot, Save can silently remove B’s favorite. Hold the record ID, original name and edited name in A’s draft. Fetch the current record when saving and change only the name. Resolve a same-field conflict if the current name differs from the one A opened.
 
-For independent fields, keep the record ID and the edited name in the draft. On Save, apply the name to the current record. If a save completes after a list has reordered, use that ID again before updating the row. Its former position may now belong to another walk. Closing the sheet without saving simply drops the name. Two windows editing the same name require a product choice. If overwriting would lose meaningful work, compare the revision each editor started from and let the second person keep their draft while resolving the conflict.
+Cancel drops A’s draft. Calling `rollback()` on a shared SwiftData context would also discard other pending inserts, updates and deletes. If the design needs context-level rollback, isolate the writer. After a failed write, retain the input and prevent an abandoned pending mutation from leaking into a later autosave. Reopen the store after an unrelated successful save to check that boundary.
 
-For an app that supports offline creation, one more boundary matters. Give the pending creation an identity that lasts across relaunch. Reuse it on retry if the service honors that identity. Otherwise look up the original result using a supported reconciliation mechanism. If the service offers neither, keep the outcome uncertain and offer recovery. A timeout alone cannot tell you whether another record should be created.
+**If sync is promised.** A timeout after the server accepts a creation leaves the outcome unknown. Reuse its original operation ID when supported, or look up the accepted result before retrying. If the service offers neither, keep the outcome unresolved and offer recovery.
+
+Reorder the list before delivering a delayed reply. A completion for Ridge must never rename the row now in Ridge’s former position.

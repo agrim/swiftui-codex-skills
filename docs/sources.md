@@ -12,6 +12,7 @@ Generated from `sources.json`; run `python3 scripts/skillctl.py docs` to update.
 | `accessible-controls` | [SwiftUI accessible controls](https://developer.apple.com/documentation/swiftui/accessible-controls) | content-reviewed | 2026-09-06 |
 | `account-deletion` | [Offering account deletion in your app](https://developer.apple.com/support/offering-account-deletion-in-your-app/) | content-reviewed | 2026-09-06 |
 | `activities` | [ActivityKit](https://developer.apple.com/documentation/activitykit) | reference-only | — |
+| `activity-stale-date` | [ActivityContent staleDate](https://developer.apple.com/documentation/activitykit/activitycontent/staledate) | content-reviewed | 2026-11-18 |
 | `animation` | [SwiftUI Animation](https://developer.apple.com/documentation/SwiftUI/Animation) | content-reviewed | 2026-09-06 |
 | `any-layout` | [AnyLayout](https://developer.apple.com/documentation/swiftui/anylayout) | content-reviewed | 2026-11-17 |
 | `api-design` | [Swift API design guidelines](https://www.swift.org/documentation/api-design-guidelines/) | content-reviewed | 2026-09-12 |
@@ -37,10 +38,11 @@ Generated from `sources.json`; run `python3 scripts/skillctl.py docs` to update.
 | `design` | [HIG: Design principles](https://developer.apple.com/design/human-interface-guidelines/design-principles) | content-reviewed | 2026-09-06 |
 | `developer-id` | [Signing Mac software with Developer ID](https://developer.apple.com/developer-id/) | content-reviewed | 2026-09-06 |
 | `distribution` | [Distributing your app](https://developer.apple.com/documentation/xcode/distributing-your-app-for-beta-testing-and-releases) | reference-only | — |
+| `distribution-build-number` | [Distributing your app for beta testing and releases](https://developer.apple.com/documentation/xcode/distributing-your-app-for-beta-testing-and-releases) | content-reviewed | 2026-11-18 |
 | `file-protection-complete` | [FileProtectionType.complete](https://developer.apple.com/documentation/foundation/fileprotectiontype/complete) | content-reviewed | 2026-11-18 |
 | `focus` | [SwiftUI FocusState](https://developer.apple.com/documentation/swiftui/focusstate) | content-reviewed | 2026-11-18 |
 | `glass` | [Liquid Glass technology overview](https://developer.apple.com/documentation/TechnologyOverviews/liquid-glass) | content-reviewed | 2026-09-06 |
-| `health-authorization` | [HealthKit authorizationStatus(for:)](https://developer.apple.com/documentation/healthkit/hkhealthstore/authorizationstatus(for:)) | content-reviewed | 2026-09-06 |
+| `health-authorization` | [HealthKit authorizationStatus(for:)](https://developer.apple.com/documentation/healthkit/hkhealthstore/authorizationstatus(for:)) | content-reviewed | 2026-11-18 |
 | `health-privacy` | [Protecting user privacy with HealthKit](https://developer.apple.com/documentation/healthkit/protecting-user-privacy) | content-reviewed | 2026-09-06 |
 | `healthkit` | [HealthKit](https://developer.apple.com/documentation/healthkit) | content-reviewed | 2026-09-06 |
 | `hig-layout` | [HIG: Layout](https://developer.apple.com/design/human-interface-guidelines/layout) | reference-only | — |
@@ -97,7 +99,7 @@ Generated from `sources.json`; run `python3 scripts/skillctl.py docs` to update.
 | `swiftdata-autosave` | [SwiftData ModelContext autosaveEnabled](https://developer.apple.com/documentation/swiftdata/modelcontext/autosaveenabled) | content-reviewed | 2026-09-06 |
 | `swiftdata-fetch-limit` | [SwiftData fetch limit](https://developer.apple.com/documentation/swiftdata/fetchdescriptor/fetchlimit) | content-reviewed | 2026-11-18 |
 | `swiftdata-migration` | [SwiftData SchemaMigrationPlan](https://developer.apple.com/documentation/swiftdata/schemamigrationplan) | content-reviewed | 2026-11-17 |
-| `swiftdata-rollback` | [SwiftData ModelContext rollback()](https://developer.apple.com/documentation/swiftdata/modelcontext/rollback%28%29) | content-reviewed | 2026-09-06 |
+| `swiftdata-rollback` | [SwiftData ModelContext rollback()](https://developer.apple.com/documentation/swiftdata/modelcontext/rollback%28%29) | content-reviewed | 2026-11-18 |
 | `swiftdata-schema-stages` | [Model your schema with SwiftData](https://developer.apple.com/videos/play/wwdc2023/10195/) | content-reviewed | 2026-11-17 |
 | `swiftdata-sync` | [Syncing SwiftData across devices](https://developer.apple.com/documentation/swiftdata/syncing-model-data-across-a-persons-devices) | reference-only | — |
 | `swiftdata-transient-property` | [SwiftData transient properties](https://developer.apple.com/documentation/swiftdata/transient%28%29) | content-reviewed | 2026-11-18 |
@@ -118,6 +120,7 @@ Generated from `sources.json`; run `python3 scripts/skillctl.py docs` to update.
 | `task-cancellation` | [Swift Task cancellation semantics](https://developer.apple.com/documentation/swift/task/cancel%28%29) | content-reviewed | 2026-09-06 |
 | `test-parallel` | [Swift Testing parallelization](https://developer.apple.com/documentation/Testing/Parallelization) | content-reviewed | 2026-09-06 |
 | `testflight-external-groups` | [Invite external testers](https://developer.apple.com/help/app-store-connect/test-a-beta-version/invite-external-testers/) | content-reviewed | 2026-11-18 |
+| `testflight-storekit-sandbox` | [Testing Apple In-App Purchases with sandbox](https://developer.apple.com/documentation/storekit/testing-in-app-purchases-with-sandbox) | content-reviewed | 2026-11-18 |
 | `testing` | [Swift Testing](https://developer.apple.com/xcode/swift-testing/) | content-reviewed | 2026-09-06 |
 | `testing-async-events` | [Testing asynchronous code](https://developer.apple.com/documentation/testing/testing-asynchronous-code) | content-reviewed | 2026-11-17 |
 | `tvos` | [HIG: Designing for tvOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-tvos) | reference-only | — |
@@ -132,6 +135,7 @@ Generated from `sources.json`; run `python3 scripts/skillctl.py docs` to update.
 | `visionos` | [HIG: Designing for visionOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-visionos) | reference-only | — |
 | `voice-control-criteria` | [Voice Control evaluation criteria](https://developer.apple.com/help/app-store-connect/manage-app-accessibility/voice-control-evaluation-criteria) | content-reviewed | 2026-11-17 |
 | `watch-connectivity` | [WatchConnectivity](https://developer.apple.com/documentation/watchconnectivity) | reference-only | — |
+| `watch-context-replacement` | [WCSession updateApplicationContext(_:)](https://developer.apple.com/documentation/watchconnectivity/wcsession/updateapplicationcontext(_:)) | content-reviewed | 2026-11-18 |
 | `watchos` | [HIG: Designing for watchOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-watchos) | reference-only | — |
 | `widget-refresh` | [Keeping a widget up to date](https://developer.apple.com/documentation/widgetkit/keeping-a-widget-up-to-date/) | content-reviewed | 2026-11-18 |
 | `widgets` | [WidgetKit](https://developer.apple.com/documentation/widgetkit) | reference-only | — |
@@ -144,6 +148,8 @@ Generated from `sources.json`; run `python3 scripts/skillctl.py docs` to update.
 ## Scoped review notes
 
 `accessibility-input-labels`: Localized alternatives and their priority for voice input.
+
+`activity-stale-date`: Reaching the stale date changes activity state to stale. The case distinguishes that from ending the trip.
 
 `any-layout`: Switching layout types while preserving the state of the same subviews.
 
@@ -165,9 +171,13 @@ Generated from `sources.json`; run `python3 scripts/skillctl.py docs` to update.
 
 `coredata-permanent-ids`: Obtaining a permanent ID leaves the object inserted until it is saved.
 
+`distribution-build-number`: Xcode distribution settings can update the build number of the archive content during distribution. The uploaded number identifies the candidate in App Store Connect.
+
 `file-protection-complete`: A completely protected file cannot be read or written while the device is locked or booting.
 
 `focus`: The same focus value can identify two views ambiguously. Programmatic focus then chooses the first candidate and emits a runtime warning.
+
+`health-authorization`: Authorization status concerns saving the specified type. HealthKit deliberately does not disclose read authorization to the app.
 
 `identifiable`: The type defines the scope and duration for which an ID identifies the same entity.
 
@@ -211,6 +221,8 @@ Generated from `sources.json`; run `python3 scripts/skillctl.py docs` to update.
 
 `swiftdata-migration`: Ordered schemas and migration stages used when opening a versioned store.
 
+`swiftdata-rollback`: Rollback discards pending inserts and deletes and restores changed models to their last committed state across that context.
+
 `swiftdata-schema-stages`: Versioned schemas, lightweight attribute renames, and resolving duplicates before enforcing uniqueness.
 
 `swiftdata-transient-property`: Transient properties are omitted from persistent storage. SwiftData also treats computed properties as transient.
@@ -241,6 +253,8 @@ Generated from `sources.json`; run `python3 scripts/skillctl.py docs` to update.
 
 `testflight-external-groups`: Internal Only builds cannot join external groups. Automatic and manual notification differ.
 
+`testflight-storekit-sandbox`: In-app purchases in TestFlight builds use the StoreKit sandbox. A successful beta purchase cannot establish production product availability.
+
 `testing-async-events`: A confirmation checks its count at the end of the supplied closure.
 
 `understanding-hangs`: The main run loop normally sleeps between events. A lengthy period handling work can prevent timely processing of incoming events.
@@ -250,6 +264,8 @@ Generated from `sources.json`; run `python3 scripts/skillctl.py docs` to update.
 `view-that-fits`: Candidate order, ideal size, and fitting along the specified axes.
 
 `voice-control-criteria`: Interaction by visible name, overlays, dictation, and navigation to controls.
+
+`watch-context-replacement`: A later application context replaces the preceding dictionary. Delivery is opportunistic, including while the counterpart is unreachable.
 
 `widget-refresh`: WidgetKit supports entries for predictable future dates and timeline reloads for changed data; actual presentation time can vary.
 

@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.1 — clearer decisions and stronger checks
+
+Revised all ten skill entry points and fifteen worked cases. The guides now cover lost watch events, failed saves that can leak into autosave, stale Live Activities, notarized ZIP delivery and build numbers reassigned during Xcode distribution. Skill and decision IDs remain stable.
+
 ## 3.1.0 — Apple frameworks and developer tools
 
 Restored Xcode project governance, privacy and system integrations, Mac distribution and App Store readiness under their original IDs. The other six skills now connect app decisions to native controls, Apple Watch, WidgetKit, persistence, Instruments, Simulator and device evidence.

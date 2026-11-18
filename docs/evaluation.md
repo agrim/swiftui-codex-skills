@@ -16,6 +16,8 @@ Version 3 has one scenario per published skill. The scrolling scenario includes 
 
 The [release and screen-review pilot](../evals/pilot-2026-09-09.md) and [scrolling-trace pilot](../evals/scroll-trace-pilot.md) evaluated earlier revisions. Their original inputs and outcomes remain historical records. Version 3 has no controlled agent comparison yet.
 
+During the 3.1.1 editorial review, a walkthrough of the [release fixture](../evals/fixtures/release-reconciliation/TASK.md) reached the requested internal group and a retry produced no duplicate action. The [screen fixture](../evals/fixtures/screen-review/TASK.md) exposed a reused image, a missing state, a concept image and an acceptance tied to an older capture. The scroll fixture still showed a hitch after decoding moved to a worker. These observations use synthetic evidence and a single reading of the guides.
+
 For each run, record the repository/fixture commit, skill revision, scenario ID, host/model and configuration, available tools, prompt, selected context, produced diff, executed checks, outputs, and reviewer decision. Do not include private app data or credentials.
 
 Compare the same task with and without the selected skills under equivalent tool access and constraints. Randomize order where practical. Repeat tasks to expose variability, and use more than one model/host before making cross-model claims. Keep hidden variants with different names, architecture, and failure timing so keyword repetition is not rewarded.

@@ -1,23 +1,23 @@
 ---
 name: apple-data-persistence
-description: "Choose SwiftUI draft ownership and SwiftData or Core Data save boundaries so Cancel, retries and reopening preserve the right edits."
+description: "Implement SwiftData or Core Data edits that respect Save and Cancel, survive relaunch and recover from failed or ambiguous writes."
 ---
 
 # Save the changes someone meant to keep
 
-An immediate favorite and an editor with Save and Cancel make different promises. Choose where the write occurs before binding controls to a persistent model.
+A favorite can change on tap. A rename with Save and Cancel should take effect only at Save. Choose the write boundary before binding the controls.
 
 ## Design choices
 
-1. **Keep a cancellable draft outside the stored record.** For a new SwiftData item, a small value held in the sheet can own the input until Create. For an existing record, apply the edited fields to its current identity. Discarding a draft should leave a second editor’s changes intact. <!-- EDIT-001 -->
-2. **Close the editor after the promised write succeeds.** Give failures a recoverable draft. For Core Data, check whether a child-context save still needs a parent save to reach the store. If the product syncs, distinguish a local commit from cloud delivery. <!-- EDIT-002 -->
-3. **Tie pending work to its record and account.** Reconcile an uncertain write before repeating it. If two editors change the same field, keep the draft available while resolving which value to use. <!-- EDIT-003 -->
+1. **Isolate cancellable edits.** Hold new input in a value draft until Create. Apply edited fields to the record by ID. Rolling back a shared context can discard someone else’s pending work. <!-- EDIT-001 -->
+2. **Make Save match its promise.** Dismiss after the promised write succeeds. A Core Data child save may still need a parent save to reach disk. Retain failed input and distinguish local success from pending sync. <!-- EDIT-002 -->
+3. **Retry the original change.** Keep pending work tied to its record, account and operation. Reconcile a lost reply before resending. If the same field changed elsewhere, preserve the draft while resolving the conflict. <!-- EDIT-003 -->
 
 ## Try it
 
-Reopen the store and inspect the record a person would see.
+Read the result from a fresh context or launch.
 
-- Open Create, type, dismiss and relaunch. No placeholder appears. Rename an existing record while another window favorites it, then force a save failure. The favorite survives and the draft can be retried. <!-- EDIT-001 EDIT-002 -->
-- For synced edits, lose the reply after an accepted write, switch accounts, then reconnect. Confirm one change in the intended account. <!-- EDIT-003 -->
+- Cancel a rename while another window has starred the same record. Save the star and relaunch. The old name and new star survive. A failed rename stays editable for retry. <!-- EDIT-001 EDIT-002 -->
+- For sync, interrupt an acknowledgement after the write commits. Switch accounts before retry. Only the original account should receive the change, once. <!-- EDIT-003 -->
 
 - [A rename meets a newer edit](references/two-editors.md)

@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "version": "3.1.0",
+  "version": "3.1.1",
   "entrypoint": "apple-swiftui-native-apps",
   "skills": [
     {
       "id": "apple-swiftui-native-apps",
       "title": "Build a feature that feels at home in SwiftUI",
-      "summary": "Design or repair a native SwiftUI feature, from the main action and state owner to toolbar controls, button contrast, and Liquid Glass.",
+      "summary": "Build or refine SwiftUI screens using native controls, clear action hierarchy, system styling and one owner for each interaction.",
       "triggers": [
         "build a swiftui app",
         "build a native app",
@@ -62,7 +62,7 @@
     {
       "id": "swiftui-platform-adaptation",
       "title": "Keep a task usable as the interface changes",
-      "summary": "Adapt SwiftUI navigation, focus and controls across Apple devices while keeping the selected item and unfinished task intact.",
+      "summary": "Adapt a SwiftUI task across window sizes, input methods and Apple devices while preserving selection, edits and navigation.",
       "triggers": [
         "adapt to ipad",
         "adapt to mac",
@@ -106,7 +106,8 @@
         "accessible-controls",
         "accessibility-focus",
         "watch-connectivity",
-        "watchos"
+        "watchos",
+        "watch-context-replacement"
       ],
       "coverage": "practical",
       "limits": "Navigation, focus, watch controls and continuity between windows or devices."
@@ -114,7 +115,7 @@
     {
       "id": "apple-data-persistence",
       "title": "Save the changes someone meant to keep",
-      "summary": "Choose SwiftUI draft ownership and SwiftData or Core Data save boundaries so Cancel, retries and reopening preserve the right edits.",
+      "summary": "Implement SwiftData or Core Data edits that respect Save and Cancel, survive relaunch and recover from failed or ambiguous writes.",
       "triggers": [
         "cancel saves",
         "cancel still saves",
@@ -160,7 +161,7 @@
     {
       "id": "apple-system-experiences",
       "title": "Extend an app task beyond the open app",
-      "summary": "Choose and verify a WidgetKit glance, Live Activity or App Intent that reflects the app’s real state, account and actions.",
+      "summary": "Choose a widget, Live Activity or shortcut for an app task and verify its freshness, permissions and result from the system surface.",
       "triggers": [
         "saved shortcut",
         "shortcut moves",
@@ -201,7 +202,8 @@
         "intent-auth",
         "notifications",
         "widget-refresh",
-        "activities"
+        "activities",
+        "activity-stale-date"
       ],
       "coverage": "practical",
       "limits": "Glances, live sessions and commands from Apple system surfaces."
@@ -209,7 +211,7 @@
     {
       "id": "apple-performance-cleanup",
       "title": "Make a slow interaction feel responsive",
-      "summary": "Use Instruments to diagnose launch delays, UI hangs, scrolling hitches and retained memory, then verify the original interaction.",
+      "summary": "Use Instruments to fix a measured delay or memory problem, and simplify Swift code without losing behavior on the affected path.",
       "triggers": [
         "scroll hitch",
         "scrolling stutters",
@@ -253,7 +255,7 @@
     {
       "id": "apple-device-validation",
       "title": "Verify the experience on Simulator and device",
-      "summary": "Use Xcode, Simulator and physical devices to verify rendering, upgrades, interaction and paired-device behavior on the intended build.",
+      "summary": "Verify a SwiftUI change on the installed build. Choose simulator captures, physical-device runs or paired-device checks to suit the defect.",
       "triggers": [
         "ready to ship",
         "release candidate",
@@ -304,7 +306,7 @@
     {
       "id": "apple-project-governance",
       "title": "Wire an Apple capability through the right Xcode targets",
-      "summary": "Fix Xcode project and signing configuration when a widget, watch app, extension or shared capability builds but fails in the installed product.",
+      "summary": "Trace Xcode target, resource and entitlement problems from the source configuration to the signed app or extension that fails.",
       "triggers": [
         "widget cannot read",
         "widget reads an empty store",
@@ -345,7 +347,7 @@
     {
       "id": "apple-privacy-system-integrations",
       "title": "Add an Apple integration people can trust",
-      "summary": "Integrate HealthKit, CloudKit or another Apple service with a clear permission request, useful fallback and accurate treatment of data that leaves the app.",
+      "summary": "Request Apple service access at the right moment, handle missing readings, and verify what gets exported, indexed or removed.",
       "triggers": [
         "health sharing",
         "healthkit permission",
@@ -388,7 +390,7 @@
     {
       "id": "macos-productization",
       "title": "Ship a Mac app people can install and update",
-      "summary": "Prepare or diagnose a Mac release by checking the signed app, packaging, Gatekeeper, installed icon and update path for its distribution channel.",
+      "summary": "Verify signing, notarization, installed behavior and updates for the Mac artifact customers receive through the chosen distribution channel.",
       "triggers": [
         "downloaded dmg",
         "mac app distribution",
@@ -422,7 +424,7 @@
     {
       "id": "apple-app-store-readiness",
       "title": "Prepare an App Store build a reviewer can actually use",
-      "summary": "Match an Xcode archive and TestFlight build to the app’s storefront promise, production services, screenshots and App Review access.",
+      "summary": "Verify that a specific TestFlight or App Store build delivers its listing, works for a reviewer and has reached the requested distribution stage.",
       "triggers": [
         "app store review",
         "app review notes",
@@ -454,7 +456,9 @@
         "testflight-external-groups",
         "privacy",
         "account-deletion",
-        "storekit"
+        "storekit",
+        "distribution-build-number",
+        "testflight-storekit-sandbox"
       ],
       "coverage": "practical",
       "limits": "Candidate identity, public-facing assets, review access and storefront readiness. Current store requirements depend on the product and region."

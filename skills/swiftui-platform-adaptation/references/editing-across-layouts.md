@@ -1,9 +1,9 @@
-# An iPad note editor becomes a phone-sized detail
+# Keep Monday open when the iPad window narrows
 
-Start with Monday selected in a sidebar and Tuesday open in another window. Type an unfinished sentence in Monday. Resize its window until only one column fits.
+Open Monday in one window and Tuesday in another. Type an unfinished sentence in Monday, reorder the sidebar, then narrow its window to one column. If Monday loses the sentence, find out which view created the editor. If Tuesday changes selection, find the shared selection both windows are writing.
 
-If each column created its own editor model, the narrow layout may open a fresh Monday and lose the sentence. Give the editing session to the scene that remains alive during the transition. Let both presentations display that session, keyed to Monday’s record ID. The same choice applies to tabs that become sidebar entries. Bind both presentations to the window’s selected destination. Share committed notes across windows when the product calls for it. Each window can still choose a different note.
+Give the editing session to an owner that survives the width change. Key it to Monday’s record ID. Bind the split view and compact stack to that window’s selection. Apply the same reasoning to a tab that becomes a sidebar entry. Share committed notes across windows while letting each window choose a different note.
 
-At large text sizes, give the title field another line and move secondary actions into a menu. If a custom save icon fits visually but has no accessible action, put the icon inside the same Save button used by the keyboard command. After saving, Back should reveal the list with Monday selected. Repeat with Tuesday still open to catch accidental sharing of the selection.
+Save Monday with the hardware keyboard. Back should reach the list with Monday identifiable. The other window should still show Tuesday. At large text size, let the title wrap and move secondary actions into a menu before squeezing Save. Try VoiceOver through dismissal and listen for the next usable focus target.
 
-If another destination supports only part of this task, decide where the person can finish. A watch might let them capture a sentence and open the same note later on the phone. On a TV where they browse notes with a remote, moving focus can preview a note while activation opens it. In a spatial workspace, a second window can keep a reference note in sight while they edit. In each case, carry the identity of the chosen note across the transition.
+For a TV browser, moving remote focus can preview a note while activation opens it. In a spatial workspace, a reference note may stay visible in a second window. Carry the chosen record’s identity wherever the task continues.

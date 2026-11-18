@@ -1,23 +1,23 @@
 ---
 name: apple-privacy-system-integrations
-description: "Integrate HealthKit, CloudKit or another Apple service with a clear permission request, useful fallback and accurate treatment of data that leaves the app."
+description: "Request Apple service access at the right moment, handle missing readings, and verify what gets exported, indexed or removed."
 ---
 
 # Add an Apple integration people can trust
 
-Start where the person asks for the feature. A workout diary can save a session locally while optional Health sharing is off. A feature that genuinely needs a live sensor reading should explain why it is unavailable.
+A training diary can save a workout with Health sharing off. Live heart rate needs a reading. Gate the part of the feature that actually needs access.
 
 ## Design choices
 
-1. **Ask for the access the feature needs.** Identify the data type, operation and requesting target. Match its capabilities and purpose text to the real call. Evaluate privacy manifests, SDK behavior and store disclosures against actual data flows. Each artifact serves a different purpose. <!-- PRIVACY-101 -->
-2. **Represent what the framework lets you know.** HealthKit can return no readable samples without revealing whether read access was denied. Display the absence of readings honestly. Keep unrelated features usable when permission, account or device availability changes. <!-- PRIVACY-102 -->
-3. **Track each copy beyond the app.** Distinguish a local save, cloud sync, Health export and lock-screen projection. Export only fields with a matching meaning, preserve retry identity, and decide what deletion or account changes do to retained copies. <!-- PRIVACY-103 -->
+1. **Ask at the point of use.** Match the data type, read or write operation, purpose text and signed target. Include SDK data flows when checking privacy declarations. <!-- PRIVACY-101 -->
+2. **Show only what the service establishes.** An empty HealthKit query can mean no readable samples. Offer a useful empty state. Handle an actual query error separately and keep unrelated work available. <!-- PRIVACY-102 -->
+3. **Account for each external copy.** Separate local save from cloud sync, Health export and system indexing. Export only measured fields. Keep an export ID for retries and decide what sign-out or deletion removes. <!-- PRIVACY-103 -->
 
 ## Try it
 
-Follow one real record through an allowed path and one unavailable path.
+Follow one workout across the selected boundaries.
 
-- Save the same kind of session with optional sharing off and on. Check the purpose shown, local history, exported fields and retry count. An absent reading stays absent. <!-- PRIVACY-101 PRIVACY-102 PRIVACY-103 -->
-- Revoke access or switch accounts, then revisit history and any external display. Check the explanation, remaining local actions and previously visible private details. <!-- PRIVACY-102 PRIVACY-103 -->
+- Save with sharing off, then on. Both sessions remain in local history. Only the opted-in export reaches Health. Unmeasured energy stays absent, and an empty query displays “No readings available.” <!-- PRIVACY-101 PRIVACY-102 PRIVACY-103 -->
+- After sign-out, search for an indexed private title. Check that the result neither reveals it nor opens the old account’s record. <!-- PRIVACY-102 PRIVACY-103 -->
 
 - [Save a workout when Health sharing is unavailable](references/optional-health-export.md)

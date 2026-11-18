@@ -1,14 +1,17 @@
-# The app runs locally but the downloaded DMG will not open
+# A downloaded Mac app opens but its helper fails
 
-Identify the version and build in the downloaded image. Inspect the app and each embedded helper that can launch. On macOS the following commands answer different questions about a direct Developer ID release. Set the paths to the app in the delivered image and the final disk image:
+Use the copy installed from the customer’s download. Identify the top-level app and the embedded executable that failed. Compare each signature’s team identity and entitlements. A valid app signature can still describe a helper with the wrong entitlement or a bundle missing a required resource.
+
+For a Developer ID app delivered on a stapled DMG, set the paths to that installed app, its helper and the final downloaded image. These checks inspect the signatures, signed permissions, stapling and execution assessment:
 
 ```sh
 codesign --verify --deep --strict --verbose=2 "$app"
-codesign -d --entitlements - "$app"
+codesign -dv --verbose=4 "$helper"
+codesign -d --entitlements - "$helper"
 xcrun stapler validate "$dmg"
 spctl --assess --type execute --verbose=4 "$app"
 ```
 
-Verify a stapled DMG when that is the chosen notarized container. Consult the notary submission result and log for the artifact actually sent. An accepted submission does not describe a later repack. Check that the tested download retains quarantine and try the installed app under normal Gatekeeper settings. Keep the original failing build available for comparison.
+Match the notary record to the item submitted. For a DMG, validate its stapled ticket. For a ZIP, staple the supported enclosed item after acceptance, recreate the ZIP, then download and extract that final ZIP. Preserve quarantine and launch the installed copy on a clean test Mac or VM. Invoke the helper. Inspection alone cannot exercise that feature.
 
-If the app opens but its icon or helper differs, inspect the copy you installed. Compare the canonical Icon Composer package or asset catalog, resolved icon name, target resources and bundled helper signature. If only updates fail, check the feed’s version, payload identity and updater signature using the previous released client. A successful fresh install exercises a different path.
+If the installed icon is wrong, trace the canonical Icon Composer or asset-catalog source through the target into the packaged app. If only an update fails, inspect the actual feed and signed payload used by the previous release, then check the running version and an existing document.

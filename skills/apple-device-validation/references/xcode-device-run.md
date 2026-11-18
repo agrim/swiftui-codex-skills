@@ -1,16 +1,16 @@
-# Prove which build and screen you observed
+# Capture the right build or diagnose a Release-only exit
 
-Select the workspace and shared scheme in Xcode. From the shell, use `xcodebuild -showdestinations -workspace "$workspace" -scheme "$scheme"` (use `-project` for a standalone project). For a simulator, resolve the intended UDID with `xcrun simctl list devices booted`. With the matching app already built, a reproducible capture can be as short as:
+Select the workspace and shared scheme. Use `xcodebuild -showdestinations -workspace "$workspace" -scheme "$scheme"` to find compatible destinations, or `-project` for a standalone project. For Simulator, match the OS and device in `xcrun simctl list devices booted`. Set the variables below to the chosen simulator UDID, simulator app bundle, bundle ID and output path.
 
 ```sh
 xcrun simctl install "$udid" "$built_app"
 xcrun simctl launch "$udid" "$bundle_id"
-# Navigate to the affected state before capturing it.
+# Navigate to the affected state before taking the screenshot.
 xcrun simctl io "$udid" screenshot "$capture_path"
 ```
 
-Set the placeholders to the chosen simulator, app bundle, identifier and output file. Use the same fixture, appearance and content size in both captures. For phone delivery, find the physical device with `xcrun devicectl list devices` and use Xcode Devices and Simulators or `devicectl device install app` with that destination. An install request can finish at confirming bundle presence. For a launch claim, observe the process and its first usable screen.
+Compare captures with the same fixture, appearance and text size. If only this app fails to capture, see whether its UI responds. If a known-good screen on the same simulator also fails, investigate the simulator or capture service.
 
-**When capture hangs**, try another screen on the same simulator. If the other screen captures, inspect the app’s responsiveness. If neither captures, inspect the simulator’s state before changing SwiftUI code.
+**On hardware**, discover the destination with `xcrun devicectl list devices`. Xcode’s Devices and Simulators window or `xcrun devicectl device install app --device "$device" "$device_app"` can install the matching signed device build. Verify bundle presence for an install request. For a launch claim, observe the process reach its first usable screen.
 
-**When only the installed Release build exits**, preserve the failing container, obtain the device crash report in Xcode, and match the image UUID with the binary and dSYM from the archive. Symbolicate the first app-owned frames. Install the corrected Release build over the same data and repeat cold launches. A working Debug launch exercises a different binary.
+**If Release exits**, retain the app data and device crash report. Match the failing image’s UUID against the archive’s dSYM using `dwarfdump --uuid "$dsym"`. Symbolicate the first app-owned frames with that archive. Install the corrected Release build over the failing data and repeat cold launches on the same device.

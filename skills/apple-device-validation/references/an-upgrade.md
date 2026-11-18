@@ -1,7 +1,7 @@
-# A blank list after a successful upgrade
+# Favorites is empty after the update
 
-The candidate installs and a fresh account can create trips. Existing users need a stronger answer. Install the previous supported build, save two trips, favorite one, and quit. Upgrade through the channel you intend to assess with the data still present.
+In the supported previous build, save two trips and favorite one. Record which account owns them. Quit and install the candidate over that build, keeping the container. A clean install tests first use and can hide an upgrade failure.
 
-Open Favorites and the full list. If a trip seems missing, distinguish an active filter from data loss before attempting a repair. Open the old favorite, edit its title, quit, and reopen it. Check that the title and favorite survive together. Deleting the store and repeating first launch tests a different journey.
+If Favorites is empty, check the account, filter and full list. A trip that still appears in All Trips points to selection, filtering or a missing favorite flag. If both views are empty, preserve the failing store and inspect the store location and migration error before attempting repair.
 
-Record the builds, whether the same store survived, and the outcome for those two trips. A surviving local record settles the local upgrade question. An advertised cloud handoff needs a second signed-in destination and an observed arrival.
+Open the old favorite, rename it, quit and reopen. Both trips should exist and the renamed trip should still be the favorite. Record the two build numbers and the starting store. For a cloud handoff claim, observe the changed record on a second signed-in destination too.

@@ -1,15 +1,9 @@
-# Choosing the first screen for Saved Places
+# Decide what Saved Places opens to
 
-Someone hears about a café, saves its name, and wants to find it on Saturday. They know the name before they know the street address. That makes a named list a better first screen for this version than a pin that requires coordinates.
+A friend recommends a café by name. You want to find it again on Saturday. Start with a list, a toolbar Add button and a sheet that accepts the name alone. Save, relaunch and open the café. If the actual task is “find a stop near me on this walk,” lead with a map and ask for location when the person chooses Nearby.
 
-Start with a list and a toolbar Add button. Let Add open a sheet with a name field, Save and Cancel. On Save, insert the place through the collection the list already reads. On success, dismiss the sheet and show the new row. On failure, keep the name in the editor so the person can try again. Searching or sorting a growing collection can come later.
+**Keep first use short.** A name and a clear Save action are enough for the first visit. Put occasional settings elsewhere and keep the privacy policy available after onboarding. Try the empty list, one place with a long name and two records. If a placeholder looks like a selectable row or a stray separator suggests a missing item, adjust that row or section.
 
-If the real task is “show me somewhere nearby to stop on this walk,” location belongs on the first screen. You can make that call by walking through a real outing. The presence of coordinates in the data model tells you little about which screen should lead.
+**Make the editor behave as it reads.** Focus the first field when immediate typing serves the task. When the person first needs to inspect the place, present the sheet unfocused. Keep untouched fields quiet and give Return its advertised next-field or done action. If AutoFill lingers after dismissal, trace which view still owns focus. For a staged numeric setting, keep selection in the draft and preserve a valid old value outside today’s presets until the person changes it.
 
-## When the first run becomes a settings form
-
-Let someone save the first place with the few details they already know. Move rarely changed defaults to a secondary form. If location is useful only for “nearby,” ask when they choose it. Keep a privacy disclosure reachable from Settings after onboarding. A direction-aware Continue label should still make sense with larger type and right-to-left text.
-
-For a modal editor, decide whether typing really is the first task. If users first need to inspect the existing place, present the sheet before focusing a field. Keep untouched fields quiet. Give Return the right next-field or done behavior and reserve explicit Save for the commit. If AutoFill lingers over the next screen, check the field’s content type, focus owner and dismissal order before adjusting safe-area padding.
-
-For discrete numeric choices, preserve a valid old value outside the new presets until the person changes it. A native Picker can edit the draft in place. Check Cancel, keyboard submit and relaunch. A ruler in another Apple app establishes the interaction to study, not the availability of a public ruler control.
+Cancel a partly entered place, then save another. The next launch shows only the saved one. Reopen it at large text size and check that the name, primary action and way out remain reachable.
