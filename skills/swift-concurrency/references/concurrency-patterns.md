@@ -41,7 +41,7 @@ Thread Sanitizer and strict-concurrency diagnostics can identify classes of unsa
 
 ## Sources
 
-- [concurrency](https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html) — The Swift Programming Language: Concurrency.
-- [swift62](https://www.swift.org/blog/swift-6.2-released/) — Swift 6.2 language and concurrency changes.
-- [observation](https://developer.apple.com/documentation/SwiftUI/Migrating-from-the-observable-object-protocol-to-the-observable-macro) — Migrating to Observation.
+- [The Swift Programming Language: Concurrency](https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html)
+- [Swift 6.2 language and concurrency changes](https://www.swift.org/blog/swift-6.2-released/)
+- [Migrating to Observation](https://developer.apple.com/documentation/SwiftUI/Migrating-from-the-observable-object-protocol-to-the-observable-macro)
 - [task-cancellation](https://developer.apple.com/documentation/swift/task/cancel%28%29) — Cooperative cancellation and handler execution.

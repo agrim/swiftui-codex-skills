@@ -1,41 +1,40 @@
 ---
 name: swiftui-state-architecture
-description: "Fix SwiftUI state ownership, Observation, bindings, environment injection, view identity, scene scope, and testable feature boundaries without imposing an architecture."
+description: "Fix SwiftUI state ownership, Observation, bindings, environment injection, row identity and scene lifetime."
 ---
 
 # State, identity, and architecture
 
 ## Inputs
 
-Identify deployment minimums, existing observation system, view identity, creation site, mutation sites, and required lifetime: render, view, scene, app, or persistent store.
+Identify each value’s creator, readers, writers, required lifetime and supported OS versions.
 
 ## Rules
 
-- **STATE-001 — Choose lifetime first.** Give mutable state one owner at the narrowest sufficient lifetime; pass values, bindings, or explicit services to readers.
-- **STATE-002 — Match the observation system.** Use `@State` for owned Observation models on supported targets; retain `@StateObject`/`@ObservedObject` for compatible legacy models. Migrate incrementally.
-- **STATE-003 — Preserve identity.** Use stable domain IDs for mutable collections. View position, a newly generated UUID, and object identity are not interchangeable with record identity.
-- **STATE-004 — Keep rendering pure.** Do not start services, write persistence, or perform expensive work from `body` or repeatedly evaluated initializers.
-- **STATE-005 — Separate draft from durable state.** Cancel must not persist edits that the UI promises to discard. Observation and actor isolation solve different problems.
+- **STATE-001 — Choose one owner.** Own mutable state for the shortest sufficient lifetime. Pass values to readers, bindings to editors and services to callers.
+- **STATE-002 — Match the wrapper to ownership.** For a view-owned `@Observable` model, use `@State` on supported targets. For `ObservableObject`, use `@StateObject` to own or `@ObservedObject` to observe a passed-in model.
+- **STATE-003 — Keep record identity stable.** Key editable rows by domain IDs that survive reordering.
+- **STATE-004 — Keep rendering pure.** Move service starts, persistence writes and expensive work out of `body` and repeatedly evaluated initializers.
+- **STATE-005 — Isolate edits.** Keep discardable drafts separate from durable records until Save. Choose actor isolation independently of observation.
 
 ## Workflow
 
-1. Draw owner → readers → writers for the changed feature.
-2. Select wrappers from the playbook; avoid mirrored booleans and unnecessary view models.
-3. Model mutually exclusive states as an enum when independent flags admit impossible combinations.
-4. Extract services or reducers only where side effects, reuse, or deterministic tests justify them.
-5. For an asynchronous row edit, follow its write back to the current collection. Resolve the record by stable ID after suspension and check whether the reply still owns that edit.
-6. Check lifetime across navigation, sheets, list changes, multiple windows, and relaunch.
+1. Trace one edit from control to owner. Choose which state should survive navigation, dismissal or relaunch.
+2. Replace independent flags with an enum when they permit impossible combinations.
+3. After an asynchronous row save, resolve the current record by ID. Apply the reply only if the edit is still current.
 
 ## Verify
 
-Test parent recomputation, record reorder/deletion, two scenes, cancel/save, restoration, and model replacement. Verify mutations update only the intended UI and do not recreate resource owners.
+- STATE-001: For scene-owned selection, open a second window. Its selection changes independently.
+- STATE-002: Recompute the parent of an owned model. Its identity and in-progress draft survive.
+- STATE-003: Reorder, delete or re-edit a row before its save completes. The reply preserves newer edits, their pending state and any deletion.
+- STATE-005: Cancel an editor and check that storage is unchanged. Save and reopen to verify the committed value.
 
 ## Output
 
-Provide the ownership map, chosen wrappers, compatibility boundary, and focused behavior tests.
+Identify the owner, wrapper, compatibility constraints, and results of the affected lifecycle checks.
 
 ## References
 
-Read the [playbook](references/state-patterns.md) for decisions, failure cases, and source links.
-
-For observation, bindings, and dependency seams, read the [focused reference](references/observation-and-bindings.md).
+- [Choose owners, wrappers and scene scope](references/state-patterns.md)
+- [Observation, bindings and asynchronous row edits](references/observation-and-bindings.md)

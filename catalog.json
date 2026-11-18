@@ -6,7 +6,7 @@
     {
       "id": "apple-swiftui-native-apps",
       "title": "SwiftUI engineering entry point",
-      "summary": "Build, review, or repair a SwiftUI feature. Start here for native UI semantics, task scoping, SDK verification, and selecting focused Apple-platform skills.",
+      "summary": "Scope a SwiftUI feature or review, check native control semantics and SDK availability, and select a specialist skill.",
       "triggers": [
         "swiftui",
         "native ui",
@@ -38,7 +38,7 @@
     {
       "id": "swiftui-state-architecture",
       "title": "State, identity, and architecture",
-      "summary": "Fix SwiftUI state ownership, Observation, bindings, environment injection, view identity, scene scope, and testable feature boundaries without imposing an architecture.",
+      "summary": "Fix SwiftUI state ownership, Observation, bindings, environment injection, row identity and scene lifetime.",
       "triggers": [
         "state ownership",
         "observation",
@@ -77,7 +77,7 @@
     {
       "id": "swift-concurrency",
       "title": "Concurrency and lifecycle",
-      "summary": "Design or repair Swift async/await, actors, Sendable boundaries, cancellation, task ownership, stale results, continuations, and Swift 6 migration.",
+      "summary": "Diagnose Swift actor isolation, task lifetimes, stale async results, cancellation, continuations, stream buffering, and Swift 6 migration.",
       "triggers": [
         "concurrency",
         "async await",
@@ -118,7 +118,7 @@
     {
       "id": "swiftui-navigation",
       "title": "Navigation and presentation",
-      "summary": "Build or fix SwiftUI NavigationStack, NavigationSplitView, tabs, sheets, deep links, route restoration, and scene-specific selection.",
+      "summary": "Fix SwiftUI Back behavior, deep links, sheets, scene selection, and restoration in NavigationStack or NavigationSplitView.",
       "triggers": [
         "navigationstack",
         "navigationsplitview",
@@ -153,7 +153,7 @@
     {
       "id": "swiftui-layout",
       "title": "Adaptive layout and scrolling",
-      "summary": "Repair SwiftUI layout, safe areas, stacks, grids, lists, scrolling, custom Layout, GeometryReader, Dynamic Type, and right-to-left adaptation.",
+      "summary": "Fix SwiftUI clipping, safe areas, scrolling, or reflow across window sizes, Dynamic Type, and right-to-left layouts.",
       "triggers": [
         "geometryreader",
         "safe area",
@@ -193,7 +193,7 @@
     {
       "id": "swiftui-controls-input",
       "title": "Controls, forms, and input",
-      "summary": "Implement SwiftUI buttons, menus, pickers, forms, focus, keyboard submission, text entry, gestures, drag and drop, and validation with native semantics.",
+      "summary": "Build SwiftUI controls and forms. Resolve focus, keyboard submission, text composition, gestures, drag and drop, or duplicate commits.",
       "triggers": [
         "button style",
         "button foreground",
@@ -228,7 +228,7 @@
     {
       "id": "swiftui-accessibility",
       "title": "Accessibility and localization",
-      "summary": "Audit or implement VoiceOver, Voice Control, Dynamic Type, accessible controls, contrast, Reduce Motion, keyboard access, localization, and right-to-left SwiftUI behavior.",
+      "summary": "Audit SwiftUI tasks with VoiceOver, Voice Control, keyboards, Dynamic Type, Reduce Motion, contrast, and localized layouts.",
       "triggers": [
         "accessibility",
         "voiceover",
@@ -269,7 +269,7 @@
     {
       "id": "swiftui-design-system",
       "title": "Visual language, materials, and motion",
-      "summary": "Refine SwiftUI hierarchy, typography, color, SF Symbols, materials, Liquid Glass, animation, charts, and consistent native-feeling components using Apple HIG principles.",
+      "summary": "Design consistent SwiftUI components with typography, color, SF Symbols, Liquid Glass, charts, and motion.",
       "triggers": [
         "liquid glass",
         "visual hierarchy",
@@ -309,7 +309,7 @@
     {
       "id": "apple-data-persistence",
       "title": "Persistence, drafts, and synchronization",
-      "summary": "Design or repair SwiftData, Core Data, file storage, migrations, save/cancel semantics, local-first data, CloudKit synchronization, and durable operation identity.",
+      "summary": "Choose a store and define save, cancel, migration, and sync behavior across SwiftData, Core Data, files, or CloudKit.",
       "triggers": [
         "swiftdata",
         "core data",
@@ -346,7 +346,7 @@
     {
       "id": "apple-networking",
       "title": "Networking, caching, and remote state",
-      "summary": "Implement or audit URLSession clients, authentication, retries, cancellation, pagination, image loading, caching, and truthful offline SwiftUI state.",
+      "summary": "Build or review URLSession clients for authentication, retries, cancellation, shared image downloads, pagination, caching, and offline use.",
       "triggers": [
         "urlsession",
         "network request",
@@ -384,7 +384,7 @@
     {
       "id": "swiftui-testing",
       "title": "Behavior tests, previews, and evidence",
-      "summary": "Design Swift Testing, XCTest, UI automation, preview fixtures, accessibility checks, and deterministic regression tests for SwiftUI features.",
+      "summary": "Choose Swift Testing, XCTest, UI automation or preview fixtures for a SwiftUI regression. Verify async ordering, accessibility and visible behavior.",
       "triggers": [
         "swift testing",
         "xctest",
@@ -422,7 +422,7 @@
     {
       "id": "swiftui-platform-adaptation",
       "title": "Platform-native scenes and interaction",
-      "summary": "Adapt SwiftUI apps for iOS, iPadOS, macOS, watchOS, tvOS, and visionOS with appropriate scenes, navigation, input, windows, focus, and lifecycle.",
+      "summary": "Adapt SwiftUI scenes, windows, focus, and input for iOS, iPadOS, macOS, watchOS, tvOS, or visionOS.",
       "triggers": [
         "multiplatform",
         "ipados",
@@ -463,7 +463,7 @@
     {
       "id": "swiftui-interop",
       "title": "UIKit and AppKit interoperability",
-      "summary": "Bridge SwiftUI with UIKit or AppKit using representables, hosting, coordinators, delegates, text systems, and explicit lifecycle ownership.",
+      "summary": "Bridge SwiftUI to UIKit or AppKit with representables, hosting, coordinators, and delegates.",
       "triggers": [
         "uiviewrepresentable",
         "nsviewrepresentable",
@@ -499,7 +499,7 @@
     {
       "id": "apple-system-experiences",
       "title": "System surfaces and framework integration",
-      "summary": "Integrate WidgetKit, App Intents, ActivityKit, notifications, Spotlight, WatchConnectivity, HealthKit, and StoreKit through truthful shared commands and projections.",
+      "summary": "Connect app state and actions to widgets, Live Activities, notifications, Spotlight, WatchConnectivity, HealthKit, and StoreKit.",
       "triggers": [
         "widgetkit",
         "app intents",
@@ -543,7 +543,7 @@
     {
       "id": "apple-project-governance",
       "title": "Apple project governance",
-      "summary": "Create, repair, or audit Xcode and Swift package configuration. Use for targets, schemes, resources, generated projects, entitlements, build settings, and configuration drift.",
+      "summary": "Audit or repair Xcode and Swift package configuration, generated projects, target membership, schemes, resources, entitlements, and settings drift.",
       "triggers": [
         "xcode project",
         "target membership",
@@ -578,7 +578,7 @@
     {
       "id": "apple-privacy-system-integrations",
       "title": "Apple privacy and integration safety",
-      "summary": "Design or audit protected-data access and system boundaries. Use for permissions, purpose strings, privacy manifests, data minimization, retention, deletion, disclosures, and account changes.",
+      "summary": "Audit protected data, permissions, purpose strings, privacy manifests, disclosures, retention, and deletion.",
       "triggers": [
         "privacy",
         "permission",
@@ -618,7 +618,7 @@
     {
       "id": "apple-performance-cleanup",
       "title": "Apple performance and behavior-preserving cleanup",
-      "summary": "Diagnose or improve SwiftUI responsiveness, startup, memory, energy, and hot paths. Use measurements and explicit behavior contracts before optimization or broad compaction.",
+      "summary": "Diagnose SwiftUI hitches, slow startup, memory growth and energy use. Verify performance gains and preserve behavior during cleanup.",
       "triggers": [
         "performance",
         "slow",
@@ -658,7 +658,7 @@
     {
       "id": "apple-device-validation",
       "title": "Apple runtime and device validation",
-      "summary": "Build, install, run, render, and validate Apple apps on the correct destination. Use for simulator/device evidence, screenshots, hardware, paired devices, and infrastructure triage.",
+      "summary": "Verify an Apple app on a simulator or device. Use for launch failures, screenshots, interaction, hardware, paired devices, and runtime evidence.",
       "triggers": [
         "simulator",
         "physical device",
@@ -696,7 +696,7 @@
     {
       "id": "apple-app-store-readiness",
       "title": "App Store readiness",
-      "summary": "Plan, audit, or prepare an App Store candidate. Use for release scope, storefront metadata, privacy disclosures, review access, TestFlight, and explicit submission or release gates.",
+      "summary": "Audit an App Store build, prepare storefront and reviewer materials, or perform an authorized TestFlight, submission, or release stage.",
       "triggers": [
         "app store",
         "app review",
@@ -732,7 +732,7 @@
     {
       "id": "macos-productization",
       "title": "macOS productization and distribution",
-      "summary": "Prepare or inspect a macOS distribution artifact. Use for Developer ID or Mac App Store signing, hardened runtime, notarization, packaging, Gatekeeper, installation, and update integrity.",
+      "summary": "Prepare or verify macOS distribution, including Developer ID or Mac App Store signing, notarization, packaging, Gatekeeper, installation, and updates.",
       "triggers": [
         "notarization",
         "gatekeeper",
@@ -763,7 +763,7 @@
     {
       "id": "swift-language",
       "title": "Swift API design and dependency boundaries",
-      "summary": "Write or review Swift APIs, value models, dependency injection, error contracts, access control, formatting, and language-version migrations without imposing an app architecture.",
+      "summary": "Review Swift API design, value semantics, dependency injection, error handling, formatting, and compiler or language-mode migrations.",
       "triggers": [
         "swift api design",
         "dependency injection",
@@ -795,7 +795,7 @@
     {
       "id": "apple-build-workflows",
       "title": "Reproducible Apple build and debug workflows",
-      "summary": "Create or repair reproducible Xcode and SwiftPM build, test, debug, and simulator workflows with explicit destinations, raw logs, safe tooling, and truthful evidence.",
+      "summary": "Set up or repair Xcode and SwiftPM build, test, debug, or simulator workflows. Use for scheme selection, CI reproduction, and failed commands.",
       "triggers": [
         "build workflow",
         "build and run",
@@ -827,7 +827,7 @@
     {
       "id": "xcode-build-optimization",
       "title": "Evidence-based Xcode build optimization",
-      "summary": "Benchmark and improve Xcode clean, no-change, and edit-build latency; analyze compiler hotspots, script phases, target graphs, SwiftPM plugins, and measured rollback decisions.",
+      "summary": "Reduce Xcode clean, no-change, or edit-build latency. Diagnose compiler hotspots, script phases, target dependencies, and SwiftPM plugins.",
       "triggers": [
         "xcode build optimization",
         "slow builds",
@@ -865,7 +865,7 @@
     {
       "id": "swiftdata",
       "title": "SwiftData schemas, queries, and migrations",
-      "summary": "Design and repair SwiftData models, relationships, predicates, contexts, disk-backed migrations, indexes, history, and CloudKit-compatible schema evolution.",
+      "summary": "Design or repair SwiftData models, predicates, relationships, indexes, context ownership, history, disk migrations, and CloudKit-compatible schemas.",
       "triggers": [
         "swiftdata schema",
         "swiftdata predicate",
@@ -904,7 +904,7 @@
     {
       "id": "core-data",
       "title": "Core Data confinement, history, and migration",
-      "summary": "Diagnose Core Data contexts, managed object identity, fetches, batch changes, persistent history, SQLite migrations, merge policies, and CloudKit mirroring.",
+      "summary": "Diagnose Core Data context handoffs, batch changes, persistent history, merge conflicts, SQLite migrations, and CloudKit mirroring.",
       "triggers": [
         "core data threading",
         "core data migration",
@@ -938,7 +938,7 @@
     {
       "id": "apple-app-intents",
       "title": "App Intents, entities, and system actions",
-      "summary": "Implement App Intents, App Entities, entity queries, App Shortcuts, and system actions with shared commands, authorization, process isolation, and runtime registration evidence.",
+      "summary": "Implement App Intents, AppEntity queries, and App Shortcuts. Verify authorization and cold invocation.",
       "triggers": [
         "appintent",
         "appentity",
@@ -972,7 +972,7 @@
     {
       "id": "apple-observability",
       "title": "Privacy-safe logs and performance diagnostics",
-      "summary": "Instrument and diagnose Apple apps using unified logging, signposts, Instruments traces, crash symbolication, memory graphs, and reproducible evidence without leaking user data.",
+      "summary": "Diagnose Apple app failures with unified logging, signposts, Instruments traces, crash symbols and memory graphs.",
       "triggers": [
         "unified logging",
         "logger",
@@ -1007,7 +1007,7 @@
     {
       "id": "apple-background-execution",
       "title": "Background execution and resumable work",
-      "summary": "Design Apple background refresh, processing, background transfers, and expiration-safe work with durable progress, bounded execution, and truthful scheduling state.",
+      "summary": "Handle BGTaskScheduler, background transfers, expiration, and relaunch recovery.",
       "triggers": [
         "background execution",
         "bgprocessingtask",
@@ -1039,7 +1039,7 @@
     {
       "id": "apple-security",
       "title": "Apple app trust boundaries and secure data",
-      "summary": "Review Apple app credentials, Keychain use, transport trust, deep links, untrusted input, sandbox boundaries, dependencies, and secure failure handling.",
+      "summary": "Review Keychain credentials, transport trust, deep links, imports, sandbox boundaries, and dependencies.",
       "triggers": [
         "security audit",
         "keychain storage",

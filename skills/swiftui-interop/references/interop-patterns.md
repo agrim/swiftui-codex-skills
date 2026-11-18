@@ -37,9 +37,9 @@ Create the view, update one property, trigger a user event, remove it, recreate 
 
 ## Sources
 
-- [uikit](https://developer.apple.com/documentation/swiftui/uikit-integration) — SwiftUI UIKit integration.
-- [appkit](https://developer.apple.com/documentation/swiftui/appkit-integration) — SwiftUI AppKit integration.
-- [concurrency](https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html) — The Swift Programming Language: Concurrency.
-- [accessibility](https://developer.apple.com/design/human-interface-guidelines/accessibility) — HIG: Accessibility.
-- [view-controller-bridge](https://developer.apple.com/documentation/SwiftUI/uiviewcontrollerrepresentable) — UIViewControllerRepresentable.
-- [appkit-view-bridge](https://developer.apple.com/documentation/SwiftUI/NSViewRepresentable/) — NSViewRepresentable.
+- [SwiftUI UIKit integration](https://developer.apple.com/documentation/swiftui/uikit-integration)
+- [SwiftUI AppKit integration](https://developer.apple.com/documentation/swiftui/appkit-integration)
+- [The Swift Programming Language: Concurrency](https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html)
+- [HIG: Accessibility](https://developer.apple.com/design/human-interface-guidelines/accessibility)
+- [UIViewControllerRepresentable](https://developer.apple.com/documentation/SwiftUI/uiviewcontrollerrepresentable)
+- [NSViewRepresentable](https://developer.apple.com/documentation/SwiftUI/NSViewRepresentable/)

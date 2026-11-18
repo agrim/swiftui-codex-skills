@@ -1,37 +1,38 @@
 ---
 name: apple-app-intents
-description: "Implement App Intents, App Entities, entity queries, App Shortcuts, and system actions with shared commands, authorization, process isolation, and runtime registration evidence."
+description: "Implement App Intents, AppEntity queries, and App Shortcuts. Verify authorization and cold invocation."
 ---
 
 # App Intents, entities, and system actions
 
 ## Inputs
 
-Identify the user action, intent/entity types, process and actor, target membership, data access, authentication, confirmation, and supported system entry points.
+Identify the action, entity, host, actor, account, and access policy.
 
 ## Rules
 
-- **INT-001 — Share command semantics.** Resolve parameters then call the same validated domain command as the app UI; do not duplicate persistence or bypass authorization.
-- **INT-002 — Separate registration and execution.** Compiled metadata, discoverability, entity resolution, and successful perform execution need distinct evidence.
-- **INT-003 — Keep entity identity durable.** Use stable IDs and current account-scoped queries; handle deleted, unavailable, or unauthorized entities without recreating them.
-- **INT-004 — Protect system surfaces.** Minimize display representations, suggestions, logs, and results; apply authentication/confirmation where the operation requires them.
-- **INT-005 — Respect execution context.** Do not assume a foreground scene, initialized singleton, unrestricted background time, or shared in-memory state across processes.
+- **INT-001 — Share the command.** Resolve parameters and call the UI’s validated operation. For retried writes, reconcile the previous outcome.
+- **INT-002 — Check each stage.** Distinguish extracted metadata, host discovery, entity resolution, and the effect of `perform()`.
+- **INT-003 — Resolve current identity.** Look up stable entity IDs within the active account. Handle deleted or inaccessible entities without recreating them.
+- **INT-004 — Limit disclosure.** Expose only necessary fields in suggestions, labels, results, and logs. Apply the action’s authentication and confirmation policies.
+- **INT-005 — Support cold invocation.** Initialize services in the executing process. Use the actor and time budget for this execution mode.
 
 ## Workflow
 
-1. Map the action to a typed command and authorization contract.
-2. Define entity identifiers and query behavior for missing/stale data.
-3. Verify target embedding, metadata extraction, and supported invocation modes.
-4. Test from the real system surface and reconcile outcome with in-app state.
+1. Build the hosting target. Inspect embedded metadata and find the action in its system surface.
+2. Resolve the selected entity and invoke the action from that surface.
 
 ## Verify
 
-Test cold invocation, locked/unauthenticated state, account switch, stale entity ID, cancellation, duplicate delivery, offline failure, and UI parity.
+- INT-002, INT-005: With the app closed, invoke the discovered action. Its reported result matches the domain outcome.
+- INT-003, INT-004: After an account switch, a stale ID yields no private details or unauthorized mutation.
+- INT-004: When the policy requires authentication, a signed-out invocation leaves data unchanged.
+- INT-001: Retry a committed write using the same durable operation ID. The effect occurs once.
 
 ## Output
 
-Return action/entity mapping, registration proof, tested invocation paths, and remaining account/device gates.
+Report the command, host, resolved entity, observed effect, and untested paths.
 
 ## References
 
-- [Entities, commands, and invocation proof](references/entities-and-actions.md).
+- [Entity queries, shared commands, and invocation checks](references/entities-and-actions.md)

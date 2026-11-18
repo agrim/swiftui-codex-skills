@@ -1,37 +1,37 @@
 ---
 name: apple-background-execution
-description: "Design Apple background refresh, processing, background transfers, and expiration-safe work with durable progress, bounded execution, and truthful scheduling state."
+description: "Handle BGTaskScheduler, background transfers, expiration, and relaunch recovery."
 ---
 
 # Background execution and resumable work
 
 ## Inputs
 
-Identify the actual background mechanism, supported platform, required capabilities, launch registration, user benefit, durable operation state, and resource constraints.
+Identify the user benefit, target capabilities, resource limits, and state to preserve.
 
 ## Rules
 
-- **BG-001 — Scheduling is not a timer.** Submission or earliest-begin metadata is not a promise of execution time or successful delivery.
-- **BG-002 — Persist resumable intent.** Store operation identity and checkpoints before relying on a process surviving suspension or termination.
-- **BG-003 — Own expiration.** Install expiration handling promptly, cancel bounded work, checkpoint safely, and complete the task exactly once.
-- **BG-004 — Use the right mechanism.** Choose refresh, processing, background transfer, or a permitted active-session mode for its documented purpose, not to keep the app alive indefinitely.
-- **BG-005 — Test the real boundary.** Debugger-triggered launches and simulator success do not prove production scheduling or energy behavior.
+- **BG-001 — Track actual progress.** Distinguish submission, eligibility, launch, and completion. An earliest start date promises no launch time.
+- **BG-002 — Save resumable state.** Persist the operation ID and a checkpoint consistent with committed effects before suspension.
+- **BG-003 — Handle expiration.** Install a background task’s expiration handler before starting work. Coordinate cancellation and completion to report one terminal result per task.
+- **BG-004 — Match the mechanism.** Select refresh, processing, transfer, or an active-session mode documented for the workload.
+- **BG-005 — Label the evidence.** Label forced launches. Use unforced, production-like device runs for scheduling or energy claims.
 
 ## Workflow
 
-1. Map foreground initiation to durable background state.
-2. Register handlers and capabilities for the actual target.
-3. Implement success, retry, expiration, and relaunch reconciliation.
-4. Exercise interruption and report scheduling separately from completion.
+1. Register the handler and capabilities on the executing target. Bound each work unit.
+2. On relaunch, recheck account access and reconcile unacknowledged effects before retrying.
 
 ## Verify
 
-Test expiration during I/O and commit, duplicate launch, account revocation, restart, network loss, and low-resource conditions relevant to the mechanism.
+- BG-002, BG-003: Expire during I/O or commit. A late callback leaves the checkpoint intact and completion fires once.
+- BG-002: Relaunch with the same operation ID after network loss. Committed effects survive without duplication.
+- BG-001, BG-002: Revoke access before resuming. Protected work stays pending or fails without advancing its checkpoint.
 
 ## Output
 
-Return the state machine, persisted checkpoints, completion policy, and actual scheduling/device evidence.
+Report the mechanism, checkpoint, retry policy, and observed outcomes.
 
 ## References
 
-- [Expiration, transfer, and recovery contracts](references/lifetimes-and-recovery.md).
+- [Expiration, transfer, and recovery](references/lifetimes-and-recovery.md)

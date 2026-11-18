@@ -1,40 +1,39 @@
 ---
 name: apple-swiftui-native-apps
-description: "Build, review, or repair a SwiftUI feature. Start here for native UI semantics, task scoping, SDK verification, and selecting focused Apple-platform skills."
+description: "Scope a SwiftUI feature or review, check native control semantics and SDK availability, and select a specialist skill."
 ---
 
 # SwiftUI engineering entry point
 
 ## Inputs
 
-Read the current source and repository instructions. Record the requested outcome, edit authority, affected targets, deployment minimums, Swift language mode, and available tools. Ask only for a missing decision that blocks safe progress; otherwise state a reversible assumption.
+Check the requested outcome, repository instructions, targets, minimum OS and Swift language mode.
 
 ## Rules
 
-- **UI-001 — Semantics before decoration.** Use native controls for actions, choices, and navigation. Custom appearance is allowed; it must preserve interaction, accessibility, and platform behavior.
-- **UI-002 — Evidence before modernization.** Check the exact SDK declaration, platform availability, compiler mode, and current Apple guidance. A newer SDK does not raise deployment minimums automatically.
-- **UI-003 — Own the truth once.** Identify the owner of mutable state, persistent data, navigation, and side effects before splitting views.
-- **UI-004 — Scope the change.** Preserve user edits and working behavior. A review does not authorize edits; preparation does not authorize release, deletion, or account changes.
-- **UI-005 — Make uncertainty visible.** Separate documented facts, repository conventions, design recommendations, and untested hypotheses. Never manufacture build, screenshot, device, or benchmark evidence.
+- **UI-001 — Preserve control semantics.** Choose a native control for each action, choice or link. Preserve its platform interactions and accessibility when styling it.
+- **UI-002 — Check API availability.** Match the SDK declaration and Apple guidance to each target’s runtime and compiler.
+- **UI-003 — Locate the owner.** Before splitting views, locate the owners of state, storage, navigation and side effects.
+- **UI-004 — Honor the requested scope.** Preserve user edits. For a review, report findings. Edit, release, delete, or change accounts only within the requested scope.
+- **UI-005 — Qualify findings.** Distinguish platform requirements from local conventions and design advice. Identify hypotheses and the evidence needed to resolve them.
 
 ## Workflow
 
-1. Trace the affected action from visible control through state, service, storage, and any system projection.
-2. Load only relevant specialist skills: state, concurrency, navigation, layout, controls, accessibility, design, persistence, networking, testing, platforms, interop, system experiences, privacy, project governance, performance, device validation, or release.
-3. Define the smallest complete behavior, including loading, empty, error, denied, cancelled, and restored states that actually apply.
-4. Implement or recommend a coherent change. Prefer existing conventions unless a concrete defect justifies changing them.
-5. Verify the claim at the required level and review the final diff.
+1. Trace one user action from its control to the owner and any external effect.
+2. Select the specialist for the failing step. Define success and the applicable failure or recovery path.
+3. Apply or recommend the smallest correction. Check any diff against the requested scope.
 
 ## Verify
 
-Use source inspection for structure, builds for compilation, tests for behavior, rendered UI for layout, and devices for hardware-dependent claims. Check accessibility, localization, and lifecycle risks in the edited scope.
+- UI-002: For an API change, build each affected target with its supported deployment minimum.
+- UI-001: Activate a changed control using its supported input methods. Check the intended action and accessible role.
+- UI-005: For a layout claim, inspect the risky size and locale. For hardware claims, reproduce on the relevant device.
 
 ## Output
 
-Return the change or finding, exact files/symbols, rationale, verification performed, and remaining risks. For reviews: severity, reproduction, impact, correction, and regression test. Avoid a checklist dump for a small fix.
+Name the file and symbol, result, checks run and remaining gaps. For a review finding, include severity, reproduction, impact, correction and regression check.
 
 ## References
 
-Read the [playbook](references/correction-patterns.md) for decisions, failure cases, and source links.
-
-For review and modernization decisions, read the [focused reference](references/review-and-modernization.md).
+- [Route symptoms to specialist skills and corrections](references/correction-patterns.md)
+- [Review findings and SDK modernization decisions](references/review-and-modernization.md)

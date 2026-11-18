@@ -52,6 +52,6 @@ Finish with whitespace/diff checks and a concise configuration-to-product eviden
 
 ## Sources
 
-- [xcode](https://developer.apple.com/documentation/xcode) — Xcode documentation.
-- [distribution](https://developer.apple.com/documentation/xcode/distributing-your-app-for-beta-testing-and-releases) — Distributing your app.
-- [privacy](https://developer.apple.com/documentation/bundleresources/describing-data-use-in-privacy-manifests) — Describing data use in privacy manifests.
+- [Xcode documentation](https://developer.apple.com/documentation/xcode)
+- [Distributing your app](https://developer.apple.com/documentation/xcode/distributing-your-app-for-beta-testing-and-releases)
+- [Describing data use in privacy manifests](https://developer.apple.com/documentation/bundleresources/describing-data-use-in-privacy-manifests)

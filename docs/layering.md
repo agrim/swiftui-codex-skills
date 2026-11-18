@@ -28,4 +28,19 @@ Do not create separate competing “Claude rules,” “Codex rules,” or other
 
 The short entry point contains the trigger, inputs, five rules, procedure, proof, and output contract. The local playbook contains tradeoffs, corrections, and sources. The catalog gives a complete index without forcing every instruction into every task.
 
+## Read a skill as data
+
+`python3 scripts/skillctl.py contract swiftui-navigation apple-networking` prints one UTF-8 JSON object with `schema_version` set to `1`. The `skills` array follows the order of the arguments. Each object has these fields.
+
+| Field | Contents |
+| --- | --- |
+| `id`, `title`, `description` | Stable skill name, display title, and discovery description |
+| `inputs`, `output` | What the reader needs and what to report |
+| `rules` | Ordered objects with `id`, `title`, and `instruction` |
+| `workflow` | Ordered array of step strings |
+| `verify` | Objects with `rule_ids` and `check`. Each ID belongs to the same skill. |
+| `references` | Objects with a descriptive `label` and a `path` relative to the skill folder |
+
+Find a rule’s checks by filtering `verify` for its ID in `rule_ids`. Run the relevant checks to collect evidence. An unknown skill or invalid entry point returns exit code 2 with an error on stderr and empty stdout.
+
 The CLI router matches explicit phrases and returns its matches and scores. It does not understand intent, guarantee the best selection, or replace judgment. Evaluation records must distinguish this retrieval behavior from an agent correctly applying a skill.

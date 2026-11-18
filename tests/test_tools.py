@@ -52,8 +52,37 @@ class CatalogTests(unittest.TestCase):
 
     def test_duplicate_rule_id_rejected(self):
         path = self.root / "skills/swift-concurrency/SKILL.md"
-        path.write_text(path.read_text() + "\n- **UI-001 — Duplicate.** Bad rule identity.\n")
+        path.write_text(path.read_text().replace("## Rules\n", "## Rules\n\n- **UI-001 — Duplicate.** Bad rule identity.\n"))
         self.assertTrue(any("duplicate rule ID" in e for e in validate_skills.validate(self.root)))
+
+    def test_contract_exports_complete_entries_or_reports_an_error(self):
+        skills = ["swift-concurrency", "swiftui-testing"]
+        args = ["--repo", str(self.root), "contract", *skills]
+        output = io.StringIO()
+        with contextlib.redirect_stdout(output):
+            self.assertEqual(skillctl.main(args), 0)
+        data = json.loads(output.getvalue())
+        self.assertEqual(data["schema_version"], 1)
+        self.assertEqual([s["id"] for s in data["skills"]], skills)
+        for skill in data["skills"]:
+            folder = self.root / "skills" / skill["id"]
+            text = (folder / "SKILL.md").read_text()
+            self.assertIn(f'\n# {skill["title"]}\n', text)
+            for rule in skill["rules"]:
+                self.assertIn("- **{id} — {title}** {instruction}".format(**rule), text)
+            for check in skill["verify"]:
+                self.assertIn(f"- {', '.join(check['rule_ids'])}: {check['check']}", text)
+            for ref in skill["references"]:
+                self.assertIn("- [{label}]({path})".format(**ref), text)
+
+        path = self.root / "skills" / skills[-1] / "SKILL.md"
+        other_rule = data["skills"][0]["rules"][0]["id"]
+        path.write_text(path.read_text().replace("## Verify\n", f"## Verify\n- {other_rule}: Wrong skill.\n"))
+        output, errors = io.StringIO(), io.StringIO()
+        with contextlib.redirect_stdout(output), contextlib.redirect_stderr(errors):
+            self.assertEqual(skillctl.main(args), 2)
+        self.assertIn("rule IDs from this skill", errors.getvalue())
+        self.assertEqual(output.getvalue(), "")
 
 
 class PortableToolsTests(unittest.TestCase):

@@ -1,40 +1,38 @@
 ---
 name: macos-productization
-description: "Prepare or inspect a macOS distribution artifact. Use for Developer ID or Mac App Store signing, hardened runtime, notarization, packaging, Gatekeeper, installation, and update integrity."
+description: "Prepare or verify macOS distribution, including Developer ID or Mac App Store signing, notarization, packaging, Gatekeeper, installation, and updates."
 ---
 
-# macOS productization and distribution
+# macOS packaging and distribution
 
 ## Inputs
 
-Identify the authorized stage, distribution channel, candidate source/version, bundle and nested code, signing/entitlement requirements, packaging pipeline, update channel, and available artifact evidence.
+Identify channel, authorized stage, revision, version/build, bundle, nested code, signing requirements, package, and updater.
 
 ## Rules
 
-- **MAC-001 — Choose the channel.** Development, internal, direct distribution, and Mac App Store have different signing, sandbox, packaging, and review requirements.
-- **MAC-002 — Inspect the artifact.** Project settings are intent; the signed app, package, receipts, and installed copy establish distribution facts.
-- **MAC-003 — Preserve the trust chain.** Verify nested code and entitlements deliberately. Do not use blanket re-signing to hide an unexplained signing failure.
-- **MAC-004 — Separate trust gates.** Signing, notarization acceptance, stapling, Gatekeeper assessment, installation, and launch are distinct checks.
-- **MAC-005 — Respect release authority.** Private credentials, notarization/upload, installation, publication, deletion, and system-wide changes require the corresponding authorization.
+- **MAC-001 — Select the channel.** Identify signing, sandbox, hardened runtime, packaging, and review requirements for development, internal, direct, or Mac App Store distribution.
+- **MAC-002 — Inspect the deliverable.** Check identity, resources, signature, and entitlements in the exported artifact and installed copy.
+- **MAC-003 — Verify the trust chain.** Inspect nested signatures, entitlements and update authenticity. Fix the source of a signing failure.
+- **MAC-004 — Record each trust check.** Track signing, notarization acceptance, stapling, Gatekeeper assessment, installation, and launch separately.
+- **MAC-005 — Stay within authorization.** Use credentials, submit to services, install, publish, delete, or change system settings only within the approved scope.
 
 ## Workflow
 
-1. Map channel requirements and inspect the exact bundle/packaging pipeline.
-2. Fix the source owner of signing, entitlements, resources, or identity problems.
-3. Build/export and inspect the authorized candidate and nested components.
-4. Run applicable trust and installed-artifact checks without broad destructive workarounds.
-5. Bind release notes, version, hashes, receipts, and update metadata to the same artifact.
+1. Inspect the supplied candidate. For an authorized repair, fix the signing or packaging step and export again.
+2. Tie the artifact hash, version, release notes, service receipts, and update metadata to that export.
+3. For an authorized install test, use the intended distribution path.
 
 ## Verify
 
-Verify distribution identity, embedded entitlements, nested code, hardened runtime/sandbox as applicable, notarization status, stapled ticket, Gatekeeper behavior, installed launch, icons, and update authenticity for the chosen channel.
+- MAC-002, MAC-004: For direct download, check notarization and ticket status, assess the quarantined download, and confirm the installed app launches with expected resources and icons.
+- MAC-003: For signed updates, verify metadata and payload authenticity. Invalid updates must leave the installed app and user data intact.
 
 ## Output
 
-Report the exact artifact and channel, checks performed, external actions taken, and remaining trust/install/release gates. Do not claim “notarized” or “Gatekeeper-clean” from a local build alone.
+Report artifact hash, channel, external actions, evidence per gate, and pending checks.
 
 ## References
 
-Read the [playbook](references/macos-productization-patterns.md) for decisions, failure cases, and source links.
-
-For reproducible distribution and installed-artifact proof, read the [focused reference](references/distribution-reproducibility.md).
+- [Channel, signing, and packaging checks](references/macos-productization-patterns.md)
+- [Reproducing and verifying an installed release](references/distribution-reproducibility.md)

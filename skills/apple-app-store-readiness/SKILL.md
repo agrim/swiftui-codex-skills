@@ -1,40 +1,39 @@
 ---
 name: apple-app-store-readiness
-description: "Plan, audit, or prepare an App Store candidate. Use for release scope, storefront metadata, privacy disclosures, review access, TestFlight, and explicit submission or release gates."
+description: "Audit an App Store build, prepare storefront and reviewer materials, or perform an authorized TestFlight, submission, or release stage."
 ---
 
 # App Store readiness
 
 ## Inputs
 
-Identify the requested stage and authority, platform/product set, actual release promise, account model, business model, service dependencies, candidate source/build, and available App Store Connect evidence.
+Identify the release stage, approval scope, product, storefronts, candidate, account and purchase flows, dependencies, and App Store Connect records.
 
 ## Rules
 
-- **STORE-001 — Separate stages.** Prepare, upload, process, TestFlight, submit, approve, and release are different gates. Readiness is not permission to publish; existing scoped approval remains usable until changed or revoked.
-- **STORE-002 — Audit the real promise.** The binary, metadata, screenshots, services, and review instructions must describe the same complete experience.
-- **STORE-003 — Recheck current requirements.** Consult current Apple requirements for toolchains, privacy, business model, region, and review; do not hard-code remembered policy as permanent law.
-- **STORE-004 — Make review reproducible.** Provide live services, working links, access, sample data, and instructions for material dependencies.
-- **STORE-005 — Bind evidence to a candidate.** Track source, version/build, archive/upload identity, platform set, and test results together.
+- **STORE-001 — Track each stage separately.** Separate preparation, upload, processing, TestFlight, submission, approval, and release. Honor existing authorization for its candidate and stage until changed or revoked.
+- **STORE-002 — Check the release promise.** Match each advertised feature and screenshot to a reachable journey in the candidate.
+- **STORE-003 — Check current requirements.** Use Apple’s requirements for the current toolchain, region, data use, business model, and stage.
+- **STORE-004 — Rehearse reviewer access.** Follow the review instructions with working services, links, sample data, and reviewer access. Keep credentials private.
+- **STORE-005 — Identify the build.** Tie source, platforms, archive, version/build, upload receipt, and tests to one candidate.
 
 ## Workflow
 
-1. Freeze the smallest complete release scope and identify unsupported promises.
-2. Reconcile identity, public surfaces, privacy, monetization, and account/deletion behavior.
-3. Inspect the exact candidate and its runtime/device evidence.
-4. Prepare truthful storefront material and the review packet.
-5. Reconcile current receipts and prior authorization, perform the authorized stage, and record resulting service state.
+1. Compare disclosures, account behavior, monetization, and metadata with the binary.
+2. Prepare reviewer access and reproduce the core journey.
+3. Check live state before acting. Record an existing receipt for this build, or perform the authorized stage once its prerequisites pass.
 
 ## Verify
 
-Check core journey, denied/offline paths, linked services, privacy-policy access, required account deletion, purchases where applicable, screenshots, and reviewer access. Separate repository inspection from actual App Store Connect status.
+- STORE-002: Test first launch, denied permissions, offline behavior, and applicable purchases or deletion against the storefront claim.
+- STORE-004: Reach the privacy policy, support links, and advertised features using reviewer access.
+- STORE-001, STORE-005: Confirm each completed external stage in App Store Connect against the selected build.
 
 ## Output
 
-Report each gate as passed, failed, not applicable, not authorized, or unverified, with exact candidate evidence and blockers in release order.
+Report candidate, service evidence, and blockers in gate order. Mark each gate passed, failed, not applicable, not authorized, or unverified.
 
 ## References
 
-Read the [playbook](references/app-store-readiness-patterns.md) for decisions, failure cases, and source links.
-
-For review packets, cli adapters, and release ledgers, read the [focused reference](references/review-and-release-ledger.md).
+- [Candidate and storefront checks](references/app-store-readiness-patterns.md)
+- [Reviewer handoff and release ledger](references/review-and-release-ledger.md)

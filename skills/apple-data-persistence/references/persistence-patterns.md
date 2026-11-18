@@ -59,9 +59,9 @@ Validate quantities at their semantic boundary: whole-item counts reject fractio
 
 ## Sources
 
-- [model-context](https://developer.apple.com/documentation/swiftdata/modelcontext) — SwiftData ModelContext.
-- [model-container](https://developer.apple.com/documentation/swiftdata/modelcontainer) — SwiftData ModelContainer.
-- [cloudkit](https://developer.apple.com/documentation/cloudkit) — CloudKit.
-- [keychain](https://developer.apple.com/documentation/security/keychain-services) — Keychain services.
+- [SwiftData ModelContext](https://developer.apple.com/documentation/swiftdata/modelcontext)
+- [SwiftData ModelContainer](https://developer.apple.com/documentation/swiftdata/modelcontainer)
+- [CloudKit](https://developer.apple.com/documentation/cloudkit)
+- [Keychain services](https://developer.apple.com/documentation/security/keychain-services)
 - [swiftdata-autosave](https://developer.apple.com/documentation/swiftdata/modelcontext/autosaveenabled) — SwiftData autosave policy.
 - [swiftdata-rollback](https://developer.apple.com/documentation/swiftdata/modelcontext/rollback%28%29) — Context-wide rollback scope.

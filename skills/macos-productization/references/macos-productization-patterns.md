@@ -52,9 +52,9 @@ Pair with project governance for configuration ownership and with App Store read
 
 ## Sources
 
-- [notarization](https://developer.apple.com/documentation/security/notarizing-macos-software-before-distribution) — Notarizing macOS software before distribution.
-- [distribution](https://developer.apple.com/documentation/xcode/distributing-your-app-for-beta-testing-and-releases) — Distributing your app.
-- [review](https://developer.apple.com/app-store/review/guidelines/) — App Review Guidelines.
-- [xcode](https://developer.apple.com/documentation/xcode) — Xcode documentation.
-- [developer-id](https://developer.apple.com/developer-id/) — Signing Mac software with Developer ID.
-- [notary-errors](https://developer.apple.com/documentation/security/resolving-common-notarization-issues) — Resolving common notarization issues.
+- [Notarizing macOS software before distribution](https://developer.apple.com/documentation/security/notarizing-macos-software-before-distribution)
+- [Distributing your app](https://developer.apple.com/documentation/xcode/distributing-your-app-for-beta-testing-and-releases)
+- [App Review Guidelines](https://developer.apple.com/app-store/review/guidelines/)
+- [Xcode documentation](https://developer.apple.com/documentation/xcode)
+- [Signing Mac software with Developer ID](https://developer.apple.com/developer-id/)
+- [Resolving common notarization issues](https://developer.apple.com/documentation/security/resolving-common-notarization-issues)

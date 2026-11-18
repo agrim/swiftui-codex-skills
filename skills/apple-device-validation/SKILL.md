@@ -1,40 +1,40 @@
 ---
 name: apple-device-validation
-description: "Build, install, run, render, and validate Apple apps on the correct destination. Use for simulator/device evidence, screenshots, hardware, paired devices, and infrastructure triage."
+description: "Verify an Apple app on a simulator or device. Use for launch failures, screenshots, interaction, hardware, paired devices, and runtime evidence."
 ---
 
 # Apple runtime and device validation
 
 ## Inputs
 
-Define the exact claim, authorized actions, source state, project/workspace, scheme, configuration, bundle, destination, required app state, and available tools. Discover current destinations instead of remembering device identifiers.
+State the claim and authorization. Identify source, scheme, configuration, bundle, and fixture. Discover available devices and runtimes.
 
 ## Rules
 
-- **PROOF-001 — Match evidence to claim.** Source, compile, tests, install, launch, rendering, interaction, hardware, and cross-device proof are distinct.
-- **PROOF-002 — Respect action boundaries.** Installation does not authorize uninstall, data reset, account changes, or unrelated source edits. Advance only as the requested validation requires.
-- **PROOF-003 — Reproduce the environment.** Record exact source, toolchain, destination/runtime, fixture state, commands, exit status, and relevant artifacts.
-- **PROOF-004 — Classify infrastructure first.** Separate unavailable runtimes, pairing, service health, provisioning, installation, and application defects before changing code.
-- **PROOF-005 — Validate the current candidate.** Repeat affected checks after changes; reconcile superseded receipts before reporting a blocker. Remove temporary harness state unless it is an intentional maintained test facility.
+- **PROOF-001 — Choose evidence for the claim.** Use build output for compilation, a current frame for rendering, and an observed action and result for interaction.
+- **PROOF-002 — Limit side effects.** Keep uninstall, data resets, account changes, and source edits within their authorized scope.
+- **PROOF-003 — Record the run.** Tie commands, exit status, artifacts, toolchain, runtime, and fixture to the exact candidate and destination.
+- **PROOF-004 — Locate the failed step.** Check runtime, pairing, services, provisioning, installation, and launch before changing app code.
+- **PROOF-005 — Refresh evidence after changes.** Rerun affected checks, supersede obsolete receipts, and remove temporary harness state.
 
 ## Workflow
 
-1. Set the minimum sufficient proof contract and inspect environment readiness.
-2. Run the narrow build/test prerequisite for the selected destination.
-3. Install, launch, interact, and capture evidence only within the authorized scope.
-4. Exercise relevant lifecycle, failure, persistence, and system-boundary transitions.
-5. Report the strongest supported claim and every blocked or unverified gate.
+1. Choose a destination that can demonstrate the claim. Build and run its prerequisites.
+2. Exercise the transition and capture its result. For batch reviews, identify each screen, state, and capture revision.
+3. Identify the first blocked step and unverified outcomes.
 
 ## Verify
 
-For layout, inspect rendered output at risky sizes and accessibility settings. For persistence, prove store readiness, mutation, and relaunch. For hardware or paired-device claims, test the real boundary rather than substituting simulator success.
+- PROOF-001: For layout, inspect a frame at the affected size and accessibility setting. For persistence, read the changed value after relaunch.
+- PROOF-001: For hardware or companion delivery, observe the expected result on the real device or pair.
+- PROOF-003, PROOF-005: After a build change, check that evidence for each affected behavior identifies the new build and destination.
 
 ## Output
 
-Return a compact evidence matrix with pass/fail/blocked/not-run, exact candidate and environment, artifacts, failure classification, and remaining device gates.
+For each claim, report pass, fail, blocked, or not-run with candidate, environment, evidence, and known cause.
 
 ## References
 
-Read the [playbook](references/device-validation-patterns.md) for decisions, failure cases, and source links. For a whole-app review or batch feedback, use the [screen review workflow](references/screen-review.md).
-
-For debugger, simulator, and evidence integrity, read the [focused reference](references/debugger-and-simulator-evidence.md).
+- [Destination and runtime checks](references/device-validation-patterns.md)
+- [Screen inventory and batch feedback](references/screen-review.md)
+- [Debugger and simulator evidence](references/debugger-and-simulator-evidence.md)

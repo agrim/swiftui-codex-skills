@@ -54,7 +54,7 @@ Keep screenshot fixtures labeled as staged or real. A forced sensor count or inj
 
 ## Sources
 
-- [testing](https://developer.apple.com/xcode/swift-testing/) — Swift Testing.
-- [test-parallel](https://developer.apple.com/documentation/Testing/Parallelization) — Swift Testing parallelization.
-- [ui-audit](https://developer.apple.com/documentation/xcuiautomation/xcuiaccessibilityauditissue) — XCUI accessibility audits.
-- [xcode](https://developer.apple.com/documentation/xcode) — Xcode documentation.
+- [Swift Testing](https://developer.apple.com/xcode/swift-testing/)
+- [Swift Testing parallelization](https://developer.apple.com/documentation/Testing/Parallelization)
+- [XCUI accessibility audits](https://developer.apple.com/documentation/xcuiautomation/xcuiaccessibilityauditissue)
+- [Xcode documentation](https://developer.apple.com/documentation/xcode)

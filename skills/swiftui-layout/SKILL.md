@@ -1,40 +1,38 @@
 ---
 name: swiftui-layout
-description: "Repair SwiftUI layout, safe areas, stacks, grids, lists, scrolling, custom Layout, GeometryReader, Dynamic Type, and right-to-left adaptation."
+description: "Fix SwiftUI clipping, safe areas, scrolling, or reflow across window sizes, Dynamic Type, and right-to-left layouts."
 ---
 
 # Adaptive layout and scrolling
 
 ## Inputs
 
-Identify the actual container proposal, safe areas, content size, supported windows/devices, text-size range, keyboard behavior, and right-to-left requirements.
+Record container size, safe areas, keyboard state, text size, content, and layout direction.
 
 ## Rules
 
-- **LAY-001 — Use container geometry.** Do not derive a resizable view from global screen bounds. Let content and the current proposal determine layout.
-- **LAY-002 — Adapt before shrinking.** Reflow or prioritize content before clipping labels or capping Dynamic Type. Fixed sizes need an explicit component contract.
-- **LAY-003 — Measure without feedback loops.** Transform geometry into the smallest meaningful value and update state only when that value changes.
-- **LAY-004 — Respect safe areas and identity.** Separate edge-to-edge backgrounds from readable/interactive content. Preserve scroll and row identity across updates.
-- **LAY-005 — Escalate deliberately.** Start with stacks, grids, alignment, layout priority, and fitting alternatives; use custom `Layout` or readers when the behavior needs them.
+- **LAY-001 — Use the container proposal.** Size resizable views from available space and content. Global screen bounds can exceed the window.
+- **LAY-002 — Reflow before shrinking.** Wrap or rearrange content before truncating essential text or limiting Dynamic Type. Justify fixed dimensions.
+- **LAY-003 — Limit geometry updates.** Derive the needed value, such as a width class. Update state only when it changes.
+- **LAY-004 — Protect interaction and identity.** An edge-to-edge background may extend under system UI. Keep controls reachable and give rows and scroll targets stable IDs.
+- **LAY-005 — Choose a layout primitive.** Try stacks, grids, alignment, priority, or fitting alternatives before adding a geometry reader or custom Layout.
 
 ## Workflow
 
-1. Reproduce the failure at the affected proposal and text size.
-2. Remove conflicting frames, padding, overlays, and nested scrolling before adding constraints.
-3. Choose eager versus lazy containers from semantics and measured content scale.
-4. Handle keyboard, window resizing, localization, and scroll restoration explicitly.
-5. Cross the failing breakpoint in both directions. For editable content, change the width or text size with a draft in progress and check its value and focus afterward.
+1. Locate the first frame, inset, overlay, or nested scroll view that breaks the failing proposal.
+2. Choose eager or lazy containers from row semantics and measured scale. Keep draft ownership stable during reflow. Profile geometry updates if scrolling hitches.
 
 ## Verify
 
-Render smallest/largest supported containers, accessibility text sizes, long translations, right-to-left content, keyboard-visible states, empty lists, and large datasets. Profile measurement loops and heavy cells where relevant.
+- LAY-002: Cross the reflow breakpoint both ways while editing. Check focus returns to the intended field and Save commits the entered text.
+- LAY-001, LAY-004: At supported width extremes, check that large text, long translations, right-to-left layout, and the keyboard leave the primary action reachable.
+- LAY-004: Test an empty collection, then a large one. Insert a row before the scroll anchor and confirm restoration still targets the same record ID.
 
 ## Output
 
-Return the layout decision, boundary cases, visual evidence, and any fixed-size rationale.
+Report failing size, layout change, fixed-size rationale, and rendered or measured results.
 
 ## References
 
-Read the [playbook](references/layout-patterns.md) for decisions, failure cases, and source links.
-
-For choosing between fitting alternatives and rearranging stateful children, or for restoring a scroll position, read [layout proposals and scroll state](references/layout-and-scroll-edge-cases.md).
+- [Layout proposals, text, and safe areas](references/layout-patterns.md)
+- [Fitting alternatives, stateful reflow, and scroll restoration](references/layout-and-scroll-edge-cases.md)

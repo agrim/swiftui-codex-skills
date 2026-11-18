@@ -43,7 +43,7 @@ Use an injected transport or controlled `URLProtocol` fixture for deterministic 
 
 ## Sources
 
-- [urlsession](https://developer.apple.com/documentation/foundation/urlsession) — URLSession.
-- [keychain](https://developer.apple.com/documentation/security/keychain-services) — Keychain services.
-- [concurrency](https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html) — The Swift Programming Language: Concurrency.
-- [privacy](https://developer.apple.com/documentation/bundleresources/describing-data-use-in-privacy-manifests) — Describing data use in privacy manifests.
+- [URLSession](https://developer.apple.com/documentation/foundation/urlsession)
+- [Keychain services](https://developer.apple.com/documentation/security/keychain-services)
+- [The Swift Programming Language: Concurrency](https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html)
+- [Describing data use in privacy manifests](https://developer.apple.com/documentation/bundleresources/describing-data-use-in-privacy-manifests)

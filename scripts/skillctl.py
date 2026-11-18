@@ -10,7 +10,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from skilllib import catalog, frontmatter, generated_docs, safe_path
+from skilllib import catalog, frontmatter, generated_docs, safe_path, skill_contract
 from skill_installation import (check_destination, fingerprint, installation_status,
                                 revision, write_receipt)
 
@@ -110,6 +110,7 @@ def main(argv: list[str] | None = None) -> int:
     routing.add_argument("query")
     routing.add_argument("--json", action="store_true")
     routing.add_argument("--limit", type=int, default=3)
+    subs.add_parser("contract", help="export selected skill entry points as JSON").add_argument("skills", nargs="+")
     bundling = subs.add_parser("bundle")
     bundling.add_argument("skills", nargs="+")
     bundling.add_argument("--entrypoints-only", action="store_true")
@@ -134,6 +135,17 @@ def main(argv: list[str] | None = None) -> int:
                 raise ValueError("limit must be between 1 and 20")
             result = route(args.repo, args.query, args.limit)
             print(json.dumps({"method": "deterministic-phrase-match", "matches": result}, indent=2) if args.json else "\n".join(f'{i["id"]} ({i["score"]}): {", ".join(i["matched"])}' for i in result) or "No phrase match. Read the catalog; do not infer that no skill applies.")
+        elif args.command == "contract":
+            contracts = []
+            seen_rules: set[str] = set()
+            for item in select(args.repo, args.skills):
+                folder = safe_path(args.repo, f'skills/{item["id"]}')
+                text = safe_path(folder, "SKILL.md").read_text(encoding="utf-8")
+                try:
+                    contracts.append(skill_contract(folder, item, text, seen_rules))
+                except ValueError as exc:
+                    raise ValueError(f'{item["id"]}: {exc}') from exc
+            print(json.dumps({"schema_version": 1, "skills": contracts}, ensure_ascii=False, separators=(",", ":")))
         elif args.command == "bundle":
             result = bundle(args.repo, args.skills, args.entrypoints_only)
             if args.output:

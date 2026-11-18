@@ -47,7 +47,7 @@ A useful handoff states what changed, why, what was tested against which source 
 
 ## Sources
 
-- [swiftui](https://developer.apple.com/documentation/SwiftUI) — SwiftUI framework overview.
-- [design](https://developer.apple.com/design/human-interface-guidelines/design-principles) — HIG: Design principles.
-- [button](https://developer.apple.com/documentation/SwiftUI/Button) — SwiftUI Button.
-- [accessibility](https://developer.apple.com/design/human-interface-guidelines/accessibility) — HIG: Accessibility.
+- [SwiftUI framework overview](https://developer.apple.com/documentation/SwiftUI)
+- [HIG: Design principles](https://developer.apple.com/design/human-interface-guidelines/design-principles)
+- [SwiftUI Button](https://developer.apple.com/documentation/SwiftUI/Button)
+- [HIG: Accessibility](https://developer.apple.com/design/human-interface-guidelines/accessibility)

@@ -1,40 +1,38 @@
 ---
 name: apple-system-experiences
-description: "Integrate WidgetKit, App Intents, ActivityKit, notifications, Spotlight, WatchConnectivity, HealthKit, and StoreKit through truthful shared commands and projections."
+description: "Connect app state and actions to widgets, Live Activities, notifications, Spotlight, WatchConnectivity, HealthKit, and StoreKit."
 ---
 
 # System surfaces and framework integration
 
 ## Inputs
 
-Identify the system surface, platform/minimum, process/device boundary, canonical data owner, permissions/entitlements, refresh/delivery guarantees, and the in-app equivalent action.
+Identify the surface, OS, hosting target, device, permissions, and app command or data source.
 
 ## Rules
 
-- **SYS-001 — Project canonical truth.** Treat widgets, activities, search, and companion views as projections with freshness and unavailable states, not parallel databases of business truth.
-- **SYS-002 — Reuse the command boundary.** Intents and external actions validate parameters, authorization, confirmation, and idempotency before invoking the same domain operation as the UI.
-- **SYS-003 — Respect delivery limits.** System refresh, background execution, notifications, and companion transport are not guaranteed immediate execution.
-- **SYS-004 — Export only truthful semantics.** Do not force app-only data into an unrelated system type or report unsupported permission knowledge.
-- **SYS-005 — Verify the whole chain.** Registration, target embedding, permission, storage handoff, execution, rendering, refresh, and recovery are separate gates.
+- **SYS-001 — Derive displayed state.** Build widgets, activities, indexes, and companion displays from canonical records. Represent stale and unavailable data explicitly.
+- **SYS-002 — Reuse the app command.** Validate parameters and current authority, obtain required confirmation, and reconcile retries before repeating an effect.
+- **SYS-003 — Track delivery stages.** Distinguish requesting refresh, queuing a transfer, receiving it, and applying it.
+- **SYS-004 — Preserve framework meaning.** Export values only when the system type and units preserve their meaning. Report only permission states the framework discloses.
+- **SYS-005 — Check the host.** Verify target embedding, registration, access, data handoff, execution, and host rendering.
 
 ## Workflow
 
-1. Inspect existing integrations and choose the native surface that serves a real user task.
-2. Define the projection/command schema, minimum data, stale state, and failure behavior.
-3. Wire the correct targets, capabilities, and privacy artifacts with their owning skills.
-4. Implement bounded, retry-safe lifecycle and account/device transition handling.
-5. Validate the surface in its actual host and on hardware where needed.
+1. Define the minimum payload, its identity, and expiration or deletion behavior.
+2. Configure the hosting target’s capabilities and privacy declarations. Handle retries and device changes.
 
 ## Verify
 
-Test unavailable data, denied/revoked permission, delayed refresh, repeated command, process termination, account/device changes, stale projections, and host-specific rendering.
+- SYS-001, SYS-003: Delay delivery or restart the host. The surface shows the last known state or its fallback until fresh data arrives.
+- SYS-002: Deliver the same side-effecting operation twice. Check that the store records the effect once.
+- SYS-005: After revocation or account switch, the host hides data the viewer can no longer access. Test device-specific behavior on hardware.
 
 ## Output
 
-Return the boundary diagram, integration-specific guarantees, privacy/project changes, and source/build/runtime/device evidence.
+Report the source, host, outcome, configuration changes, and unverified stages.
 
 ## References
 
-Read the [playbook](references/system-patterns.md) for decisions, failure cases, and source links.
-
-For system surfaces and framework-specific contracts, read the [focused reference](references/system-surface-contracts.md).
+- [Widget, activity, notification, and companion integration](references/system-patterns.md)
+- [Framework-specific delivery and recovery checks](references/system-surface-contracts.md)

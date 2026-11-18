@@ -1,40 +1,38 @@
 ---
 name: apple-performance-cleanup
-description: "Diagnose or improve SwiftUI responsiveness, startup, memory, energy, and hot paths. Use measurements and explicit behavior contracts before optimization or broad compaction."
+description: "Diagnose SwiftUI hitches, slow startup, memory growth and energy use. Verify performance gains and preserve behavior during cleanup."
 ---
 
 # Apple performance and behavior-preserving cleanup
 
 ## Inputs
 
-Identify the workload, affected devices/build configuration, observed cost, user-visible behavior, existing measurements, and change authority. Distinguish diagnosis from a requested implementation.
+Identify the affected interaction, symptom, measurements and authorized changes.
 
 ## Rules
 
-- **PERF-001 — Establish a baseline.** Reproduce the workload and record toolchain, configuration, input size, device, and measurement method before comparing results.
-- **PERF-002 — Fix demonstrated work.** Trace invalidation, layout, CPU, allocations, I/O, or contention. Do not ban APIs by name or claim an unmeasured percentage improvement.
-- **PERF-003 — Preserve semantics.** Keep ordering, identity, cancellation, errors, stale/empty distinctions, persistence, and accessibility behavior intact.
-- **PERF-004 — Bound resources.** Give tasks, observers, caches, buffers, logging, and polling a lifecycle and a resource limit appropriate to the workload.
-- **PERF-005 — Prove two claims separately.** Behavior tests establish correctness; comparable measurements establish speed, memory, or energy effects.
+- **PERF-001 — Record a baseline.** Capture the device, toolchain, build configuration, input size, cache state and metric for the workload.
+- **PERF-002 — Locate the cost.** Trace the costly interval to updates, layout, CPU, allocations, I/O or contention.
+- **PERF-003 — Preserve behavior.** Keep ordering, identity, cancellation, errors, stale and empty states, persistence and accessibility intact where affected.
+- **PERF-004 — Bound resource use.** Define when tasks stop and observers detach. Limit caches, buffers, logging and polling.
+- **PERF-005 — Measure the outcome.** Check correctness with behavior tests. Compare matched runs before claiming a speed, memory or energy gain.
 
 ## Workflow
 
-1. Reproduce one interaction. For a scrolling hitch, mark its time range and inspect the SwiftUI and CPU tracks over that interval.
-2. Find the owner and smallest useful correction; state the expected mechanism.
-3. Add or retain focused behavior tests before changing a hot path.
-4. Measure before/after under comparable conditions and inspect regressions.
-5. Stop when further reduction would weaken clarity, compatibility, or evidence.
+1. For a scrolling hitch, align the gesture, SwiftUI updates and main-thread samples on one timeline.
+2. Identify the smallest correction. For a requested fix, retain the tests and diagnostics that expose the failure.
 
 ## Verify
 
-Compare representative and worst-reasonable workloads, repeated runs, memory after repeated entry/exit, and release-like builds where appropriate. Distinguish a structural reduction in work from a measured runtime improvement.
+- PERF-001, PERF-005: For a claimed gain, repeat typical and high-load interactions under matched release-like conditions. Compare the symptom metric and its variation.
+- PERF-003: Rerun the affected interaction. Check that its visible result and side effects still match the behavior contract.
+- PERF-004: For suspected retention, repeat entry and exit. Inspect memory and owners left alive after teardown.
 
 ## Output
 
-Report the bottleneck evidence, code change, preserved invariants, measurement method/results, and remaining uncertainty. Never replace unique tests or diagnostics merely to lower line count.
+Report the bottleneck, change, before/after measurements, behavior results and unmeasured effects.
 
 ## References
 
-Read the [playbook](references/performance-cleanup-patterns.md) for decisions, failure cases, and source links.
-
-For a hitch, frequent body updates, or a slow filtered list, follow the [trace walkthrough](references/trace-led-performance.md).
+- [Diagnosis by symptom and behavior-preserving cleanup](references/performance-cleanup-patterns.md)
+- [Trace a hitch, frequent updates or slow filtered list](references/trace-led-performance.md)

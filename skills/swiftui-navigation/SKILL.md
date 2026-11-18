@@ -1,40 +1,38 @@
 ---
 name: swiftui-navigation
-description: "Build or fix SwiftUI NavigationStack, NavigationSplitView, tabs, sheets, deep links, route restoration, and scene-specific selection."
+description: "Fix SwiftUI Back behavior, deep links, sheets, scene selection, and restoration in NavigationStack or NavigationSplitView."
 ---
 
 # Navigation and presentation
 
 ## Inputs
 
-Identify platform, deployment minimum, hierarchy versus task presentation, scene ownership, route identifiers, and deep-link or restoration requirements.
+Record target, deployment minimum, journey, owning scene or tab, record IDs, and restoration requirements.
 
 ## Rules
 
-- **NAV-001 — Model meaning, not view instances.** Use lightweight stable route values or IDs; re-fetch current data and authorization at the destination.
-- **NAV-002 — Match the container to the task.** Use stacks for hierarchy, split views for persistent selection/detail, tabs for peer destinations, and sheets for focused tasks.
-- **NAV-003 — Own each presentation once.** Avoid independent flags that allow incompatible sheets. Give each scene its own route/selection unless shared navigation is intentional.
-- **NAV-004 — Preserve native exits.** Keep back, cancel, dismissal, keyboard, and restoration behavior coherent. Do not persist a draft merely because a sheet closes.
-- **NAV-005 — Validate external routes.** Parse untrusted URLs, allow supported destinations, resolve authentication, and handle deleted or inaccessible records.
+- **NAV-001 — Route by identity.** Store lightweight route values or IDs. At the destination, load the current record and check authorization.
+- **NAV-002 — Match container to task.** Use stacks for hierarchy, split views for persistent selection/detail, tabs for peers, and sheets for focused tasks.
+- **NAV-003 — Give presentation one owner.** Represent mutually exclusive sheets with one selection. Keep paths and selection per scene unless sharing is intentional.
+- **NAV-004 — Define each exit.** Preserve Back and keyboard dismissal. Commit on Save. Handle unsaved drafts explicitly on Cancel or dismissal.
+- **NAV-005 — Validate incoming routes.** Parse supported URLs, resolve authentication, and handle malformed, deleted, or inaccessible destinations.
 
 ## Workflow
 
-1. Map the journey and presentation owner before choosing APIs.
-2. Trace each push as a route value or a direct destination view. Use route values for steps the app must restore or retain beneath a later value push. Register destinations in a stable scope outside lazy row creation.
-3. Keep data-driven selection and navigation synchronized without circular update loops.
-4. Define deep-link, cancellation, and restoration behavior, including unavailable destinations.
-5. Test compact/expanded transitions and independent windows.
+1. Use route values for restorable steps and intermediate screens Back must reach after a value push.
+2. Register destinations outside lazy rows. Synchronize selection and path through their owner. Check availability on the oldest target.
 
 ## Verify
 
-Exercise push/back, repeated deep links, sheet switching, cancelled drafts, deleted selection, cold launch, restored invalid routes, and width changes. Check actual target availability instead of applying all modern APIs unconditionally.
+- NAV-003, NAV-004: Push from a guide to a detail, then go Back. If the guide belongs in history, confirm it reappears in compact and expanded layouts. For scene-local paths, navigation leaves the second window unchanged.
+- NAV-005: Deliver a link twice and confirm one intended destination. Restore a deleted record on cold launch and check the unavailable state or root fallback.
+- NAV-003, NAV-004: Switch sheets, edit, then cancel. Confirm the intended editor opened and stored data stayed intact.
 
 ## Output
 
-Return the route/presentation model, ownership boundaries, fallback behavior, and journey tests.
+Report owners, fallback, and observed path and screen at the failing transition.
 
 ## References
 
-Read the [playbook](references/navigation-patterns.md) for decisions, failure cases, and source links.
-
-For deep links, restoration, and presentation identity, read the [focused reference](references/routing-and-restoration.md).
+- [Containers, modal tasks, and scene ownership](references/navigation-patterns.md)
+- [Back history, deep links, and restoration](references/routing-and-restoration.md)

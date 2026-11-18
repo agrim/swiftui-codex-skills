@@ -14,10 +14,11 @@ For a host that supports the [Agent Skills format](https://agentskills.io/specif
 
 ```bash
 python3 scripts/skillctl.py route "SwiftUI navigation deep link restores the wrong screen"
+python3 scripts/skillctl.py contract swiftui-navigation
 python3 scripts/skillctl.py bundle swiftui-navigation swiftui-state-architecture --output selected-skills.md
 ```
 
-The router performs deterministic phrase matching, not model inference. No match means “inspect the catalog,” not “no skill applies.” Bundles contain only the selected skills and their playbooks; they do not require this repository's surrounding directory structure.
+Use `route` to find skills by phrase. If it finds no match, inspect the coverage map. Use `contract` for compact JSON containing the selected skills’ rules, ordered steps, and verification checks. Each check names the rule IDs it exercises. Use `bundle` for standalone Markdown with the playbooks included.
 
 To copy folders into an **existing directory you choose**, without overwriting installed skills:
 
@@ -58,7 +59,7 @@ The [ecosystem integration guide](docs/ecosystem-integration.md) explains the Pa
 
 ## What makes the rules useful
 
-Each entry point has **Inputs → Rules → Workflow → Verify → Output → References**. Stable rule IDs make findings and regression cases easy to cite. Core instructions have a 650-word ceiling; longer detail stays in playbooks that load only when needed.
+Each entry point has **Inputs → Rules → Workflow → Verify → Output → References**. Start with the inputs for the task. Cite the rule ID when reporting a finding and record the observed result. If a check could not run, say why. For example, the networking skill asks you to cancel one subscriber to a shared download and verify that the other still receives its image. Open the linked playbook for edge cases or source documentation.
 
 Rules are scoped to failure modes, not arbitrary bans. Native control semantics matter; custom styles are allowed when they preserve behavior and contrast. Interop is a narrow capability boundary, not a forbidden import. `async` is not synonymous with background execution. A build is not a screenshot, device test, or release approval.
 

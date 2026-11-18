@@ -8,6 +8,20 @@ State the triggering task, failure scenario, scoped correction, primary-source b
 
 An entry point should tell a human or agent what to inspect, decide, do, and prove. Put decision tables and examples in the playbook. Avoid copying the same paragraphs into every skill. Add a new skill only when it has a distinct trigger and owner; expand a reference when the work belongs to an existing owner.
 
+## Write a checkable entry point
+
+Use these six level-two headings in order — `Inputs`, `Rules`, `Workflow`, `Verify`, `Output`, `References`. Write one paragraph each for inputs and output. Give each rule a short title and the decision it governs. State when a rule applies if the answer depends on the deployment target, data ownership, or user authorization.
+
+Under `Workflow`, number the actions from 1 in execution order. Under `Verify`, describe a condition and the result a reviewer can observe. Prefix each check with the local rule IDs it exercises. These lines illustrate a rule, its check, and a playbook link.
+
+```markdown
+- **NET-001 — Validate responses.** Check HTTP status and expected content before publishing success.
+- NET-001: Return malformed data. The feature reports a failure and publishes no malformed value.
+- [HTTP validation and retries](references/networking-patterns.md)
+```
+
+Keep each rule, step, check, and reference on its own line. Use a descriptive link for each local playbook in References. Preview the machine-readable result with `python3 scripts/skillctl.py contract <skill-id>`.
+
 ## Rule taxonomy
 
 | Kind | Evidence and wording |

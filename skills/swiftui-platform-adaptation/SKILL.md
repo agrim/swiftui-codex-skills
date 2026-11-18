@@ -1,40 +1,38 @@
 ---
 name: swiftui-platform-adaptation
-description: "Adapt SwiftUI apps for iOS, iPadOS, macOS, watchOS, tvOS, and visionOS with appropriate scenes, navigation, input, windows, focus, and lifecycle."
+description: "Adapt SwiftUI scenes, windows, focus, and input for iOS, iPadOS, macOS, watchOS, tvOS, or visionOS."
 ---
 
 # Platform-native scenes and interaction
 
 ## Inputs
 
-List supported platforms, actual deployment minimums, primary tasks, input devices, scene/window model, required capabilities, and feature parity expectations.
+List affected targets, minimum OS versions, primary task, inputs, scenes, and capabilities.
 
 ## Rules
 
-- **PLAT-001 — Share domain logic, adapt interaction.** Platform parity means equivalent useful outcomes, not identical layouts and chrome.
-- **PLAT-002 — Own state per scene.** Separate app services from window selection, navigation, and drafts. Choose the correct scene type before adding custom window behavior.
-- **PLAT-003 — Respect native input.** Support touch, pointer, keyboard, focus/remote, Crown, or spatial interaction as appropriate; do not transplant phone assumptions.
-- **PLAT-004 — Check capability and availability.** A shared module does not make every API or entitlement available on every platform.
-- **PLAT-005 — Validate each surface.** Build and exercise every affected platform; phone success does not prove watch, television, desktop, or spatial behavior.
+- **PLAT-001 — Share domain operations.** Reuse models and commands for equivalent outcomes. Adapt presentation to the platform.
+- **PLAT-002 — Scope state per scene.** Choose the scene type for the task. Separate window drafts, navigation, and selection from shared services.
+- **PLAT-003 — Support native input.** Make essential actions reachable by the intended touch, keyboard, pointer, remote, Crown, or spatial input.
+- **PLAT-004 — Check availability.** Verify API support and entitlements per target. Define a fallback for unavailable features.
+- **PLAT-005 — Verify per destination.** Build each affected target and exercise its primary task. Record untested destinations and hardware.
 
 ## Workflow
 
-1. Choose the scene and interaction model for each supported platform.
-2. Share models, commands, and reusable semantic components; isolate platform-specific presentation at narrow boundaries.
-3. Design compact, resizable, focus-driven, and spatial surfaces from their primary task.
-4. Handle scene activation, restoration, multiple windows, and external requests.
-5. Verify platform-specific failure and input paths.
+1. Map each task to its scene and input. Isolate platform-specific presentation at the view boundary.
+2. Define the receiving scene for external requests, focus after dismissal, and state restored on reopen.
 
 ## Verify
 
-Check resize and multiwindow behavior, keyboard commands, focus restoration, compact watch readability, tvOS focus reachability, and visionOS comfort/capability assumptions on relevant destinations.
+- PLAT-002: Where windows can resize or switch, check that selection, draft, and keyboard commands still target the intended record.
+- PLAT-003: On watchOS, read and activate the primary control. On tvOS, reach it by remote and regain focus after dismissal.
+- PLAT-003, PLAT-005: On visionOS, complete the task using supported spatial input and exit to the expected scene. Assess physical comfort on hardware.
 
 ## Output
 
-Return a platform matrix, shared versus specialized boundaries, availability decisions, and destination-specific proof.
+Report scene, input, shared command, fallback, build destination, and runtime result per target.
 
 ## References
 
-Read the [playbook](references/platform-patterns.md) for decisions, failure cases, and source links.
-
-For scenes, desktop behavior, and focus platforms, read the [focused reference](references/scenes-and-focus.md).
+- [Platform tasks, input, and availability](references/platform-patterns.md)
+- [Scene ownership, desktop commands, and focus](references/scenes-and-focus.md)

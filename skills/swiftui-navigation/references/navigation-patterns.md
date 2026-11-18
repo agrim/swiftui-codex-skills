@@ -32,6 +32,6 @@ Backport changes incrementally. On older supported targets, retain an appropriat
 
 ## Sources
 
-- [navigation](https://developer.apple.com/documentation/swiftui/understanding-the-navigation-stack) — Understanding the navigation stack.
-- [navigation-migration](https://developer.apple.com/documentation/swiftui/migrating-to-new-navigation-types) — Migrating to new navigation types.
-- [windows](https://developer.apple.com/design/human-interface-guidelines/windows) — HIG: Windows.
+- [Understanding the navigation stack](https://developer.apple.com/documentation/swiftui/understanding-the-navigation-stack)
+- [Migrating to new navigation types](https://developer.apple.com/documentation/swiftui/migrating-to-new-navigation-types)
+- [HIG: Windows](https://developer.apple.com/design/human-interface-guidelines/windows)

@@ -1,40 +1,38 @@
 ---
 name: swiftui-testing
-description: "Design Swift Testing, XCTest, UI automation, preview fixtures, accessibility checks, and deterministic regression tests for SwiftUI features."
+description: "Choose Swift Testing, XCTest, UI automation or preview fixtures for a SwiftUI regression. Verify async ordering, accessibility and visible behavior."
 ---
 
 # Behavior tests, previews, and evidence
 
 ## Inputs
 
-Identify the behavior contract, failure reproduction, test target/toolchain, injectable dependencies, current fixtures, and evidence level required.
+Identify the failure, expected outcome, target, toolchain and dependencies to control.
 
 ## Rules
 
-- **TEST-001 — Test observable behavior.** Assert state transitions and user outcomes; source-text assertions are secondary checks, not substitutes for execution.
-- **TEST-002 — Make time and I/O controllable.** Inject clocks, clients, storage, IDs, and completion order where the behavior depends on them. Avoid arbitrary sleeps.
-- **TEST-003 — Isolate fixtures.** Tests may run concurrently; avoid shared mutable globals, shared files, production accounts, and ordering assumptions.
-- **TEST-004 — Match tool to claim.** Use Swift Testing or XCTest for appropriate behavior tests, UI automation for interaction, and rendered inspection for visual claims.
-- **TEST-005 — Report exact proof.** A preview is not a test run, a snapshot is not accessibility proof, and a green mocked test is not a real-service result.
+- **TEST-001 — Assert the user outcome.** Exercise the production path. For a cancelled edit, assert that the store is unchanged.
+- **TEST-002 — Control time and I/O.** Inject clocks, clients, storage or IDs that affect the result. Order async work with registration or completion signals.
+- **TEST-003 — Isolate fixtures.** Give concurrent tests independent state, files and test accounts. Use local fixtures in previews.
+- **TEST-004 — Match the check to the claim.** Use Swift Testing or XCTest for behavior, UI automation for interactions and rendered inspection for layout.
+- **TEST-005 — Label the evidence.** Identify which dependencies were simulated. Exercise assistive workflows with the relevant assistive technology.
 
 ## Workflow
 
-1. Reproduce the defect and write the smallest failing behavioral test when feasible.
-2. Cover normal, boundary, failure, cancellation, and restoration paths relevant to the change.
-3. Add deterministic previews for the important visual states without invoking production services.
-4. Run targeted tests, then affected broader suites and destination builds.
-5. Review failures before updating baselines or disabling checks; a replaced test must preserve its distinct proof claim.
+1. Reproduce the defect. Extend the nearest test that exercises the failing path, including cancellation or restoration where relevant.
+2. Stage affected visual states with fixtures. Inspect differences before accepting a new baseline.
+3. Run the targeted check, affected suites and destination builds. Preserve distinct behavior checks when replacing tests.
 
 ## Verify
 
-Run from a clean reproducible source state; record commands, toolchain, destination, pass/fail, and skipped gates. Repeat asynchronous tests under varied controlled completion orders.
+- TEST-001: Confirm the selected regression test executed. Where reproducible, it fails before the fix and passes afterward.
+- TEST-002: For a race, force the failing completion order and assert the expected final state. For a zero-count confirmation, drive the late callback and await its effects inside the confirmation.
 
 ## Output
 
-Return the test matrix, results, artifact locations, and explicitly untested claims.
+Report the source revision, command, toolchain, destination, results, artifacts and skipped checks.
 
 ## References
 
-Read the [playbook](references/testing-patterns.md) for decisions, failure cases, and source links.
-
-For a callback that arrives after dismissal or a stream that drops updates under load, use the [async test probes](references/async-and-migration-tests.md). The same reference covers parameterization and framework coexistence.
+- [Fixtures, evidence and regression checks](references/testing-patterns.md)
+- [Async streams, confirmations and test migration](references/async-and-migration-tests.md)

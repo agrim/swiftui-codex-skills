@@ -1,40 +1,39 @@
 ---
 name: apple-networking
-description: "Implement or audit URLSession clients, authentication, retries, cancellation, pagination, image loading, caching, and truthful offline SwiftUI state."
+description: "Build or review URLSession clients for authentication, retries, cancellation, shared image downloads, pagination, caching, and offline use."
 ---
 
 # Networking, caching, and remote state
 
 ## Inputs
 
-Identify endpoint and trust boundaries, HTTP contract, authentication owner, data sensitivity, cancellation owner, retry/idempotency policy, caching rules, and offline behavior.
+Identify endpoint contract, credentials owner, sensitive data, retry guarantees, cache policy, and consumers.
 
 ## Rules
 
-- **NET-001 — Validate the response contract.** Check status, content expectations, decoding, and domain validity; receiving bytes is not success.
-- **NET-002 — Bound remote work.** Limit concurrency, payload sizes, retries, cache growth, and pagination. Cancellation and resource cleanup must have owners.
-- **NET-003 — Retry only safely.** Distinguish transport failure from authentication, validation, rate limiting, and uncertain writes; honor server retry/idempotency contracts.
-- **NET-004 — Protect secrets and transport.** Use platform security defaults and appropriate credential storage. Do not bypass certificate validation or log tokens/private payloads.
-- **NET-005 — Expose remote state truthfully.** Distinguish cached, stale, refreshing, failed, empty, cancelled, and authenticated states where they matter.
+- **NET-001 — Validate responses.** Check HTTP status, expected content, decoding, and domain invariants before publishing success.
+- **NET-002 — Bound resource use.** Limit payloads, concurrency, retries, pagination, and cache size. Assign cancellation to the transfer owner.
+- **NET-003 — Retry by operation.** Retry only when the failure and operation allow it. Honor server delays. For uncertain writes, reconcile or reuse the server-supported idempotency key.
+- **NET-004 — Protect credentials.** Validate certificates, use protected credential storage, and redact tokens and private payloads from diagnostics.
+- **NET-005 — Describe offline results.** Label stale data and refresh failures. A cache hit must not hide an authorization failure.
 
 ## Workflow
 
-1. Put network behavior behind a small injectable client boundary.
-2. Map transport/HTTP/decoding/domain errors into actionable feature states.
-3. Identify which consumer owns each request. For a shared image download, track each consumer separately so a disappearing row can leave while a detail view keeps loading. Check request identity before publishing or clearing in-flight work.
-4. Define cache key, freshness, account scope, invalidation, and eviction.
-5. Test controlled responses and real integration separately.
+1. Inject the transport. Map cancellation, expiry, invalid data, and empty success to distinct feature outcomes.
+2. Scope cache keys by account and representation. Track each shared download’s subscribers and transfer identity.
+3. Bind pages to their query, deduplicate by ID, and stop on repeated cursors.
 
 ## Verify
 
-Test non-2xx responses, malformed/oversized payloads, cancellation, stale results, retry exhaustion, token expiry, pagination duplication, cache invalidation, offline startup, and account replacement.
+- NET-002: Cancel one subscriber to a shared download. The other receives its image. A retired transfer’s callback leaves its replacement intact.
+- NET-005: Offline, expired data stays hidden or is labeled stale according to cache policy. Switching accounts hides the previous account’s data.
+- NET-001, NET-003: Return malformed data and verify the request reports failure. For a retryable request, keep returning a temporary error and verify retries stop at the configured limit.
 
 ## Output
 
-Return the client/state contract, security and retry decisions, deterministic tests, and unverified service assumptions.
+Report retry and cache decisions, fixture results, and real-service checks.
 
 ## References
 
-Read the [playbook](references/networking-patterns.md) for decisions, failure cases, and source links.
-
-For transport, pagination, cache identity, and cancellation of shared image downloads, read the [focused reference](references/transport-and-cache-boundaries.md).
+- [HTTP validation, retries, and offline state](references/networking-patterns.md)
+- [Pagination, cache identity, and shared downloads](references/transport-and-cache-boundaries.md)

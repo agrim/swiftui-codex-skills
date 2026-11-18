@@ -1,42 +1,42 @@
 ---
 name: xcode-build-optimization
-description: "Benchmark and improve Xcode clean, no-change, and edit-build latency; analyze compiler hotspots, script phases, target graphs, SwiftPM plugins, and measured rollback decisions."
+description: "Reduce Xcode clean, no-change, or edit-build latency. Diagnose compiler hotspots, script phases, target dependencies, and SwiftPM plugins."
 ---
 
-# Evidence-based Xcode build optimization
+# Xcode build optimization
 
 ## Inputs
 
-Record exact build graph, source, toolchain, destination, workload, caches, baseline samples, user objective, and authorized changes.
+Record workload, source revision, target graph, toolchain, destination, configuration, cache policy, and permitted changes.
 
 ## Rules
 
-- **XBUILD-001 — Measure the right cost.** Separate elapsed wait from cumulative parallel work, and clean from no-op and edit builds.
-- **XBUILD-002 — Preserve comparable evidence.** Keep commands, caches, dependencies, workload, and environment comparable; retain failures and spread.
-- **XBUILD-003 — Inspect the critical path.** Use task dependencies and timelines before assuming the largest cumulative category limits elapsed time.
-- **XBUILD-004 — Change real owners.** Fix source-owned settings, scripts, or package boundaries without disabling correctness checks or shipping requirements.
-- **XBUILD-005 — Keep rollback available.** No recommended setting outranks measured regressions or compatibility. Retain non-performance changes only with an explicit rationale.
+- **XBUILD-001 — Measure elapsed time.** Time clean, no-change, and representative edit builds separately. Parallel task durations can overlap.
+- **XBUILD-002 — Match the comparison.** Keep command, dependencies, cache policy, and environment consistent. Retain samples and failures.
+- **XBUILD-003 — Trace the critical path.** Use the timeline to identify which dependency delays completion.
+- **XBUILD-004 — Fix the owner.** Edit the responsible source, setting, script, or package. Preserve correctness checks and release requirements.
+- **XBUILD-005 — Define rollback.** Revert correctness or compatibility regressions. Explain any timing tradeoff before keeping the change.
 
 ## Workflow
 
-1. Capture a baseline and classify the bottleneck.
-2. Use only the matching specialist references.
-3. Apply authorized, reversible hypotheses and verify effective output.
-4. Repeat the same workload and report gains, tradeoffs, or inconclusive evidence.
+1. Capture a baseline and identify the limiting task chain.
+2. Apply a reversible, authorized change and inspect its effect on the build graph.
+3. Repeat the baseline workload. Mark missing timings unavailable.
 
 ## Verify
 
-Build the final candidate, run behavior tests, compare all measured categories, and inspect generated resources. Do not count a timing-summary parse failure as zero work.
+- XBUILD-004: Build and test the candidate. Confirm required resources and generated outputs are current.
+- XBUILD-001, XBUILD-002: Compare elapsed samples and spread per workload. Report inconclusive results when variation obscures the change.
 
 ## Output
 
-Return baseline/after samples, elapsed deltas, uncertainty, changed files, and retained/reverted/blocked decisions.
+Report samples, elapsed deltas, spread, failures, changed files, and the keep or revert decision.
 
 ## References
 
-- [Build optimization orchestration](references/orchestration.md).
-- [Clean, no-op, and edit-build benchmarks](references/benchmarking.md).
-- [Compiler hotspots and source complexity](references/compiler.md).
-- [Build settings, scripts, and dependency graphs](references/project.md).
-- [SwiftPM graph, plugins, and generated code](references/packages.md).
-- [Fix, compare, and report](references/verification.md).
+- [Optimization planning](references/orchestration.md)
+- [Build benchmarks](references/benchmarking.md)
+- [Diagnose compiler hotspots](references/compiler.md)
+- [Settings, scripts, and targets](references/project.md)
+- [SwiftPM and generated code](references/packages.md)
+- [Verification and rollback](references/verification.md)

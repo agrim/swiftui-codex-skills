@@ -47,7 +47,7 @@ A change can be correct but slower, or faster but wrong. Keep behavior tests and
 
 ## Sources
 
-- [performance](https://developer.apple.com/documentation/xcode/understanding-and-improving-swiftui-performance) — Understanding and improving SwiftUI performance.
-- [rendering](https://developer.apple.com/documentation/xcode/improving-your-app-s-rendering-efficiency) — Improving rendering efficiency.
-- [concurrency](https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html) — The Swift Programming Language: Concurrency.
-- [model-context](https://developer.apple.com/documentation/swiftdata/modelcontext) — SwiftData ModelContext.
+- [Understanding and improving SwiftUI performance](https://developer.apple.com/documentation/xcode/understanding-and-improving-swiftui-performance)
+- [Improving rendering efficiency](https://developer.apple.com/documentation/xcode/improving-your-app-s-rendering-efficiency)
+- [The Swift Programming Language: Concurrency](https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html)
+- [SwiftData ModelContext](https://developer.apple.com/documentation/swiftdata/modelcontext)

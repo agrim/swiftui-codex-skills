@@ -1,40 +1,39 @@
 ---
 name: swiftui-accessibility
-description: "Audit or implement VoiceOver, Voice Control, Dynamic Type, accessible controls, contrast, Reduce Motion, keyboard access, localization, and right-to-left SwiftUI behavior."
+description: "Audit SwiftUI tasks with VoiceOver, Voice Control, keyboards, Dynamic Type, Reduce Motion, contrast, and localized layouts."
 ---
 
 # Accessibility and localization
 
 ## Inputs
 
-Identify the core user journeys, supported platforms/input methods, content meaning, largest supported text sizes, languages, and current accessibility settings.
+Record the task, destination, locale, input method, text size, and assistive settings.
 
 ## Rules
 
-- **AX-001 — Preserve meaning and operability.** Every essential action and value needs an accessible representation, not merely a visible label.
-- **AX-002 — Adapt to people.** Support larger text, contrast preferences, reduced motion, alternative input, and layout direction without removing core functionality.
-- **AX-003 — Do not encode meaning only visually.** Provide alternatives to color, position, sound, motion, and gesture-only instructions.
-- **AX-004 — Group intentionally.** Combine related static content, but do not hide independent controls inside an inaccessible combined element. Keep focus order meaningful.
-- **AX-005 — Verify journeys.** Automated audits and labels alone do not prove accessibility. Test reading, editing, acting, error recovery, and dismissal.
+- **AX-001 — Expose actions and values.** Expose each control’s name, role, action and value. Make essential read-only values and units accessible too.
+- **AX-002 — Adapt to settings.** Keep essential actions reachable as text, direction, contrast, motion, and input method change.
+- **AX-003 — Provide alternatives.** Pair color, position, sound, or motion cues with accessible status. Offer an alternative to required gestures.
+- **AX-004 — Group by action.** Combine related static text. Keep independent controls individually reachable in task order.
+- **AX-005 — Exercise the journey.** Read, edit, submit, recover from an error, and dismiss using the relevant assistive technology.
 
 ## Workflow
 
-1. Inspect the accessibility tree and complete the core journey with an assistive technology.
-2. Correct semantics before adding hints or traits indiscriminately.
-3. Reflow at accessibility text sizes. Check that essential actions remain reachable and that users can identify them by their visible names with Voice Control where supported.
-4. Localize user-facing strings, pluralization, formatting, and directional layout.
-5. Record defects with affected users, reproduction, and validation evidence.
+1. Inspect the accessibility tree at the failing step. Correct semantics before adding hints.
+2. Localize names, plurals, and formatted values. Check longer translations and mixed-direction text.
+3. Repeat at the largest supported text size.
 
 ## Verify
 
-Check VoiceOver reading and actions, Full Keyboard Access where relevant, contrast, Reduce Motion, Reduce Transparency, large text, mixed-direction content, longer translations, and error recovery. Use automated audits as an additional signal.
+- AX-004, AX-005: Use VoiceOver or Full Keyboard Access where supported. Reach each independent control in task order and correct an invalid entry.
+- AX-001, AX-002: With Voice Control, speak the localized action’s visible title after reflow. Confirm the intended record changed.
+- AX-002, AX-003: With Reduce Motion, Reduce Transparency, or increased contrast, confirm completion and error feedback remain distinguishable.
 
 ## Output
 
-Return prioritized barriers, exact controls, corrections, and tested settings/journeys. Do not claim universal accessibility or store-label eligibility from a source scan.
+Rank barriers by impact. Report control, failing step, fix, tested settings, and outstanding hands-on checks.
 
 ## References
 
-Read the [playbook](references/accessibility-patterns.md) for decisions, failure cases, and source links.
-
-For a speech-only editing test, localized command names, and focus after updates, read [assistive journeys and localized content](references/assistive-and-localized-flows.md).
+- [Labels, grouping, text, and contrast](references/accessibility-patterns.md)
+- [Spoken commands, localization, and focus](references/assistive-and-localized-flows.md)

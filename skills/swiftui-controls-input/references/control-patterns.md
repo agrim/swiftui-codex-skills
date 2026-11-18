@@ -40,7 +40,7 @@ Gestures are appropriate for direct manipulation, drawing, or supplementary shor
 
 ## Sources
 
-- [button](https://developer.apple.com/documentation/SwiftUI/Button) — SwiftUI Button.
-- [focus](https://developer.apple.com/documentation/swiftui/focusstate) — SwiftUI FocusState.
-- [accessible-controls](https://developer.apple.com/documentation/swiftui/accessible-controls) — SwiftUI accessible controls.
-- [accessibility](https://developer.apple.com/design/human-interface-guidelines/accessibility) — HIG: Accessibility.
+- [SwiftUI Button](https://developer.apple.com/documentation/SwiftUI/Button)
+- [SwiftUI FocusState](https://developer.apple.com/documentation/swiftui/focusstate)
+- [SwiftUI accessible controls](https://developer.apple.com/documentation/swiftui/accessible-controls)
+- [HIG: Accessibility](https://developer.apple.com/design/human-interface-guidelines/accessibility)

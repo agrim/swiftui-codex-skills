@@ -55,8 +55,8 @@ This ledger is an engineering workflow, not an Apple requirement. Record authori
 
 ## Sources
 
-- [review](https://developer.apple.com/app-store/review/guidelines/) — App Review Guidelines.
-- [distribution](https://developer.apple.com/documentation/xcode/distributing-your-app-for-beta-testing-and-releases) — Distributing your app.
-- [privacy](https://developer.apple.com/documentation/bundleresources/describing-data-use-in-privacy-manifests) — Describing data use in privacy manifests.
-- [sdk-privacy](https://developer.apple.com/support/third-party-SDK-requirements/) — Third-party SDK requirements.
-- [account-deletion](https://developer.apple.com/support/offering-account-deletion-in-your-app/) — Offering account deletion in your app.
+- [App Review Guidelines](https://developer.apple.com/app-store/review/guidelines/)
+- [Distributing your app](https://developer.apple.com/documentation/xcode/distributing-your-app-for-beta-testing-and-releases)
+- [Describing data use in privacy manifests](https://developer.apple.com/documentation/bundleresources/describing-data-use-in-privacy-manifests)
+- [Third-party SDK requirements](https://developer.apple.com/support/third-party-SDK-requirements/)
+- [Offering account deletion in your app](https://developer.apple.com/support/offering-account-deletion-in-your-app/)

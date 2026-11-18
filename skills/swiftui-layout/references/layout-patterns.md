@@ -38,7 +38,7 @@ Use leading/trailing semantics, localizable format styles, and layout-direction-
 
 ## Sources
 
-- [layout](https://developer.apple.com/documentation/swiftui/layout) — SwiftUI Layout protocol.
-- [hig-layout](https://developer.apple.com/design/human-interface-guidelines/layout) — HIG: Layout.
-- [rtl](https://developer.apple.com/design/human-interface-guidelines/right-to-left) — HIG: Right to left.
-- [accessibility](https://developer.apple.com/design/human-interface-guidelines/accessibility) — HIG: Accessibility.
+- [SwiftUI Layout protocol](https://developer.apple.com/documentation/swiftui/layout)
+- [HIG: Layout](https://developer.apple.com/design/human-interface-guidelines/layout)
+- [HIG: Right to left](https://developer.apple.com/design/human-interface-guidelines/right-to-left)
+- [HIG: Accessibility](https://developer.apple.com/design/human-interface-guidelines/accessibility)

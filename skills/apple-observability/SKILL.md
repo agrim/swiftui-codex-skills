@@ -1,38 +1,38 @@
 ---
 name: apple-observability
-description: "Instrument and diagnose Apple apps using unified logging, signposts, Instruments traces, crash symbolication, memory graphs, and reproducible evidence without leaking user data."
+description: "Diagnose Apple app failures with unified logging, signposts, Instruments traces, crash symbols and memory graphs."
 ---
 
 # Privacy-safe logs and performance diagnostics
 
 ## Inputs
 
-Define the failure claim, candidate/build identity, workload, process, time window, diagnostic tools, privacy scope, and baseline evidence.
+Identify the symptom, build, process, workload, time window and permitted capture data.
 
 ## Rules
 
-- **OBS-001 — Log contracts, not payloads.** Prefer state transitions, operation categories, and bounded opaque correlation. Never log credentials or protected content for convenience.
-- **OBS-002 — Measure an interval.** Use paired operation boundaries and consistent time units. Instrument success, failure, cancellation, and timeout without double-ending intervals.
-- **OBS-003 — Match diagnostic to failure.** Distinguish CPU work, blocking, UI invalidation, allocation growth, and retained objects before proposing fixes.
-- **OBS-004 — Preserve raw provenance.** Keep original traces/crashes privately with tool version and capture conditions. A parser summary is an interpretation, not the complete evidence.
-- **OBS-005 — Verify without the harness.** Retest the final candidate without temporary fixtures or debugger effects; compare the same workload and report unmeasured claims.
+- **OBS-001 — Limit logged data.** Log phases and error categories. Correlate with short-lived opaque IDs. Exclude credentials and protected content.
+- **OBS-002 — Pair interval boundaries.** End each started signpost once on success, failure, cancellation or timeout. Compare durations in consistent units.
+- **OBS-003 — Choose a diagnostic.** Inspect samples and waits for hangs, update causes for invalidation, and allocations and retaining paths for memory growth.
+- **OBS-004 — Preserve the original.** Keep raw captures private. Record tool version and capture conditions with each summary.
+- **OBS-005 — Check instrumentation effects.** Repeat the workload on the final build after removing temporary fixtures and detaching the debugger.
 
 ## Workflow
 
-1. Capture the smallest reproducible scenario and privacy-reviewed telemetry.
-2. Inspect symbolication and timeline coverage before trusting a summary.
-3. Form one ownership or performance hypothesis and add a focused regression test.
-4. Measure again and remove or bound temporary diagnostics.
+1. Reproduce once. Verify the trace covers the incident or match the dSYM and binary UUIDs.
+2. Identify the suspect operation or retaining owner. Test one correction.
 
 ## Verify
 
-Check cancelled intervals, private interpolations, missing symbols, empty traces, repeated presentations, and retained task/observer ownership. Inspect actual artifact contents before sharing.
+- OBS-001: Before sharing diagnostics, inspect the export for credentials and protected content.
+- OBS-002: Cancel a signposted operation. Its interval has one matching end.
+- OBS-003: For suspected retention, repeat presentation and dismissal. Inspect the retaining path of any owner still alive after expected teardown.
 
 ## Output
 
-Return the candidate, capture contract, evidence-supported diagnosis, change, comparison, and unresolved hypotheses.
+Report the build, capture conditions, observed cause, change, comparison and unresolved hypotheses.
 
 ## References
 
-- [Logging, signposts, and trace interpretation](references/logging-and-traces.md).
-- [Memory graphs and crash investigation](references/memory-and-crashes.md).
+- [Logs, signposts and trace coverage](references/logging-and-traces.md)
+- [Retaining paths and crash symbolication](references/memory-and-crashes.md)

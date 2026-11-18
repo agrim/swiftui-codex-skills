@@ -46,12 +46,12 @@ Apple HIG recommends consistent color meaning and testing custom colors across a
 
 ## Sources
 
-- [design](https://developer.apple.com/design/human-interface-guidelines/design-principles) — HIG: Design principles.
-- [materials](https://developer.apple.com/design/human-interface-guidelines/materials) — HIG: Materials.
-- [glass](https://developer.apple.com/documentation/TechnologyOverviews/liquid-glass) — Liquid Glass technology overview.
-- [typography](https://developer.apple.com/design/human-interface-guidelines/typography) — HIG: Typography.
-- [symbols](https://developer.apple.com/design/human-interface-guidelines/sf-symbols) — HIG: SF Symbols.
-- [color](https://developer.apple.com/design/human-interface-guidelines/color) — HIG: Color.
-- [animation](https://developer.apple.com/documentation/SwiftUI/Animation) — SwiftUI Animation.
-- [reduced-motion](https://developer.apple.com/help/app-store-connect/manage-app-accessibility/reduced-motion-evaluation-criteria) — Reduced Motion evaluation criteria.
-- [charts](https://developer.apple.com/documentation/charts) — Swift Charts.
+- [HIG: Design principles](https://developer.apple.com/design/human-interface-guidelines/design-principles)
+- [HIG: Materials](https://developer.apple.com/design/human-interface-guidelines/materials)
+- [Liquid Glass technology overview](https://developer.apple.com/documentation/TechnologyOverviews/liquid-glass)
+- [HIG: Typography](https://developer.apple.com/design/human-interface-guidelines/typography)
+- [HIG: SF Symbols](https://developer.apple.com/design/human-interface-guidelines/sf-symbols)
+- [HIG: Color](https://developer.apple.com/design/human-interface-guidelines/color)
+- [SwiftUI Animation](https://developer.apple.com/documentation/SwiftUI/Animation)
+- [Reduced Motion evaluation criteria](https://developer.apple.com/help/app-store-connect/manage-app-accessibility/reduced-motion-evaluation-criteria)
+- [Swift Charts](https://developer.apple.com/documentation/charts)

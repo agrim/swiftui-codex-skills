@@ -9,9 +9,8 @@ import sys
 from pathlib import Path
 from urllib.parse import urlsplit
 
-from skilllib import (HEADINGS, PLATFORMS, PRIMARY_HOSTS, RULE, SLUG, catalog,
-                      frontmatter, generated_docs, iter_files, local_links,
-                      safe_path, source_registry, valid_review_date)
+from skilllib import (PLATFORMS, PRIMARY_HOSTS, SLUG, catalog, generated_docs, iter_files,
+                      local_links, safe_path, skill_contract, source_registry, valid_review_date)
 
 SECRET = re.compile(r"(?:gh[pousr]_[A-Za-z0-9_]{20,}|github_pat_[A-Za-z0-9_]{20,}|sk-(?:proj-)?[A-Za-z0-9_-]{24,}|-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----)")
 LOCAL_PATH = re.compile("/" + "Users" + r"/[A-Za-z0-9._-]+|/(?:private/)?" + "var" + r"/folders/")
@@ -99,34 +98,16 @@ def validate(root: Path, check_generated: bool = True) -> list[str]:
             folder = safe_path(root, f"skills/{sid}")
             entry = safe_path(folder, "SKILL.md")
             text = entry.read_text(encoding="utf-8")
-            meta = frontmatter(text)
-            if meta["name"] != sid:
-                errors.append(f"{sid}: frontmatter name must equal folder name")
-            if meta["description"] != item.get("summary"):
-                errors.append(f"{sid}: description and catalog summary differ")
-            if len(meta["description"]) > 1024:
+            contract = skill_contract(folder, item, text, all_rules)
+            if len(contract["description"]) > 1024:
                 errors.append(f"{sid}: description exceeds 1024 characters")
             if len(text.split()) > MAX_ENTRY_WORDS:
                 errors.append(f"{sid}: entrypoint exceeds {MAX_ENTRY_WORDS} words")
-            for heading in HEADINGS:
-                if f"\n## {heading}\n" not in text:
-                    errors.append(f"{sid}: missing {heading} section")
-            rules = RULE.findall(text)
-            if not rules:
-                errors.append(f"{sid}: no stable rule IDs")
-            for rule in rules:
-                if rule in all_rules:
-                    errors.append(f"{sid}: duplicate rule ID {rule}")
-                all_rules.add(rule)
             reference_texts = []
             for relative in item["references"]:
                 reference = safe_path(folder, relative)
-                if not relative.startswith("references/") or reference.suffix != ".md":
-                    errors.append(f"{sid}: references must be Markdown under references/")
                 body = reference.read_text(encoding="utf-8")
                 reference_texts.append(body)
-                if relative not in set(local_links(text)):
-                    errors.append(f"{sid}: reference is not linked from SKILL.md: {relative}")
                 if len(body.split()) > MAX_REFERENCE_WORDS:
                     errors.append(f"{sid}: reference exceeds {MAX_REFERENCE_WORDS} words: {relative}")
             full_text = "\n".join([text, *reference_texts])

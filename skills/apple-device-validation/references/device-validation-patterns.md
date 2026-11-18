@@ -55,7 +55,7 @@ Keep fresh install, preserved-container reinstall, restored backup, and in-place
 
 ## Sources
 
-- [xcode](https://developer.apple.com/documentation/xcode) — Xcode documentation.
-- [testing](https://developer.apple.com/xcode/swift-testing/) — Swift Testing.
-- [ui-audit](https://developer.apple.com/documentation/xcuiautomation/xcuiaccessibilityauditissue) — XCUI accessibility audits.
-- [distribution](https://developer.apple.com/documentation/xcode/distributing-your-app-for-beta-testing-and-releases) — Distributing your app.
+- [Xcode documentation](https://developer.apple.com/documentation/xcode)
+- [Swift Testing](https://developer.apple.com/xcode/swift-testing/)
+- [XCUI accessibility audits](https://developer.apple.com/documentation/xcuiautomation/xcuiaccessibilityauditissue)
+- [Distributing your app](https://developer.apple.com/documentation/xcode/distributing-your-app-for-beta-testing-and-releases)

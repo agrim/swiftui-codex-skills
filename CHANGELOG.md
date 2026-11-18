@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased — readable skill contracts
+
+All 29 entry points now give ordered actions and observable checks linked to their rule IDs. `skillctl.py contract` exports selected entries as compact JSON from the same Markdown the validator reads. Reference links identify the decisions or sources they lead to.
+
 ## Unreleased — SwiftUI failure cases
 
 Nine existing skills now cover late row edits, mixed navigation links, form reflow, Voice Control, stream overflow and teardown, shared image downloads, scrolling hitches, and SwiftData upgrades. The catalog includes symptom-based routes. The provenance map links reviewed community files at their exact commits, and the source registry records the relevant Apple and Swift documentation.

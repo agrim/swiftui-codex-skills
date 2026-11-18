@@ -49,15 +49,15 @@ Prove the affected chain in order: configuration → permission → data/command
 
 ## Sources
 
-- [widgets](https://developer.apple.com/documentation/widgetkit) — WidgetKit.
-- [intents](https://developer.apple.com/documentation/appintents) — App Intents.
-- [activities](https://developer.apple.com/documentation/activitykit) — ActivityKit.
-- [notifications](https://developer.apple.com/documentation/usernotifications) — User Notifications.
-- [spotlight](https://developer.apple.com/documentation/corespotlight) — Core Spotlight.
-- [watch-connectivity](https://developer.apple.com/documentation/watchconnectivity) — WatchConnectivity.
-- [healthkit](https://developer.apple.com/documentation/healthkit) — HealthKit.
-- [storekit](https://developer.apple.com/documentation/storekit) — StoreKit.
-- [widget-refresh](https://developer.apple.com/documentation/widgetkit/keeping-a-widget-up-to-date/) — Keeping a widget up to date.
-- [health-authorization](https://developer.apple.com/documentation/healthkit/hkhealthstore/authorizationstatus(for:)) — HealthKit authorizationStatus(for:).
-- [health-privacy](https://developer.apple.com/documentation/healthkit/protecting-user-privacy) — Protecting user privacy with HealthKit.
-- [app-intent](https://developer.apple.com/documentation/appintents/appintent) — AppIntent protocol.
+- [WidgetKit](https://developer.apple.com/documentation/widgetkit)
+- [App Intents](https://developer.apple.com/documentation/appintents)
+- [ActivityKit](https://developer.apple.com/documentation/activitykit)
+- [User Notifications](https://developer.apple.com/documentation/usernotifications)
+- [Core Spotlight](https://developer.apple.com/documentation/corespotlight)
+- [WatchConnectivity](https://developer.apple.com/documentation/watchconnectivity)
+- [HealthKit](https://developer.apple.com/documentation/healthkit)
+- [StoreKit](https://developer.apple.com/documentation/storekit)
+- [Keeping a widget up to date](https://developer.apple.com/documentation/widgetkit/keeping-a-widget-up-to-date/)
+- [HealthKit authorizationStatus(for:)](https://developer.apple.com/documentation/healthkit/hkhealthstore/authorizationstatus(for:))
+- [Protecting user privacy with HealthKit](https://developer.apple.com/documentation/healthkit/protecting-user-privacy)
+- [AppIntent protocol](https://developer.apple.com/documentation/appintents/appintent)

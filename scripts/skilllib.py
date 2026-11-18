@@ -15,7 +15,7 @@ from typing import Any, Iterator
 from urllib.parse import unquote, urlsplit
 
 SLUG = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*\Z")
-RULE = re.compile(r"\*\*([A-Z]+-\d{3})\s+—")
+RULE = re.compile(r"- \*\*(?P<id>[A-Z]+-[0-9]{3}) — (?P<title>[^*\s][^*]*?\.)\*\* (?P<instruction>\S.*)")
 HEADINGS = ("Inputs", "Rules", "Workflow", "Verify", "Output", "References")
 PLATFORMS = {"iOS", "iPadOS", "macOS", "watchOS", "tvOS", "visionOS"}
 IGNORED = {".git", ".build", ".build-ios", "__pycache__", ".pytest_cache", "DerivedData", "node_modules", "Pods", "Carthage", ".venv", "venv", "build", "Build", "dist"}
@@ -107,6 +107,76 @@ def frontmatter(text: str) -> dict[str, str]:
     if set(result) != {"name", "description"}:
         raise ValueError("frontmatter requires name and description")
     return result
+
+
+def skill_contract(folder: Path, item: dict[str, Any], text: str, seen_rules: set[str]) -> dict[str, Any]:
+    """Read the library's entry-point Markdown profile. Playbooks have no such restrictions."""
+    text = text.replace("\r\n", "\n")
+    meta = frontmatter(text)
+    if meta["name"] != item["id"] or meta["description"] != item["summary"]:
+        raise ValueError("frontmatter name and description must match the catalog")
+
+    body = text.split("\n---\n", 1)[1]
+    if re.search(r"^\s*(?:`{3,}|~{3,})", body, re.M):
+        raise ValueError("put fenced examples in a playbook")
+    parts = re.split(r"^## ([^\n]*)$", body, flags=re.M)
+    title = re.fullmatch(r"# (\S[^\n]*)", parts[0].strip("\n"))
+    if title is None or parts[1::2] != list(HEADINGS):
+        raise ValueError("expected a title followed by " + ", ".join(HEADINGS) + " in order")
+    sections = dict(zip(HEADINGS, (part.strip("\n") for part in parts[2::2])))
+
+    def entries(heading: str, pattern: str | re.Pattern[str]) -> list[re.Match[str]]:
+        matches = []
+        for number, line in enumerate(sections[heading].splitlines(), 1):
+            if not line.strip():
+                continue
+            match = re.fullmatch(pattern, line)
+            if match is None:
+                raise ValueError(f"invalid {heading} entry on section line {number}")
+            matches.append(match)
+        if not matches:
+            raise ValueError(f"empty {heading} section")
+        return matches
+
+    for heading, content in sections.items():
+        if heading != "Rules" and re.search(r"^- \*\*[A-Z]+-[0-9]{3} — ", content, re.M):
+            raise ValueError(f"rule declaration outside Rules in {heading}")
+    for heading in ("Inputs", "Output"):
+        content = sections[heading]
+        if not content.strip() or re.search(r"\n\s*\n|^(?: {4}|\t| {0,3}(?:#+ |[-*+] |[0-9]+[.)] |>|\|))", content, re.M):
+            raise ValueError(f"{heading} must be one paragraph")
+        sections[heading] = " ".join(line.strip() for line in content.splitlines())
+
+    rules = [m.groupdict() for m in entries("Rules", RULE)]
+    declared: set[str] = set()
+    for rule in rules:
+        rule_id = rule["id"]
+        if rule_id in declared or rule_id in seen_rules:
+            raise ValueError(f"duplicate rule ID {rule_id}")
+        declared.add(rule_id)
+    workflow = []
+    for number, match in enumerate(entries("Workflow", r"([0-9]+)\. (\S.*)"), 1):
+        if match[1] != str(number):
+            raise ValueError(f"expected Workflow step {number}")
+        workflow.append(match[2])
+    verify = []
+    for match in entries("Verify", r"- ([^:]+): (\S.*)"):
+        rule_ids = match[1].split(", ")
+        if not declared.issuperset(rule_ids) or len(rule_ids) != len(set(rule_ids)):
+            raise ValueError("each Verify check must cite distinct rule IDs from this skill")
+        verify.append({"rule_ids": rule_ids, "check": match[2]})
+    link = r"- \[(?P<label>[^\]\s][^\]\n]*)\]\((?P<path>references/[^()\s]+\.md)\)"
+    references = [m.groupdict() for m in entries("References", link)]
+    for relative in item["references"]:
+        if not safe_path(folder, relative).is_file():
+            raise ValueError(f"missing reference: {relative}")
+    paths = [ref["path"] for ref in references]
+    if len(paths) != len(set(paths)) or sorted(paths) != sorted(item["references"]):
+        raise ValueError("References must list each catalog path once")
+    seen_rules.update(declared)
+    return {"id": meta["name"], "title": title.group(1), "description": meta["description"], "inputs": sections["Inputs"],
+            "rules": rules, "workflow": workflow, "verify": verify, "output": sections["Output"],
+            "references": references}
 
 
 def without_fences(text: str) -> str:

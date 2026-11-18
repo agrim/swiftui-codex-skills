@@ -38,12 +38,12 @@ For each target, record: primary task, scene/container, input, state owner, API 
 
 ## Sources
 
-- [ios](https://developer.apple.com/design/human-interface-guidelines/designing-for-ios) — HIG: Designing for iOS.
-- [ipados](https://developer.apple.com/design/human-interface-guidelines/designing-for-ipados) — HIG: Designing for iPadOS.
-- [macos](https://developer.apple.com/design/human-interface-guidelines/designing-for-macos) — HIG: Designing for macOS.
-- [watchos](https://developer.apple.com/design/human-interface-guidelines/designing-for-watchos) — HIG: Designing for watchOS.
-- [tvos](https://developer.apple.com/design/human-interface-guidelines/designing-for-tvos) — HIG: Designing for tvOS.
-- [visionos](https://developer.apple.com/design/human-interface-guidelines/designing-for-visionos) — HIG: Designing for visionOS.
-- [windows](https://developer.apple.com/design/human-interface-guidelines/windows) — HIG: Windows.
-- [settings](https://developer.apple.com/design/human-interface-guidelines/settings) — HIG: Settings.
-- [swiftui](https://developer.apple.com/documentation/SwiftUI) — SwiftUI framework overview.
+- [HIG: Designing for iOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-ios)
+- [HIG: Designing for iPadOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-ipados)
+- [HIG: Designing for macOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-macos)
+- [HIG: Designing for watchOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-watchos)
+- [HIG: Designing for tvOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-tvos)
+- [HIG: Designing for visionOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-visionos)
+- [HIG: Windows](https://developer.apple.com/design/human-interface-guidelines/windows)
+- [HIG: Settings](https://developer.apple.com/design/human-interface-guidelines/settings)
+- [SwiftUI framework overview](https://developer.apple.com/documentation/SwiftUI)

@@ -6,7 +6,7 @@ Maintain a provider-neutral, source-linked skill library.
 
 - Keep each skill self-contained in `skills/<id>/` with `SKILL.md` and local `references/`. Preserve published identifiers unless a documented migration is intended.
 - Use the documented scalar frontmatter profile: unquoted `name`, JSON-quoted single-line `description`. Both are valid YAML; advanced YAML is deliberately outside this repository profile.
-- Keep entry points within 650 words and playbooks within 1,800 words. Use Inputs, Rules, Workflow, Verify, Output, References. Give rules stable IDs.
+- Keep entry points within 650 words and playbooks within 1,800 words. Follow the [entry-point format](CONTRIBUTING.md#write-a-checkable-entry-point). Keep rule IDs stable and cite them in the corresponding verification checks.
 - Distinguish Apple requirements, documented API behavior, repository conventions, and recommendations. Do not turn one app's rules into universal requirements.
 - Link precise primary sources. Record reviewed content honestly; do not upgrade discovery links or review dates after an HTTP-only check. Verify availability in the current SDK before adding version-specific examples.
 - Keep core content free of vendor invocation syntax or mandatory plugins. Optional host adapters may live under `agents/`; they do not own engineering rules.

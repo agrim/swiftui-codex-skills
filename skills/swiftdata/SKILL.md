@@ -1,38 +1,39 @@
 ---
 name: swiftdata
-description: "Design and repair SwiftData models, relationships, predicates, contexts, disk-backed migrations, indexes, history, and CloudKit-compatible schema evolution."
+description: "Design or repair SwiftData models, predicates, relationships, indexes, context ownership, history, disk migrations, and CloudKit-compatible schemas."
 ---
 
 # SwiftData schemas, queries, and migrations
 
 ## Inputs
 
-Inspect model/container registration, store configuration, context ownership, schema versions, deployment minimums, and whether synchronization is enabled.
+Identify registered models, store configuration, context isolation, shipped schemas, target OS, and sync settings.
 
 ## Rules
 
-- **SD-001 — Own the graph.** Define inverses and deletion behavior from domain lifecycle; neither cascade nor nullify is universally correct.
-- **SD-002 — Test translated queries.** A predicate compiling in Swift does not prove store execution. Test real predicates, ordering, nil relationships, and limits on the supported store.
-- **SD-003 — Isolate mutable models.** Keep context-bound objects on their intended actor; transfer identifiers or snapshots rather than live models.
-- **SD-004 — Treat schemas as history.** Preserve shipped versions and test disk-backed upgrades. Never delete a failing store or switch silently to memory.
-- **SD-005 — Separate sync from save.** Validate CloudKit constraints and account behavior; local uniqueness or a completed save is not distributed exactly-once delivery.
+- **SD-001 — Define relationship ownership.** Choose inverses and delete rules by deciding which records survive deletion of each endpoint.
+- **SD-002 — Execute translated queries.** Run predicates on the supported store. Check returned IDs, ordering, limits, and optional relationships.
+- **SD-003 — Confine mutable models.** Keep live models on their context’s actor. Transfer identifiers or snapshots.
+- **SD-004 — Preserve schema history.** Freeze shipped schemas. On open or migration failure, retain the original store and diagnostics. Offer recovery.
+- **SD-005 — Verify cloud behavior separately.** Check CloudKit schema constraints and account changes. Verify delivery at the destination.
 
 ## Workflow
 
-1. Map each model and relationship to the configured schema and store.
-2. Define draft/commit and query contracts before adding modifiers.
-3. Match the proposed change to the shipped schema. For a property rename, preserve its original persisted name and test with distinct old values. For a new uniqueness constraint, resolve existing duplicates according to a declared survivor policy before enforcing it.
-4. Exercise failures, relationships, reopens, and synchronization boundaries.
+1. Specify when a draft enters its model’s store.
+2. On rename, map the new property to its previous persisted name. Before enforcing uniqueness, choose surviving records and reconcile their relationships.
 
 ## Verify
 
-Test explicit saves through fresh contexts, failed commits, deletion graphs, query edge cases, and upgrades from every supported shipped schema. Label in-memory tests separately.
+- SD-002: Run the production predicate on the supported store. Compare ordered IDs with the fixture, including nil relationships and limits where used.
+- SD-003: Save in one context and refetch by ID in another. The reader sees committed values.
+- SD-004: For each supported disk upgrade, migrate distinct ID–value pairs. Save an edit and reopen. The edit and the other migrated values survive.
+- SD-001: Delete a relationship endpoint and refetch both sides. Only the records covered by the delete rule disappear.
 
 ## Output
 
-Return schema/ownership decisions, query fixtures, upgrade evidence, and unverified store or account behavior.
+Report store type, schema versions, observed values, and untested migration or sync paths.
 
 ## References
 
-- [Models, contexts, and query correctness](references/models-and-queries.md).
-- [Schema evolution and synchronization](references/migration-and-sync.md).
+- [Models, context ownership, and queries](references/models-and-queries.md)
+- [Disk migrations, reopen tests, and sync](references/migration-and-sync.md)

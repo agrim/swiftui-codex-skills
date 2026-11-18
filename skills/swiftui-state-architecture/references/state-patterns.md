@@ -39,6 +39,6 @@ Recompute the parent without changing record identity; assert the draft survives
 
 ## Sources
 
-- [observation](https://developer.apple.com/documentation/SwiftUI/Migrating-from-the-observable-object-protocol-to-the-observable-macro) — Migrating to Observation.
-- [model-data](https://developer.apple.com/documentation/SwiftUI/Managing-model-data-in-your-app) — Managing model data.
-- [navigation](https://developer.apple.com/documentation/swiftui/understanding-the-navigation-stack) — Understanding the navigation stack.
+- [Migrating to Observation](https://developer.apple.com/documentation/SwiftUI/Migrating-from-the-observable-object-protocol-to-the-observable-macro)
+- [Managing model data](https://developer.apple.com/documentation/SwiftUI/Managing-model-data-in-your-app)
+- [Understanding the navigation stack](https://developer.apple.com/documentation/swiftui/understanding-the-navigation-stack)

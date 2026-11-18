@@ -46,12 +46,12 @@ Test permission transitions and data mapping independently from UI rendering. In
 
 ## Sources
 
-- [privacy](https://developer.apple.com/documentation/bundleresources/describing-data-use-in-privacy-manifests) — Describing data use in privacy manifests.
-- [required-reasons](https://developer.apple.com/documentation/bundleresources/describing-use-of-required-reason-api) — Required reason APIs.
-- [sdk-privacy](https://developer.apple.com/support/third-party-SDK-requirements/) — Third-party SDK requirements.
-- [healthkit](https://developer.apple.com/documentation/healthkit) — HealthKit.
-- [keychain](https://developer.apple.com/documentation/security/keychain-services) — Keychain services.
-- [review](https://developer.apple.com/app-store/review/guidelines/) — App Review Guidelines.
-- [health-authorization](https://developer.apple.com/documentation/healthkit/hkhealthstore/authorizationstatus(for:)) — HealthKit authorizationStatus(for:).
-- [health-privacy](https://developer.apple.com/documentation/healthkit/protecting-user-privacy) — Protecting user privacy with HealthKit.
-- [account-deletion](https://developer.apple.com/support/offering-account-deletion-in-your-app/) — Offering account deletion in your app.
+- [Describing data use in privacy manifests](https://developer.apple.com/documentation/bundleresources/describing-data-use-in-privacy-manifests)
+- [Required reason APIs](https://developer.apple.com/documentation/bundleresources/describing-use-of-required-reason-api)
+- [Third-party SDK requirements](https://developer.apple.com/support/third-party-SDK-requirements/)
+- [HealthKit](https://developer.apple.com/documentation/healthkit)
+- [Keychain services](https://developer.apple.com/documentation/security/keychain-services)
+- [App Review Guidelines](https://developer.apple.com/app-store/review/guidelines/)
+- [HealthKit authorizationStatus(for:)](https://developer.apple.com/documentation/healthkit/hkhealthstore/authorizationstatus(for:))
+- [Protecting user privacy with HealthKit](https://developer.apple.com/documentation/healthkit/protecting-user-privacy)
+- [Offering account deletion in your app](https://developer.apple.com/support/offering-account-deletion-in-your-app/)

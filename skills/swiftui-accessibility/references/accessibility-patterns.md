@@ -43,10 +43,10 @@ Record the device/OS, assistive technology, settings, journey, and outcome. An a
 
 ## Sources
 
-- [accessibility](https://developer.apple.com/design/human-interface-guidelines/accessibility) — HIG: Accessibility.
-- [accessible-controls](https://developer.apple.com/documentation/swiftui/accessible-controls) — SwiftUI accessible controls.
-- [accessibility-focus](https://developer.apple.com/documentation/swiftui/accessibilityfocusstate) — SwiftUI AccessibilityFocusState.
-- [rtl](https://developer.apple.com/design/human-interface-guidelines/right-to-left) — HIG: Right to left.
-- [reduced-motion](https://developer.apple.com/help/app-store-connect/manage-app-accessibility/reduced-motion-evaluation-criteria) — Reduced Motion evaluation criteria.
-- [ui-audit](https://developer.apple.com/documentation/xcuiautomation/xcuiaccessibilityauditissue) — XCUI accessibility audits.
-- [localization](https://developer.apple.com/documentation/swiftui/preparing-views-for-localization) — Preparing views for localization.
+- [HIG: Accessibility](https://developer.apple.com/design/human-interface-guidelines/accessibility)
+- [SwiftUI accessible controls](https://developer.apple.com/documentation/swiftui/accessible-controls)
+- [SwiftUI AccessibilityFocusState](https://developer.apple.com/documentation/swiftui/accessibilityfocusstate)
+- [HIG: Right to left](https://developer.apple.com/design/human-interface-guidelines/right-to-left)
+- [Reduced Motion evaluation criteria](https://developer.apple.com/help/app-store-connect/manage-app-accessibility/reduced-motion-evaluation-criteria)
+- [XCUI accessibility audits](https://developer.apple.com/documentation/xcuiautomation/xcuiaccessibilityauditissue)
+- [Preparing views for localization](https://developer.apple.com/documentation/swiftui/preparing-views-for-localization)

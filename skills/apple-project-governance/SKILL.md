@@ -1,40 +1,38 @@
 ---
 name: apple-project-governance
-description: "Create, repair, or audit Xcode and Swift package configuration. Use for targets, schemes, resources, generated projects, entitlements, build settings, and configuration drift."
+description: "Audit or repair Xcode and Swift package configuration, generated projects, target membership, schemes, resources, entitlements, and settings drift."
 ---
 
 # Apple project governance
 
 ## Inputs
 
-Identify the affected products, targets, schemes, build configurations, generator inputs, dependencies, and CI path. Read current repository instructions before changing the project graph.
+Read the build instructions. Identify affected products, targets, schemes, configurations, generator inputs, dependencies, and CI commands.
 
 ## Rules
 
-- **PROJ-001 — Edit the owner.** Change generator manifests or source configuration, not only their generated output. Inspect regeneration for unrelated churn.
-- **PROJ-002 — Verify membership.** Code, resources, models, privacy manifests, and extensions must reach each intended product and no unintended product.
-- **PROJ-003 — Preserve identity.** Reconcile bundle IDs, groups, containers, associated domains, and shared constants without renaming durable storage keys for cosmetic consistency.
-- **PROJ-004 — Inspect effective configuration.** Source declarations express intent; resolved build settings, bundled resources, and signed entitlements establish what shipped.
-- **PROJ-005 — Separate failure classes.** Configuration, compilation, signing, destination availability, and infrastructure require different corrections.
+- **PROJ-001 — Edit the owning input.** For generated projects, change the manifest or template and inspect the regenerated diff.
+- **PROJ-002 — Check product membership.** Verify each changed source, dependency, resource, model, privacy manifest, or extension reaches every intended product and no others.
+- **PROJ-003 — Preserve durable identity.** Reconcile bundle IDs, groups, containers, domains, and shared constants. Changing a storage key requires an intentional migration.
+- **PROJ-004 — Inspect effective settings.** Compare the resolved settings, bundled resources, and signed entitlements with the target’s requirements.
+- **PROJ-005 — Diagnose by stage.** Distinguish configuration, compiler, signing, destination, and infrastructure failures before selecting a fix.
 
 ## Workflow
 
-1. Map each changed value to its source owner and downstream targets.
-2. Edit the narrow source of truth and regenerate when applicable.
-3. Inspect discovered schemes, destinations, and resolved settings for the exact build context.
-4. Build the affected target graph; inspect the actual product for resource and capability claims.
-5. Review source and generated diffs together.
+1. Trace the changed setting or file from its source owner to every consumer.
+2. For a repair, edit the owner and regenerate from tracked inputs.
+3. Build affected products with the CI scheme, configuration, and destination.
 
 ## Verify
 
-Prove target membership, shared scheme selection, dependency exposure, deployment settings, built Info.plist/resources, and signed entitlements where relevant. Do not treat destination discovery as proof of effective settings.
+- PROJ-002, PROJ-004: Confirm deployment settings and linked dependencies. Inspect the built Info.plist, resources, and extensions for intended membership.
+- PROJ-001: For generator changes, rerun with identical inputs and check for an empty diff against the first output.
 
 ## Output
 
-Report the owning files, affected products, generated changes, exact build context, and remaining configuration or signing blockers.
+Report owners, affected products, build context, inspected artifacts, and build or signing blockers.
 
 ## References
 
-Read the [playbook](references/project-governance-patterns.md) for decisions, failure cases, and source links.
-
-For generated inputs, toolchains, and target membership, read the [focused reference](references/build-and-generated-inputs.md).
+- [Project ownership and product inspection](references/project-governance-patterns.md)
+- [Generated inputs, toolchains, and membership](references/build-and-generated-inputs.md)
