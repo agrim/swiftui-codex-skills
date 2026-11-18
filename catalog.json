@@ -999,16 +999,21 @@
     {
       "id": "apple-app-intents",
       "title": "App Intents, entities, and system actions",
-      "summary": "Build and verify App Intents, AppEntity queries, and App Shortcuts.",
+      "summary": "Add an app action to Siri or Shortcuts, or diagnose why it is missing, uses the wrong record, or fails when the app is closed.",
       "triggers": [
         "appintent",
+        "app intent",
+        "app intents",
+        "action to shortcuts",
         "appentity",
         "entityquery",
         "app shortcuts",
         "siri action",
         "intent authentication",
         "intent registration",
-        "needsvalueerror"
+        "needsvalueerror",
+        "siri shortcut",
+        "action missing from shortcuts"
       ],
       "platforms": [
         "iOS",

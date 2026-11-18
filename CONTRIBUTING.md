@@ -12,17 +12,26 @@ Keep the decision in the entry point and its worked case in one playbook. Introd
 
 ## Write a checkable entry point
 
-Use these six level-two headings in order — `Inputs`, `Rules`, `Workflow`, `Verify`, `Output`, `References`. Write one paragraph each for inputs and output. Give each rule a short title and the decision it governs. State when a rule applies if the answer depends on the deployment target, data ownership, or user authorization.
+Give the guide a title that names the job. Under it, explain when someone would use it and what should happen. A reader who skips the YAML should still understand the purpose. Use one recognizable example to carry a decision through to an observable result.
 
-Under `Workflow`, number the actions in execution order. Under `Verify`, give a condition and the result a reviewer can observe. Every rule needs evidence. One check can exercise several rules. Prefix it with their IDs. Put variations and longer reproductions in a named playbook.
+Use four level-two headings in order.
+
+| Heading | What belongs here |
+| --- | --- |
+| Start here | One paragraph naming the first action or evidence to gather. |
+| How to proceed | Numbered steps in the order a person would do them. Give each a short, bold action title and explain how to make the decision. |
+| Check the result | Bullets describing an input or failure and the outcome the reader should observe. |
+| What to report | One paragraph naming the result to communicate, followed by a blank line and links to the local playbooks. |
+
+Put the stable rule ID at the end of its step in an HTML comment. End each check with the IDs it exercises. This keeps the guide readable on GitHub and lets the CLI export those relationships from the same Markdown. Here the input is valid HTTP data for the wrong record.
 
 ```markdown
-- **NET-001 — Gate publication.** For a refresh, validate the decoded record before replacing a usable cached value.
-- NET-001: Return a successful response with the wrong record ID. The cached record survives and the refresh reports failure.
-- [HTTP validation and retries](references/networking-patterns.md)
+1. **Check the record before replacing the cache.** If the server returns the wrong record, keep the usable cached copy. <!-- NET-001 -->
+
+- Return another record's ID during refresh. The app reports a refresh error and still shows the cached record. <!-- NET-001 -->
 ```
 
-Keep each rule, step, check, and reference on its own line. Use a descriptive link for each local playbook in References. Preview the machine-readable result with `python3 scripts/skillctl.py contract <skill-id>`.
+Keep each step, check and playbook link on one line. Preview the structured version with `python3 scripts/skillctl.py contract <skill-id>`.
 
 ## Rule taxonomy
 

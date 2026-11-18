@@ -26,7 +26,7 @@ Do not create separate competing “Claude rules,” “Codex rules,” or other
 
 ## Progressive loading
 
-The short entry point contains the trigger, inputs, five rules, procedure, proof, and output contract. The local playbook contains tradeoffs, worked cases and failure probes. The catalog gives a complete index without forcing every instruction into every task.
+The entry point opens with a recognizable task, then gives a starting point, steps, checks and what to report. The local playbook contains tradeoffs, worked cases and failure probes. The catalog gives a complete index without forcing every instruction into every task.
 
 ## Read a skill as data
 
@@ -35,9 +35,10 @@ The short entry point contains the trigger, inputs, five rules, procedure, proof
 | Field | Contents |
 | --- | --- |
 | `id`, `title`, `description` | Stable skill name, display title, and discovery description |
+| `purpose` | Opening paragraph in the task guide. Absent in older six-section entries. |
 | `inputs`, `output` | What the reader needs and what to report |
 | `rules` | Ordered objects with `id`, `title`, and `instruction` |
-| `workflow` | Ordered array of step strings |
+| `workflow` | Action titles in execution order. Older entries retain their separately authored workflow steps. |
 | `verify` | Objects with `rule_ids` and `check`. Each ID belongs to the same skill. |
 | `references` | Objects with a descriptive `label` and a `path` relative to the skill folder |
 

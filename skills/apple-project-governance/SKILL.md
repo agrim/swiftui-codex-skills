@@ -3,36 +3,31 @@ name: apple-project-governance
 description: "Audit or repair Xcode and SwiftPM configuration, generated projects, target membership, resources, entitlements and settings drift."
 ---
 
-# Apple project governance
+# Trace an Xcode configuration problem to its source
 
-## Inputs
+Use this when the built app or extension lacks an expected file, capability or dependency. Find the setting responsible and fix it where the project is maintained.
 
-Identify products, configurations, tracked project inputs and CI scheme.
+## Start here
 
-## Rules
+Identify the failing product, configuration, CI scheme and destination. If an extension fails only in Release, inspect its Release build.
 
-- **PROJ-001 — Edit the owner.** Change the generator manifest or template when it owns the project.
-- **PROJ-002 — Check membership.** Check which products contain or link each changed item against its intended consumers.
-- **PROJ-003 — Preserve identity.** Reconcile bundle IDs, groups, containers and domains. Migrate persistent keys deliberately.
-- **PROJ-004 — Inspect effective values.** Compare resolved settings, packaged resources and signed entitlements with target requirements.
-- **PROJ-005 — Locate the failure.** Identify the failing configuration, compilation, signing or infrastructure step before editing.
+## How to proceed
 
-## Workflow
+1. **Locate the first failure.** Use the log to distinguish configuration, compilation, signing and runner failures. A rejected entitlement points to the signing inputs. <!-- PROJ-005 -->
+2. **Find the editable source.** Find the project, generator manifest or template that supplies the setting. Edit it and regenerate if needed. <!-- PROJ-001 -->
+3. **Check the intended consumers.** List which targets need the file, package or capability. Compare that list with what each product contains or links. <!-- PROJ-002 -->
+4. **Protect installed data.** Reconcile bundle IDs, groups, containers and domains before renaming anything. Plan a migration if a storage key must change. <!-- PROJ-003 -->
+5. **Inspect the resulting product.** Build the affected configurations on the CI destination. Compare resolved settings, packaged resources and signed entitlements with the expected values. <!-- PROJ-004 -->
 
-1. Trace the change from its owner to consuming targets.
-2. Regenerate if needed and build affected configurations on the CI destination.
+## Check the result
 
-## Verify
+- For generated projects, run the generator twice with identical inputs. The second run should produce no new changes. <!-- PROJ-001 -->
+- Inspect the linked dependencies, Info.plist, resources and embedded extensions. For a signing failure, match the rejected entitlement to the profile. <!-- PROJ-002 PROJ-004 PROJ-005 -->
+- After a storage identity change, install over a seeded older build and verify the app and intended extension can still read their records. <!-- PROJ-003 -->
 
-- PROJ-001: Regenerating twice from identical inputs produces identical output.
-- PROJ-002, PROJ-004: Inspect linked dependencies, Info.plist, resources and extensions in the built products.
-- PROJ-003, PROJ-005: For provisioning errors, match the rejected entitlement to the profile. After storage identity changes, read pre-upgrade data.
+## What to report
 
-## Output
+Name the edited source, affected products and configurations, build evidence and blockers.
 
-Report owner, products, build context, inspected artifacts and blockers.
-
-## References
-
-- [Project and product inspection](references/project-governance-patterns.md)
-- [Generated inputs and membership](references/build-and-generated-inputs.md)
+- [Tracing a configuration change to the installed product](references/project-governance-patterns.md)
+- [Generated inputs, target membership and Release settings](references/build-and-generated-inputs.md)

@@ -58,11 +58,11 @@ Coverage spans common iOS, iPadOS, macOS, watchOS, tvOS, and visionOS decisions.
 
 The [ecosystem integration guide](docs/ecosystem-integration.md) explains the Paul Solt resource review and deliberate limits. The [provenance ledger](docs/ecosystem.md) distinguishes reviewed entry points, public overviews, gated material, and discovery-only links. No third-party prompt pack is a mandatory dependency.
 
-## What makes the rules useful
+## Reading a skill
 
-Each entry point has **Inputs → Rules → Workflow → Verify → Output → References**. Start with the inputs for the task. Cite the rule ID when reporting a finding and record the observed result. If a check could not run, say why. For example, the networking skill asks you to cancel one subscriber to a shared download and verify that the other still receives its image.
+Start with the task named in the title. Each guide explains when to use it, walks through the decisions, and gives an outcome you can check. For example, the App Intents guide takes a “Move note” action from the app into Shortcuts and checks where the note ended up after the app reopens. [Make an app action work in Siri and Shortcuts](skills/apple-app-intents/SKILL.md)
 
-Rules are scoped to failure modes, not arbitrary bans. Native control semantics matter; custom styles are allowed when they preserve behavior and contrast. Interop is a narrow capability boundary, not a forbidden import. `async` is not synonymous with background execution. A build is not a screenshot, device test, or release approval.
+The Markdown is the source for both readers and tools. `skillctl.py contract` also returns the purpose, ordered steps, rule IDs, checks and playbook paths as JSON.
 
 [Architecture and adapters](docs/layering.md) explains portability. [Use cases](docs/use-cases.md) shows task-to-skill selection. [Contributing](CONTRIBUTING.md) defines the evidence and maintenance bar.
 

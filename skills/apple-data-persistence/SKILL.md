@@ -3,36 +3,31 @@ name: apple-data-persistence
 description: "Choose persistence for drafts, saves, migrations, and sync across SwiftData, Core Data, files, or CloudKit."
 ---
 
-# Persistence and sync
+# Make Save and Cancel keep their promises
 
-## Inputs
+Use this when choosing storage for an Apple app or fixing data that disappears, reappears, or syncs twice. Follow one edit from typing to the result the user expects after reopening the app.
 
-Identify the authoritative store, schemas, context owners, and promised durability.
+## Start here
 
-## Rules
+Pick a real action, such as saving an inspection. Identify where the original record lives, who can edit it, and whether “Saved” means written on this device or received elsewhere.
 
-- **DATA-001 — Define commit.** Name the event that fulfills Save. Export the agreed value with its provenance.
-- **DATA-002 — Isolate drafts.** Stage cancellable edits where discarding one cannot undo another.
-- **DATA-003 — Protect upgrades.** Keep original stores and diagnostics on failure.
-- **DATA-004 — Reconcile retries.** Track writes and deletions per account. Resolve uncertain non-idempotent writes before retry.
-- **DATA-005 — Preserve drafts.** Surface save errors. Confirm success only at the promised commit.
+## How to proceed
 
-## Workflow
+1. **Choose a store for the data you have.** Compare file storage with a database against your query, relationship and recovery needs. Preserve the unit and source through export so estimates remain distinguishable from confirmed values. <!-- DATA-001 -->
+2. **Give each editor its own draft.** Stage cancellable changes separately so cancelling one editor leaves another editor’s pending work intact. <!-- DATA-002 -->
+3. **Make failure recoverable.** Validate before saving. Keep the draft editable on error and show success only when the promised write completes. <!-- DATA-005 -->
+4. **Protect existing records during upgrades.** Try each supported schema on a copy. Keep the original store and the error if migration fails. <!-- DATA-003 -->
+5. **Handle interrupted sync.** Track edits and deletions per account. Decide which conflicting change wins. Check whether an unacknowledged write already landed before retrying. <!-- DATA-004 -->
 
-1. Trace a confirmed value from editor through sync and export.
-2. Choose validation, conflict policy, and retry identity. Bound queries to each reader’s needs.
+## Check the result
 
-## Verify
+- Cancel one edit and force another to fail. Reopen both records by ID. Both original values survive and the failed draft can still be saved. <!-- DATA-001 DATA-002 DATA-005 -->
+- Upgrade an old disk store and reopen it. Compare values and relationships. A failed upgrade offers recovery and preserves the original. <!-- DATA-003 -->
+- Interrupt sync after remote acceptance. Resume without duplicating the change, then switch accounts and check which records are visible. <!-- DATA-004 -->
 
-- DATA-001, DATA-002, DATA-005: Cancel one edit while another is pending. Fail the second save. Refetch original values by ID and check the second draft stays editable.
-- DATA-003: Upgrade each supported disk fixture. Reopen and compare mapped values and relationships.
-- DATA-004: Replay interrupted sync. Deduplicated changes apply once. Switching accounts hides prior records.
+## What to report
 
-## Output
+Name the store, when Save succeeds, and what survived failure, upgrade, and interrupted sync.
 
-Report durability, recovery, tested upgrades, and sync evidence.
-
-## References
-
-- [Drafts and rollback](references/persistence-patterns.md)
-- [Store choice and recovery](references/store-selection-and-recovery.md)
+- [Cancelling drafts and exporting confirmed values](references/persistence-patterns.md)
+- [Choosing a store and recovering from a failed save](references/store-selection-and-recovery.md)

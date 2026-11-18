@@ -3,35 +3,30 @@ name: swift-language
 description: "Review Swift APIs, value semantics, dependency injection, errors, formatting, and toolchain migrations."
 ---
 
-# Swift API design
+# Change a Swift API without surprising its callers
 
-## Inputs
+Use this when a call is easy to misuse or when changing a type, error, or dependency could break clients or saved data.
 
-Inspect callers, stored formats, and supported toolchains.
+## Start here
 
-## Rules
+Find a real call that can go wrong, such as a transfer whose source and destination IDs can be swapped. Identify public callers, stored formats, and supported toolchains.
 
-- **LANG-001 — Clarify calls.** Correct ambiguity at a real caller. Preserve public names and stored keys in style edits.
-- **LANG-002 — Model distinctions.** Choose snapshot or shared identity. Type IDs that callers could swap.
-- **LANG-003 — Inject dependencies.** Inject what callers control. One operation may need only a closure.
-- **LANG-004 — Preserve recovery.** Distinguish absence, invalid input, cancellation, and errors when recovery differs. Redact private diagnostics.
-- **LANG-005 — Protect clients.** Before retiring APIs, check runtime availability, toolchains, and language modes.
+## How to proceed
 
-## Workflow
+1. **Read the call in context.** Make the arguments, side effects and significant costs apparent at the call site. Preserve public names and stored keys during unrelated style edits. <!-- LANG-001 -->
+2. **Make important distinctions visible.** Give interchangeable-looking IDs distinct types when swapping them changes the target. Decide whether a caller should see later edits or keep a snapshot. <!-- LANG-002 -->
+3. **Pass in what can vary.** Provide a fixture service for a preview or a fixed clock for a test. A single operation may need only a closure. <!-- LANG-003 -->
+4. **Give callers enough information to recover.** Separate cancellation, missing data, invalid input and service failures when the next action differs. Remove private values from diagnostics. <!-- LANG-004 -->
+5. **Keep existing clients working.** Check runtime availability, compiler and language modes. Keep localized display text separate from stable identifiers and serialized dates. <!-- LANG-005 -->
 
-1. Trace caller outcomes, effects, preconditions, and costs.
-2. Keep wire formats locale-independent.
+## Check the result
 
-## Verify
+- Build client code with each supported toolchain and decode an older fixture. Take a snapshot, edit the source record, and confirm the snapshot keeps its original ID and values. <!-- LANG-001 LANG-002 LANG-005 -->
+- Fix the clock and switch time zones. The displayed time changes and the serialized instant stays the same. <!-- LANG-003 -->
+- Cancel one call and give another invalid input. Verify the caller takes the intended recovery path for each. <!-- LANG-004 -->
 
-- LANG-001, LANG-002, LANG-005: Build supported clients. Decode an old fixture and edit the source after taking a snapshot. The snapshot retains the fixture’s expected values and identity.
-- LANG-003: Fix the clock. Switching zones changes display and preserves the serialized instant.
-- LANG-004: Cancel one call and pass invalid input to another. Verify each recovery path.
+## What to report
 
-## Output
+Identify the caller that motivated the change, the compatibility checks you ran, and the behavior the caller can rely on.
 
-Report changed symbols, callers, compatibility, and results.
-
-## References
-
-- [API and dependency decisions](references/api-and-dependencies.md)
+- [Ambiguous IDs, dependency choices, and compatible formats](references/api-and-dependencies.md)

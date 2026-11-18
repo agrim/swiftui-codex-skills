@@ -3,36 +3,31 @@ name: apple-networking
 description: "Build or review URLSession authentication, retries, cancellation, shared downloads, pagination, caching, and offline behavior."
 ---
 
-# Networking and caching
+# Handle failed requests without losing data or repeating a write
 
-## Inputs
+Use this when building a URLSession feature or fixing stale results, repeated writes, or downloads that stop when a view disappears.
 
-Identify endpoint, credential owner, sensitive fields, cache policy, and consumers.
+## Start here
 
-## Rules
+Pick a request and identify its account, expected response, cache lifetime, and callers. Use a fake transport to control when it completes.
 
-- **NET-001 — Define success.** Decide when an empty success fulfills the endpoint contract.
-- **NET-002 — Bound work.** Limit payloads, concurrency, attempts, pages, and caches. Assign cancellation ownership.
-- **NET-003 — Retry eligible operations.** Retry only recoverable failures and honor server delays. Reconcile uncertain writes or reuse a server-supported idempotency key.
-- **NET-004 — Protect credentials.** Preserve production trust. Exclude private URLs, tokens, and bodies from diagnostics.
-- **NET-005 — Expose freshness.** Label stale data. Surface refresh and authorization errors even on cache hits.
+## How to proceed
 
-## Workflow
+1. **Decide what counts as success.** Interpret the status and decoded body for that endpoint. Decide which failures leave an existing record usable. <!-- NET-001 -->
+2. **Limit how much work a request can start.** Limit payloads, parallel requests, cache size, and pages. Stop repeated cursors and deduplicate records per query. Cancel a shared download when its last subscriber leaves. <!-- NET-002 -->
+3. **Retry only when safe.** Cap transient retries and honor the server’s delay. If a write may have succeeded, confirm its outcome or reuse an operation key the server recognizes. <!-- NET-003 -->
+4. **Protect the account during diagnosis.** Keep production certificate checks enabled. Capture sanitized status and request IDs while excluding private URLs, tokens and response bodies. <!-- NET-004 -->
+5. **Decide when to show cached data.** Separate entries by account and representation. Mark or hide expired data and show refresh or access failures even when a cached record exists. <!-- NET-005 -->
 
-1. Inject transport and map status, decoding, and domain failures to caller recovery.
-2. Partition caches by account and representation. Track transfer IDs and subscribers. Scope pages to queries, deduplicate IDs, and stop repeated cursors.
+## Check the result
 
-## Verify
+- Return an empty 204 to a Delete that allows it and a Fetch that promises a record. Only Delete should succeed. Reject malformed private data without logging it, and stop repeated failures at the retry limit. <!-- NET-001 NET-003 NET-004 -->
+- Cancel one of two subscribers. The other receives its image. After both leave, deliver an old callback to a same-key replacement. Only the new transfer may update the cache. <!-- NET-002 -->
+- Go offline and switch accounts. Expired data follows the stated policy and private entries from the first account stay hidden. <!-- NET-005 -->
 
-- NET-002: Cancel one subscriber. Its peer still receives the image. Late callbacks leave the replacement transfer intact.
-- NET-005: Offline, hide or label expired data per policy. Switching accounts hides prior entries.
-- NET-001, NET-003, NET-004: Return an empty 204 to Delete and to a record fetch. Only Delete succeeds. Reject malformed private data without logging it. Stop transient retries at the limit.
+## What to report
 
-## Output
+Describe the request, how the caller recovers, and which outcomes you observed with the test transport or a live connection.
 
-Report retry and cache policies, fixture results, and live checks.
-
-## References
-
-- [HTTP and offline behavior](references/networking-patterns.md)
-- [Pagination and shared downloads](references/transport-and-cache-boundaries.md)
+- [HTTP failures, retries, and offline data](references/networking-patterns.md)
+- [Late pages, shared downloads, and thumbnail sizes](references/transport-and-cache-boundaries.md)

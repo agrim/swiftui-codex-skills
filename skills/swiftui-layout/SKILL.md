@@ -3,37 +3,31 @@ name: swiftui-layout
 description: "Fix SwiftUI clipping, safe areas, scrolling, or reflow across window sizes, Dynamic Type, and right-to-left layouts."
 ---
 
-# Adaptive layout and scrolling
+# Keep a SwiftUI screen usable as its size changes
 
-## Inputs
+Use this when resizing a window or enlarging text hides a control, loses a draft or jumps to the wrong row.
 
-Container proposal, insets, keyboard, content, text size and direction.
+## Start here
 
-## Rules
+Reproduce the first failure. If Save disappears, vary width, text size, language and keyboard visibility to find which change hides it.
 
-- **LAY-001 — Container sizing.** Trace width-dependent clipping to the first restrictive parent.
-- **LAY-002 — Essential text.** Reflow clipped labels without losing the action or draft. Justify fixed sizes.
-- **LAY-003 — Geometry.** During resizing, publish changes to the value the view consumes.
-- **LAY-004 — Interaction.** Keep pinned controls and underlying content reachable. Use stable row and scroll IDs.
-- **LAY-005 — Primitives.** Reserve custom measurement for placement existing layouts cannot express.
+## How to proceed
 
-## Workflow
+1. **Find the first restrictive frame.** Vary width and text size independently. Walk up from the clipped child, removing one fixed frame or inset at a time. <!-- LAY-001 -->
+2. **Preserve the edit during reflow.** Let essential labels wrap or move actions below the field. Bind either arrangement to the same draft. <!-- LAY-002 -->
+3. **Track meaningful size changes.** If toolbar controls move at one width threshold, update their state only when the window crosses it. <!-- LAY-003 -->
+4. **Keep the last row reachable.** Reserve room for a wrapping bottom bar. Anchor scrolling to a stable record ID when inserting rows above it. <!-- LAY-004 -->
+5. **Test a stack or grid first.** Keep custom measurement only for a placement the simpler layout cannot express. Compare eager and lazy rows at realistic volumes. <!-- LAY-005 -->
 
-1. Vary width and text size independently. Remove the suspect constraint and compare.
-2. Choose eager or lazy rows by measured scale and required actions.
+## Check the result
 
-## Verify
+- Try the simpler layout. Type a draft, cross the width boundary twice and save. Focus and text survive. The toolbar state changes once per crossing. <!-- LAY-002 LAY-003 LAY-005 -->
+- Reach Save at both width extremes with large text, a long right-to-left translation and the keyboard open. <!-- LAY-001 LAY-004 -->
+- Populate an empty list, scroll to a record, insert rows above it and restore the same record. <!-- LAY-004 -->
 
-- LAY-002, LAY-005: Try a stack first. Reflow twice mid-edit. Check focus and saved text. Name any constraint still requiring custom layout.
-- LAY-001, LAY-004: At width extremes, reach the primary action with large text, long translations, RTL and keyboard visible.
-- LAY-003: Resize within one width class, then cross its boundary. Expect one derived-state change.
-- LAY-004: Load many rows from empty, insert before the anchor, then restore the same record.
+## What to report
 
-## Output
+Report the failing condition, the constraint you changed, and what happened to the draft or scroll position.
 
-Failing size, fix, fixed-size rationale and observed result.
-
-## References
-
-- [Clipping, geometry updates and custom measurement](references/layout-patterns.md)
-- [Reflow, obscured rows, and scroll restoration](references/layout-and-scroll-edge-cases.md)
+- [Find the source of clipping or excessive layout updates](references/layout-patterns.md)
+- [Preserve form edits and scroll position](references/layout-and-scroll-edge-cases.md)

@@ -3,38 +3,32 @@ name: swiftdata
 description: "Design or repair SwiftData models, relationships, predicates, indexes, contexts, history, disk migrations, and CloudKit schemas."
 ---
 
-# SwiftData
+# Preserve SwiftData records across queries, edits, and upgrades
 
-## Inputs
+Use this when a SwiftData query returns the wrong records, a deletion removes too much, or an upgrade loses saved values.
 
-Identify models, store, context actors, shipped schemas, OS, and sync settings.
+## Start here
 
-## Rules
+Identify the affected models, saving context, shipped schemas, OS and sync settings. For a query, write down the expected records, such as the five highest-priority overdue invoices.
 
-- **SD-001 — Specify ownership.** Decide which shared children survive each endpoint’s deletion.
-- **SD-002 — Execute predicates.** Exercise the production query on supported store runtimes.
-- **SD-003 — Choose the handoff.** Export snapshots. Pass saved IDs for fresh reads.
-- **SD-004 — Freeze shipped schemas.** Preserve failed stores and diagnostics. Offer recovery.
-- **SD-005 — Confirm delivery.** Check shipped clients’ schema compatibility and destination state.
+## How to proceed
 
-## Workflow
+1. **Choose what survives deletion.** Decide whether deleting a record should delete its children, especially children shared by two parents. <!-- SD-001 -->
+2. **Run the actual query.** Exercise the app’s predicate, sorting, and limit on the supported store. Filtering only after fetching five candidates can omit every overdue invoice. <!-- SD-002 -->
+3. **Keep draft and saved values distinct.** Decide when an editor writes its draft. For a fixed export, copy values on the model’s actor. For a current read elsewhere, pass the saved ID and refetch. <!-- SD-003 -->
+4. **Protect shipped schemas.** Keep each shipped schema intact and put changes in a new version. For a rename, preserve the old stored value. Before enforcing uniqueness, choose which duplicate and relationships survive. Keep the store and diagnostic if an upgrade fails. <!-- SD-004 -->
+5. **Check changes on the receiving device.** With CloudKit enabled, try the schema change with a supported older client and inspect the resulting records. <!-- SD-005 -->
 
-1. Define when drafts become persistent.
-2. For renames or uniqueness changes, identify the values and relationships to preserve.
+## Check the result
 
-## Verify
+- Delete a parent and refetch its children. Shared children should survive if another parent still needs them. Save an edit in one context and read it by ID in another. <!-- SD-001 SD-003 -->
+- Compare ordered IDs from the production query with expected matches, including missing relationships, ties and the fetch limit. <!-- SD-002 -->
+- Upgrade each supported disk fixture. Edit, save, reopen, and compare values by ID. <!-- SD-004 -->
+- Confirm the synced edit at its destination. Switch accounts and verify private and shared records follow their access rules. <!-- SD-005 -->
 
-- SD-001: Delete an endpoint. Refetch both sides and check survivors.
-- SD-002: Compare ordered IDs for the production predicate, including relevant nil relationships and limits.
-- SD-003: Save in one context. Refetch by ID in another and compare values.
-- SD-004: Upgrade each supported disk fixture. Edit, save, reopen, and compare ID–value pairs.
-- SD-005: Confirm a synced edit at its destination. Switch accounts and check private or shared visibility against policy.
+## What to report
 
-## Output
+Give the schema versions, store and runtime used, and which query, upgrade, or sync outcomes you verified.
 
-Report store, versions, observations, and untested upgrade or sync paths.
-
-## References
-
-- [Models and queries](references/models-and-queries.md)
-- [Migration and sync](references/migration-and-sync.md)
+- [Relationship ownership and limited queries](references/models-and-queries.md)
+- [Disk-backed upgrades and changes across devices](references/migration-and-sync.md)

@@ -3,37 +3,30 @@ name: apple-observability
 description: "Diagnose Apple app failures with unified logs, signposts, Instruments, crash symbols and memory graphs."
 ---
 
-# Diagnose Apple app failures
+# Diagnose an Apple app failure from a capture
 
-## Inputs
+Use this to explain a freeze, crash or growing memory footprint. During a freeze, a busy worker can hide a blocked main thread. Inspect the thread that stopped responding.
 
-Identify build, process, workload, symptom, incident window and permitted data.
+## Start here
 
-## Rules
+Identify the build, process, device, action and time of the incident. Reproduce one symptom and identify what data you may collect.
 
-- **OBS-001 — Privacy.** Log phases, error categories and short-lived opaque IDs. Exclude secrets and protected content.
-- **OBS-002 — Intervals.** Count a duration only when one operation has a matched start and end. Include failed, cancelled and timed-out attempts.
-- **OBS-003 — Diagnosis.** Inspect main-thread samples or waits for hangs, update causes for invalidation, allocations and retainers for growth.
-- **OBS-004 — Capture.** Keep originals private and summaries reproducible.
-- **OBS-005 — Overhead.** Check whether instrumentation changes the symptom.
+## How to proceed
 
-## Workflow
+1. **Choose a capture that can show the cause.** Inspect main-thread work or waits during a freeze. Trace repeated view updates to the input that changed. For memory growth, find what retains dismissed screens. <!-- OBS-003 -->
+2. **Limit what gets logged.** Log the operation, phase and error category. Correlate events with a short-lived ID that contains no account or user data. <!-- OBS-001 -->
+3. **Match each start to its own end.** Include failures, cancellations and timeouts. Overlapping operations need distinct IDs to measure their durations. <!-- OBS-002 -->
+4. **Check the capture before sharing a finding.** Confirm the trace covers the incident. Match a crashed binary’s UUID to its dSYM debug symbols. Keep the original private. <!-- OBS-004 -->
+5. **Repeat without temporary instrumentation.** Replay on the final build to detect changes caused by logging or the debugger. <!-- OBS-005 -->
 
-1. Reproduce. Check trace coverage or match dSYM and binary UUIDs.
-2. Identify the operation or retaining owner. Test one correction.
+## Check the result
 
-## Verify
+- Cancel one of two overlapping operations. Each has one matching end. The shared report identifies build, tool and capture conditions while protecting private data. <!-- OBS-001 OBS-002 OBS-004 -->
+- Reopen and dismiss a screen repeatedly. Trace a surviving instance to its owner. After the fix, repeat without the debugger and compare. <!-- OBS-003 OBS-005 -->
 
-- OBS-001, OBS-004: Before sharing, check for tool version, capture conditions and redaction of sensitive data.
-- OBS-002: Cancel mid-interval. Count one matching end.
-- OBS-003: Repeat presentation and dismissal. Trace owners surviving teardown.
-- OBS-005: Replay on the final build without debugger or temporary fixtures. Compare symptoms.
+## What to report
 
-## Output
+Give the symptom, build, observation that supports the diagnosis, result after the change and competing causes still open.
 
-Give build, conditions, cause, correction, comparison and unresolved hypotheses.
-
-## References
-
-- [Logs and traces](references/logging-and-traces.md)
-- [Memory and crash diagnosis](references/memory-and-crashes.md)
+- [Distinguish a busy main thread from a blocked one](references/logging-and-traces.md)
+- [Investigate retained screens and crash reports](references/memory-and-crashes.md)

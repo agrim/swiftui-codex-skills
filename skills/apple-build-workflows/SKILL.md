@@ -3,35 +3,29 @@ name: apple-build-workflows
 description: "Set up or repair Xcode and SwiftPM build, test, debug and simulator commands, including CI reproduction."
 ---
 
-# Apple build workflows
+# Reproduce an Xcode build or test failure
 
-## Inputs
+Use this to set up a repeatable build, investigate a CI failure or explain why a green test run exercised no tests. The result should identify the command that built the intended product and the first step that failed.
 
-Read the CI invocation. Identify revision, toolchain, owner, action and destination.
+## Start here
 
-## Rules
+Get the revision, CI invocation and raw log. Identify the product under test and where it should run, such as an app on a particular simulator or a Swift package on macOS.
 
-- **BUILD-001 — Select the build.** Use SwiftPM for package-only checks. Exercise app claims on the intended scheme and destination.
-- **BUILD-002 — Reproduce CI.** Match configuration, locks and generator inputs.
-- **BUILD-003 — Preserve failures.** Capture raw output and exit status before formatting. Stop dependent actions on failure.
-- **BUILD-004 — Bound side effects.** Build, install, launch, reset, sign or publish only as authorized.
-- **BUILD-005 — Inspect executable inputs.** Check scripts, plugins, generators and debugger expressions before running untrusted code.
+## How to proceed
 
-## Workflow
+1. **Select the intended product.** Use SwiftPM for package-only checks. For an app, identify the workspace or project, scheme and destination used by CI. <!-- BUILD-001 -->
+2. **Match the build inputs.** Reproduce the toolchain, resolved configuration, dependency lockfiles and generator inputs. Use a fresh checkout when testing a clean build. <!-- BUILD-002 -->
+3. **Identify allowed effects.** Check whether the request covers installing, launching, resetting, signing or publishing before taking those steps. <!-- BUILD-004 -->
+4. **Inspect what the command will execute.** Review build scripts, package plugins, generators and debugger expressions that can write files, start services or upload data. <!-- BUILD-005 -->
+5. **Reproduce the first failure.** Capture the underlying process’s exit status and raw output before formatting. Stop dependent steps, fix the cause and rerun the failed phase. <!-- BUILD-003 -->
 
-1. Resolve active settings and review the command’s effects.
-2. Reproduce the first failure. Rerun that phase after the fix.
+## Check the result
 
-## Verify
+- Replay CI on the chosen product and destination. Verify the named tests actually ran and passed. <!-- BUILD-001 BUILD-002 -->
+- A failing build must return failure through the wrapper and prevent launch. If a phase uploads symbols, verify its destination and approval before running it. <!-- BUILD-003 BUILD-004 BUILD-005 -->
 
-- BUILD-001, BUILD-002: Replay CI with its scheme or package, destination, lockfiles and generator inputs. Use a fresh checkout for clean-build claims. Confirm the requested tests passed.
-- BUILD-003, BUILD-004: A build failure survives the wrapper and prevents launch.
-- BUILD-005: If a phase uploads symbols, identify its destination and confirm upload authorization before execution.
+## What to report
 
-## Output
+Give the revision, command, toolchain, destination, exit status, relevant artifact and any skipped action.
 
-Report revision, command, environment, status, artifacts and skipped actions.
-
-## References
-
-- [Discovery, CI and debugging](references/bootstrap-and-cli.md)
+- [Wrong schemes, zero tests and missing CI test products](references/bootstrap-and-cli.md)

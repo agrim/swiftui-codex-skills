@@ -3,38 +3,30 @@ name: apple-swiftui-native-apps
 description: "Scope a SwiftUI feature or review, check native controls and API availability, and select a specialist."
 ---
 
-# Scope a SwiftUI change
+# Find where to fix a SwiftUI feature
 
-## Inputs
+Use this to locate the code responsible for a SwiftUI feature before reviewing or changing it. A Save button that nobody can activate needs a different fix from one that loses edits on relaunch.
 
-Check scope, repo instructions, targets, OS minimums and Swift mode.
+## Start here
 
-## Rules
+Choose one action on an affected device. Describe the expected and actual outcome. Check project instructions, minimum OS and Swift mode.
 
-- **UI-001 — Controls.** Before replacing a native control, identify the missing interaction. Styling must preserve input and accessible role.
-- **UI-002 — Availability.** Accept a replacement only when affected targets support it or retain a working fallback.
-- **UI-003 — Ownership.** Locate state, storage, navigation and effect owners before splitting views.
-- **UI-004 — Scope.** Preserve user edits. Reviews return findings. Edit, delete, release or change accounts only as requested.
-- **UI-005 — Evidence.** Classify requirements, conventions, advice and hypotheses. Name the missing proof.
+## How to proceed
 
-## Workflow
+1. **Locate the first wrong result.** Follow the control through its draft, navigation or storage write. Choose the specialist for the first failing step. <!-- UI-003 -->
+2. **Find what the native control cannot do.** Try the supported inputs before replacing it. If styling is enough, keep its activation behavior and accessible role. <!-- UI-001 -->
+3. **Check which targets can run the fix.** Keep a working fallback on targets that lack the proposed API. <!-- UI-002 -->
+4. **Stay within the request.** For reviews, give findings. For fixes, preserve existing edits and apply the smallest authorized change. Keep deletion, release and account changes within scope. <!-- UI-004 -->
+5. **Choose evidence for the claim.** Distinguish a product requirement from a project convention, a recommendation or a suspected cause. Say what observation could settle it. <!-- UI-005 -->
 
-1. Trace an action through its owner to its effect.
-2. Route the failure to its specialist. Define success and recovery.
-3. Recommend or apply the smallest authorized correction.
+## Check the result
 
-## Verify
+- Check the control’s role and effect with each supported input. Build each affected target and exercise its oldest supported path. <!-- UI-001 UI-002 -->
+- A review identifies the responsible symbol and leaves code intact. Verify layout at the failing size and locale, hardware claims on the relevant device. <!-- UI-003 UI-004 UI-005 -->
 
-- UI-002: Build each affected target and exercise the fallback on its oldest supported runtime.
-- UI-001: Activate changed controls with supported inputs. Check action and accessible role.
-- UI-003, UI-004: Name the owner behind each finding. A review leaves the reviewed code and user edits intact.
-- UI-005: Check risky sizes and locales for layout, relevant devices for hardware.
+## What to report
 
-## Output
+Give the reproduction, impact, responsible code, proposed or completed change, and checks that passed or remain open.
 
-Give file, symbol, result, checks and gaps. For findings add severity, reproduction, impact, correction and regression check.
-
-## References
-
-- [Route by symptom](references/correction-patterns.md)
-- [Review and modernization](references/review-and-modernization.md)
+- [Choose a specialist from the symptom](references/correction-patterns.md)
+- [Review an API change without altering behavior](references/review-and-modernization.md)

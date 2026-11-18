@@ -52,39 +52,66 @@ class CatalogTests(unittest.TestCase):
 
     def test_duplicate_rule_id_rejected(self):
         path = self.root / "skills/swift-concurrency/SKILL.md"
-        path.write_text(path.read_text().replace("## Rules\n", "## Rules\n\n- **UI-001 — Duplicate.** Bad rule identity.\n"))
+        path.write_text(path.read_text().replace("CONC-001", "UI-001"))
         self.assertTrue(any("duplicate rule ID" in e for e in validate_skills.validate(self.root)))
 
     def test_contract_exports_complete_entries_or_reports_an_error(self):
         skills = ["swift-concurrency", "swiftui-testing"]
         args = ["--repo", str(self.root), "contract", *skills]
+        # Mix an older installed entry with a current guide in one request.
+        old_path = self.root / "skills" / skills[0] / "SKILL.md"
+        metadata = old_path.read_text().split("\n---\n", 1)[0]
+        item = next(s for s in skilllib.catalog(self.root)["skills"] if s["id"] == skills[0])
+        links = "\n".join(f"- [Playbook]({p})" for p in item["references"])
+        old_path.write_text(f"""{metadata}
+---
+
+# Old entry
+
+## Inputs
+One owner.
+## Rules
+- **CONC-001 — Cancel.** Stop the task.
+## Workflow
+1. Reproduce the failure.
+## Verify
+- CONC-001: Observe completion.
+## Output
+Give the result.
+## References
+{links}
+""")
         output = io.StringIO()
         with contextlib.redirect_stdout(output):
             self.assertEqual(skillctl.main(args), 0)
         data = json.loads(output.getvalue())
         self.assertEqual(data["schema_version"], 1)
         self.assertEqual([s["id"] for s in data["skills"]], skills)
-        for skill in data["skills"]:
-            folder = self.root / "skills" / skill["id"]
-            text = (folder / "SKILL.md").read_text()
-            self.assertIn(f'\n# {skill["title"]}\n', text)
-            for rule in skill["rules"]:
-                self.assertIn("- **{id} — {title}** {instruction}".format(**rule), text)
-            for check in skill["verify"]:
-                self.assertIn(f"- {', '.join(check['rule_ids'])}: {check['check']}", text)
-            for ref in skill["references"]:
-                self.assertIn("- [{label}]({path})".format(**ref), text)
-
-        path = self.root / "skills" / skills[-1] / "SKILL.md"
+        legacy, guide = data["skills"]
+        self.assertNotIn("purpose", legacy)
+        self.assertEqual(legacy["workflow"], ["Reproduce the failure."])
+        self.assertEqual(legacy["rules"], [{"id": "CONC-001", "title": "Cancel.", "instruction": "Stop the task."}])
+        path = self.root / "skills" / skills[1] / "SKILL.md"
         original = path.read_text()
-        other_rule = data["skills"][0]["rules"][0]["id"]
-        path.write_text(original.replace("## Verify\n", f"## Verify\n- {other_rule}: Wrong skill.\n"))
+        self.assertIn(f'# {guide["title"]}\n\n{guide["purpose"]}', original)
+        self.assertIn(f'## Start here\n\n{guide["inputs"]}', original)
+        self.assertIn(f'## What to report\n\n{guide["output"]}', original)
+        self.assertEqual(guide["workflow"], [rule["title"] for rule in guide["rules"]])
+        for number, rule in enumerate(guide["rules"], 1):
+            self.assertIn(f"{number}. " + "**{title}** {instruction} <!-- {id} -->".format(**rule), original)
+        for check in guide["verify"]:
+            self.assertIn(f"- {check['check']} <!-- {' '.join(check['rule_ids'])} -->", original)
+        for ref in guide["references"]:
+            self.assertIn("- [{label}]({path})".format(**ref), original)
+
+        path.write_text(original.replace("## Check the result\n", "## Check the result\n- Wrong skill. <!-- CONC-001 -->\n"))
         output, errors = io.StringIO(), io.StringIO()
         with contextlib.redirect_stdout(output), contextlib.redirect_stderr(errors):
             self.assertEqual(skillctl.main(args), 2)
         self.assertIn("rule IDs from this skill", errors.getvalue())
         self.assertEqual(output.getvalue(), "")
-        path.write_text(original.replace("## Rules\n", "## Rules\n\n- **TEST-999 — Repeat.** Run again.\n"))
+        count = len(guide["rules"]) + 1
+        path.write_text(original.replace("## Check the result", f"{count}. **Retry.** Run again. <!-- TEST-999 -->\n\n## Check the result"))
         self.assertIn(f"{skills[-1]}: no verification check for TEST-999", validate_skills.validate(self.root))
 
 

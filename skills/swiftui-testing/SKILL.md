@@ -3,37 +3,31 @@ name: swiftui-testing
 description: "Choose Swift Testing, XCTest, UI automation or previews for async, accessibility and behavior regressions."
 ---
 
-# Test SwiftUI behavior
+# Choose a test that catches the SwiftUI regression
 
-## Inputs
+Use this to choose the smallest test that can catch a reported defect. A store test can expose an unwanted save. A VoiceOver user unable to reach Cancel needs an interaction test.
 
-Identify failure, expectation, destination, toolchain and dependencies.
+## Start here
 
-## Rules
+Describe the action, expected outcome and affected build and destination. Find an existing test that reaches the same code.
 
-- **TEST-001 — Behavior.** Assert the outcome through the production path.
-- **TEST-002 — Ordering.** Control relevant clocks, clients, storage and IDs. Await registration or completion signals.
-- **TEST-003 — Isolation.** Give parallel tests independent state, files and accounts. Preview with local fixtures.
-- **TEST-004 — Method.** Choose the cheapest check that can expose the failure. Use rendered evidence for layout and interaction evidence for control behavior.
-- **TEST-005 — Evidence.** Label simulated evidence. Exercise the claimed assistive workflow.
+## How to proceed
 
-## Workflow
+1. **Test at the level where the defect appears.** Check a wrong value in logic or storage, clipping in a rendered view and a broken control by activating it. <!-- TEST-004 -->
+2. **Drive the production path.** Assert what the caller sees or what survives reopening. Reproduce the failure before fixing it when possible. Keep cases with distinct outcomes. <!-- TEST-001 -->
+3. **Control event order.** Use a controllable client or clock. Wait for registration before releasing the response. <!-- TEST-002 -->
+4. **Separate each test’s data.** Give parallel cases their own stores, accounts and mutable fixtures. Use local fixtures in previews. Inspect visual differences before accepting a new baseline. <!-- TEST-003 -->
+5. **Verify the claimed experience.** Name simulated dependencies. For accessibility, use the claimed input. Confirm the selected cases ran and build the affected targets. <!-- TEST-005 -->
 
-1. Reproduce. Extend the nearest check of the affected path, including cancellation or restoration.
-2. Stage visual states. Inspect differences before accepting a baseline.
-3. Confirm the check ran. Run affected suites and builds. Preserve distinct behaviors.
+## Check the result
 
-## Verify
+- Save in one fixture while cancelling in another. Only the saved store changes on reopen. <!-- TEST-001 TEST-003 -->
+- Finish the older request last. Its result or error leaves the newer screen intact. Trigger and await any late callback before asserting zero updates. <!-- TEST-002 -->
+- Find Cancel with VoiceOver and activate it. Verify the resulting screen and saved value. Identify any simulated store. <!-- TEST-004 TEST-005 -->
 
-- TEST-001, TEST-003: Save and cancel concurrently in separate fixtures. Only the saved store changes. Confirm failure before the fix where reproducible, then success.
-- TEST-002: Force the failing order and assert final state. Trigger and await late effects inside any zero-count confirmation.
-- TEST-004, TEST-005: Complete a claimed VoiceOver journey with VoiceOver. Identify simulated dependencies.
+## What to report
 
-## Output
+Give the revision, command, toolchain, destination, outcome, supporting evidence and any skipped cases.
 
-Give revision, command, toolchain, destination, results, artifacts and skipped checks.
-
-## References
-
-- [Fixtures and regression checks](references/testing-patterns.md)
-- [Async tests and migration](references/async-and-migration-tests.md)
+- [Choose fixtures and regression checks](references/testing-patterns.md)
+- [Test callback timing and consolidate repeated cases](references/async-and-migration-tests.md)

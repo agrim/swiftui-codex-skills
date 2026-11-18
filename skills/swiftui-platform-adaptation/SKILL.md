@@ -3,37 +3,31 @@ name: swiftui-platform-adaptation
 description: "Adapt SwiftUI scenes, windows, focus, and input for iOS, iPadOS, macOS, watchOS, tvOS, or visionOS."
 ---
 
-# Platform-native scenes and interaction
+# Make an app task work across Apple devices and windows
 
-## Inputs
+Use this when a feature works on one platform but its controls, focus or window behavior break elsewhere. Keep the outcome consistent wherever the task is shared.
 
-Targets, minimum OS, task, scenes, inputs and capabilities.
+## Start here
 
-## Rules
+Pick one task. For example, a Mac shortcut and an iPad Save button should rename the same selected document.
 
-- **PLAT-001 — Shared behavior.** Share commands when equivalent input should produce equivalent outcomes.
-- **PLAT-002 — Ownership.** Decide which draft, path and selection a second window may share.
-- **PLAT-003 — Native input.** Find the first unreachable action. Give it a route using the target’s input.
-- **PLAT-004 — Availability.** Define the outcome when a target lacks a required capability.
-- **PLAT-005 — Destinations.** Record build, input and lifecycle results per destination.
+## How to proceed
 
-## Workflow
+1. **Identify the shared operation.** Follow each control to the command that changes the record. Share that command when equivalent input should produce equivalent results. <!-- PLAT-001 -->
+2. **Choose which window receives the action.** If reopening a document should recover its draft, open by document ID. Keep unrelated windows’ selections and histories independent. <!-- PLAT-002 -->
+3. **Find the first unreachable action.** Try the target’s actual input. Follow focus after a dialog closes, especially if its starting row has disappeared. <!-- PLAT-003 -->
+4. **Define the fallback before sharing the interface.** When a capability is unavailable, decide which part of the task can still finish and how to reach it. <!-- PLAT-004 -->
+5. **Exercise the task on each target.** Build for the target, run the task, interrupt and resume it. Record which window receives the result. <!-- PLAT-005 -->
 
-1. Trace a platform-specific control to its domain command.
-2. On external reopen, identify the receiving scene and focus target.
+## Check the result
 
-## Verify
+- Run the shared command on two targets with identical input. Compare stored results and exercise the fallback where the capability is absent. <!-- PLAT-001 PLAT-004 -->
+- Select different documents in two windows. Resize one and edit by keyboard. Only its draft changes. <!-- PLAT-002 -->
+- On affected targets, read and activate the watch control, regain remote focus after tvOS dismissal, or complete and exit a visionOS task. Assess spatial comfort on hardware. <!-- PLAT-003 PLAT-005 -->
 
-- PLAT-001, PLAT-004: Run a shared command on two targets with identical input. Compare outcomes. Exercise the fallback where its API is unavailable.
-- PLAT-002: Switch or resize windows. Editing the selection by keyboard changes only its draft.
-- PLAT-003: Read and activate the watchOS control. On tvOS reach it by remote and regain focus after dismissal.
-- PLAT-003, PLAT-005: Use spatial input on visionOS. Verify task completion, exit scene and comfort on hardware.
+## What to report
 
-## Output
+Report the destination, input, observed result and any remaining hardware checks.
 
-Per target, report scene, input, command, fallback, build and runtime results.
-
-## References
-
-- [Tasks and native inputs](references/platform-patterns.md)
-- [Reopening windows and restoring focus](references/scenes-and-focus.md)
+- [Find the first task that fails on one platform](references/platform-patterns.md)
+- [Diagnose duplicate editors and shortcuts targeting the wrong window](references/scenes-and-focus.md)

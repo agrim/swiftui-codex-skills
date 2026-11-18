@@ -3,37 +3,31 @@ name: apple-device-validation
 description: "Verify Apple app launch, rendering, interaction, hardware or paired-device behavior on a simulator or device."
 ---
 
-# Apple device validation
+# Verify what an Apple app actually does on a device
 
-## Inputs
+Use this to verify a change on a running app. A screenshot shows whether Save is visible. Activate it and reread the value after relaunch to prove the edit survived.
 
-Identify the claim, candidate, fixture, available destinations and authorized actions.
+## Start here
 
-## Rules
+Choose a behavior, expected result, build, destination and starting data. Identify actions that could affect the user’s account or files.
 
-- **PROOF-001 — Match the evidence.** Use a frame for layout. For interaction, capture the action and the resulting state.
-- **PROOF-002 — Bound side effects.** Preserve user data. Reset, uninstall, edit source or change accounts only as authorized.
-- **PROOF-003 — Identify the run.** Tie artifacts and exit statuses to the build, destination, toolchain and fixture.
-- **PROOF-004 — Isolate failure.** Locate the first failing prerequisite, from pairing or provisioning through launch.
-- **PROOF-005 — Refresh affected proof.** Rerun checks after relevant changes and remove temporary fixtures.
+## How to proceed
 
-## Workflow
+1. **Choose an observation that answers the question.** Capture layout at the affected size. For an interaction, capture the starting state, perform the action and inspect the result. Use the receiving hardware for hardware or paired-device claims. <!-- PROOF-001 -->
+2. **Protect existing data.** Use a disposable account or fixture where available. Reset, uninstall, change accounts or edit source only within the approved scope. <!-- PROOF-002 -->
+3. **Identify the run.** Label logs and captures with build, destination, toolchain and test data. For batch reviews, identify each screen, state and capture revision. <!-- PROOF-003 -->
+4. **Find the first blocked step.** Check pairing, provisioning, installation and launch in order as applicable. Preserve the actual error before changing the setup. <!-- PROOF-004 -->
+5. **Retest the changed build.** Repeat affected checks and remove temporary fixtures. <!-- PROOF-005 -->
 
-1. Capture the starting state. Use real hardware for hardware claims.
-2. Exercise the transition. Record each screen and state for batch reviews.
+## Check the result
 
-## Verify
+- Reopen a saved edit or inspect a delivered item on the receiving device. For layout, enable the affected accessibility setting and inspect the screen at that size. <!-- PROOF-001 -->
+- If installation failed, retain the installer error and check that any reset was authorized. After a fix, confirm the new captures identify the replacement build and destination. <!-- PROOF-002 PROOF-003 PROOF-004 PROOF-005 -->
 
-- PROOF-001: Inspect layout at the affected size and accessibility setting. For persistence, reread the value after relaunch. For paired delivery, observe it on the receiving device.
-- PROOF-003, PROOF-005: Change the build, rerun affected checks and verify replacement receipts identify the new build and destination.
-- PROOF-002, PROOF-004: On install failure, record the installer error and check reset history against authorization.
+## What to report
 
-## Output
+For each behavior, report the verdict, build, destination, observation and blocked step.
 
-Give each claim a verdict, evidence and any blocked step.
-
-## References
-
-- [Destination and runtime](references/device-validation-patterns.md)
-- [Screen inventory](references/screen-review.md)
-- [Debugger and simulator evidence](references/debugger-and-simulator-evidence.md)
+- [Choosing a destination for a runtime check](references/device-validation-patterns.md)
+- [Tracking reviewed screens and replacement captures](references/screen-review.md)
+- [When debugger or simulator evidence is incomplete](references/debugger-and-simulator-evidence.md)

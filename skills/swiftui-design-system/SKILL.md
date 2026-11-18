@@ -3,36 +3,31 @@ name: swiftui-design-system
 description: "Design consistent SwiftUI components with typography, color, SF Symbols, Liquid Glass, charts, and motion."
 ---
 
-# Visual language, materials, and motion
+# Keep SwiftUI controls readable across themes and states
 
-## Inputs
+Use this when a toolbar disappears over photos, the same item looks different across screens or an animation signals Done before Save finishes.
 
-Action hierarchy, appearances, accessibility settings, minimum OS.
+## Start here
 
-## Rules
+Render the same component and record on the affected screens. Identify the intended action and the appearance, state or OS version where it becomes unclear.
 
-- **DES-001 — Hierarchy.** Resolve competing actions by frequency and cost of error.
-- **DES-002 — Native controls.** Compare with the system control. Identify what the customization adds.
-- **DES-003 — Materials.** Compare the same scrolling backdrop with and without custom glass.
-- **DES-004 — Motion.** Drive completion from committed state so interrupted motion cannot strand an action.
-- **DES-005 — States.** Isolate state and backdrop before changing a shared palette.
+## How to proceed
 
-## Workflow
+1. **Choose which action should stand out.** Consider the likely next action and the cost of a wrong tap. Reuse type, spacing and information order where they convey the same meaning. <!-- DES-001 -->
+2. **Compare the customization with the system control.** Identify what the customization adds. Preserve the command, accessible role and a usable fallback on the oldest supported target. <!-- DES-002 -->
+3. **Test glass over scrolling content.** Scroll the same bright and dark image edges under the toolbar with and without custom glass. <!-- DES-003 -->
+4. **Tie completion to the operation.** Show Done when the save commits. Interrupting motion must leave the right status and available action. <!-- DES-004 -->
+5. **Find the state that loses contrast.** Compare focused, pressed and disabled controls on the failing backdrop before changing a shared color. <!-- DES-005 -->
 
-1. Share appearance across related surfaces. Preserve their commands and data ownership.
-2. Render one record across styles and deployment targets.
+## Check the result
 
-## Verify
+- Identify the primary action at large text sizes. Read its long label in light and dark appearances with increased contrast and reduced transparency. Focus, press and disable the control. Disabled activation has no effect. <!-- DES-001 DES-003 DES-005 -->
+- Interrupt a transition and repeat under Reduce Motion. Compare the final state with the saved value. <!-- DES-004 -->
+- On the oldest target, verify the fallback’s role and activate its command. <!-- DES-002 -->
 
-- DES-001, DES-003, DES-005: At large text sizes, identify the primary action. Check long labels on light and dark materials with increased contrast and reduced transparency. Focus, press and disable the control. Labels stay legible and disabled activation has no effect.
-- DES-004: Interrupt motion, then repeat under Reduce Motion. Final state and action agree.
-- DES-002: Build and render the older-target fallback. Verify the primary control’s role and activate its command.
+## What to report
 
-## Output
+Report the design choice, the appearances and fallback tested, and the observed behavior.
 
-Component, rationale, fallback, rendered states and untested cases.
-
-## References
-
-- [Hierarchy and shared components](references/design-patterns.md)
-- [Glass, chart descriptions and motion](references/glass-charts-and-motion.md)
+- [Compare hierarchy, shared components and fallback icons](references/design-patterns.md)
+- [Diagnose disappearing toolbars, premature completion and stale chart descriptions](references/glass-charts-and-motion.md)

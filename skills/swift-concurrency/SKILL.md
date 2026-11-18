@@ -3,37 +3,31 @@ name: swift-concurrency
 description: "Diagnose Swift isolation, task lifetimes, stale results, cancellation, continuations, stream buffering, and Swift 6 migration."
 ---
 
-# Swift concurrency
+# Keep asynchronous Swift work tied to the request that started it
 
-## Inputs
+Use this when an older search overwrites a newer result, a dismissed screen keeps working, or the UI stalls during an async operation.
 
-Record compiler, language mode, isolation defaults, flags, and task owners.
+## Start here
 
-## Rules
+For a search, record its text, scope, account, and owning task. Check the affected target’s compiler, language mode, isolation defaults and feature flags.
 
-- **CONC-001 — Isolate UI state.** Name its writer and the synchronization behind any unsafe handoff.
-- **CONC-002 — Own tasks.** Name what stops on dismissal and who owns surviving work.
-- **CONC-003 — Revoke obsolete work.** Check cancellation around costly work and before publication. Invalidate replaced requests even if cancellation is ignored.
-- **CONC-004 — Recheck after suspension.** Match account and request before applying success, failure, or cleanup.
-- **CONC-005 — Check the executor.** Locate expensive work that blocks rendering on the main actor.
+## How to proceed
 
-## Workflow
+1. **Identify who writes the state.** Follow values across actors to the UI. Pass immutable snapshots where possible. If the handoff uses unchecked shared state, identify how reads and writes are synchronized. <!-- CONC-001 -->
+2. **Choose when work stops.** Give tasks that survive dismissal an owner. Bound concurrent work and retries. For callback streams, decide which events can be dropped, who finishes a wait, and who removes the observer. <!-- CONC-002 -->
+3. **Retire a replaced request immediately.** When text, scope or account changes, invalidate the old request and cancel it. Check cancellation before expensive work and before publishing. <!-- CONC-003 -->
+4. **Recheck identity after waiting.** Only the current account and request may publish results, report an error, or clear the loading indicator. A service may ignore cancellation. <!-- CONC-004 -->
+5. **Locate work that delays input.** Profile the slow interaction and find what actually runs on the main actor before moving computation elsewhere. <!-- CONC-005 -->
 
-1. Trace actor crossings. Bound concurrency, retries, and buffers.
-2. For callbacks, choose who completes the wait, which events may drop, and who removes observers.
+## Check the result
 
-## Verify
+- Replace a request or log out, then deliver its old result or error while the new request loads. The new request keeps its data, error and loading state. <!-- CONC-003 CONC-004 -->
+- Buffer two samples before reading a latest-value stream. Read the newer sample, dismiss the screen and observe one removal of its subscription. <!-- CONC-002 -->
+- Compile the changed handoff under strict concurrency in supported modes. For a stall, compare main-thread time during the same interaction before and after the fix. <!-- CONC-001 CONC-005 -->
 
-- CONC-001: Build supported modes with strict checking. Changed handoffs compile without isolation diagnostics.
-- CONC-003, CONC-004: Replace a request or log out. Late results and errors preserve data and loading state.
-- CONC-002: Buffer two latest-only samples. Read only the newer. Dismiss and verify one observer removal.
-- CONC-005: Profile slow work on its executor. Compare main-thread time for the same interaction after the fix.
+## What to report
 
-## Output
+Show who owned the work, which completion exposed the bug, and what changed after the fix.
 
-Report isolation, owners, event order, and results.
-
-## References
-
-- [Task lifetime and stale results](references/concurrency-patterns.md)
-- [Streams, callbacks, and migration](references/streams-and-migration.md)
+- [Scope changes, late replies, and overlapping writes](references/concurrency-patterns.md)
+- [Stream buffering, observer teardown, and compiler modes](references/streams-and-migration.md)

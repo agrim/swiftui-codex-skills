@@ -17,6 +17,11 @@ from urllib.parse import unquote, urlsplit
 SLUG = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*\Z")
 RULE = re.compile(r"- \*\*(?P<id>[A-Z]+-[0-9]{3}) — (?P<title>[^*\s][^*]*?\.)\*\* (?P<instruction>\S.*)")
 HEADINGS = ("Inputs", "Rules", "Workflow", "Verify", "Output", "References")
+GUIDE_HEADINGS = ("Start here", "How to proceed", "Check the result", "What to report")
+RULE_ID = r"[A-Z]+-[0-9]{3}"
+ACTION = re.compile(rf"(?P<number>[0-9]+)\. \*\*(?P<title>[^*\s][^*]*?\.)\*\* (?P<instruction>\S.*?) <!-- (?P<id>{RULE_ID}) -->")
+CHECK = re.compile(rf"- (?P<check>\S.*?) <!-- (?P<ids>{RULE_ID}(?: {RULE_ID})*) -->")
+REFERENCE = re.compile(r"- \[(?P<label>[^\]\s][^\]\n]*)\]\((?P<path>references/[^()\s]+\.md)\)")
 PLATFORMS = {"iOS", "iPadOS", "macOS", "watchOS", "tvOS", "visionOS"}
 IGNORED = {".git", ".build", ".build-ios", "__pycache__", ".pytest_cache", "DerivedData", "node_modules", "Pods", "Carthage", ".venv", "venv", "build", "Build", "dist"}
 PRIMARY_HOSTS = {"developer.apple.com", "support.apple.com", "www.apple.com", "docs.swift.org", "www.swift.org", "swift.org"}
@@ -109,8 +114,62 @@ def frontmatter(text: str) -> dict[str, str]:
     return result
 
 
+def _paragraph(heading: str, content: str) -> str:
+    if not content.strip() or re.search(r"\n\s*\n|^(?: {4}|\t| {0,3}(?:#+ |[-*+] |[0-9]+[.)] |>|\|))", content, re.M):
+        raise ValueError(f"{heading} must be one paragraph")
+    return " ".join(line.strip() for line in content.splitlines())
+
+
+def _entries(heading: str, content: str, pattern: str | re.Pattern[str]) -> list[re.Match[str]]:
+    matches = []
+    for number, line in enumerate(content.splitlines(), 1):
+        if not line.strip():
+            continue
+        match = re.fullmatch(pattern, line)
+        if match is None:
+            raise ValueError(f"invalid {heading} entry on section line {number}")
+        if "number" in match.re.groupindex and match["number"] != str(len(matches) + 1):
+            raise ValueError(f"expected {heading} step {len(matches) + 1}")
+        matches.append(match)
+    if not matches:
+        raise ValueError(f"empty {heading} section")
+    return matches
+
+
+def _legacy_fields(intro: str, sections: dict[str, str]) -> dict[str, Any]:
+    title = re.fullmatch(r"# (\S[^\n]*)", intro)
+    if title is None:
+        raise ValueError("expected a title followed by " + ", ".join(HEADINGS) + " in order")
+    rules = _entries("Rules", sections["Rules"], RULE)
+    workflow = _entries("Workflow", sections["Workflow"], r"(?P<number>[0-9]+)\. (\S.*)")
+    checks = _entries("Verify", sections["Verify"], r"- ([^:]+): (\S.*)")
+    return {"title": title[1], "inputs": _paragraph("Inputs", sections["Inputs"]),
+            "rules": [match.groupdict() for match in rules], "workflow": [match[2] for match in workflow],
+            "verify": [{"rule_ids": match[1].split(", "), "check": match[2]} for match in checks],
+            "output": _paragraph("Output", sections["Output"]),
+            "references": [m.groupdict() for m in _entries("References", sections["References"], REFERENCE)]}
+
+
+def _guide_fields(intro: str, sections: dict[str, str]) -> dict[str, Any]:
+    opening = re.fullmatch(r"# (\S[^\n]*)\n[ \t]*\n(.+)", intro, re.S)
+    if opening is None:
+        raise ValueError("expected a title, a blank line and a purpose paragraph")
+    report = re.split(r"\n[ \t]*\n", sections["What to report"], maxsplit=1)
+    if len(report) != 2:
+        raise ValueError("What to report must end with a blank line and playbook links")
+    steps = _entries("How to proceed", sections["How to proceed"], ACTION)
+    checks = _entries("Check the result", sections["Check the result"], CHECK)
+    return {"title": opening[1], "purpose": _paragraph("Purpose", opening[2]),
+            "inputs": _paragraph("Start here", sections["Start here"]),
+            "rules": [{key: m[key] for key in ("id", "title", "instruction")} for m in steps],
+            "workflow": [m["title"] for m in steps],
+            "verify": [{"rule_ids": m["ids"].split(), "check": m["check"]} for m in checks],
+            "output": _paragraph("What to report", report[0]),
+            "references": [m.groupdict() for m in _entries("Playbook links", report[1], REFERENCE)]}
+
+
 def skill_contract(folder: Path, item: dict[str, Any], text: str, seen_rules: set[str]) -> dict[str, Any]:
-    """Read the library's entry-point Markdown profile. Playbooks have no such restrictions."""
+    """Export current guides and previously published six-section entries through the same interface."""
     text = text.replace("\r\n", "\n")
     meta = frontmatter(text)
     if meta["name"] != item["id"] or meta["description"] != item["summary"]:
@@ -120,63 +179,42 @@ def skill_contract(folder: Path, item: dict[str, Any], text: str, seen_rules: se
     if re.search(r"^\s*(?:`{3,}|~{3,})", body, re.M):
         raise ValueError("put fenced examples in a playbook")
     parts = re.split(r"^## ([^\n]*)$", body, flags=re.M)
-    title = re.fullmatch(r"# (\S[^\n]*)", parts[0].strip("\n"))
-    if title is None or parts[1::2] != list(HEADINGS):
-        raise ValueError("expected a title followed by " + ", ".join(HEADINGS) + " in order")
-    sections = dict(zip(HEADINGS, (part.strip("\n") for part in parts[2::2])))
-
-    def entries(heading: str, pattern: str | re.Pattern[str]) -> list[re.Match[str]]:
-        matches = []
-        for number, line in enumerate(sections[heading].splitlines(), 1):
-            if not line.strip():
-                continue
-            match = re.fullmatch(pattern, line)
-            if match is None:
-                raise ValueError(f"invalid {heading} entry on section line {number}")
-            matches.append(match)
-        if not matches:
-            raise ValueError(f"empty {heading} section")
-        return matches
-
+    headings = tuple(parts[1::2])
+    intro = parts[0].strip("\n")
+    sections = dict(zip(headings, (part.strip("\n") for part in parts[2::2])))
     for heading, content in sections.items():
         if heading != "Rules" and re.search(r"^- \*\*[A-Z]+-[0-9]{3} — ", content, re.M):
             raise ValueError(f"rule declaration outside Rules in {heading}")
-    for heading in ("Inputs", "Output"):
-        content = sections[heading]
-        if not content.strip() or re.search(r"\n\s*\n|^(?: {4}|\t| {0,3}(?:#+ |[-*+] |[0-9]+[.)] |>|\|))", content, re.M):
-            raise ValueError(f"{heading} must be one paragraph")
-        sections[heading] = " ".join(line.strip() for line in content.splitlines())
+    if headings == GUIDE_HEADINGS:
+        fields = _guide_fields(intro, sections)
+        expected_comments = len(fields["rules"]) + len(fields["verify"])
+        if body.count("<!--") != expected_comments or body.count("-->") != expected_comments:
+            raise ValueError("only actions and checks may carry rule comments")
+    elif headings == HEADINGS:
+        fields = _legacy_fields(intro, sections)
+    else:
+        raise ValueError("expected guide headings in order: " + ", ".join(GUIDE_HEADINGS))
 
-    rules = [m.groupdict() for m in entries("Rules", RULE)]
     declared: set[str] = set()
-    for rule in rules:
+    for rule in fields["rules"]:
         rule_id = rule["id"]
         if rule_id in declared or rule_id in seen_rules:
             raise ValueError(f"duplicate rule ID {rule_id}")
         declared.add(rule_id)
-    workflow = []
-    for number, match in enumerate(entries("Workflow", r"([0-9]+)\. (\S.*)"), 1):
-        if match[1] != str(number):
-            raise ValueError(f"expected Workflow step {number}")
-        workflow.append(match[2])
-    verify = []
-    for match in entries("Verify", r"- ([^:]+): (\S.*)"):
-        rule_ids = match[1].split(", ")
+    for check in fields["verify"]:
+        rule_ids = check["rule_ids"]
         if not declared.issuperset(rule_ids) or len(rule_ids) != len(set(rule_ids)):
-            raise ValueError("each Verify check must cite distinct rule IDs from this skill")
-        verify.append({"rule_ids": rule_ids, "check": match[2]})
-    link = r"- \[(?P<label>[^\]\s][^\]\n]*)\]\((?P<path>references/[^()\s]+\.md)\)"
-    references = [m.groupdict() for m in entries("References", link)]
+            raise ValueError("each verification check must cite distinct rule IDs from this skill")
+
     for relative in item["references"]:
         if not safe_path(folder, relative).is_file():
             raise ValueError(f"missing reference: {relative}")
-    paths = [ref["path"] for ref in references]
+    paths = [ref["path"] for ref in fields["references"]]
     if len(paths) != len(set(paths)) or sorted(paths) != sorted(item["references"]):
         raise ValueError("References must list each catalog path once")
     seen_rules.update(declared)
-    return {"id": meta["name"], "title": title.group(1), "description": meta["description"], "inputs": sections["Inputs"],
-            "rules": rules, "workflow": workflow, "verify": verify, "output": sections["Output"],
-            "references": references}
+    title = fields.pop("title")
+    return {"id": meta["name"], "title": title, "description": meta["description"], **fields}
 
 
 def without_fences(text: str) -> str:

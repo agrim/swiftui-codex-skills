@@ -3,36 +3,31 @@ name: swiftui-interop
 description: "Bridge UIKit or AppKit with SwiftUI representables, hosting, coordinators, and delegates."
 ---
 
-# UIKit and AppKit bridges
+# Connect SwiftUI screens to UIKit or AppKit
 
-## Inputs
+Use a bridge to put a native control in SwiftUI or host SwiftUI inside an existing native screen. If typing jumps or edits reach the wrong record, trace how changes cross that bridge.
 
-Identify the missing capability, OS, and owner.
+## Start here
 
-## Rules
+For a wrapped text editor, reproduce one edit in the app. Identify who owns the text, which object displays it and which callback writes it back.
 
-- **BRIDGE-001 — Limit scope.** Wrap the smallest supported public API that fills the gap.
-- **BRIDGE-002 — Update in place.** Keep the platform object across updates to the same identity. Apply changed inputs only.
-- **BRIDGE-003 — Rebind callbacks.** Refresh coordinator bindings and handlers. Suppress programmatic delegate echoes.
-- **BRIDGE-004 — Dismantle.** When ownership ends, detach callbacks, cancel owned work, and reject queued events.
-- **BRIDGE-005 — Preserve interaction.** Respect UI isolation, proposed size, focus, accessibility, responder chains, and controller containment.
+## How to proceed
 
-## Workflow
+1. **Isolate the missing capability.** Wrap only the public API needed to fill the gap on your supported OS versions. <!-- BRIDGE-001 -->
+2. **Update the existing native object.** While editing the same record, compare incoming values before assigning them. Rewriting unchanged text can interrupt active typing. <!-- BRIDGE-002 -->
+3. **Keep callbacks pointed at the current model.** Refresh bindings when the editor changes records. Distinguish user edits from callbacks caused by your own assignments. <!-- BRIDGE-003 -->
+4. **Check interaction in the host.** Apply UI changes on the main actor. Resize or reparent the editor and check its controller parent, proposed size and keyboard and accessibility focus. <!-- BRIDGE-005 -->
+5. **Disconnect on removal.** Detach delegates, cancel work the adapter owns and ignore callbacks queued for an earlier editor. <!-- BRIDGE-004 -->
 
-1. Trace each lifecycle owner. Exercise resizing and reparenting in the host.
+## Check the result
 
-## Verify
+- Exercise the wrapped feature on the oldest supported OS. Unrelated controls still work without the adapter. <!-- BRIDGE-001 -->
+- Refresh unrelated state while composing text. Marked text, selection and focus survive. A user edit writes once. A programmatic update adds no write. <!-- BRIDGE-002 BRIDGE-003 BRIDGE-005 -->
+- Remove and remount the editor, then deliver an old callback. The previous resources are released and the new model stays unchanged. <!-- BRIDGE-004 -->
 
-- BRIDGE-001: Exercise the missing capability on the minimum OS. It works through the adapter, and unrelated controls work without it.
-- BRIDGE-002, BRIDGE-005: Reapply unchanged text. Marked text, focus, and selection survive.
-- BRIDGE-003: One edit changes the model once. Programmatic writes produce no echo.
-- BRIDGE-004: Remount. Old resources are released and stale callbacks cannot change the model.
+## What to report
 
-## Output
+Report the owner on each side, the interaction tested and the cleanup result.
 
-Report owners, interaction results, and cleanup evidence.
-
-## References
-
-- [Hosting, sizing, and focus](references/interop-patterns.md)
-- [Representable lifecycle](references/representable-lifecycle.md)
+- [Diagnose hosting, sizing and focus failures](references/interop-patterns.md)
+- [Check native view updates and teardown](references/representable-lifecycle.md)

@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased — task-oriented skill guides
+
+All 29 guides open with the job they help a reader do. Each decision now appears once as an ordered step, followed by checks with observable outcomes. The JSON exporter includes the opening purpose and retains the published rule IDs. It also reads the earlier six-section format.
+
 ## Unreleased — smaller installed playbooks
 
 Removed framework tutorials, API inventories, repeated platform guidance and official documentation links from the installed skills. Worked cases retain the product decision and an observable failure check. The source registry and catalog retain the research trail for maintainers.
