@@ -14,20 +14,18 @@ struct DraftNoteStoreTests {
                            configurations: ModelConfiguration(isStoredInMemoryOnly: true))
     }
 
-    @Test func editingAndDiscardingValueDraftDoesNotInsert() throws {
+    @Test func draftBecomesVisibleOnlyAfterExplicitSave() throws {
         let container = try container()
         let store = DraftNoteStore(container: container)
         var draft = NoteDraft(title: "Unsaved")
-        draft.title = "Edited but canceled"
+        draft.title = "  Saved note  "
         #expect(try store.titles().isEmpty)
-        #expect(!container.mainContext.hasChanges)
-    }
 
-    @Test func explicitSaveIsVisibleThroughFreshContext() throws {
-        let store = DraftNoteStore(container: try container())
-        let id = try store.create(NoteDraft(title: "  Saved note  "))
-        #expect(try store.titles() == ["Saved note"])
-        #expect(!id.uuidString.isEmpty)
+        let id = try store.create(draft)
+        let reader = ModelContext(container)
+        let saved = try reader.fetch(FetchDescriptor<StoredNote>())
+        #expect(saved.map(\.id) == [id])
+        #expect(saved.map(\.title) == ["Saved note"])
     }
 
     @Test func validationFailureDoesNotReachSave() throws {

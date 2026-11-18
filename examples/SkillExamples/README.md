@@ -16,7 +16,7 @@ Swift 6 package with no third-party dependencies. `SkillExamplesCore` uses Found
 
 `SearchIntegrationTests` start real tasks and use a controlled actor service with registration handshakes. They finish requests out of order and deliberately ignore cancellation in the fake service. No sleep establishes test ordering. The suite's time limit is only a deadlock watchdog. The UI and tests use the same model implementation, not duplicated algorithms. Keep the injected service stable for a view's identity; account replacement must invalidate the existing model and update the service/context ownership deliberately.
 
-`DraftNoteStoreTests` run against real SwiftData with a fresh in-memory container per test. They cover untouched/canceled value drafts, explicit save through a fresh context, validation failure, injected pre-save failure, preservation of unrelated main-context work, and retry after a proven pre-save failure. They do not claim a disk-full or partial-write simulation. Repeating a successful `create` intentionally creates another record; external operations need their own durable identity and reconciliation.
+`DraftNoteStoreTests` run against real SwiftData with a fresh in-memory container per test. They cover draft edits before explicit save, explicit save through a fresh context, validation failure, injected pre-save failure, preservation of unrelated main-context work, and retry after a proven pre-save failure. They do not claim a disk-full or partial-write simulation. Repeating a successful `create` intentionally creates another record; external operations need their own durable identity and reconciliation.
 
 `DiskMigrationTests` creates its own versioned schemas inside the test target. It writes two distinguishable rows to a new temporary V1 store, opens the same URL with the V2 migration plan, then verifies both original captions under the new property name. A third container checks that a V2 edit persisted and both rows survived. The test disables CloudKit and removes only the directory it created.
 
@@ -24,7 +24,7 @@ The synchronous store is deliberately tiny. Do not put expensive storage work in
 
 `DraftEditor` and `DraftNavigationExample` remain in-memory UI examples. Their cancel/save callbacks are separate from the SwiftData store tests; connecting them is not evidence of tested disk durability.
 
-`CountRecordTests` exercise plan/observation/result separation, correction, unknown versus zero, and repeat/cancel behavior. Item counts use a nonnegative integer type; fractional input parsing belongs to the UI adapter. Confirming a value constructs a record but does not persist it. The export value is a payload, never proof of delivery. Repeating copies the previous plan into a new draft; copying a previous confirmed result into a new target is a different product policy.
+`CountRecordTests` exercise plan/observation/result separation, correction, unknown versus zero, and the fresh draft created by repeating a record. Item counts use a nonnegative integer type; fractional input parsing belongs to the UI adapter. Confirming a value constructs a record but does not persist it. The export value is a payload, never proof of delivery. Repeating copies the previous plan into a new draft; copying a previous confirmed result into a new target is a different product policy.
 
 ## Run
 
@@ -38,4 +38,4 @@ swift build --package-path examples/SkillExamples --target SkillExamplesPersiste
 
 On Linux, the SwiftUI and SwiftData sections are excluded. A working Linux Swift/Observation runtime can exercise the core/model tests but cannot establish Apple framework compilation or persistence behavior. Report toolchain/linker failures separately from failed assertions; do not bypass runtime validation to get a green test command.
 
-The Apple CI lane runs all suites on macOS, repeats async interleavings five times, and compiles both UI and persistence targets against the installed iOS SDK. It does not run iOS tests, render screens, inspect VoiceOver, or use physical devices. Inspect the exact candidate's CI logs before claiming any check passed.
+The Apple CI lane runs the Swift suites once on macOS and compiles the UI and persistence targets against the installed iOS SDK. Rendered screens, VoiceOver, and physical-device behavior need separate checks.

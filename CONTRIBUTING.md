@@ -40,7 +40,7 @@ python3 -m unittest discover -s tests -v
 swift test --package-path examples/SkillExamples
 ```
 
-Add regression tests for tooling changes, including malformed input and false-positive cases. Update the behavioral scenarios for a new important failure mode. The [evaluation protocol](docs/evaluation.md) requires real model outputs to claim behavioral results; passing phrase-routing fixtures is not an agent benchmark.
+For tooling changes, exercise the failure through the command or API people use. Extend an existing test when it already covers that workflow. The validator checks every skill’s metadata, budgets, links, and catalog entry. Update the behavioral scenarios for a new important failure mode. The [evaluation protocol](docs/evaluation.md) requires real model outputs to claim behavioral results; passing phrase-routing fixtures is not an agent benchmark.
 
 Keep changes reviewable. No live service calls, account writes, private credentials, or external dependencies are required for ordinary library checks. Do not add unsafe automation that gives untrusted pull-request code write tokens or publishing credentials.
 
