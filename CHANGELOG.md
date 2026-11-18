@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased — smaller installed playbooks
+
+Removed framework tutorials, API inventories, repeated platform guidance and official documentation links from the installed skills. Worked cases retain the product decision and an observable failure check. The source registry and catalog retain the research trail for maintainers.
+
 ## Unreleased — shorter skills and deeper playbooks
 
 All 29 entry points are shorter. Every published rule now points to an observable check. The playbooks add cases drawn from 29 pinned upstream skill files, including scope changes during search, Core Data saves that stop in a parent context, inaccessible custom controls, and TestFlight eligibility. `skillctl.py bundle --reference REPO_PATH` includes just the requested playbooks alongside the selected entries.

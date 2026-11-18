@@ -1,6 +1,6 @@
 # SwiftUI Skills
 
-**Practical, source-linked SwiftUI and Apple-platform engineering skills for humans and coding agents.**
+**SwiftUI and Apple-platform engineering skills for humans and coding agents.**
 
 Start with a short task contract. Load the few skills the task needs. Follow concrete rules, inspect the current SDK, and prove the resulting behavior. No model, IDE, plugin, or hosted service is required.
 
@@ -8,7 +8,7 @@ The repository URL retains its historical name, `swiftui-codex-skills`. The skil
 
 ## Start here
 
-For a broad review, start with the [SwiftUI entry point](skills/apple-swiftui-native-apps/SKILL.md). For a specific symptom, go directly to the matching skill in the [coverage map](docs/coverage.md). Its `SKILL.md` gives the decision rules and checks. Open a linked playbook when you need a worked case or an API source.
+For a broad review, start with the [SwiftUI entry point](skills/apple-swiftui-native-apps/SKILL.md). For a specific symptom, go directly to the matching skill in the [coverage map](docs/coverage.md). Its `SKILL.md` gives the decision rules and checks. Open a local playbook when you need a worked case.
 
 Install the selected folders in a host that supports the [Agent Skills format](https://agentskills.io/specification), or use the CLI from the repository root.
 
@@ -60,7 +60,7 @@ The [ecosystem integration guide](docs/ecosystem-integration.md) explains the Pa
 
 ## What makes the rules useful
 
-Each entry point has **Inputs → Rules → Workflow → Verify → Output → References**. Start with the inputs for the task. Cite the rule ID when reporting a finding and record the observed result. If a check could not run, say why. For example, the networking skill asks you to cancel one subscriber to a shared download and verify that the other still receives its image. Open the linked playbook for edge cases or source documentation.
+Each entry point has **Inputs → Rules → Workflow → Verify → Output → References**. Start with the inputs for the task. Cite the rule ID when reporting a finding and record the observed result. If a check could not run, say why. For example, the networking skill asks you to cancel one subscriber to a shared download and verify that the other still receives its image.
 
 Rules are scoped to failure modes, not arbitrary bans. Native control semantics matter; custom styles are allowed when they preserve behavior and contrast. Interop is a narrow capability boundary, not a forbidden import. `async` is not synonymous with background execution. A build is not a screenshot, device test, or release approval.
 
@@ -95,7 +95,7 @@ The [deep-link parser](examples/SkillExamples/Sources/SkillExamplesCore/NoteDeep
 
 Apple documentation and HIG are authoritative for platform APIs and guidance; installed SDK declarations establish actual compilation availability. This library adds original decision procedures and engineering recommendations. Recheck version-sensitive APIs, beta behavior, privacy rules, and store requirements at use time. Do not turn a review date into a permanent freshness claim.
 
-No Apple documentation is vendored wholesale. Sources are linked and summarized in original playbooks. Apple and SwiftUI are trademarks of Apple Inc.; this is an independent repository, not an Apple endorsement.
+Maintainers can trace each skill’s source IDs in `catalog.json` to the [source registry](docs/sources.md). Apple and SwiftUI are trademarks of Apple Inc.; this is an independent repository, not an Apple endorsement.
 
 ## License
 

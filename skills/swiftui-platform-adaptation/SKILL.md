@@ -11,16 +11,16 @@ Targets, minimum OS, task, scenes, inputs and capabilities.
 
 ## Rules
 
-- **PLAT-001 — Shared behavior.** Share models and commands for equivalent tasks. Adapt presentation.
-- **PLAT-002 — Ownership.** Match scene to task. Scope drafts, paths and selection per window.
-- **PLAT-003 — Native input.** Expose essential actions to each supported input.
-- **PLAT-004 — Availability.** Check APIs and entitlements per target. Define fallbacks.
-- **PLAT-005 — Destinations.** Build each affected target and exercise its task. Identify untested hardware.
+- **PLAT-001 — Shared behavior.** Share commands when equivalent input should produce equivalent outcomes.
+- **PLAT-002 — Ownership.** Decide which draft, path and selection a second window may share.
+- **PLAT-003 — Native input.** Find the first unreachable action. Give it a route using the target’s input.
+- **PLAT-004 — Availability.** Define the outcome when a target lacks a required capability.
+- **PLAT-005 — Destinations.** Record build, input and lifecycle results per destination.
 
 ## Workflow
 
-1. Map inputs to scenes. Isolate platform presentation in views.
-2. Choose which scene handles external requests, regains focus and restores state.
+1. Trace a platform-specific control to its domain command.
+2. On external reopen, identify the receiving scene and focus target.
 
 ## Verify
 

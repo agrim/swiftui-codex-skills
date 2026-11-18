@@ -11,16 +11,16 @@ Action hierarchy, appearances, accessibility settings, minimum OS.
 
 ## Rules
 
-- **DES-001 — Hierarchy.** Distinguish the primary action through type, spacing and placement.
-- **DES-002 — Native controls.** Use system controls and chrome unless customization preserves native behavior and serves a product need.
-- **DES-003 — Materials.** Favor Liquid Glass for navigation and controls. Keep content legible underneath.
-- **DES-004 — Motion.** Scope transitions, preserve identity and convey completion under Reduce Motion.
-- **DES-005 — States.** Check label, symbol, fill, foreground and hit area when disabled, focused or pressed.
+- **DES-001 — Hierarchy.** Resolve competing actions by frequency and cost of error.
+- **DES-002 — Native controls.** Compare with the system control. Identify what the customization adds.
+- **DES-003 — Materials.** Compare the same scrolling backdrop with and without custom glass.
+- **DES-004 — Motion.** Drive completion from committed state so interrupted motion cannot strand an action.
+- **DES-005 — States.** Isolate state and backdrop before changing a shared palette.
 
 ## Workflow
 
 1. Share appearance across related surfaces. Preserve their commands and data ownership.
-2. Use semantic styles. Check API and symbol availability.
+2. Render one record across styles and deployment targets.
 
 ## Verify
 

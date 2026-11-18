@@ -1,15 +1,7 @@
-# Clean, no-op, and edit-build benchmarks
+# Comparable build samples
 
-Keep separate categories: cold dependency setup, clean build with declared cache state, warm no-change build, and a representative source edit followed by a build. Touching a file measures timestamp invalidation, not necessarily the same path as changing API or implementation. Report which stimulus was used and restore it without overwriting concurrent edits.
+Choose a stimulus that represents the complaint. A file touch measures timestamp invalidation. An implementation edit and a public API edit can affect different consumers. Record which change you used and restore it without overwriting concurrent work.
 
-Record repeated successful samples, median, min/max, failures, sample count, and environment. Do not report only the fastest run, compare different build modes, or silently exclude failed measurements. Warm-up policy belongs in the artifact. A cache-warmed clean build must not be labeled fully cold. A new DerivedData directory does not prove all compiler or package caches are cold.
+Separate dependency setup, clean builds, no-change builds and representative edits. A fresh build directory can still reuse package or compiler caches. Record what was warm, what was reset and whether warm-up runs count. Use a disposable output directory when isolating caches.
 
-Use `xcodebuild -showBuildTimingSummary` for task categories and a monotonic timer for elapsed process duration. Keep raw logs. Mark an absent or unrecognized summary as missing evidence rather than zero cost. Never delete a user's shared caches as part of ordinary benchmarking; use an agreed disposable workspace and scoped output directories.
-
-For before/after comparisons, hold toolchain, destination, configuration, signing policy, dependency revisions, workload, and competing load constant. Show spread alongside deltas. Range overlap is a useful caution, not a statistical proof either way. Small samples cannot establish a universal speedup. Increased target count or cache population may trade clean cost for incremental benefit; evaluate the user's actual workload.
-
-## Official sources
-
-- [Improving incremental build speed](https://developer.apple.com/documentation/xcode/improving-the-speed-of-incremental-builds).
-- [Improving build efficiency with good coding practices](https://developer.apple.com/documentation/xcode/improving-build-efficiency-with-good-coding-practices).
-- [Xcode documentation](https://developer.apple.com/documentation/xcode).
+Hold toolchain, destination, configuration, signing policy and dependency revisions constant. Measure elapsed time independently of cumulative task durations. Show the median and range of repeated samples, failed runs and competing load. A missing task summary means its contribution is unknown. If variation obscures the difference, report that uncertainty instead of picking the fastest run.

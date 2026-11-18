@@ -14,7 +14,7 @@ Identify failure, expectation, destination, toolchain and dependencies.
 - **TEST-001 — Behavior.** Assert the outcome through the production path.
 - **TEST-002 — Ordering.** Control relevant clocks, clients, storage and IDs. Await registration or completion signals.
 - **TEST-003 — Isolation.** Give parallel tests independent state, files and accounts. Preview with local fixtures.
-- **TEST-004 — Method.** Use Swift Testing or XCTest for behavior, UI automation for interactions, rendered inspection for layout.
+- **TEST-004 — Method.** Choose the cheapest check that can expose the failure. Use rendered evidence for layout and interaction evidence for control behavior.
 - **TEST-005 — Evidence.** Label simulated evidence. Exercise the claimed assistive workflow.
 
 ## Workflow

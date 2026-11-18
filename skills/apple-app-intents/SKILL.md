@@ -15,7 +15,7 @@ Identify the action, host, account, and entity.
 - **INT-002 — Trace invocation.** Check metadata extraction, discovery, resolution, then execution.
 - **INT-003 — Resolve IDs.** Look up stable IDs in the active account. Reject missing entities.
 - **INT-004 — Limit disclosure.** Minimize exposed fields. Apply required authentication and confirmation.
-- **INT-005 — Start cold.** Initialize dependencies in the executing process. Respect its actor and time budget.
+- **INT-005 — Start cold.** Initialize dependencies before any scene appears. Match isolation and duration to the executing host.
 
 ## Workflow
 

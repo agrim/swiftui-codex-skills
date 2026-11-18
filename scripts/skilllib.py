@@ -235,7 +235,7 @@ def valid_review_date(value: Any) -> bool:
 def generated_docs(root: Path) -> dict[str, str]:
     items = catalog(root)["skills"]
     sources = source_registry(root)["sources"]
-    coverage = ["# Coverage map", "", "Generated from `catalog.json`; run `python3 scripts/skillctl.py docs` to update.", "", "**Practical coverage is not exhaustive Apple documentation coverage.** Each module provides a decision workflow, failure cases, verification, and primary-source routes. Framework details still require the current SDK and linked documentation. No percentage of all Apple APIs or HIG pages is claimed.", "", "| Skill | Scope | Platforms | Boundary |", "| --- | --- | --- | --- |"]
+    coverage = ["# Coverage map", "", "Generated from `catalog.json`; run `python3 scripts/skillctl.py docs` to update.", "", "Select a skill for the engineering decision you face. Each folder includes its own checks and worked cases. Review provenance is available in the [source registry](sources.md).", "", "| Skill | Scope | Platforms | Boundary |", "| --- | --- | --- | --- |"]
     for item in items:
         cells = [f'[{item["id"]}](../skills/{item["id"]}/SKILL.md)', item["summary"], ", ".join(item["platforms"]), item["limits"]]
         coverage.append("| " + " | ".join(cell.replace("|", "\\|") for cell in cells) + " |")

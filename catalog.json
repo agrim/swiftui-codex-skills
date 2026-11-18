@@ -607,7 +607,8 @@
         "distribution",
         "privacy",
         "build-speed",
-        "xcconfig-settings"
+        "xcconfig-settings",
+        "xctestrun-products"
       ],
       "coverage": "practical",
       "limits": "Project ownership and artifact inspection; signing, capabilities, and generated state must be checked for the actual product graph."

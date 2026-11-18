@@ -1,28 +1,13 @@
-# Contexts, batch operations, and history
+# Context handoffs, batch changes, and history
 
-A context is an isolated unit of work, not a thread-safe object collection. Schedule private-queue work with `perform`; do not move a fetched object into a task on another executor. Copy a value snapshot or pass an object ID and resolve it in the receiving context. Check for temporary IDs and deletion before assuming resolution can succeed.
+## Which version does the reader need?
 
-A child context save can push changes to its parent without writing the persistent store. Trace the entire save chain before promising durability. Avoid blocking the main queue on a private context that may call back to main. An actor wrapper does not automatically make arbitrary managed-object access safe.
+For a point-in-time export, copy the needed values on the owning context. For a screen that needs current values, pass the ID and resolve it on the reader's queue. An importer's permanent ID can reach a reader before the first save. A detail screen can receive the same ID after deletion. Use a throwing lookup when either outcome changes the UI.
 
-Batch delete/update/insert works at the store layer and can leave registered objects stale. For suitable local batches, obtain affected object IDs and merge the changes into observing contexts. Persistent history is useful for durable multi-writer or cross-process consumption; it is not a mandatory prerequisite for every batch. Choose one coherent merge path and test duplicate processing.
+Hold the import after ID allocation. A fresh reader should fail to resolve it. Save and check its business ID from a second reader. Delete and save, then open the detail screen in a third reader. A reader with an already registered object also needs the deletion merged.
 
-Give each history consumer a persistent token, store identity, relevant transaction-author filtering, and failure retry. Process then advance the cursor, not the reverse. Pruning based only on the fastest consumer risks data loss for slower consumers. Notifications mean changes may exist; fetch actual transactions rather than trusting a single notification as an exact mutation record.
+## Who consumes a batch?
 
-## A permanent ID before the first save
+For a local batch with known observers, merge affected IDs into those contexts. A returning reader can refetch current state. If it must process intervening transactions, keep a durable history cursor. Use notifications to trigger a fetch and filter by store and author where appropriate. Pick one path for each side effect.
 
-An importer can obtain a permanent object ID while the row is still an unsaved insert. Publish the ID to independent readers after the writer saves to their shared store. In a fresh receiving context, use the throwing `existingObject(with:)` when a missing row changes the outcome. `object(with:)` can return an unchecked fault whose properties fail later. A context that already registered the object can return its own copy, so merge relevant deletions before trusting that view.
-
-Hold an insert after permanent-ID allocation. A fresh reader should fail to resolve it. Save the writer and use a second fresh reader to verify its business ID. Delete and save, then resolve the same ID in a third reader. The consumer should handle a missing record without dereferencing a fault.
-
-## Regression matrix
-
-Verify a background save becomes visible through a fresh reader; a deleted object ID fails gracefully; a batch removes registered rows after merging; and a replay does not duplicate user-visible side effects. Use a temporary SQLite store for batch behavior. A passed in-memory test does not establish SQL translation, batch support, migration, or file protection behavior.
-
-## Official sources
-
-- [Core Data concurrency programming guide (archived)](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CoreData/Concurrency.html).
-- [Core Data batch delete guide (archived)](https://developer.apple.com/library/archive/featuredarticles/CoreData_Batch_Guide/BatchDeletes/BatchDeletes.html).
-- [Consuming relevant store changes](https://developer.apple.com/documentation/coredata/consuming-relevant-store-changes).
-- [CloudKit](https://developer.apple.com/documentation/cloudkit).
-- [Core Data permanent IDs for inserted objects](https://developer.apple.com/documentation/coredata/nsmanagedobjectcontext/obtainpermanentids%28for%3A%29)
-- [Core Data object lookup by ID](https://developer.apple.com/documentation/coredata/nsmanagedobjectcontext/existingobject%28with%3A%29)
+Pause one consumer. Have a second process a transaction and crash before saving its cursor. Restart both. The replay should preserve one user-visible effect and the slower reader must still find its transactions. Only then is that history eligible for pruning.

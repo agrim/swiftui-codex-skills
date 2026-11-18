@@ -2,9 +2,7 @@
 
 ## Evidence-first review
 
-Start with the requested mode: explain, review, fix, implement, or migrate. Preserve established authorization and local conventions. Select the smallest domain skill and reference that matches the actual changed behavior; do not load every skill because the app uses SwiftUI.
-
-For each finding, identify file/symbol, observed failure or unsupported contract, affected platform/version, minimal correction, and verification. Separate a crash/data-loss risk from an optional readability preference. Do not pad a review with deprecated-looking spellings that remain supported, speculative performance claims, or wholesale architecture substitutions.
+Rank each finding by the failure the user can encounter. Include the affected file, symbol, platform, reproduction and smallest correction. Keep a supported spelling used elsewhere out of a review that only concerns the edited control.
 
 ## Modernization record
 
@@ -17,22 +15,10 @@ For each finding, identify file/symbol, observed failure or unsupported contract
 | Replacement | Preserved semantics, ownership, accessibility, and fallback |
 | Proof | Compile plus affected state/interaction tests |
 
-A newer API does not automatically justify migration. Keep stable code when replacement changes behavior or raises supported minimums without a product reason. Do not copy system-app private chrome based on a screenshot. Use the installed public declaration and actual destination.
+If both APIs support the target, compare behavior before suggesting a migration. Retain a working implementation when the proposed change loses selection, alters persistence or requires raising the minimum OS beyond the brief.
 
 ## Migrating a change handler
 
-A document switch saves the outgoing selection. The one-argument `onChange(of:perform:)` supplies the new value and may capture the old selection. In the two-argument replacement, read the outgoing and incoming IDs from the arguments. Its closure captures values from the updated view, so carrying across an old capture list can save the wrong document. Keep the default `initial: false` when opening the view should leave storage untouched. Check availability before changing a supported fallback. [Original action](https://developer.apple.com/documentation/swiftui/view/onchange(of:perform:)) · [Two-value action](https://developer.apple.com/documentation/swiftui/view/onchange(of:initial:_:)-4psgg)
+A document switch commits the outgoing selection. When migrating its `onChange` handler, use the outgoing ID from the two-value action. Carrying over a capture of the view’s selection can commit to the incoming document instead. Keep appearance writes disabled when opening a document should leave storage untouched.
 
-Open on A, switch to B, then recompute with B still selected. If leaving a selection commits it, expect one commit to A across all three steps. In a review, report the affected handler and this reproduction.
-
-## Scope the next reference
-
-State loss belongs to ownership/identity; layout failure to measurement/proposals; poor contrast to the whole styled component; stale async work to task authority; slow builds to compiler/project diagnostics rather than runtime profiling. Framework-specific persistence issues need the matching store specialist, not a blanket preference for the newest framework.
-
-Record what was *not* checked. A source-only audit cannot establish rendered HIG alignment, real permission prompts, or performance improvement. Keep optional tooling outside the engineering contract so another model or shell-based workflow can follow the same steps.
-
-## Official sources
-
-- [SwiftUI framework overview](https://developer.apple.com/documentation/SwiftUI).
-- [HIG: Design principles](https://developer.apple.com/design/human-interface-guidelines/design-principles).
-- [Swift API design guidelines](https://www.swift.org/documentation/api-design-guidelines/).
+Open on A, switch to B, then recompute while B remains selected. Expect one commit to A across all three steps. For a review, report the handler and reproduction. For an authorized migration, exercise the supported fallback too.

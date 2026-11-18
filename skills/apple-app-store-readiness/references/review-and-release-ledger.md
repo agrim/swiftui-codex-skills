@@ -1,28 +1,7 @@
-# Review packets, CLI adapters, and release ledgers
+# Release decisions and conflicting receipts
 
-Treat an external store-management CLI as a capability adapter, not a grant of account authority. Before a mutation, read current service state, reconcile the exact app/version/build and existing scoped approval, and execute only the intended stage. Avoid duplicate submissions when a previous call's result is ambiguous.
+Keep one row per stage and candidate. Record approval scope, current service observation, blocker and next action. Retain superseded receipts with their candidate and date. Keep reviewer credentials out of the public handoff.
 
-Keep a release ledger tying source, binary/archive, uploaded build, processing state, test evidence, metadata, and approval decisions. A new candidate can supersede an earlier compile or review blocker without erasing its history. The latest receipt must refer to the same candidate and stage before it clears a blocker.
+**An old handoff says upload is blocked.** Later approval covers upload of build 12 and assignment to Internal QA. Check the archive and live service record. If the build already processed, carry its receipt forward and complete only the remaining group assignment. If it is absent, perform the approved upload once prerequisites pass. An ambiguous timeout calls for another state read before a retry. External invitations need their own scope. Label simulated service results explicitly.
 
-Public copy, screenshots, review credentials, hardware requirements, subscriptions, support links, and privacy policy must match the submitted journey. Optimize wording for truthful discoverability, not unsupported functionality claims. Do not manufacture ratings, reviews, rankings, or expected conversion gains.
-
-## Gate probes
-
-Check cold first launch, login/account deletion where required, offline/denied states, purchase/restore behavior, linked services, and reviewer access. Confirm screenshots come from the intended binary/state and supported device. A polished mockup is not runtime evidence.
-
-Recheck current regional and storefront requirements from Apple at submission time. Do not freeze a remembered fee, toolchain minimum, disclosure form, or business-model rule as permanent. Distinguish internal TestFlight, external review, App Review approval, and public release.
-
-Report passed, failed, not applicable, not authorized, and unverified separately. A source inspection can establish preparation, not uploaded or released service state. Never embed review credentials, certificates, or API keys in the public ledger.
-
-## An external tester cannot see the beta
-
-1. Match the app, version/build and external group in App Store Connect. If the build is marked **TestFlight Internal Only**, it can only join internal groups. Record the need for a candidate eligible for external distribution. Reinviting the tester cannot change eligibility.
-2. For an eligible build, inspect group membership, review status and how testers are notified. If TestFlight App Review approved it with automatic notification off, verify whether manual distribution is still pending. If distribution to this group is authorized, complete that step and reread its status. An upload-only request ends at the upload receipt even when a distribution control is available.
-
-## Official sources
-
-- [App Review Guidelines](https://developer.apple.com/app-store/review/guidelines/).
-- [Distributing your app](https://developer.apple.com/documentation/xcode/distributing-your-app-for-beta-testing-and-releases).
-- [Describing data use in privacy manifests](https://developer.apple.com/documentation/bundleresources/describing-data-use-in-privacy-manifests).
-- [Offering account deletion in your app](https://developer.apple.com/support/offering-account-deletion-in-your-app/).
-- [Invite external testers](https://developer.apple.com/help/app-store-connect/test-a-beta-version/invite-external-testers/).
+**An external tester cannot see a processed build.** Check the exact build’s eligibility and group before changing access. An Internal Only build calls for a different candidate. For an eligible, beta-approved build, inspect whether notification is pending. Reinviting a tester solves neither a candidate mismatch nor an outstanding group distribution step. Record the service result for the authorized action.

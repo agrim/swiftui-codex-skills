@@ -12,7 +12,7 @@ Identify symptom, interaction, measurements and scope.
 ## Rules
 
 - **PERF-001 — Baseline.** Record device, toolchain, build mode, input size, cache state and metric.
-- **PERF-002 — Attribution.** Trace the interval to updates, layout, CPU, allocations, I/O or contention.
+- **PERF-002 — Attribution.** Use the operation inside the slow interval to choose a correction. Whole-run totals can point elsewhere.
 - **PERF-003 — Behavior.** Preserve ordering, identity, cancellation, errors, stale and empty states, persistence and accessibility.
 - **PERF-004 — Lifetime.** Define task and observer lifetimes. Bound caches, buffers, logs and polling.
 - **PERF-005 — Gains.** Test behavior. Measure gains against baseline.

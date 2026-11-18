@@ -6,7 +6,7 @@
 
 A human can read a skill directly. A compatible agent host can discover its name and description, then load its instructions and only the necessary references. A host without native skill support can use `skillctl.py bundle` to receive self-contained Markdown. No tool-specific invocation is part of the engineering contract.
 
-Each skill folder contains its own references and official links. Installing one does not silently require a sibling directory. Other skill names in prose are routing recommendations; they are not executable commands or mandatory filesystem dependencies.
+Each installed skill includes its entry point and local playbooks. Official documentation and review records live in the repository’s maintenance registry. Other skill names in prose are routing recommendations; they are not executable commands or mandatory filesystem dependencies.
 
 ## Instruction precedence and scope
 
@@ -26,7 +26,7 @@ Do not create separate competing “Claude rules,” “Codex rules,” or other
 
 ## Progressive loading
 
-The short entry point contains the trigger, inputs, five rules, procedure, proof, and output contract. The local playbook contains tradeoffs, corrections, and sources. The catalog gives a complete index without forcing every instruction into every task.
+The short entry point contains the trigger, inputs, five rules, procedure, proof, and output contract. The local playbook contains tradeoffs, worked cases and failure probes. The catalog gives a complete index without forcing every instruction into every task.
 
 ## Read a skill as data
 

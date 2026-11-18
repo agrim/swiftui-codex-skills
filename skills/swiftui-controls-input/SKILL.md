@@ -11,16 +11,16 @@ Interaction, devices, validation, commit and cancel events.
 
 ## Rules
 
-- **CTRL-001 — Intent.** Prefer Button for commands, NavigationLink for destinations and native controls for choices.
-- **CTRL-002 — Styling.** Preserve native role, focus, pressed/disabled states, keyboard and assistive activation.
-- **CTRL-003 — Selection.** Use unique, type-matched tags. Keep explicit Save separate.
-- **CTRL-004 — Input.** Route focus and Submit. Preserve text composition during validation.
+- **CTRL-001 — Intent.** Match the control to the intended effect on selection, history or command execution.
+- **CTRL-002 — Styling.** Remove the custom style to isolate losses in role, focus or activation.
+- **CTRL-003 — Selection.** When selection disappears, check tag identity and type before changing persistence.
+- **CTRL-004 — Input.** Route validation to the invalid field without replacing its draft during composition.
 - **CTRL-005 — Commits.** Deduplicate writes, retain failed drafts and offer gesture alternatives.
 
 ## Workflow
 
-1. Trace activation to the command. Label icon controls.
-2. Set focus order, AutoFill, dismissal and destructive confirmation. Show busy, invalid and unavailable states.
+1. Trace touch, keyboard and assistive activation to the same command.
+2. Find the first durable write. Exercise cancellation and retry around it.
 
 ## Verify
 

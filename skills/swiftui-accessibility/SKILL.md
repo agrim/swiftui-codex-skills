@@ -11,16 +11,16 @@ Task, destination, locale, input, text size and assistive settings.
 
 ## Rules
 
-- **AX-001 — Semantics.** Expose names, roles, actions, values and essential readouts with units.
-- **AX-002 — Reach.** Keep actions reachable as text, direction, contrast, motion and input change.
-- **AX-003 — Alternatives.** Supplement sensory cues with accessible status. Offer alternatives to required gestures.
-- **AX-004 — Grouping.** Group static text. Preserve independent actions in task order.
-- **AX-005 — Journey.** Read, edit, submit, recover and dismiss with assistive technology.
+- **AX-001 — Semantics.** At the blocked step, compare the announced role, value and unit with the intended action.
+- **AX-002 — Reach.** After reflow, follow the same action to the same record.
+- **AX-003 — Alternatives.** Remove the strongest cue or gesture. Verify the user can still detect status and act.
+- **AX-004 — Grouping.** Group a row only if each independent command remains reachable in order.
+- **AX-005 — Journey.** Exercise recovery from a failed submission using assistive input.
 
 ## Workflow
 
-1. Inspect failing semantics before adding hints.
-2. Localize names, plurals and values. Test long, mixed-direction text at maximum size.
+1. Inspect the failing element before changing its parent.
+2. Repeat with long, mixed-direction text at maximum supported size.
 
 ## Verify
 

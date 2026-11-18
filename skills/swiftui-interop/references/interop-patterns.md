@@ -1,53 +1,11 @@
-# UIKit and AppKit interoperability: playbook
+# Hosting, sizing, and focus
 
-## When interop is appropriate
-
-A required text-system feature, specialized camera/media surface, platform panel, responder-chain behavior, or window capability may justify UIKit/AppKit. The existence of an import is not a defect. Prefer supported public APIs and a small adapter rather than private view-hierarchy introspection. Revisit the adapter when a newer SwiftUI API genuinely meets its contract, not just because it is newer.
-
-## Lifecycle ownership
-
-| Phase | Responsibility |
-| --- | --- |
-| Creation | Construct the platform view/controller, install delegate/coordinator, configure durable resources |
-| Update | Apply current SwiftUI inputs idempotently without restarting unchanged work |
-| Callback | Translate actual platform user events into the current binding or command |
-| Teardown | Detach observers/delegates and stop resources owned by the adapter |
-
-Do not start a new capture session, observer, or request on every update. Compare meaningful configuration before expensive reconfiguration. Make resource shutdown idempotent, and account for asynchronous callbacks that may arrive after removal.
-
-## Coordinator correctness
-
-A coordinator can outlive a particular value of the representable struct. Keep its inputs and callbacks current during updates instead of storing an initializer snapshot forever. Avoid retaining obsolete bindings or model instances. If assigning a platform value triggers its delegate, distinguish a model-driven update from a genuine user edit so the adapter does not feed back indefinitely.
-
-Deferring every callback with arbitrary asynchronous dispatch can hide reentrancy without fixing ownership. Determine when the framework permits mutation, capture the intended value, and use a deliberate boundary. Do not mutate observed state during view update merely to synchronize two redundant sources of truth.
-
-## Sizing and focus
-
-Honor the proposed size and intrinsic sizing behavior. Use supported sizing hooks where available; do not compute every platform view from the global screen. Test empty content, large text, constrained width, and repeated resize. A hosting controller needs correct containment and lifecycle forwarding when embedded in another controller.
-
-Text bridges must preserve selection, marked/composing text, undo, focus, and accessibility. Replacing all text on every update can break input methods and move the cursor. Window bridges should target the intended window, not whichever happens to be globally key at a particular instant.
-
-## Concurrency and teardown
-
-Keep UIKit/AppKit UI operations on their documented actor/thread boundary. A background callback must cross into the UI owner safely, with generation checks if the adapter may have been replaced. Stop platform resources independently of hiding their SwiftUI wrapper. Remove tokens and notifications from the same owner that created them; avoid cycles through delegates and closures.
-
-## Regression probes
-
-Create the view, update one property, trigger a user event, remove it, recreate it, and deliver a delayed callback from the prior lifecycle. Assert that only the current model changes and that resource counts return to baseline. Exercise keyboard/assistive focus and resize. A single successful render proves neither lifecycle cleanup nor responder correctness.
+Choose a bridge for a capability the supported SwiftUI targets cannot provide. Compare behavior on the oldest supported release.
 
 ## A reused AppKit cell keeps the previous row’s state
 
-An AppKit cell hosts a SwiftUI row with a local disclosure toggle. Reuse the cell’s `NSHostingView` and update its `rootView` when assigning a record. If the toggle belongs only to that record, bind the row’s identity with `.id(record.id)` so reassignment resets it. If the toggle should survive scrolling, store it by record ID outside the reusable cell.
+Expand row A’s disclosure toggle. Reuse its cell for B, then update B in place. The cell should retain one hosting view. Decide who owns the toggle. For state local to a record, update the hosting view’s root and key that row by record ID. If expansion must survive scrolling, keep it outside the cell, keyed by record. Verify B starts with its own value and the next update preserves it.
 
-Expand row A, reuse its cell for B, and update B in place. B starts with its own state, its next update preserves that state, and the cell still owns one hosting view.
+## A bridge works only at its preview size
 
-## Sources
-
-- [SwiftUI UIKit integration](https://developer.apple.com/documentation/swiftui/uikit-integration)
-- [SwiftUI AppKit integration](https://developer.apple.com/documentation/swiftui/appkit-integration)
-- [The Swift Programming Language: Concurrency](https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html)
-- [HIG: Accessibility](https://developer.apple.com/design/human-interface-guidelines/accessibility)
-- [UIViewControllerRepresentable](https://developer.apple.com/documentation/SwiftUI/uiviewcontrollerrepresentable)
-- [NSViewRepresentable](https://developer.apple.com/documentation/SwiftUI/NSViewRepresentable/)
-- [NSHostingView.rootView](https://developer.apple.com/documentation/swiftui/nshostingview/rootview).
-- [View.id(_:)](https://developer.apple.com/documentation/swiftui/view/id(_:)).
+Mount the bridge in a narrow window with large text, resize it, and move focus through it using the keyboard and assistive navigation. Check clipping, selection, and responder routing in the actual host. In a multiwindow app, opening the same bridge in a second window should leave focus in the intended window.

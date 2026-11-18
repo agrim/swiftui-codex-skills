@@ -11,22 +11,22 @@ Identify stores, model versions, context queues and parents, readers, and mirror
 
 ## Rules
 
-- **CD-001 — Confine objects.** Use the owning queue. Transfer IDs or immutable snapshots.
-- **CD-002 — Resolve IDs.** Publish permanent IDs after save. Handle missing rows.
-- **CD-003 — Merge batches.** Merge changed IDs or history into observing contexts.
+- **CD-001 — Choose the handoff.** Send snapshots for historical values, IDs for current values.
+- **CD-002 — Resolve IDs.** Publish IDs after save. Handle deletion before lookup.
+- **CD-003 — Merge batches.** Merge affected IDs for live readers. Refetch missed state or replay required history.
 - **CD-004 — Protect readers.** Advance cursors after successful processing. Preserve history slower readers need.
 - **CD-005 — Preserve stores.** Keep originals and diagnostics after open or upgrade failure.
 
 ## Workflow
 
-1. Trace parent saves to disk and the observing UI.
+1. Trace a background edit to disk and UI.
 2. Bound fetches and imports. Choose which edits survive conflicts.
 
 ## Verify
 
-- CD-001, CD-002, CD-003: Batch-delete a SQLite row. Verify disappearance after merge and failed lookup by ID on a fresh reader’s queue.
+- CD-001, CD-002, CD-003: Batch-delete a SQLite row. After merge, check disappearance and failed lookup on a fresh reader’s queue.
 - CD-004: Replay history. Effects occur once and slower readers resume.
-- CD-005: Reopen each supported disk upgrade. Compare IDs, values and relationships. Force a migration failure on a copy. Verify the original store and sidecars survive and the error is recorded.
+- CD-005: Reopen each supported disk upgrade. Compare IDs, values and relationships. Fail migration on a copy. Check the original, sidecars, and diagnostic.
 
 ## Output
 

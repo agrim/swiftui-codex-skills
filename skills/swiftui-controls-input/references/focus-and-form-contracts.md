@@ -1,34 +1,19 @@
-# Focus, forms, and editable control contracts
-
-Make the control express its role: action, navigation, boolean, mutually exclusive selection, continuous value, or text editing. A native control supplies semantics, but a custom style still needs contrast, focus, disabled, pressed, and accessibility verification. A decorative tap gesture is legitimate; a gesture-only primary action needs an equivalent discoverable control path.
-
-Use a typed focus value for forms with multiple fields. Declare submit intent and route it through validation and commit once. Keyboard dismissal, field validation, and saving are different operations. Do not clear focused input while simultaneously destroying its owner without testing system-input teardown.
-
-Test composition input, paste, AutoFill, selection replacement, and formatting while editing. A numeric formatter that rewrites every keystroke can destroy intermediate valid input or cursor position. Keep raw draft text when the edit grammar differs from the committed value grammar. Do not attach personal-data content types merely to obtain a keyboard appearance.
+# Incorrect focus and early commits
 
 ## Validation focuses the wrong row
 
-Two line items bind their quantity fields to the same `.quantity` focus value. Tapping either works. On Save, programmatic focus can land on the first row even when the second row failed validation. Give simultaneously visible fields distinct values, such as `.quantity(itemID)`, and set focus to the failing field's value. Use a stable record ID so reordering preserves that mapping.
+Two quantity fields share a focus value. Tapping either works, yet Save sends the correction to a different item. Give each focus target the identity of its field and record, such as `.quantity(itemID)`. Make the second quantity invalid. Submit with focus elsewhere, then type without tapping. Only that item's draft should change. Reorder the rows and repeat to distinguish correct focus from an error merely scrolled into view.
 
-Make the second quantity invalid. With focus elsewhere, submit by keyboard and type a correction without tapping. Only that item’s draft should change. Reorder the rows, invalidate the same item and repeat. This probe distinguishes an actual focus repair from an error message that merely scrolls into view. [SwiftUI FocusState](https://developer.apple.com/documentation/swiftui/focusstate)
+## Input that is valid only when complete
 
-## Commit table
+Type a partial decimal or use an input method editor to compose a word. If validation rewrites the input on every keystroke, compare the raw draft and cursor with the formatted committed value. Format at commit when intermediate text cannot be represented by the stored type. Try paste, selection replacement and AutoFill separately. Return should insert a newline in a multiline field unless the form explicitly assigns another action.
 
-| Event | Expected contract |
+## Find the first durable write
+
+| Event | Check |
 | --- | --- |
-| Open editor | No unintended persistence or permission request |
-| Change field | Update draft; show proportionate validation |
-| Submit/Save | Validate and invoke one canonical command |
-| Cancel/swipe dismiss | Discard only this edit session's changes |
-| Save failure | Preserve editable work and show recovery |
-| Duplicate trigger | Do not create duplicate effects |
+| Open, type or change a picker | No write while the form promises explicit Save. If the chosen option disappears during refresh, show a deliberate fallback and revalidate it. |
+| Submit from the keyboard and tap Save before completion | One command writes once. Failed writes keep the draft available for retry. |
+| Cancel or swipe away | The editor follows its stated discard policy. Reopen the record from another surface to inspect the durable value. |
 
-Keep menu selections type-compatible with their binding and unique tags. Do not add custom checkmarks that conflict with native selection. Drag/drop and keyboard shortcuts must invoke the same domain command and revalidate external payloads; alternate input routes cannot bypass permissions or save boundaries.
-
-For compact or watch surfaces, remove low-value copy before sacrificing hit targets. For desktop, preserve keyboard equivalents and focus visibility. Test the entire component, not just its resting screenshot.
-
-## Official sources
-
-- [SwiftUI Button](https://developer.apple.com/documentation/SwiftUI/Button).
-- [SwiftUI FocusState](https://developer.apple.com/documentation/swiftui/focusstate).
-- [SwiftUI accessible controls](https://developer.apple.com/documentation/swiftui/accessible-controls).
+When dismissal fails only with a focused field, compare closing with and without active composition. Observe input teardown before changing the owner. A single task yield cannot prove that teardown finished.

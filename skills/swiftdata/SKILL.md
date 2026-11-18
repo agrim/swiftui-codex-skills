@@ -11,16 +11,16 @@ Identify models, store, context actors, shipped schemas, OS, and sync settings.
 
 ## Rules
 
-- **SD-001 — Specify ownership.** Set inverses and delete rules for the intended survivors.
-- **SD-002 — Execute predicates.** Check translation on the target store.
-- **SD-003 — Confine models.** Keep models on their actor. Transfer IDs or snapshots.
+- **SD-001 — Specify ownership.** Decide which shared children survive each endpoint’s deletion.
+- **SD-002 — Execute predicates.** Exercise the production query on supported store runtimes.
+- **SD-003 — Choose the handoff.** Export snapshots. Pass saved IDs for fresh reads.
 - **SD-004 — Freeze shipped schemas.** Preserve failed stores and diagnostics. Offer recovery.
-- **SD-005 — Confirm delivery.** Check CloudKit constraints, account changes, and destination records.
+- **SD-005 — Confirm delivery.** Check shipped clients’ schema compatibility and destination state.
 
 ## Workflow
 
 1. Define when drafts become persistent.
-2. Map renames to stored names. Reconcile duplicate rows and relationships before enforcing uniqueness.
+2. For renames or uniqueness changes, identify the values and relationships to preserve.
 
 ## Verify
 
@@ -28,7 +28,7 @@ Identify models, store, context actors, shipped schemas, OS, and sync settings.
 - SD-002: Compare ordered IDs for the production predicate, including relevant nil relationships and limits.
 - SD-003: Save in one context. Refetch by ID in another and compare values.
 - SD-004: Upgrade each supported disk fixture. Edit, save, reopen, and compare ID–value pairs.
-- SD-005: With sync enabled, confirm destination delivery. Switch accounts and check visibility against the private or shared store’s access rules.
+- SD-005: Confirm a synced edit at its destination. Switch accounts and check private or shared visibility against policy.
 
 ## Output
 

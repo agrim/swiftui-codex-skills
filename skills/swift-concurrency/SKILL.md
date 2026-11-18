@@ -11,8 +11,8 @@ Record compiler, language mode, isolation defaults, flags, and task owners.
 
 ## Rules
 
-- **CONC-001 — Isolate UI state.** Transfer `Sendable` snapshots. Justify unsafe annotations.
-- **CONC-002 — Own tasks.** Prefer structured children or view-scoped `.task(id:)`. Give longer work an owner and stop condition.
+- **CONC-001 — Isolate UI state.** Name its writer and the synchronization behind any unsafe handoff.
+- **CONC-002 — Own tasks.** Name what stops on dismissal and who owns surviving work.
 - **CONC-003 — Revoke obsolete work.** Check cancellation around costly work and before publication. Invalidate replaced requests even if cancellation is ignored.
 - **CONC-004 — Recheck after suspension.** Match account and request before applying success, failure, or cleanup.
 - **CONC-005 — Check the executor.** Locate expensive work that blocks rendering on the main actor.
@@ -20,7 +20,7 @@ Record compiler, language mode, isolation defaults, flags, and task owners.
 ## Workflow
 
 1. Trace actor crossings. Bound concurrency, retries, and buffers.
-2. Serialize callback completion and cancellation so each continuation resumes once. Define droppable events and observer teardown.
+2. For callbacks, choose who completes the wait, which events may drop, and who removes observers.
 
 ## Verify
 

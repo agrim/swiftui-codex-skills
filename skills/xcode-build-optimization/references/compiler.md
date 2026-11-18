@@ -1,15 +1,7 @@
-# Compiler hotspots and source complexity
+# Is the compiler hotspot delaying completion?
 
-Start from the build timeline. Separate type checking, source compilation, module emission, linking, and dependency planning. A warning about one slow expression identifies compiler work, not automatically the longest user wait.
+Locate the expensive compile on the dependency timeline. Use temporary diagnostics supported by the selected compiler to narrow it, then measure a normal build with those diagnostics removed.
 
-Use temporary diagnostic flags supported by the selected compiler, record them, and compare normal builds separately. Do not persist unsupported frontend flags across every target. Narrow an expensive result builder with real view types or intermediate typed expressions; preserve identity, environment, generic behavior, and accessibility.
+For a slow SwiftUI result builder, try isolating the expensive expression behind a real view or an explicit type. Recheck view identity, environment propagation and accessibility. For a proposed `final` or access change, inspect subclasses, external callers and Objective-C dispatch before trading away behavior.
 
-Inspect bridging headers, exported API, generic constraints, overload sets, macro expansion, and unnecessary imports. Tighten access only after checking subclasses, extensions, dynamic dispatch, external clients, and Objective-C requirements. `final` is a semantic restriction, not a harmless performance annotation.
-
-A source change must compile and pass behavior tests in its intended configurations. Check whether it reduces elapsed time or merely total compiler work. Do not move all code into one file to reduce task count, or split every expression to meet an arbitrary line-count threshold. Use a repeatable example that actually triggers the slow compiler path.
-
-## Official sources
-
-- [Improving incremental build speed](https://developer.apple.com/documentation/xcode/improving-the-speed-of-incremental-builds).
-- [Improving build efficiency with good coding practices](https://developer.apple.com/documentation/xcode/improving-build-efficiency-with-good-coding-practices).
-- [Xcode documentation](https://developer.apple.com/documentation/xcode).
+Keep the change only for its measured effect or a separately justified correctness improvement. A shorter warning list can coexist with unchanged developer wait time.

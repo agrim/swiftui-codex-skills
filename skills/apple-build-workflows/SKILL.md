@@ -11,7 +11,7 @@ Read the CI invocation. Identify revision, toolchain, owner, action and destinat
 
 ## Rules
 
-- **BUILD-001 — Select the build.** Use SwiftPM for package checks. For platform claims, discover a matching scheme and destination.
+- **BUILD-001 — Select the build.** Use SwiftPM for package-only checks. Exercise app claims on the intended scheme and destination.
 - **BUILD-002 — Reproduce CI.** Match configuration, locks and generator inputs.
 - **BUILD-003 — Preserve failures.** Capture raw output and exit status before formatting. Stop dependent actions on failure.
 - **BUILD-004 — Bound side effects.** Build, install, launch, reset, sign or publish only as authorized.
@@ -20,7 +20,7 @@ Read the CI invocation. Identify revision, toolchain, owner, action and destinat
 ## Workflow
 
 1. Resolve active settings and review the command’s effects.
-2. Pass paths as separate arguments. After a fix, rerun the failing phase.
+2. Reproduce the first failure. Rerun that phase after the fix.
 
 ## Verify
 

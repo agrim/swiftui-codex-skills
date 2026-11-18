@@ -11,10 +11,10 @@ Trace creators, readers, writers, lifetimes and supported OS versions.
 
 ## Rules
 
-- **STATE-001 — Ownership.** Choose the shortest sufficient lifetime. Pass values to readers, bindings to editors and services to callers.
-- **STATE-002 — Wrappers.** Own an `@Observable` model with `@State` where supported. For `ObservableObject`, use `@StateObject` for ownership or `@ObservedObject` for an injected model.
-- **STATE-003 — Identity.** Key editable rows by stable domain ID.
-- **STATE-004 — Rendering.** Keep service starts, writes and expensive work outside `body` and repeated initialization.
+- **STATE-001 — Ownership.** Place each mutable value at the narrowest scope that survives its required transitions. Give write access only to callers that need it.
+- **STATE-002 — Wrappers.** Choose the wrapper for the actual owner and supported targets. A child receiving a replaceable model must follow its parent’s replacement.
+- **STATE-003 — Identity.** Carry the same record ID from row selection through save completion.
+- **STATE-004 — Rendering.** Tie service starts, writes and expensive setup to their owner so rendering cannot repeat them.
 - **STATE-005 — Drafts.** Keep discardable drafts separate from saved records. Choose actor isolation independently of observation.
 
 ## Workflow
@@ -26,7 +26,7 @@ Trace creators, readers, writers, lifetimes and supported OS versions.
 ## Verify
 
 - STATE-001: Select in one window. The other keeps its scene-owned selection.
-- STATE-002, STATE-004: Recompute the parent. Its model and draft survive without repeated I/O or expensive initialization.
+- STATE-002, STATE-004: Recompute the parent. An owned model keeps its draft without repeated I/O or setup. An injected model follows deliberate replacement.
 - STATE-003: Reorder, delete or re-edit during save. A late reply preserves deletion, newer edits and pending state.
 - STATE-005: Cancel preserves storage. Save survives reopening.
 

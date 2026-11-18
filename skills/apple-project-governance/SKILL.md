@@ -12,7 +12,7 @@ Identify products, configurations, tracked project inputs and CI scheme.
 ## Rules
 
 - **PROJ-001 — Edit the owner.** Change the generator manifest or template when it owns the project.
-- **PROJ-002 — Check membership.** Include each source, dependency, resource and extension in exactly its intended products.
+- **PROJ-002 — Check membership.** Check which products contain or link each changed item against its intended consumers.
 - **PROJ-003 — Preserve identity.** Reconcile bundle IDs, groups, containers and domains. Migrate persistent keys deliberately.
 - **PROJ-004 — Inspect effective values.** Compare resolved settings, packaged resources and signed entitlements with target requirements.
 - **PROJ-005 — Locate the failure.** Identify the failing configuration, compilation, signing or infrastructure step before editing.

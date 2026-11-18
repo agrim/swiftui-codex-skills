@@ -12,15 +12,15 @@ Target, minimum OS, journey, scene or tab, IDs and restoration needs.
 ## Rules
 
 - **NAV-001 — Identity.** Resolve route IDs against current records and permissions.
-- **NAV-002 — Container.** Use stacks for hierarchy, split views for selection/detail, tabs for peers, sheets for focused tasks.
+- **NAV-002 — Container.** Choose the container by what Back, Cancel or a width change should reveal.
 - **NAV-003 — Ownership.** Use one selection for exclusive sheets. Scope paths and selection per scene unless intentionally shared.
-- **NAV-004 — Exits.** Preserve Back and keyboard dismissal. Save commits. Define draft handling on other exits.
-- **NAV-005 — Incoming links.** Validate URL, authentication and record access. Provide a fallback.
+- **NAV-004 — Exits.** Specify what survives Back, Cancel, keyboard dismissal and a failed Save.
+- **NAV-005 — Incoming links.** If login delays a link, recheck its target and account before presenting it once.
 
 ## Workflow
 
-1. Use route values for restorable steps and screens Back must revisit after a value push.
-2. Register destinations outside lazy rows. Synchronize selection and path at their owner. Check availability.
+1. Write the expected history. Compare it with the path after each transition.
+2. If a restored route works only after scrolling, inspect who registers its destination. Check the oldest target.
 
 ## Verify
 

@@ -1,36 +1,13 @@
-# Entities, commands, and invocation proof
+# Entity resolution and invocation failures
 
-Separate a lightweight system-facing entity from the live persistence model. Expose only display data needed for selection, and resolve the selected ID against current authorization when performing the action. Suggestions are not permission grants. A formerly valid entity may be deleted, belong to another account, or no longer be available.
+## A saved selection belongs to another account
 
-A query should resolve the IDs requested, not return arbitrary favorites when resolution fails. Provide bounded suggestions and search behavior with deterministic ordering. Do not leak another account's cached entity names in disambiguation or error output.
+Save a shortcut under account A. Switch to B and invoke it with the app closed. Resolve the stored ID against B’s accessible records. If unavailable, keep A’s display name out of suggestions and errors. Substituting B’s first suggestion would target the wrong record.
 
-An intent adapter validates inputs, obtains the needed services through an explicit composition path, and calls the canonical command. Actor annotations must match that command, not merely silence diagnostics. Cold/background invocation cannot depend on a view's `onAppear` having initialized the store. Confirm a committed outcome before reporting success.
+When an invocation fails, record the last stage that succeeded in the shipping host. Missing metadata, an undiscoverable action, a stale entity, and a command that never committed need different fixes. Cold invocation should work before any scene initializes the store.
 
-Define authentication and confirmation independently from parameter parsing. A syntactically valid request, shortcut installed by a user, or model-interpreted phrase does not authorize destructive data access. Recheck current platform authentication policies and supported modes; SDK declarations, runtime OS, and the target hosting the intent all matter.
+## A missing parameter restarts a move
 
-For side effects that can be retried, use domain-level operation identity and reconciliation where the caller provides or the app can durably establish that identity. Do not promise exactly-once invocation from the framework. A cancelled UI does not necessarily undo already committed external work.
+A move-note shortcut archives the original before asking for its destination. Throwing `needsValueError(_:)` here can repeat that archive when the person answers. Resolve the destination and obtain required confirmation before calling the app’s move command. For an interrupted write, reconcile its durable operation ID before retrying.
 
-## Proof ladder
-
-1. Build the intended target and inspect metadata extraction/embedding.
-2. Confirm the action is discoverable in the supported system surface.
-3. Resolve real entities under the intended account and process state.
-4. Invoke and inspect the canonical store, result text, and projected UI.
-5. Repeat with a stale ID, cold app, denied access, and interrupted execution.
-
-A compile, screenshot of a shortcut, or mocked `perform` call proves only its own rung. Keep app schemas, assistant exposure, widgets, controls, and shortcuts as related but distinct integration contracts.
-
-## A missing parameter restarts the command
-
-A shortcut that moves a note may be missing the destination. If it archives the original before throwing `needsValueError(_:)`, the system can run that archive step again after the person chooses a folder. Resolve all missing parameters, recheck access, and obtain any required confirmation before the first durable mutation. Pass the resolved inputs to the same move command the app uses.
-
-Invoke with the destination omitted. Cancel the prompt and confirm the original note stays put. Invoke again with the destination still missing. This time answer the prompt. Across the initial and restarted calls, count one committed move to the chosen folder.
-
-## Official sources
-
-- [AppIntent protocol](https://developer.apple.com/documentation/appintents/appintent).
-- [AppEntity](https://developer.apple.com/documentation/appintents/appentity).
-- [EntityQuery](https://developer.apple.com/documentation/appintents/entityquery).
-- [AppIntent authentication policy](https://developer.apple.com/documentation/appintents/appintent/authenticationpolicy).
-- [Describing data use in privacy manifests](https://developer.apple.com/documentation/bundleresources/describing-data-use-in-privacy-manifests).
-- [IntentParameter.needsValueError(_:)](https://developer.apple.com/documentation/appintents/intentparameter/needsvalueerror(_:)).
+Cancel the missing-destination prompt and inspect the original note. Invoke again, answer the prompt, and count one committed move across both passes through the intent.

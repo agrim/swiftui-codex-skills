@@ -12,7 +12,7 @@ Identify build, process, workload, symptom, incident window and permitted data.
 ## Rules
 
 - **OBS-001 — Privacy.** Log phases, error categories and short-lived opaque IDs. Exclude secrets and protected content.
-- **OBS-002 — Intervals.** End each interval once on success, failure, cancellation or timeout. Compare like units.
+- **OBS-002 — Intervals.** Count a duration only when one operation has a matched start and end. Include failed, cancelled and timed-out attempts.
 - **OBS-003 — Diagnosis.** Inspect main-thread samples or waits for hangs, update causes for invalidation, allocations and retainers for growth.
 - **OBS-004 — Capture.** Keep originals private and summaries reproducible.
 - **OBS-005 — Overhead.** Check whether instrumentation changes the symptom.

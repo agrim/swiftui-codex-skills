@@ -14,13 +14,9 @@
 | Widget, intent, watch, or health projection | `apple-system-experiences` | privacy, device validation |
 | Missing target, signing resource, wrong configuration | `apple-project-governance` | release skills |
 
-Skill names are portable identifiers, not commands. A host may load Markdown automatically, through file reads, or through a generated bundle. No model, plugin, MCP server, or shell is mandatory.
+## Bound a change
 
-## The implementation contract
-
-Before nontrivial work, capture five facts: **outcome**, **scope**, **compatibility**, **state owner**, and **proof**. A one-line statement can cover them for a small fix. For a multi-surface change, enumerate the affected products and side effects. Do not turn this into an intake questionnaire when the repository already supplies the answers.
-
-Example: “Save a local draft only after confirmation; retain iOS 16 support; the editor owns the draft, the repository owns durable notes; prove cancel, save failure, duplicate submission, and relaunch.” This is more actionable than “make the app production-ready.”
+For a draft editor supporting iOS 16, locate who owns the draft and who commits the note. Define what confirmation, cancellation, save failure, duplicate submission and relaunch should each leave in storage. Use the repository to resolve scope and supported targets before asking the user.
 
 ## Correct the failure mode
 
@@ -33,21 +29,8 @@ Example: “Save a local draft only after confirmation; retain iOS 16 support; t
 | Rewrite into a prescribed architecture | Extract only boundaries needed for ownership, isolation, reuse, or testing | Existing behavior preserved |
 | Declare all integrations successful | Separate local commit, pending delivery, remote acknowledgement, and denied/unavailable states | Retry and interruption tests |
 
-A system style cannot infer the contrast intent of every arbitrary custom background. A bespoke component may own foreground and background together when it provides tested contrast, disabled/focus/pressed behavior, and semantic `Button` activation. This is a scoped design decision, not permission to repaint system chrome indiscriminately.
+A component that owns both foreground and background can test contrast as a pair. Check disabled, focused and pressed states as well as semantic activation before accepting a custom style.
 
-## Source and availability procedure
+## Availability in a review
 
-For an unfamiliar or changed API, open its official symbol page and inspect the installed SDK declaration. Record the platform minimum and any compiler or feature-flag prerequisite. Distinguish a stable release, beta documentation, and a sample targeting a newer SDK. Keep an older implementation when it is correct and supported. If browsing or Xcode is unavailable, explicitly mark what remains unverified; do not invent symbols or silently raise requirements.
-
-Apple documentation defines API contracts; the HIG provides design guidance. Local product choices can differ from a recommendation, but not erase API, accessibility, data-integrity, or authorization constraints. Apple screenshots demonstrate an experience, not the existence of a public API.
-
-## Completion without ceremony
-
-A useful handoff states what changed, why, what was tested against which source state, and what still needs a device or human review. Stop after delivering the authorized outcome. Do not install, publish, or change user data merely to make a checklist green.
-
-## Sources
-
-- [SwiftUI framework overview](https://developer.apple.com/documentation/SwiftUI)
-- [HIG: Design principles](https://developer.apple.com/design/human-interface-guidelines/design-principles)
-- [SwiftUI Button](https://developer.apple.com/documentation/SwiftUI/Button)
-- [HIG: Accessibility](https://developer.apple.com/design/human-interface-guidelines/accessibility)
+When a proposed fix uses a newer API, check the exact overload in the installed SDK against each affected target and language mode. Preserve the working fallback if a supported target still needs it. Record any SDK or destination you could not check. A screenshot can support a visual finding. A claim that a particular public symbol implements it needs a declaration.

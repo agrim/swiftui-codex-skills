@@ -11,16 +11,16 @@ Container proposal, insets, keyboard, content, text size and direction.
 
 ## Rules
 
-- **LAY-001 — Container sizing.** Size views from the container’s proposal.
-- **LAY-002 — Essential text.** Reflow before truncating or shrinking. Justify fixed sizes.
-- **LAY-003 — Geometry.** Publish derived values only when they change.
+- **LAY-001 — Container sizing.** Trace width-dependent clipping to the first restrictive parent.
+- **LAY-002 — Essential text.** Reflow clipped labels without losing the action or draft. Justify fixed sizes.
+- **LAY-003 — Geometry.** During resizing, publish changes to the value the view consumes.
 - **LAY-004 — Interaction.** Keep pinned controls and underlying content reachable. Use stable row and scroll IDs.
-- **LAY-005 — Primitives.** Try stacks, grids, alignment, priority or fitting alternatives before custom measurement.
+- **LAY-005 — Primitives.** Reserve custom measurement for placement existing layouts cannot express.
 
 ## Workflow
 
-1. Locate the first frame, inset, overlay or scroll container that breaks the proposal.
-2. Preserve draft ownership through reflow. Choose lazy or eager rows by behavior and measured scale.
+1. Vary width and text size independently. Remove the suspect constraint and compare.
+2. Choose eager or lazy rows by measured scale and required actions.
 
 ## Verify
 
@@ -35,5 +35,5 @@ Failing size, fix, fixed-size rationale and observed result.
 
 ## References
 
-- [Proposals, text, and safe areas](references/layout-patterns.md)
+- [Clipping, geometry updates and custom measurement](references/layout-patterns.md)
 - [Reflow, obscured rows, and scroll restoration](references/layout-and-scroll-edge-cases.md)

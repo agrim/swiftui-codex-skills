@@ -11,7 +11,7 @@ Identify the claim, candidate, fixture, available destinations and authorized ac
 
 ## Rules
 
-- **PROOF-001 — Match the evidence.** Use a frame for layout, an action and observed result for interaction, real hardware for hardware claims.
+- **PROOF-001 — Match the evidence.** Use a frame for layout. For interaction, capture the action and the resulting state.
 - **PROOF-002 — Bound side effects.** Preserve user data. Reset, uninstall, edit source or change accounts only as authorized.
 - **PROOF-003 — Identify the run.** Tie artifacts and exit statuses to the build, destination, toolchain and fixture.
 - **PROOF-004 — Isolate failure.** Locate the first failing prerequisite, from pairing or provisioning through launch.
@@ -19,7 +19,7 @@ Identify the claim, candidate, fixture, available destinations and authorized ac
 
 ## Workflow
 
-1. Select a capable destination and run the prerequisites for this claim.
+1. Capture the starting state. Use real hardware for hardware claims.
 2. Exercise the transition. Record each screen and state for batch reviews.
 
 ## Verify

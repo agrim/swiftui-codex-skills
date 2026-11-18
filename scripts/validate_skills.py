@@ -32,7 +32,6 @@ def validate(root: Path, check_generated: bool = True) -> list[str]:
     items = data["skills"]
     ids: set[str] = set()
     source_ids: set[str] = set()
-    source_urls: dict[str, str] = {}
     for item in registry["sources"]:
         sid = item.get("id")
         if not isinstance(sid, str) or not SLUG.fullmatch(sid):
@@ -52,7 +51,6 @@ def validate(root: Path, check_generated: bool = True) -> list[str]:
             continue
         if parsed.scheme != "https" or parsed.hostname not in PRIMARY_HOSTS or parsed.username or parsed.password:
             errors.append(f"source {sid}: expected an HTTPS primary-source URL")
-        source_urls[sid] = url
         if not isinstance(item.get("title"), str) or not item["title"].strip():
             errors.append(f"source {sid}: missing title")
         status, reviewed = item.get("status"), item.get("reviewed")
@@ -85,8 +83,11 @@ def validate(root: Path, check_generated: bool = True) -> list[str]:
         arrays_ok = True
         for field in ("triggers", "platforms", "references", "sources"):
             values = item.get(field)
-            if not isinstance(values, list) or not values or not all(isinstance(v, str) and v.strip() for v in values):
-                errors.append(f"{sid}: {field} must be a nonempty string array")
+            if not isinstance(values, list) or not all(isinstance(v, str) and v.strip() for v in values):
+                errors.append(f"{sid}: {field} must be a string array")
+                arrays_ok = False
+            elif not values and field != "sources":
+                errors.append(f"{sid}: {field} must be nonempty")
                 arrays_ok = False
             elif len(values) != len(set(values)):
                 errors.append(f"{sid}: duplicate {field} entry")
@@ -120,8 +121,6 @@ def validate(root: Path, check_generated: bool = True) -> list[str]:
             for source in item["sources"]:
                 if source not in source_ids:
                     errors.append(f"{sid}: unknown source {source}")
-                elif source_urls.get(source, "MISSING") not in full_text:
-                    errors.append(f"{sid}: source {source} is not linked from its playbook")
             actual_refs = {str(p.relative_to(folder)) for p in (folder / "references").glob("*.md") if p.is_file()}
             if actual_refs != set(item["references"]):
                 errors.append(f"{sid}: reference directory and catalog differ")

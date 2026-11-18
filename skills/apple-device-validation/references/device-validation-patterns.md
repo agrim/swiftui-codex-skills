@@ -1,61 +1,14 @@
-# Apple runtime and device validation: playbook
+# Choosing evidence for a runtime claim
 
-## Evidence ladder
-
-| Evidence | Supports | Does not establish |
+| Claim | Evidence to accept | Common false positive |
 | --- | --- | --- |
-| Source inspection | Structure and likely behavior | Compilation or runtime success |
-| Build | Compiler/linker/resource acceptance for that context | Launch, rendering, or correct interaction |
-| Unit/integration test | The exercised contract under the harness | Every UI, service, or hardware path |
-| Installed bundle | Delivery of the identified product | Successful launch or complete startup |
-| Launch and readiness | Process and required initialization | Correct layout or durable mutation |
-| Screenshot | Visible state at one captured moment | Touch, accessibility, refresh, or persistence correctness |
-| Interaction/lifecycle test | The exercised transitions | Unexercised devices and external services |
-| Hardware/paired-device test | The observed real boundary | Universal reliability or production-scale service behavior |
+| Layout fits | Inspect the affected state at the reported size, locale and accessibility settings | A preview with short sample text |
+| A control works | Operate it and observe its specific result | A screenshot showing the control |
+| Data survives an upgrade | Seed the old build, install over its preserved container, then read the value in the new build | A clean-install launch |
+| A widget updates | Change the source value and observe the host rendering that value | A regenerated timeline alone |
+| A companion receives an action | Observe the result on the receiving device or pair, including reconnect when relevant | A sender acknowledgement |
+| A notification opens the intended screen | Observe delivery and tap routing on the destination | A provider receipt or token change |
 
-Choose the weakest sufficient evidence for the actual claim, not the easiest evidence available. A source-only review can be complete as a review while runtime behavior remains unverified.
+Record the candidate, fixture, runtime, destination and action for each result. A later observation supersedes a failure only for the same claim. After a change, replace affected receipts while keeping earlier results as history. For batch capture tracking, use the [screen inventory](screen-review.md).
 
-## Tool capability, not host dependency
-
-Use available IDE, command-line, automation, or device tools. Inspect their current help and discovered state before use; no model-specific plugin or session API is required. Record the effective project, scheme, configuration, and destination even when a wrapper chooses them for you.
-
-For shell workflows, inspect `xcodebuild -version`, discovered schemes/destinations, and the relevant `xcrun simctl` or `xcrun devicectl` help. Do not commit device identifiers or private logs. A missing Apple toolchain is a blocked validation gate, not a reason to invent a successful build.
-
-## Scope and safety
-
-A request to install an app does not imply wiping the old container. Preserve data unless reset/uninstall is explicitly authorized or is clearly part of an approved destructive test. Verify that the requested bundle is installed instead of inferring installation from build output.
-
-Do not claim uninstall cleared keychain, cloud, HealthKit, or another system-managed store. Test that store independently when its state matters. Keep signing, certificate, provisioning, and account operations separate from ordinary runtime checks.
-
-## Comparable rendering and interaction
-
-Capture the target screen with deterministic data, appearance, content size, locale, orientation, and window size. Include the smallest risky layout and a representative larger/adaptive layout. Inspect the image; producing a screenshot file alone is not a visual review.
-
-Exercise disabled/loading/error states, keyboard and focus, long text, accessibility navigation, and Reduce Motion where affected. For a press/drag/focus claim, perform the interaction rather than infer it from a static screenshot.
-
-## Persistence and system surfaces
-
-Extend startup proof through store readiness and the first meaningful operation when persistence is in scope. Confirm the result after termination/relaunch. Record when the simulator uses a different backend or account path from a device; those are separate proof lanes.
-
-For widgets, validate target embedding, registration, data handoff, timeline/snapshot generation, host rendering, delayed refresh, and stale states. For watch/phone flows, test both surfaces and reconnect/delivery behavior. Hardware-dependent camera, microphone, sensors, protected-data, signing, and companion behavior may require real devices; state which boundary was actually tested.
-
-## Failure classification
-
-Preserve raw output until you can separate compiler errors, wrong settings, unsupported destinations, unavailable runtimes, CoreSimulator services, pairing, provisioning, installation, and app failures. Do not rewrite UI to “fix” a screenshot timeout without source evidence.
-
-A failed or blocked gate is useful information. Record the minimum next verification step, without pretending work will happen later automatically. Clean temporary fixtures and re-run affected checks after the final source change. Never hand off an older green result as proof of a newer candidate.
-
-## Current evidence and authorized continuation
-
-Treat a receipt as a scoped observation with a candidate, environment, operation, result, and time. A newer successful check supersedes an older blocker only for that same claim. Preserve historical records, but make the current verdict easy to find. A changed candidate invalidates affected proof; it does not erase the user's unchanged authorization.
-
-Before repeating a check or asking for permission, reconcile the current request, prior approvals, revocations, and actual tool capability. Continue already-authorized steps within their stated bounds. If a tool or approval system blocks an action, describe the specific constraint and finish independent permitted work; do not relabel every device or account task as permanently owner-only.
-
-Keep fresh install, preserved-container reinstall, restored backup, and in-place upgrade as different test paths. An empty-store launch cannot prove migration. Likewise, an observed token change does not prove delivery to the replacement token; a provider acknowledgement does not prove notification presentation or tap routing. Each boundary needs its own receipt.
-
-## Sources
-
-- [Xcode documentation](https://developer.apple.com/documentation/xcode)
-- [Swift Testing](https://developer.apple.com/xcode/swift-testing/)
-- [XCUI accessibility audits](https://developer.apple.com/documentation/xcuiautomation/xcuiaccessibilityauditissue)
-- [Distributing your app](https://developer.apple.com/documentation/xcode/distributing-your-app-for-beta-testing-and-releases)
+Match the installation path to the question. Reinstallation, fresh install, restored backup and upgrade can expose different failures. Preserve existing data unless a reset is authorized. Inspect keychain, cloud or other external stores independently when the verdict depends on them. An unavailable device blocks the hardware claim while simulator checks can still proceed.

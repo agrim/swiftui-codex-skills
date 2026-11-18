@@ -1,14 +1,14 @@
 # Repository maintenance contract
 
-Maintain a provider-neutral, source-linked skill library.
+Maintain portable skills for SwiftUI and Apple-platform engineering.
 
 ## Authoring
 
 - Keep each skill self-contained in `skills/<id>/` with `SKILL.md` and local `references/`. Preserve published identifiers unless a documented migration is intended.
 - Use the documented scalar frontmatter profile: unquoted `name`, JSON-quoted single-line `description`. Both are valid YAML; advanced YAML is deliberately outside this repository profile.
 - Keep entry points within 650 words and playbooks within 1,800 words. Follow the [entry-point format](CONTRIBUTING.md#write-a-checkable-entry-point). Keep rule IDs stable and cite them in the corresponding verification checks.
-- Distinguish Apple requirements, documented API behavior, repository conventions, and recommendations. Do not turn one app's rules into universal requirements.
-- Link precise primary sources. Record reviewed content honestly; do not upgrade discovery links or review dates after an HTTP-only check. Verify availability in the current SDK before adding version-specific examples.
+- Distinguish Apple requirements, documented behavior and local recommendations. Apply the [source and decision guidance](CONTRIBUTING.md#a-useful-change) before adding a rule.
+- Keep official documentation links in the maintenance catalog. Record what was reviewed and verify version-specific examples against the intended SDK.
 - Keep core content free of vendor invocation syntax or mandatory plugins. Optional host adapters may live under `agents/`; they do not own engineering rules.
 - Update `catalog.json` and `sources.json` with the content, then regenerate docs. Do not hand-edit generated coverage/source tables.
 - Keep community/plugin review provenance in `upstreams.json`, not the Apple authority registry. Preserve explicit access limits and source receipts; do not infer reuse permission. Run `python3 scripts/upstream_audit.py --check` after changes.

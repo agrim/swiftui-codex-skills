@@ -1,50 +1,15 @@
 # State, identity, and architecture: playbook
 
-## Ownership decision table
+## A document editor keeps the wrong title
 
-| Need | Observation-era choice | Legacy or alternative |
-| --- | --- | --- |
-| View-owned simple value | `@State` | Same |
-| Child edits a parent value | `@Binding` | Same |
-| View owns an observable reference | `@State` with `@Observable` | `@StateObject` with `ObservableObject` |
-| Child reads an observable reference | Ordinary stored property | `@ObservedObject` |
-| Child needs projected bindings | `@Bindable` | `@ObservedObject` projections |
-| Deliberately shared dependency | Explicit injection; typed environment where appropriate | `@EnvironmentObject` with provider |
-| Small preference | `@AppStorage` | Not a database or credential store |
-| Restorable per-scene UI value | `@SceneStorage` where supported | Scene-owned state and explicit restoration |
+Trace who owns the title. A read-only header should follow its parent’s current title. An editor with unsaved typing needs a draft and a policy for external changes. Promoting the first input to persistent view state can freeze the header. Overwriting a draft on every refresh can erase typing.
 
-Observation integration begins at iOS/iPadOS/tvOS 17, macOS 14, and watchOS 10; inspect the exact target for visionOS and newer additions. Its tracking follows properties read by a view. It does not make a reference thread-safe, turn nested plain reference mutations into observation, or make a copied value a live binding. [observation] and [model-data] are the authoritative migration starting points.
+Decide whether a document switch should reuse the session or start another. If the switch ends the session, resolve unsaved work before keying the editor by document ID. Changing that identity also resets focus. When initialization appears expensive, count model constructions while refreshing the same document. A model constructed eagerly before passing it to `StateObject` can be allocated and discarded on every refresh.
 
-## Work from identities and lifetimes
+Refresh the same document during editing, then switch to another one. Check that typing survives the refresh and Save targets the correct record after the switch. Also replace a parent-owned model deliberately and confirm later callbacks come only from the current instance. For a wrapper migration, run these checks on each supported observation path.
 
-A SwiftUI view value can be recreated while its state storage persists. `@State` initialization seeds storage for that identity; changing an initializer argument does not necessarily reset an existing state value. Decide whether new input updates the same feature or represents a different feature identity. Do not use `.id(...)` as a universal refresh mechanism: intentionally changing identity also resets local state, focus, and associated tasks.
+## Windows, restoration and drafts
 
-For mutable rows, persist the ID when creating the record. Indices are reasonable for genuinely static position-based content, not a safe default for editable, reordered records. Test deleting the selected item and inserting before an editing row. Preserve semantic row identity during loading by changing status/accessories when that avoids losing focus; do not freeze the entire hierarchy if content genuinely changes.
-
-### A changing input seeds a state object
-
-An editor can seed a private `@StateObject` from its document. Pass the construction expression directly to `StateObject(wrappedValue:)`. SwiftUI evaluates that autoclosure once per view identity. Constructing a model in a local variable beforehand pays the initialization cost whenever the view initializer runs. [StateObject](https://developer.apple.com/documentation/swiftui/stateobject)
-
-Decide what a parent update means. Pass a changing read-only title as an input. Keep an unsaved title in the editor's draft and reconcile external changes according to the edit policy. If switching documents starts a fresh editing session, resolve any unsaved work before keying the editor by document ID. The new identity resets its draft and focus together. Verify that a same-document refresh preserves typing and switching documents cannot save into the previous record.
-
-## Avoid accidental global state
-
-Share authentication and deliberate app services at app scope; keep selections and edit drafts at scene or feature scope. Opening a second window must not silently replace the first window's route or draft. A type-based environment dependency needs a provider in previews, tests, sheets, and new scenes. Prefer explicit parameters when they make required dependencies clearer.
-
-Do not persist every UI flag. Durable data, scene restoration, cached data, and transient presentation are separate contracts. Restoring a route must revalidate identifiers against current data and authorization.
-
-## Model behavior before naming an architecture
-
-Use a value type for a draft, a small enum for loading or workflow phases, and a service boundary for I/O. Add an observable coordinator only when a feature needs it. MVVM, reducers, or another established repository pattern can all work; a view model per view is not a platform requirement. A single giant model can be as harmful as needless layers.
-
-A creation editor receives a value draft and a commit action. Opening, typing, and cancelling must not insert a placeholder in the store. Keep failed saves visible with the draft intact. For existing-record edits, specify the conflict policy if the source changes while the editor is open. A child binding should mutate only the intended property, not reconstruct unrelated state.
-
-## Regression probes
-
-Recompute the parent without changing record identity; assert the draft survives. Reorder rows; assert editing follows the same record. Open two scenes; assert independent selection. Replace an injected dependency deliberately; assert no stale callbacks from the prior instance. Cancel an editor; assert no durable mutation. Confirm a save twice; assert the domain command's duplication policy. These tests evaluate observable behavior rather than source spelling.
-
-## Sources
-
-- [Migrating to Observation](https://developer.apple.com/documentation/SwiftUI/Migrating-from-the-observable-object-protocol-to-the-observable-macro)
-- [Managing model data](https://developer.apple.com/documentation/SwiftUI/Managing-model-data-in-your-app)
-- [Understanding the navigation stack](https://developer.apple.com/documentation/swiftui/understanding-the-navigation-stack)
+- **Two windows.** Share account services when their scope is the account. Keep selection and edit drafts in the owning scene. Edit different documents in two windows and close one. Verify the other window retains its route and draft. Mount previews and new scenes with their own required providers.
+- **Relaunch.** Resolve a restored route against current records and permissions. Delete the selected record between launches and verify recovery leads to a valid destination.
+- **Create, cancel, retry.** Opening a creation editor should leave storage untouched. Keep the draft on a failed save. Confirm twice and check that the domain’s duplication policy holds. Add a coordinator only if existing owners cannot express this lifecycle.

@@ -6,7 +6,9 @@ Improve a demonstrated decision or failure mode, not the adjective count. Read [
 
 State the triggering task, failure scenario, scoped correction, primary-source basis, compatibility implications, and verification. Include a counterexample to an overly broad rule. For example, “prefer Button for an action” should not become “ban every tap gesture,” and “keep expensive work off a UI update path” should not become “use detached tasks everywhere.”
 
-An entry point should tell a human or agent what to inspect, decide, do, and prove. Put decision tables and examples in the playbook. Avoid copying the same paragraphs into every skill. Add a new skill only when it has a distinct trigger and owner; expand a reference when the work belongs to an existing owner.
+Assume readers can look up framework mechanics. Write the decision they still face and a check that distinguishes a correct result from a plausible failure. Leave API tutorials, HIG summaries and official documentation links out of installed skill folders. Include a platform fact only when it changes a decision, such as which editor owns a draft after its record changes.
+
+Keep the decision in the entry point and its worked case in one playbook. Introduce a new skill only for a distinct task and owner.
 
 ## Write a checkable entry point
 
@@ -15,8 +17,8 @@ Use these six level-two headings in order — `Inputs`, `Rules`, `Workflow`, `Ve
 Under `Workflow`, number the actions in execution order. Under `Verify`, give a condition and the result a reviewer can observe. Every rule needs evidence. One check can exercise several rules. Prefix it with their IDs. Put variations and longer reproductions in a named playbook.
 
 ```markdown
-- **NET-001 — Validate responses.** Check HTTP status and expected content before publishing success.
-- NET-001: Return malformed data. The feature reports a failure and publishes no malformed value.
+- **NET-001 — Gate publication.** For a refresh, validate the decoded record before replacing a usable cached value.
+- NET-001: Return a successful response with the wrong record ID. The cached record survives and the refresh reports failure.
 - [HTTP validation and retries](references/networking-patterns.md)
 ```
 
@@ -26,8 +28,8 @@ Keep each rule, step, check, and reference on its own line. Use a descriptive li
 
 | Kind | Evidence and wording |
 | --- | --- |
-| API contract | Link the exact symbol/article and state applicable platform/compiler constraints |
-| Apple HIG guidance | Link the relevant HIG topic; preserve its context rather than claiming legal obligation |
+| API contract | Name the symbol or target constraint that changes the decision |
+| Apple HIG guidance | Tie the design choice to the affected task, input or setting |
 | Engineering recommendation | Explain the failure it prevents and when an alternative is appropriate |
 | Repository convention | Label it as local; do not universalize a folder layout or architecture preference |
 | Unverified hypothesis | Name the experiment needed; do not write it as a proven fix |
@@ -36,7 +38,7 @@ Stable IDs identify the decision contract. Preserve IDs for clarified rules; doc
 
 ## Source review
 
-Add precise Apple or Swift primary sources to `sources.json` and the skill's catalog record. Link them in the local playbook. Use `content-reviewed` only after inspecting relevant page content; use `reference-only` for discovery routes. A framework landing page is not evidence for every detailed API claim. Never auto-refresh review dates from HTTP status.
+Record reviewed Apple or Swift pages in `sources.json` and their IDs in the skill’s `catalog.json` entry. An original workflow can have an empty `sources` list. Use `content-reviewed` for content actually inspected and `reference-only` for discovery. Record the review date when the content is read.
 
 For new or beta APIs, distinguish SDK version, language mode, deployment minimum, runtime availability, and fallback behavior. Preserve older supported targets unless changing them is explicitly part of the work. Recheck legal/store/privacy-sensitive requirements at use time rather than freezing an unconditional rule.
 

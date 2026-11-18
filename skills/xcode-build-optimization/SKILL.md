@@ -13,7 +13,7 @@ Record workload, revision, toolchain, destination, configuration, cache state an
 
 - **XBUILD-001 — Time each workload.** Measure elapsed time separately for clean, unchanged and representative edit builds.
 - **XBUILD-002 — Match conditions.** Keep commands, dependencies, caches and environment comparable. Retain failures.
-- **XBUILD-003 — Trace delays.** Follow the dependency chain that determines completion. Parallel durations overlap.
+- **XBUILD-003 — Trace delays.** Prioritize tasks on the measured workload’s critical path.
 - **XBUILD-004 — Fix the owner.** Preserve tests, generated products and release requirements.
 - **XBUILD-005 — Set rollback criteria.** Revert correctness or compatibility regressions.
 

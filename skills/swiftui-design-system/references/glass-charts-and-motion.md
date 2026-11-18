@@ -1,35 +1,15 @@
-# Glass, charts, and motion as semantic components
+# Material, motion and charts under change
 
-## Materials
+## A toolbar disappears over one image
 
-Choose a material by functional role. Let native navigation, toolbars, and controls adapt before adding custom glass. New glass effects, containers, morphing identities, and interactive variants must be checked against compiler and OS availability. A fallback should preserve hierarchy and action meaning rather than imitate an unavailable effect with arbitrary blur.
+Scroll the same dark and bright image edges under the toolbar with and without the custom material. Repeat with increased contrast and reduced transparency. If the system control stays legible and the custom one fails, remove the conflicting layer or adjust its foreground pairing. Test the primary action on the actual older-target fallback.
 
-Do not stack multiple decorative glass layers over reading content. Check legibility against changing underlying imagery, increased contrast, reduced transparency, and both appearances. A system style is not evidence that every custom fill and foreground combination remains readable.
+## The button says Done before the save returns
 
-## Motion
+Interrupt an animation with another activation, then force the save to fail. If disabling animation changes the stored outcome, move completion to the operation that owns the write. If the write is correct but unrelated rows move, narrow the animation to the changing component while preserving its identity. Repeat with Reduce Motion and check the final status and available action.
 
-Tie animation to the state transition it communicates. Keep insertion/removal identity stable and scope animation so unrelated updates do not move unexpectedly. Repeated gestures, interrupted transitions, keyboard changes, and navigation replacement can expose invalid intermediate states.
+## A filter changes the plotted series but leaves its spoken peak
 
-Use matched geometry or phased/keyframe animation when continuity requires it, not as a reason to duplicate state owners. Provide a reduced-motion equivalent that conveys the same relationship without unnecessary movement. A spring constant copied from another app is not a design requirement.
+Inspect the data VoiceOver exposes before adding a custom descriptor. For a custom chart, derive its displayed marks, axis units, selection and descriptor from the same filtered points. If the representation is correct initially but goes stale, inspect the descriptor update path.
 
-## Charts
-
-Start with the user question and data semantics. Define units, aggregation, missing data, time zone, sort order, and stable series identity before choosing marks. Bar length should not imply a zero baseline when a truncated scale changes the meaning. Distinguish a true zero from missing data.
-
-Selection and annotations must correspond to the displayed transformed data. Test empty, single-point, dense, negative, outlier, and multi-series cases. Keep axes and legends readable at larger text sizes and provide accessible data navigation or a useful text/table alternative. A three-dimensional chart needs a specific analytical benefit and a usable nonspatial alternative.
-
-Shared components should encode semantic roles, not force the same decoration on every platform. Keep brand choices explicit while preserving system behavior, and inspect the rendered result rather than equating more materials or symbols with quality.
-
-## A filter changes the chart but leaves its spoken series stale
-
-For a chart with standard marks, inspect what VoiceOver already exposes. A custom-drawn chart may need an `AXChartDescriptorRepresentable` for audio graphs. Build its axes, units and series from the same filtered points the drawing uses. Implement `updateChartDescriptor` to refresh an existing descriptor when inputs or the relevant environment change. Keep zero and missing data distinct.
-
-Display two series with different peaks. Hide the higher series and revisit the chart with VoiceOver. Confirm the hidden series is gone, the remaining peak has the plotted value and unit, and clearing the last series yields the empty state. [SwiftUI chart descriptors](https://developer.apple.com/documentation/swiftui/axchartdescriptorrepresentable)
-
-## Official sources
-
-- [Liquid Glass technology overview](https://developer.apple.com/documentation/TechnologyOverviews/liquid-glass).
-- [HIG: Materials](https://developer.apple.com/design/human-interface-guidelines/materials).
-- [SwiftUI Animation](https://developer.apple.com/documentation/SwiftUI/Animation).
-- [Reduced Motion evaluation criteria](https://developer.apple.com/help/app-store-connect/manage-app-accessibility/reduced-motion-evaluation-criteria).
-- [Swift Charts](https://developer.apple.com/documentation/charts).
+Display two series with different peaks and hide the higher one. Compare the remaining spoken peak, its unit and its annotation with the plotted point. Clear the final series and check the empty state. Include a zero, a missing value and a negative value if the data allows them. Compare ticks and baseline before interpreting changes in bar length.

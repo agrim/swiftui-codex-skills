@@ -1,39 +1,17 @@
-# Transport, pagination, images, and cache identity
+# Pagination, shared transfers, and image renditions
 
-Validate HTTP status, expected content type, decoding, and domain invariants separately. A transport success can still carry an application failure. Preserve cancellation without presenting it as a network error, and sanitize user-facing errors instead of exposing full response bodies.
+## A query changes between pages
 
-Retry only when both the error and operation permit it. Distinguish safe reads, idempotent writes, and potentially duplicated side effects. Respect server retry guidance and bound attempts/backoff. A connectivity observation is not proof that a request will succeed; attempt the operation and handle its result.
-
-Cache keys must include relevant account, authorization, query, locale, and representation parameters. Invalidate or partition on account changes. Never let a stale cached success suppress an important authorization error. Label stale data and refresh failure separately so offline functionality does not masquerade as current server state.
-
-For pagination, tie responses to both request generation and query identity. Deduplicate by domain IDs, preserve sort contracts, and guard against repeated/invalid cursors. A stale failure or cleanup path must not clear the current request's loading state.
-
-Image loading needs bounds for network data, decoded pixel dimensions, in-flight work, and memory/disk caches. Downsample for the displayed size where appropriate; compressed byte size alone does not describe decoded memory. Cancel obsolete work and avoid repeatedly decoding during view updates. An `AsyncImage` usage is not a comprehensive cache policy.
+Hold page two while changing filters. Complete the old page with success and then, in a separate run, with failure. Neither may append records or clear the new query's spinner. Preserve server ordering, deduplicate by record ID, and stop if the server repeats a cursor.
 
 ## Two views share an image download
 
-A feed row and a detail screen request the same photo. When the row scrolls away, the detail screen still needs its image. Inspect which layer actually starts the transfer and which callers still need the result.
+A feed row leaves while a detail screen still needs the same photo. Share source bytes only for compatible account, representation, and cache policies. A cache-only caller cannot join a transfer that would violate its offline contract.
 
-- **Match the work being shared.** Two reads may share a download when their resource, account, representation, and cache policy are compatible. A cache-only caller must keep its offline contract. If a thumbnail and a full-size view need the same source bytes, they can share those bytes and cache their processed images separately by rendition.
-- **Give each caller a way to leave.** Register a caller and find or create the transfer in one serialized operation. On cancellation, detach that caller and finish its wait promptly. Count an intentional prefetch as a consumer. When the last consumer leaves, retire the entry and request transport cancellation.
-- **Identify each transfer as well as its key.** A fresh caller can start another transfer for the same key while the old task is cancelling. Match callbacks against the current transfer identity before removing its entry, updating the cache, or delivering to subscribers. Apple's `cancel()` returns immediately and delegate messages may still arrive. [URLSessionTask cancellation](https://developer.apple.com/documentation/foundation/urlsessiontask/cancel%28%29).
+Register subscribers and find or start the transfer atomically. Detach a departing subscriber and finish its wait promptly. Keep the transfer for other subscribers, including intentional prefetches. When the last leaves, retire the entry and cancel the transfer. Check a callback's transfer identity before updating the cache, subscribers, or entry for its key.
 
-Hold a fake transport at a known point while two consumers join. Check that one transfer starts, cancelling the row leaves the detail consumer active, and the detail receives its requested rendition. In a second run, cancel both, start a replacement, then deliver the old completion. Check that the first transfer was cancelled once, the replacement still has its subscribers, and only its result is published. Repeat across accounts at the same URL and verify separate transfers.
+Hold a fake transport while both views join. Count one start, zero transport cancellations when the row leaves, and one cancellation when the detail also leaves. Start a replacement for the same key and deliver the old completion. Only the replacement may publish. Repeat across accounts at the same URL and check that private transfers stay separate.
 
-## The same thumbnail at two display scales
+## One thumbnail at two scales
 
-Size the decoded rendition in pixels. For a square 60-point avatar at 3× scale, request a 180-pixel thumbnail from a sufficiently large square original. A smaller view frame alone still allows a full-size decode. Image I/O accepts a maximum dimension in pixels. When the app caches renditions, key them by the pixel size and transformations that affect the output.
-
-Request the same square source at 1× and 3× using the same cache. Inspect decoded dimensions on the cold and warm paths. The 3× request should receive the 180-pixel rendition, while the 1× request retains its 60-pixel rendition. The two may reuse the same source bytes.
-
-## Verify transport behavior
-
-Test invalid payloads, unauthorized responses, cancellation, out-of-order pages, repeated cursors, server throttling, oversized images, and account switches. Use isolated transport fakes for ordering, then exercise real platform networking where the claim concerns trust, background delivery, or cache implementation.
-
-## Official sources
-
-- [URLSession](https://developer.apple.com/documentation/foundation/urlsession).
-- [The Swift Programming Language: Concurrency](https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html).
-- [Keychain services](https://developer.apple.com/documentation/security/keychain-services).
-- [Preventing insecure network connections](https://developer.apple.com/documentation/security/preventing-insecure-network-connections).
-- [Image I/O thumbnail pixel limit](https://developer.apple.com/documentation/imageio/kcgimagesourcethumbnailmaxpixelsize)
+Request a square 60-point avatar from a sufficiently large square original at 1× and 3×. Key decoded renditions by pixel size and transformations while reusing compatible source bytes. On cold and warm paths, inspect decoded dimensions. Expect 60 and 180 pixels respectively. A small view frame can conceal a full-size decode.

@@ -13,7 +13,7 @@ Identify assets, untrusted inputs, and privileged actions.
 
 - **SEC-001 — Protect credentials.** Scope Keychain access. Exclude secrets and private diagnostics from source and artifacts.
 - **SEC-002 — Authorize at use.** Parse routes and imports into typed values. Authorize the target in the current account.
-- **SEC-003 — Preserve trust.** Keep system certificate and hostname checks. Scope and document exceptions.
+- **SEC-003 — Preserve trust.** Review shipping exceptions for scope. Reject changes that bypass certificate or hostname validation.
 - **SEC-004 — Limit capabilities.** Minimize signed entitlements, access groups, and data scopes.
 - **SEC-005 — Review executables.** Inspect scripts and dependencies. Grant only necessary, authorized access.
 

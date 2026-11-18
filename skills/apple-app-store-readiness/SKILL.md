@@ -11,10 +11,10 @@ Identify the candidate, storefronts, requested stage, existing approval and serv
 
 ## Rules
 
-- **STORE-001 — Bound the action.** Reuse approval for its candidate and stage. Upload, beta distribution, submission and release are separate actions.
+- **STORE-001 — Bound the action.** Reuse approval within its candidate, audience and stage.
 - **STORE-002 — Test the promise.** Trace each advertised feature and screenshot to a reachable journey.
-- **STORE-003 — Check current policy.** Apply Apple’s requirements for this region, toolchain, business model and data use.
-- **STORE-004 — Rehearse review.** Follow reviewer instructions against live services. Keep credentials private.
+- **STORE-003 — Check current policy.** Record which current requirement affects this candidate and why it applies.
+- **STORE-004 — Rehearse review.** Try the instructions on this candidate with private reviewer access.
 - **STORE-005 — Bind evidence.** Match revision, archive, version/build, tests and service receipts.
 
 ## Workflow

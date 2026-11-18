@@ -1,51 +1,19 @@
-# Concurrency and lifecycle: playbook
+# Task ownership and stale results
 
-## Choose execution and lifetime independently
+Use the feature lifetime to choose a task owner. An app-wide sync must survive a row disappearing. A search for a visible query must stop publishing when its text, scope, or account changes. Measure CPU work during the reported stall before changing its executor.
 
-| Work | Preferred owner | Failure to avoid |
-| --- | --- | --- |
-| Search by text, scope, and account | Key `.task(id:)` by the inputs that determine the result | An earlier search publishes into a different scope |
-| Related concurrent requests | `async let` or task group | Unbounded task creation |
-| App-wide sync | Explicit service task with stop/restart | Recreated by every view appearance |
-| Shared mutable cache | Actor or another justified isolation boundary | Unsynchronized dictionaries |
-| CPU-intensive transformation | Explicit executor strategy verified for the toolchain | Assuming `async` leaves the main actor |
-| Callback or sensor stream | Owned adapter with termination and buffering | Leaked subscriptions or unbounded queues |
+## Scope changes during search
 
-`Task {}` is unstructured and can inherit actor context. `Task.detached` changes inheritance and lifetime expectations; it is not a universal performance fix. Prefer the smallest explicit concurrency boundary that preserves cancellation, priority intent, and safe value transfer. Swift 6.2 adds opt-in default isolation and caller-context behavior for nonisolated async functions; inspect flags before applying older executor advice. Use `@concurrent` only when the compiler supports it and the boundary is appropriate.
+Key the view task by all inputs that determine results. Capture that snapshot for the request and end a cancelled debounce before starting the fetch. Identify the current request separately so a late reply from an earlier identical search cannot publish. Guard success, failure, and cleanup with the same identity.
 
-## Latest-result-wins protocol
+1. Keep the text fixed and switch from All to Favorites during the delay. Only Favorites should reach the service.
+2. Repeat after All registers with a controlled service. Complete Favorites, then return a late success for All. Favorites must keep its results. In a separate run, fail All while Favorites is loading. The old failure cannot clear the spinner or replace its error.
+3. Log out before a response. Revoke publication immediately and cancel the work. Release any lock the cancellation handler needs before calling cancel.
 
-On start, create a request identity and mark it current. Capture the query/account that the request belongs to. After awaiting the service, check cancellation and compare the identity before publishing success or failure. Cleanup may clear a busy state only if its identity is still current. Invalidate the current identity on logout or explicit cancellation even when a service ignores cancellation.
+The example suite's `SearchIntegrationTests` wait for service registration and drive completions by ID. They exercise the model and service. Exercise view restart and debounce separately when changing the SwiftUI task key.
 
-For a debounced search, capture the same input snapshot that keys the task. End a cancelled debounce before starting the fetch. With identical text, switch from All to Favorites during the delay and verify only Favorites reaches the service. Repeat after the All request starts. Complete it late with success or failure and check that Favorites keeps its results and loading state.
+## Reentrancy and writes
 
-A request token solves UI ordering, not remote exactly-once execution. Writes need their own operation identity, server contract, or reconciliation policy. A cancelled save may already have committed remotely; represent an uncertain result instead of retrying blindly or claiming rollback.
+Two callers can each observe one remaining reservation before either finishes awaiting approval. Reserve the slot before suspending and release it on failure, or revalidate the remaining count at commit. Hold both approvals, then release them in reverse order. Exactly one reservation should succeed.
 
-Cancellation and invalidation are separate operations: invalidate publication authority immediately when an account or scope changes, and cancel the owned task to request resource cleanup. Cancellation alone does not stop an arbitrary service that ignores it. Do not hold a lock while calling `cancel()` on work whose cancellation handlers might acquire that lock.
-
-## Actor reentrancy
-
-An actor can process another operation while one method is suspended. Read-check-await-write is not an atomic transaction. After `await`, revalidate the prerequisite or reserve the operation before suspension, with rollback rules. Do not hold a lock across suspension. Passing a non-Sendable persistence object between actors is not made safe by giving its surrounding method an `async` label.
-
-## Callback bridges and streams
-
-A checked continuation must resume exactly once along every terminal path. Handle success, failure, cancellation, and synchronous callback-before-registration without double resume or leakage. Centralize terminal state in a race-safe owner. Cancellation handlers can execute concurrently with the operation; inspect the protected state rather than relying on callback order.
-
-For `AsyncStream`, select an explicit buffering policy where producers can outpace consumers. Finish the stream, release observers, and stop underlying resources on termination. Distinguish a stopped consumer from an actual stopped camera, microphone, location manager, or external subscription. Make stop idempotent and test interruption recovery separately from user cancellation.
-
-## Deterministic tests
-
-Use a fake service whose continuations can be completed by request ID. Start A, observe A registered, start B, observe B registered, finish B, then finish A; assert B remains visible. Repeat with A failing, cancellation during publication, and account replacement. Test that A's cleanup cannot clear B's loading state. Avoid tests that pass only because a sleep happens to schedule tasks in the desired order.
-
-The repository's `SearchIntegrationTests` exercise the same `SearchModel` used by its SwiftUI example. They await actual controlled service registrations and complete those requests in adversarial orders, including success, failure, cancellation, and invalidation. Every accepted continuation is resumed. A test time limit is a deadlock watchdog, never a substitute for the registration handshake. This is model/service integration evidence, not SwiftUI scheduler, actual-network, or rendered-screen proof.
-
-Thread Sanitizer and strict-concurrency diagnostics can identify classes of unsafe access. Neither establishes authorization, transaction ordering, or idempotency. Report those proofs separately.
-
-## Sources
-
-- [The Swift Programming Language: Concurrency](https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html)
-- [Swift 6.2 language and concurrency changes](https://www.swift.org/blog/swift-6.2-released/)
-- [Migrating to Observation](https://developer.apple.com/documentation/SwiftUI/Migrating-from-the-observable-object-protocol-to-the-observable-macro)
-- [task-cancellation](https://developer.apple.com/documentation/swift/task/cancel%28%29) — Cooperative cancellation and handler execution.
-- [Restarting a view task when its ID changes](https://developer.apple.com/documentation/swiftui/view/task%28id%3Aname%3Apriority%3Afile%3Aline%3A_%3A%29)
-- [Using the current search scope](https://developer.apple.com/documentation/swiftui/view/searchscopes%28_%3Ascopes%3A%29)
+Revoking a request's UI authority cannot undo a remote write. If its outcome is unknown, reconcile the operation before retrying.

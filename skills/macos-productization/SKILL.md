@@ -11,10 +11,10 @@ Identify the channel, candidate, package, updater and authorized stage.
 
 ## Rules
 
-- **MAC-001 — Select the channel.** Derive signing, sandbox, hardened runtime and review requirements from the distribution channel.
+- **MAC-001 — Select the channel.** Choose trust checks for the intended recipients and delivery path.
 - **MAC-002 — Inspect the product.** Check identity, resources and entitlements in the export and installed copy.
 - **MAC-003 — Verify trust.** Validate nested signatures and update authenticity. Repair failures at their source.
-- **MAC-004 — Separate receipts.** Track signing, notarization, stapling, Gatekeeper, installation and launch individually.
+- **MAC-004 — Separate receipts.** Tie trust results to artifact and stage. Recheck affected results after repackaging.
 - **MAC-005 — Bound side effects.** Use credentials, submit, install, publish, delete or change system settings only as authorized.
 
 ## Workflow

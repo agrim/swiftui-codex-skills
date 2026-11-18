@@ -11,15 +11,15 @@ Identify workload, capabilities, and resource limits.
 
 ## Rules
 
-- **BG-001 — Track progress.** Separate submission, eligibility, launch, and completion. The earliest start date is a lower bound.
+- **BG-001 — Track progress.** Separate submission and eligibility from observed launch and completion.
 - **BG-002 — Checkpoint effects.** Persist the operation ID and last committed step.
-- **BG-003 — Own completion.** Install the expiration handler before work. Complete once across cancellation and late callbacks.
-- **BG-004 — Match workloads.** Choose refresh, processing, transfer, or a documented active-session mode.
+- **BG-003 — Own completion.** Give expiration, cancellation, and late callbacks one owner for terminal state.
+- **BG-004 — Match workloads.** Match the workload’s duration and delivery needs to an eligible mechanism.
 - **BG-005 — Qualify evidence.** Measure scheduling and energy on unforced device runs. Label forced launches.
 
 ## Workflow
 
-1. Register handlers on the configured target. Bound each work unit.
+1. Follow one bounded work unit from the configured target to its checkpoint.
 2. On relaunch, reauthorize and reconcile unacknowledged effects.
 
 ## Verify

@@ -12,49 +12,21 @@
 | VoiceOver journey works | Assistive-technology interaction plus audits where supported |
 | Sensor or paired-device behavior | Relevant physical-device evidence |
 
-Evidence levels are complementary, not a single substitute-for-everything score.
+## Async completions arrive out of order
 
-## Framework choice
+Start requests A and B, wait for registration, complete B and then A. Check the final displayed record. Repeat with a late error or cancellation and check the pending indicator. For debounce, advance an injected clock across its boundary. A timeout can bound a stalled run. Only the registration or completion signal establishes the order.
 
-Swift Testing provides expressive expectations, parameterized tests, and concurrency integration. Existing XCTest tests can remain and migrate incrementally. Keep UI automation in the supported XCTest/XCUI toolchain rather than assuming every testing framework provides the same UI capabilities. Inspect the installed Xcode version and current API availability before adopting a new test API.
+During teardown, wait for the task or stream to finish and remove temporary data even if an assertion failed. Reopen a disk-backed store when the claim involves persistence across launch.
 
-Swift Testing normally runs tests in parallel. A serialized suite does not serialize unrelated peers globally. Prefer independent clients, temporary directories, isolated in-memory stores, and per-test data. Serial execution is a deliberate escape hatch for a real shared resource, not a cure for hidden fixture ownership.
+## Previews, snapshots and UI automation
 
-## Deterministic asynchronous tests
-
-Use a controlled fake that acknowledges registration before the test completes a request. Test A-start, B-start, B-complete, A-complete; repeat for failures and cancellation. Inject a clock for debounce/backoff and advance it explicitly. Avoid assuming a fixed sleep means the UI rendered, a network request began, or cancellation finished.
-
-Use timeouts as safety limits, not synchronization. Teardown must cancel tasks, finish streams, restore injected dependencies, and remove temporary storage even after an assertion fails.
-
-## Previews and snapshots
-
-Build a fixture matrix: loading, empty, content, error, denied, stale, very long text, large text, and relevant platform widths. A preview should not request permissions, access live credentials, mutate the user's database, or start sensors. Preview-friendly dependency injection often exposes architectural problems early.
-
-Snapshot baselines must record appearance, locale, text size, OS/runtime, content, and rendering size. An updated snapshot requires a meaningful visual review; do not bless every difference just to restore green CI. Pixel differences can be infrastructure noise, but classification needs evidence.
-
-## UI automation
-
-Use stable accessibility identifiers for test selection without replacing human-facing labels. Wait for observable UI state rather than sleeping. Exercise actual controls, errors, cancellation, and relaunch. Inject deterministic launch fixtures through an explicit test configuration, and keep those controls unavailable in production builds.
-
-Automated accessibility audits find useful classes of issues. Pair them with screen-reader and keyboard journeys; audit success does not demonstrate that a custom workflow is comprehensible or operable.
-
-## Regression value
-
-A test should fail if the intended bug returns. For a save/cancel defect, assert the store contents, not that the source contains `Button("Cancel")`. Source-contract tests are appropriate for narrow architectural prohibitions or generated artifacts, but do not prove application behavior. Preserve unique scenarios during cleanup rather than reducing test count for cosmetic metrics.
-
-## Handoff
-
-Report which exact source state was tested and which result belongs to source inspection, unit/integration, UI, visual, or hardware validation. Keep raw failing output until it is classified. If Apple tooling is unavailable, run portable checks and clearly list Apple build/runtime gates as unverified.
+- **Choose the state that exposes the defect.** A denied sensor permission, stale result, unusually long translation or narrow window can each need a different fixture. Keep preview dependencies local so staging these states cannot start a sensor or mutate real data.
+- **Review a changed baseline.** Match appearance, locale, text size, content, runtime and rendering size. Inspect enough of the diff to distinguish a changed control from a changed renderer before accepting it.
+- **Exercise the control.** Select it using a stable identifier and leave its human-facing label intact. Wait for the visible outcome. For VoiceOver and keyboard claims, complete the affected journey using that input. An audit can locate specific issues along the way.
+- **Check the proof at handoff.** Distinguish a simulated error, an executed persistence operation and a completed device journey. Report the revision, platform and any blocked checks with the result.
 
 ## Regression probes from visual review
 
-Turn an observed UI defect into the smallest relevant executable probe. For a bottom-field editor, enter text, reveal the actual keyboard, reach the commit action, and recover from invalid input at a risky size. A source assertion that a safe-area modifier exists does not exercise this contract. For repeated surfaces, compare the same entity and state across both contexts, including the shared component's affected appearances.
+For a bottom-field editor, enter text, reveal the actual keyboard, reach the commit action, and recover from invalid input at a risky size. For repeated surfaces, compare the same entity and state across both contexts, including the shared component's affected appearances.
 
-Keep screenshot fixtures labeled as staged or real. A forced sensor count or injected save error demonstrates that presentation state, not a successful sensor or storage operation. When an interaction test passes but a unit runner stalls, report both outcomes; do not silently substitute the former for the latter. Stop and classify a bounded stalled run before adding more retries.
-
-## Sources
-
-- [Swift Testing](https://developer.apple.com/xcode/swift-testing/)
-- [Swift Testing parallelization](https://developer.apple.com/documentation/Testing/Parallelization)
-- [XCUI accessibility audits](https://developer.apple.com/documentation/xcuiautomation/xcuiaccessibilityauditissue)
-- [Xcode documentation](https://developer.apple.com/documentation/xcode)
+If the UI journey passes but the unit runner stalls, report both outcomes. Classify the bounded stall before retrying.

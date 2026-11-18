@@ -11,9 +11,9 @@ Inspect callers, stored formats, and supported toolchains.
 
 ## Rules
 
-- **LANG-001 — Clarify calls.** Expose units, mutation, optionality, and failure. Preserve public names and stored keys in style edits.
-- **LANG-002 — Model distinctions.** Use values for snapshots, references for shared identity, and typed IDs to prevent mix-ups.
-- **LANG-003 — Inject dependencies.** Pass in what varies, such as a clock or transport. One operation can use a closure.
+- **LANG-001 — Clarify calls.** Correct ambiguity at a real caller. Preserve public names and stored keys in style edits.
+- **LANG-002 — Model distinctions.** Choose snapshot or shared identity. Type IDs that callers could swap.
+- **LANG-003 — Inject dependencies.** Inject what callers control. One operation may need only a closure.
 - **LANG-004 — Preserve recovery.** Distinguish absence, invalid input, cancellation, and errors when recovery differs. Redact private diagnostics.
 - **LANG-005 — Protect clients.** Before retiring APIs, check runtime availability, toolchains, and language modes.
 
