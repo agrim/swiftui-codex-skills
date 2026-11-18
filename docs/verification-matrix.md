@@ -17,4 +17,4 @@ See the [evaluation protocol](evaluation.md) for the offline workflow and scroll
 
 ## Current app scenarios
 
-The [six scenario contracts](../evals/scenarios.json) cover a first feature, a window transition, independent edits, a saved shortcut, a scroll hitch and an in-place upgrade. They specify the evidence to collect. Earlier pilot results apply to the revisions used in those runs.
+The [scenario contracts](../evals/scenarios.json) cover one app task per guide, including a signed widget, optional Health export, downloaded Mac helper and reviewer invitation. They specify the evidence to collect. Earlier pilot results apply to the revisions used in those runs.

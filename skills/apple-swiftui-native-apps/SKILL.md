@@ -1,23 +1,24 @@
 ---
 name: apple-swiftui-native-apps
-description: "Build or simplify a SwiftUI feature around one everyday task, from the first action to the result someone comes back for."
+description: "Design or repair a native SwiftUI feature, from the main action and state owner to toolbar controls, button contrast, and Liquid Glass."
 ---
 
-# Build a complete native SwiftUI feature
+# Build a feature that feels at home in SwiftUI
 
-What should someone be able to do when this feature is finished? With Saved Places, they hear about a café today and find it on Saturday. Build enough of the app to make that whole trip work.
+Start with one moment in the app. During a workout, the person needs the current interval, its next action, and a way out. For a place they saved yesterday, they need a recognizable list and a way to find it. Let that difference shape the screen.
 
 ## Design choices
 
-1. **Let the main verb shape the screen.** Sketch what a person sees before and after acting. For “save a place,” a list with Add and an editor may be the whole feature. When the task is drawing a route, a map or canvas belongs at the center and the list can wait. <!-- FEATURE-001 -->
-2. **Give familiar controls the real work.** For Saved Places, a SwiftUI List can show the collection and a toolbar Button can open the editor. Style the label if needed. Keeping the button gives touch, keyboard and assistive input the same action. <!-- FEATURE-002 -->
-3. **Put each value where it needs to live.** The editor can own unfinished text. The collection owns saved places. Connect the two at Save using the app’s existing model. Introduce a shared owner when a second consumer actually needs the same value. <!-- FEATURE-003 -->
+1. **Give the current task priority.** Name the main action, safe exit, and what can wait. Use toolbar placements for app commands and content controls for choices about an item. A timer beside an exercise should measure that exercise. <!-- FEATURE-001 -->
+2. **Trace the control before restyling it.** Follow the rendered label through its Button or Menu, role, style, tint and parent environment. For unreadable button text, remove competing foregrounds or custom backgrounds and try the system style in context. Use prominent styling for the action that deserves it. <!-- FEATURE-002 -->
+3. **Give each transition one owner.** A draft belongs to its editor until Save. Pause and Resume are two states of one action. Have the timer, enabled actions and companion display read that same transition, including after relaunch. <!-- FEATURE-003 -->
 
 ## Try it
 
-Walk through your chosen task from first use to its payoff. For Saved Places, try these two paths.
+Pick a state that makes a wrong implementation visible.
 
-- Start empty, add a place, save, relaunch, and open it. Then abandon a second entry. The first place is still there and the abandoned one never appears. <!-- FEATURE-001 FEATURE-003 -->
-- Complete the same task with a supported alternate input, such as a hardware keyboard. Add, Save and the saved row must all be reachable. <!-- FEATURE-002 -->
+- Pause during an interval, background the app, and return. The clock and automatic progression agree with the action shown. For a creation flow, cancel once and reopen a successfully saved item. <!-- FEATURE-001 FEATURE-003 -->
+- Run the real toolbar or sheet in light and dark appearance at a large text size. Check the label, hit target, VoiceOver action and prominence in their surrounding chrome. <!-- FEATURE-002 -->
 
 - [Choosing the first screen for Saved Places](references/saved-places.md)
+- [An unreadable button, a glass toolbar, or a jumping Save action](references/native-controls.md)

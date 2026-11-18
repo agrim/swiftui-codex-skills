@@ -100,6 +100,66 @@
     {
       "query": "What are the rules for notarization?",
       "expected": []
+    },
+    {
+      "query": "The accent color makes my glass toolbar unreadable.",
+      "expected": [
+        "apple-swiftui-native-apps"
+      ]
+    },
+    {
+      "query": "On the smallest watch controls truncate the action.",
+      "expected": [
+        "swiftui-platform-adaptation"
+      ]
+    },
+    {
+      "query": "Help me repair a SwiftData draft that Cancel writes to disk.",
+      "expected": [
+        "apple-data-persistence"
+      ]
+    },
+    {
+      "query": "The widget timeline still shows a departed train.",
+      "expected": [
+        "apple-system-experiences"
+      ]
+    },
+    {
+      "query": "The HealthKit export failed but the app says my workout was shared.",
+      "expected": [
+        "apple-privacy-system-integrations"
+      ]
+    },
+    {
+      "query": "My widget reads an empty store after signing the Release build.",
+      "expected": [
+        "apple-project-governance"
+      ]
+    },
+    {
+      "query": "I see a hang on first tap after installing the app.",
+      "expected": [
+        "apple-performance-cleanup"
+      ]
+    },
+    {
+      "query": "Capture the screen on the simulator and compare the paired watch.",
+      "expected": [
+        "apple-device-validation"
+      ]
+    },
+    {
+      "query": "The downloaded DMG launches here but Gatekeeper rejects it on another Mac.",
+      "expected": [
+        "macos-productization"
+      ]
+    },
+    {
+      "query": "Our App Review notes open a shared trip only in staging.",
+      "expected": [
+        "apple-app-store-readiness"
+      ]
     }
   ]
 }

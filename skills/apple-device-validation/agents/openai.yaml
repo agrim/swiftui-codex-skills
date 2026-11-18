@@ -1,4 +1,4 @@
 interface:
-  display_name: "Decide if a changed experience is ready to ship"
-  short_description: "Decide what a release candidate actually delivers."
-  default_prompt: "Use $apple-device-validation to evaluate the release promise on the installed candidate."
+  display_name: "Verify the experience on Simulator and device"
+  short_description: "Check the installed app on the right destination."
+  default_prompt: "Use $apple-device-validation to verify the changed experience on the relevant simulator or device."

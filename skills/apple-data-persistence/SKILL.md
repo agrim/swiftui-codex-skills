@@ -1,23 +1,23 @@
 ---
 name: apple-data-persistence
-description: "Design editing and persistence so people can tell what was saved, recover failed work, and keep their changes when sync is part of the feature."
+description: "Choose SwiftUI draft ownership and SwiftData or Core Data save boundaries so Cancel, retries and reopening preserve the right edits."
 ---
 
 # Save the changes someone meant to keep
 
-A star toggled in a list can take effect immediately. A form with Save and Cancel makes a different promise. Decide which edits someone can abandon and when they can count on finding a change again.
+An immediate favorite and an editor with Save and Cancel make different promises. Choose where the write occurs before binding controls to a persistent model.
 
 ## Design choices
 
-1. **Match ownership to the editing promise.** For immediate edits, update the model directly. For Save and Cancel, edit a draft and commit it to the intended record on Save. Cancel discards only that draft, even when another editor has made changes. <!-- EDIT-001 -->
-2. **Make success mean something durable.** Dismiss a Save form after its write succeeds. On failure, keep the input available for repair. If saving locally is enough, finish there. If the app promises delivery to another device, distinguish a local save from a pending or acknowledged upload. <!-- EDIT-002 -->
-3. **Resolve competing writes when they can happen.** Tie pending work to its record and, in a multi-account app, its account. When a reply is lost, reconcile the original operation before sending it again. If another editor changed the same field, keep the draft available while resolving which value to keep. <!-- EDIT-003 -->
+1. **Keep a cancellable draft outside the stored record.** For a new SwiftData item, a small value held in the sheet can own the input until Create. For an existing record, apply the edited fields to its current identity. Discarding a draft should leave a second editor’s changes intact. <!-- EDIT-001 -->
+2. **Close the editor after the promised write succeeds.** Give failures a recoverable draft. For Core Data, check whether a child-context save still needs a parent save to reach the store. If the product syncs, distinguish a local commit from cloud delivery. <!-- EDIT-002 -->
+3. **Tie pending work to its record and account.** Reconcile an uncertain write before repeating it. If two editors change the same field, keep the draft available while resolving which value to use. <!-- EDIT-003 -->
 
 ## Try it
 
-Reopen the record to see which changes actually stuck. Exercise the boundaries this feature supports.
+Reopen the store and inspect the record a person would see.
 
-- Cancel a rename while another editor saves a different change. Then make a save fail. The other change survives, the cancelled name never appears, and the failed draft remains editable. <!-- EDIT-001 EDIT-002 -->
-- For synced edits, lose the reply after a successful upload, switch accounts, then return and reconnect. The original account ends up with one change and the other account sees none. <!-- EDIT-003 -->
+- Open Create, type, dismiss and relaunch. No placeholder appears. Rename an existing record while another window favorites it, then force a save failure. The favorite survives and the draft can be retried. <!-- EDIT-001 EDIT-002 -->
+- For synced edits, lose the reply after an accepted write, switch accounts, then reconnect. Confirm one change in the intended account. <!-- EDIT-003 -->
 
 - [A rename meets a newer edit](references/two-editors.md)

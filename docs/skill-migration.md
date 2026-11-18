@@ -1,20 +1,23 @@
-# Moving from 29 topics to six app-development skills
+# Choosing a current skill for an older installation
 
-Version 3 changes what the library offers. A skill earns its own entry when a developer faces a recurring product choice, plausible alternatives lead to different app behavior, and someone can try the result. Knowing how to declare a framework type or run a tool is usually a documentation lookup.
+The first publication contained six skills. Its companion notes showed how to trace a SwiftUI control, check the signed target, exercise permissions and verify the installed app. The August expansion added App Store readiness and worked through issues such as keyboard dismissal, watch state and Release-only crashes. Version 3.1 restores those seven IDs alongside three later guides. [Original skills](https://github.com/agrim/swiftui-codex-skills/tree/148ecfbd5d234981d1574c9feae221ad56065952/skills) · [Original layering notes](https://github.com/agrim/swiftui-codex-skills/blob/e0ee5b8f1a0d5796d7ce0f1fe3a1c3397ac20487/docs/layering.md) · [August expansion](https://github.com/agrim/swiftui-codex-skills/tree/b576d663655e22fe7e90fe4eb19eb771dfb08bee/skills)
 
-## Where the previous topics went
+## Where the v2 topics live
 
-The six linked IDs remain installable. A row describes the part of a former topic worth carrying into the app. The table also accounts for the four tooling topics retired outright.
-
-| Current skill | Previous topics folded into it | What earns the space |
+| Installable skill | Other v2 topics it covers | What to look for |
 | --- | --- | --- |
-| [`apple-swiftui-native-apps`](../skills/apple-swiftui-native-apps/SKILL.md) | `swift-language`, `swiftui-design-system` | Choose the app’s first useful interaction and the simplest native control and owner that can deliver it. Language conventions and visual catalogs belong with the SDK. |
-| [`swiftui-platform-adaptation`](../skills/swiftui-platform-adaptation/SKILL.md) | `swiftui-navigation`, `swiftui-layout`, `swiftui-controls-input`, `swiftui-accessibility`, `swiftui-interop` | Keep selection, drafts, Back and access to actions intact as presentation or input changes. Bridge setup and modifier lists can be looked up independently. |
-| [`apple-data-persistence`](../skills/apple-data-persistence/SKILL.md) | `swiftui-state-architecture`, `swift-concurrency`, `swiftdata`, `core-data`, `apple-networking`, `apple-background-execution` | Decide when an edit takes effect, who owns it, what a retry can change and what survives reopening. Storage, networking and task APIs depend on the chosen implementation. |
-| [`apple-system-experiences`](../skills/apple-system-experiences/SKILL.md) | `apple-app-intents`, `apple-privacy-system-integrations`, `apple-security` | Choose a glance, an action or a handoff. Decide what the current account can see and change when an old selection returns. The scope is the user journey. |
-| [`apple-performance-cleanup`](../skills/apple-performance-cleanup/SKILL.md) | `apple-observability` | Connect measured work to the exact delay a person feels, then check that the visible behavior survives the fix. Instrument setup can be looked up when needed. |
-| [`apple-device-validation`](../skills/apple-device-validation/SKILL.md) | `swiftui-testing`, `apple-app-store-readiness` | Try the release promise in the installed candidate, from the state real people will bring. Test syntax and store administration follow their own tools. |
-| Retired | `apple-project-governance`, `apple-build-workflows`, `xcode-build-optimization`, `macos-productization` | Project configuration, build tuning, signing and notarization remain separate engineering work. The optional [build helper](build-workflows.md) remains available. |
+| [`apple-swiftui-native-apps`](../skills/apple-swiftui-native-apps/SKILL.md) | `swift-language`, `swiftui-design-system` | Control hierarchy, foreground and material in the real view. |
+| [`swiftui-platform-adaptation`](../skills/swiftui-platform-adaptation/SKILL.md) | `swiftui-accessibility`, `swiftui-controls-input`, `swiftui-interop`, `swiftui-layout`, `swiftui-navigation` | Selection, unfinished work, focus and the companion’s current action. |
+| [`apple-data-persistence`](../skills/apple-data-persistence/SKILL.md) | `apple-background-execution`, `apple-networking`, `core-data`, `swift-concurrency`, `swiftdata`, `swiftui-state-architecture` | The owner of a durable write, pending sync or competing change. |
+| [`apple-system-experiences`](../skills/apple-system-experiences/SKILL.md) | `apple-app-intents` | How a widget, shortcut or Live Activity reaches the right app state. |
+| [`apple-performance-cleanup`](../skills/apple-performance-cleanup/SKILL.md) | `apple-observability` | The interval, thread or retained owner behind a visible delay. |
+| [`apple-device-validation`](../skills/apple-device-validation/SKILL.md) | `swiftui-testing` | The simulator, physical device and installed build that can prove the claim. |
+| [`apple-project-governance`](../skills/apple-project-governance/SKILL.md) | — | The source manifest, built resources and signed identity for a capability. |
+| [`apple-privacy-system-integrations`](../skills/apple-privacy-system-integrations/SKILL.md) | `apple-security` | The data that leaves the app, its purpose and behavior when access changes. |
+| [`macos-productization`](../skills/macos-productization/SKILL.md) | — | The signature, notarization, installation and update of the delivered Mac artifact. |
+| [`apple-app-store-readiness`](../skills/apple-app-store-readiness/SKILL.md) | — | The connection between the archive, processed build, reviewer access and storefront. |
+
+The standalone `apple-build-workflows` and `xcode-build-optimization` guides remain retired. The [build helper](build-workflows.md) can still capture a repeatable build.
 
 ## Existing installs and automation
 

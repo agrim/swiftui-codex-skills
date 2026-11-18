@@ -1,0 +1,4 @@
+interface:
+  display_name: "Wire an Apple capability through the right Xcode targets"
+  short_description: "Trace project settings through the signed app."
+  default_prompt: "Use $apple-project-governance to find the owning Xcode configuration and verify the affected products."

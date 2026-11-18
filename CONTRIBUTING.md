@@ -4,11 +4,9 @@ Improve a demonstrated decision or failure mode, not the adjective count. Read [
 
 ## A useful change
 
-Propose the decision that remains after a developer has read the relevant API documentation. Name two reasonable designs and the difference someone would notice when using the app. If one existing guide can express that choice in a sentence or a worked case, put it there. A framework, language feature or tool name alone belongs in the documentation for that technology.
+Start with a real SwiftUI, Xcode or Apple service task. Identify the source to inspect, the choice that affects the app, and how a developer can see the result. An unreadable button calls for tracing its role, tint and parent environment. An empty widget store calls for comparing the app and extension’s signed entitlements before changing the view.
 
-For example, someone filing a known note can finish from a shortcut. Someone comparing several notes needs the collection in front of them. That choice changes the product. Declaring the intent’s parameters is a lookup after the choice has been made.
-
-Keep installed folders free of API tutorials, HIG recaps and official documentation links. A symbol or native control belongs when it makes a choice concrete. Keep source receipts in the maintenance catalog.
+Keep the entry short. Put specialized cases and tool invocations in local references. Look up framework mechanics as needed and keep official source links in the maintenance catalog. The [original skills and their migration](docs/skill-migration.md) show where existing guidance belongs.
 
 ## Write a checkable entry point
 

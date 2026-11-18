@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.0 — Apple frameworks and developer tools
+
+Restored Xcode project governance, privacy and system integrations, Mac distribution and App Store readiness under their original IDs. The other six skills now connect app decisions to native controls, Apple Watch, WidgetKit, persistence, Instruments, Simulator and device evidence.
+
 ## 3.0.0 — native app-development decisions
 
 Six installable guides replace the previous 29 topics. Each has an app-level decision, an acceptance goal and worked examples. The CLI explains retired IDs, and the [migration guide](docs/skill-migration.md) maps the previous catalog and pins the complete v2 library.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Add an Apple integration people can trust"
+  short_description: "Design permissions, fallbacks and truthful exports."
+  default_prompt: "Use $apple-privacy-system-integrations to integrate the Apple service and verify the resulting data and permission behavior."

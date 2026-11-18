@@ -1,23 +1,23 @@
 ---
 name: apple-performance-cleanup
-description: "Find the work that delays a particular scroll, edit or launch and verify that the change improves that interaction while preserving its behavior."
+description: "Use Instruments to diagnose launch delays, UI hangs, scrolling hitches and retained memory, then verify the original interaction."
 ---
 
 # Make a slow interaction feel responsive
 
-Start with something a person can feel, such as a list that catches while downloads are running. Choose the moment that should be faster and the behavior that must still work after the change.
+Start with the moment someone waits. A sheet that hangs on its first presentation and a list that misses frames while scrolling call for different evidence.
 
 ## Design choices
 
-1. **Measure the wait the person encounters.** Repeat the same gesture with representative data on the affected destination. Use frame deadlines for a hitch or elapsed time to a usable result for a delay. Keep a baseline you can repeat. <!-- SPEED-001 -->
-2. **Locate the delay inside that interval.** Look for work, waiting or repeated updates on the path to the result. A busy background thread matters if the interaction depends on it. Change the smallest dependency that explains what happened. <!-- SPEED-002 -->
-3. **Keep the visible contract.** If progress updates cause an entire list to redraw, let the progress display observe them directly. The list still needs to reflect changes to each item. Choose an improvement target and repeat the original interaction. <!-- SPEED-003 -->
+1. **Record the affected interaction.** Profile a representative build and destination with Instruments. Use Hangs for a blocked tap, Time Profiler for CPU work, or the SwiftUI instrument for repeated view updates where available. Separate cold and warm runs. <!-- SPEED-001 -->
+2. **Change the work that delays the result.** Select the troubled interval and follow the main thread. A broad fetch, formatter in a row body, or wait on a worker suggests different fixes. Keep a short navigation tap free of unrelated migrations, disk I/O and telemetry. <!-- SPEED-002 -->
+3. **Preserve what the person sees.** Narrow observation to the views that use each value. Keep missing, zero, stale and failed readings distinct. For suspected retention, repeat a present/dismiss cycle and follow surviving owners in Xcode’s Memory Graph or Instruments Allocations. <!-- SPEED-003 -->
 
 ## Try it
 
-Judge the result using both the original delay and the behavior touched by the fix.
+Repeat the original interaction on the same destination and configuration.
 
-- Compare repeated runs with the same device, build configuration, data and gesture. If the scrolling hitch persists after average CPU falls, keep investigating the hitch interval. <!-- SPEED-001 SPEED-002 -->
-- While scrolling, change a visible item and advance a download. The row and progress indicator both update, and the measured gesture meets the chosen target. <!-- SPEED-003 -->
+- Compare the same cold and warm gesture before and after. For a slow editor, measure first presentation and then tapping the field. Deferred keyboard or database work can move the delay to the next tap. <!-- SPEED-001 SPEED-002 -->
+- During a scroll, change a row and advance a download. Both still update within the chosen frame target. For retained memory, repeat the same cycles and check whether the suspected objects are released. <!-- SPEED-003 -->
 
 - [Which update delayed this scroll?](references/a-scrolling-hitch.md)

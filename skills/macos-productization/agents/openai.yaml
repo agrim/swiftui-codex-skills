@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ship a Mac app people can install and update"
+  short_description: "Verify the Mac app customers actually receive."
+  default_prompt: "Use $macos-productization to prepare or diagnose the Mac release for its intended distribution channel."

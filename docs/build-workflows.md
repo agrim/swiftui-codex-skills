@@ -1,6 +1,6 @@
 # Reproducible build plans and evidence
 
-Use the repository’s optional build helper to capture a repeatable build or test invocation. Project configuration and build optimization are maintained separately from the installable app-development guides.
+Use the repository’s optional build helper to capture a repeatable build or test invocation. For app and extension wiring, use the [Xcode project skill](../skills/apple-project-governance/SKILL.md).
 
 The standard-library helper `scripts/apple_build.py` implements a narrow contract. It is not an Xcode project generator, simulator driver, package installer, release tool, or security sandbox.
 

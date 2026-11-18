@@ -1,4 +1,4 @@
 interface:
   display_name: "Make a slow interaction feel responsive"
-  short_description: "Trace the delay a person actually encounters."
-  default_prompt: "Use $apple-performance-cleanup to improve the measured interaction and preserve its behavior."
+  short_description: "Trace slow interactions with Instruments."
+  default_prompt: "Use $apple-performance-cleanup to find what delays this interaction and compare it after the fix."

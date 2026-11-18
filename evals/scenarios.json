@@ -98,6 +98,66 @@
         "Infer device or service behavior from an unrelated build"
       ],
       "evidence": "Build identities, starting data, final record and any unverified condition"
+    },
+    {
+      "id": "signed-widget",
+      "skills": [
+        "apple-project-governance"
+      ],
+      "prompt": "A generated Xcode project builds in Release, but only the signed widget fails to read the trip its app just saved.",
+      "must_do": [
+        "Identify the source owner and compare both signed entitlements",
+        "Verify the runtime suite and shared value in the actual extension"
+      ],
+      "must_not": [
+        "Hand-edit generated settings as the permanent fix"
+      ],
+      "evidence": "Built identities, signed groups and a successfully read trip ID"
+    },
+    {
+      "id": "optional-health",
+      "skills": [
+        "apple-privacy-system-integrations"
+      ],
+      "prompt": "Health sharing is optional in a training diary. An empty read currently says access was denied and finishing a session loses local data.",
+      "must_do": [
+        "Keep local history available and show only permission state the framework reveals",
+        "Map only measured data and reconcile an interrupted export"
+      ],
+      "must_not": [
+        "Infer denied read authorization from an empty HealthKit query"
+      ],
+      "evidence": "Local result, displayed explanation and external records for an allowed and an unavailable path"
+    },
+    {
+      "id": "downloaded-mac",
+      "skills": [
+        "macos-productization"
+      ],
+      "prompt": "A Mac helper works under Xcode but fails after a customer downloads the signed DMG.",
+      "must_do": [
+        "Inspect the exact packaged helper and signing settings",
+        "Verify the notarization and installed launch through the intended channel"
+      ],
+      "must_not": [
+        "Disable Gatekeeper to claim the issue fixed"
+      ],
+      "evidence": "Artifact identity, signature evidence and observed installed helper behavior"
+    },
+    {
+      "id": "review-invitation",
+      "skills": [
+        "apple-app-store-readiness"
+      ],
+      "prompt": "App Store screenshots advertise shared trips but the supplied reviewer link opens a development service.",
+      "must_do": [
+        "Match the processed build to the archive and TestFlight candidate",
+        "Follow the public link from a clean review account and reconcile the listing"
+      ],
+      "must_not": [
+        "Treat successful upload as proof a reviewer can finish the journey"
+      ],
+      "evidence": "Build identity, observed public recipient path and current App Store Connect state"
     }
   ]
 }

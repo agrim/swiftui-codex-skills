@@ -1,23 +1,24 @@
 ---
 name: apple-system-experiences
-description: "Choose what a widget, shortcut or notification should let someone see or do, including when its saved context has gone stale."
+description: "Choose and verify a WidgetKit glance, Live Activity or App Intent that reflects the app’s real state, account and actions."
 ---
 
 # Extend an app task beyond the open app
 
-Ask what someone gains by staying outside the app. A widget can show the next departure at a glance. A shortcut can mark a known item complete. If the person needs to compare several records before deciding, open the app at that choice.
+A widget can answer “when is the next departure?” A Live Activity can follow a trip already underway. A shortcut can file a known note. If the person needs to compare alternatives, open the app at that choice.
 
 ## Design choices
 
-1. **Choose how much of the task belongs outside.** Show enough context for a confident decision. If yesterday’s cached time could look like a live departure, show when it was updated or offer to open the schedule. Hand off to the relevant item when the surface runs out of context. <!-- SURFACE-001 -->
-2. **Treat a saved selection as a request.** Resolve the item against the account and permissions available at invocation, including before any window opens. If access changed, give a neutral way to choose again without exposing the old item’s details. <!-- SURFACE-002 -->
-3. **Use the operation the app already trusts.** Let the surface supply inputs and the existing app operation decide whether the change can succeed. Collect missing choices before committing. Report completion only when the promised effect took place. <!-- SURFACE-003 -->
+1. **Choose the surface by how the value changes.** Give a WidgetKit entry a source timestamp and a useful expired state. For a Live Activity, decide what ends the session. Publish the smallest useful snapshot from the app’s owner and account for what a bystander can see. <!-- SURFACE-001 -->
+2. **Resolve saved choices at invocation.** A shortcut or widget link can outlive the record or account that created it. Resolve identity and access before opening private content, including on cold launch. Offer a neutral way to choose again when access changes. <!-- SURFACE-002 -->
+3. **Give App Intents the app’s existing operation.** Resolve missing parameters, then call the same validated move or save as the UI. If the action is missing, check the built target’s metadata and discovery in Shortcuts before debugging persistence. <!-- SURFACE-003 -->
 
 ## Try it
 
-For a saved action, compare its response with the record you find on returning to the app.
+Run the task from the actual system surface.
 
-- Run the saved action with the app closed. Cancel a required choice, then run it to completion. Only the completed attempt changes the intended record. <!-- SURFACE-001 SURFACE-003 -->
-- Save the action in one account and invoke it in another that lacks access. Both accounts keep their data and the old record’s private details stay hidden. <!-- SURFACE-002 -->
+- Cross a widget entry’s freshness deadline or end a Live Activity. Compare its displayed time, state and destination with the app. <!-- SURFACE-001 -->
+- Run a saved action cold, cancel its required prompt, then complete it. Switch accounts and invoke it again. Only the authorized completed invocation changes the record. <!-- SURFACE-002 SURFACE-003 -->
 
 - [Should “Move note” run in Shortcuts or open the app?](references/a-saved-action.md)
+- [A widget still shows a departed train](references/widget-timeline.md)

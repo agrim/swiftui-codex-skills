@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "version": "3.0.0",
+  "version": "3.1.0",
   "entrypoint": "apple-swiftui-native-apps",
   "skills": [
     {
       "id": "apple-swiftui-native-apps",
-      "title": "Build a complete native SwiftUI feature",
-      "summary": "Build or simplify a SwiftUI feature around one everyday task, from the first action to the result someone comes back for.",
+      "title": "Build a feature that feels at home in SwiftUI",
+      "summary": "Design or repair a native SwiftUI feature, from the main action and state owner to toolbar controls, button contrast, and Liquid Glass.",
       "triggers": [
         "build a swiftui app",
         "build a native app",
@@ -18,29 +18,51 @@
         "build a places list",
         "new swiftui app",
         "native swiftui feature",
-        "build an app"
+        "build an app",
+        "button contrast",
+        "button foreground",
+        "unreadable button",
+        "glass toolbar",
+        "liquid glass toolbar",
+        "looks native",
+        "looks custom",
+        "native controls",
+        "hard-coded foreground",
+        "colored buttons",
+        "pause and resume",
+        "native swiftui screen"
       ],
       "platforms": [
         "iOS",
         "iPadOS",
-        "macOS"
+        "macOS",
+        "watchOS",
+        "tvOS",
+        "visionOS"
       ],
       "references": [
-        "references/saved-places.md"
+        "references/saved-places.md",
+        "references/native-controls.md"
       ],
       "sources": [
         "swiftui",
         "design",
         "button",
-        "model-data"
+        "model-data",
+        "glass",
+        "materials",
+        "color",
+        "reduced-motion",
+        "typography",
+        "symbols"
       ],
       "coverage": "practical",
-      "limits": "Feature design and the first working implementation. Start here when the main interaction is still taking shape."
+      "limits": "Native controls, product hierarchy and shared interaction state. The appearance depends on the built app and its supported OS versions."
     },
     {
       "id": "swiftui-platform-adaptation",
       "title": "Keep a task usable as the interface changes",
-      "summary": "Adapt a SwiftUI task across phone, tablet or Mac while preserving the item, unfinished work and access to its actions.",
+      "summary": "Adapt SwiftUI navigation, focus and controls across Apple devices while keeping the selected item and unfinished task intact.",
       "triggers": [
         "adapt to ipad",
         "adapt to mac",
@@ -56,7 +78,13 @@
         "larger text hides",
         "window gets narrow",
         "back opens the wrong",
-        "compact to regular"
+        "compact to regular",
+        "watch layout",
+        "watch truncates",
+        "paired watch",
+        "watch controls",
+        "keyboard covers",
+        "focus after dismissal"
       ],
       "platforms": [
         "iOS",
@@ -67,7 +95,8 @@
         "visionOS"
       ],
       "references": [
-        "references/editing-across-layouts.md"
+        "references/editing-across-layouts.md",
+        "references/watch-session.md"
       ],
       "sources": [
         "navigation",
@@ -75,15 +104,17 @@
         "layout",
         "focus",
         "accessible-controls",
-        "accessibility-focus"
+        "accessibility-focus",
+        "watch-connectivity",
+        "watchos"
       ],
       "coverage": "practical",
-      "limits": "Selection, navigation and access to actions across presentations, with a worked iPad resizing case."
+      "limits": "Navigation, focus, watch controls and continuity between windows or devices."
     },
     {
       "id": "apple-data-persistence",
       "title": "Save the changes someone meant to keep",
-      "summary": "Design editing and persistence so people can tell what was saved, recover failed work, and keep their changes when sync is part of the feature.",
+      "summary": "Choose SwiftUI draft ownership and SwiftData or Core Data save boundaries so Cancel, retries and reopening preserve the right edits.",
       "triggers": [
         "cancel saves",
         "cancel still saves",
@@ -100,7 +131,11 @@
         "save failed",
         "upgrade loses data",
         "draft leaks",
-        "cancelled edit"
+        "cancelled edit",
+        "swiftdata cancel",
+        "swiftdata draft",
+        "core data save disappears",
+        "placeholder after cancel"
       ],
       "platforms": [
         "iOS",
@@ -116,15 +151,16 @@
         "swiftdata-autosave",
         "coredata-context-save",
         "cloudkit",
-        "concurrency"
+        "concurrency",
+        "swiftdata-rollback"
       ],
       "coverage": "practical",
-      "limits": "Ownership of drafts, durable changes, and conflicts when the product promises synchronization."
+      "limits": "Draft ownership, durable saves and competing edits in local or synced stores."
     },
     {
       "id": "apple-system-experiences",
       "title": "Extend an app task beyond the open app",
-      "summary": "Choose what a widget, shortcut or notification should let someone see or do, including when its saved context has gone stale.",
+      "summary": "Choose and verify a WidgetKit glance, Live Activity or App Intent that reflects the app’s real state, account and actions.",
       "triggers": [
         "saved shortcut",
         "shortcut moves",
@@ -136,7 +172,16 @@
         "notification action",
         "app is closed",
         "outside the app",
-        "without opening the app"
+        "without opening the app",
+        "stale widget",
+        "widget stays stale",
+        "widget timeline",
+        "live activity never ends",
+        "shortcut missing after install",
+        "add a widget",
+        "build a widget",
+        "add a live activity",
+        "build a shortcut"
       ],
       "platforms": [
         "iOS",
@@ -145,7 +190,8 @@
         "watchOS"
       ],
       "references": [
-        "references/a-saved-action.md"
+        "references/a-saved-action.md",
+        "references/widget-timeline.md"
       ],
       "sources": [
         "widgets",
@@ -154,15 +200,16 @@
         "intent-query",
         "intent-auth",
         "notifications",
-        "widget-refresh"
+        "widget-refresh",
+        "activities"
       ],
       "coverage": "practical",
-      "limits": "Choosing a useful external entry point and preserving the app’s task and authority there."
+      "limits": "Glances, live sessions and commands from Apple system surfaces."
     },
     {
       "id": "apple-performance-cleanup",
       "title": "Make a slow interaction feel responsive",
-      "summary": "Find the work that delays a particular scroll, edit or launch and verify that the change improves that interaction while preserving its behavior.",
+      "summary": "Use Instruments to diagnose launch delays, UI hangs, scrolling hitches and retained memory, then verify the original interaction.",
       "triggers": [
         "scroll hitch",
         "scrolling stutters",
@@ -174,7 +221,15 @@
         "freezes when",
         "hangs when",
         "slow interaction",
-        "scroll still stutters"
+        "scroll still stutters",
+        "profile a hang",
+        "instruments trace",
+        "memory keeps growing",
+        "hang on first tap",
+        "memory graph",
+        "retained after dismissal",
+        "profile my app",
+        "profile a swiftui view"
       ],
       "platforms": [
         "iOS",
@@ -193,12 +248,12 @@
         "instrument-hang-thread-states"
       ],
       "coverage": "practical",
-      "limits": "Response time and frame delivery for a reproducible user interaction."
+      "limits": "Instruments and memory evidence for a specific user interaction."
     },
     {
       "id": "apple-device-validation",
-      "title": "Decide if a changed experience is ready to ship",
-      "summary": "Evaluate an installed build against the user journey a release promises, including the transition most likely to break it.",
+      "title": "Verify the experience on Simulator and device",
+      "summary": "Use Xcode, Simulator and physical devices to verify rendering, upgrades, interaction and paired-device behavior on the intended build.",
       "triggers": [
         "ready to ship",
         "release candidate",
@@ -209,40 +264,210 @@
         "review the changed screens",
         "screen review",
         "device only",
-        "works on simulator"
+        "works on simulator",
+        "simulator screenshot",
+        "capture the screen",
+        "physical device",
+        "device-only crash",
+        "release-only crash",
+        "watch parity",
+        "simulator fails to launch",
+        "install on my iphone",
+        "test on my iphone",
+        "test on a real device",
+        "take a simulator screenshot"
       ],
       "platforms": [
         "iOS",
         "iPadOS",
-        "macOS"
+        "macOS",
+        "watchOS",
+        "tvOS",
+        "visionOS"
       ],
       "references": [
         "references/an-upgrade.md",
-        "references/screen-review.md"
+        "references/screen-review.md",
+        "references/xcode-device-run.md"
       ],
       "sources": [
         "testing",
         "xcode",
         "ui-audit",
         "distribution",
-        "model-container"
+        "model-container",
+        "watch-connectivity"
       ],
       "coverage": "practical",
-      "limits": "Product acceptance for an installed candidate, including upgrades, input and device-dependent behavior."
+      "limits": "Simulator, physical-device and paired-device proof for the behavior under review."
+    },
+    {
+      "id": "apple-project-governance",
+      "title": "Wire an Apple capability through the right Xcode targets",
+      "summary": "Fix Xcode project and signing configuration when a widget, watch app, extension or shared capability builds but fails in the installed product.",
+      "triggers": [
+        "widget cannot read",
+        "widget reads an empty store",
+        "app group mismatch",
+        "app group entitlement",
+        "target membership",
+        "generated xcode project",
+        "missing from the archive",
+        "wrong shared scheme",
+        "extension is not embedded",
+        "release entitlement",
+        "bundle id mismatch",
+        "add an app group",
+        "wire up an extension",
+        "widget entitlement"
+      ],
+      "platforms": [
+        "iOS",
+        "iPadOS",
+        "macOS",
+        "watchOS",
+        "tvOS",
+        "visionOS"
+      ],
+      "references": [
+        "references/empty-widget-store.md"
+      ],
+      "sources": [
+        "xcode",
+        "xcconfig-settings",
+        "distribution",
+        "widgets",
+        "cloudkit"
+      ],
+      "coverage": "practical",
+      "limits": "Target membership, schemes, resources and capabilities from source owner through signed product."
+    },
+    {
+      "id": "apple-privacy-system-integrations",
+      "title": "Add an Apple integration people can trust",
+      "summary": "Integrate HealthKit, CloudKit or another Apple service with a clear permission request, useful fallback and accurate treatment of data that leaves the app.",
+      "triggers": [
+        "health sharing",
+        "healthkit permission",
+        "healthkit shows no data",
+        "healthkit export",
+        "permission denied flow",
+        "privacy manifest audit",
+        "permission fallback",
+        "sensitive data leaves",
+        "permissions and privacy",
+        "health data export",
+        "add healthkit",
+        "integrate healthkit",
+        "request health access"
+      ],
+      "platforms": [
+        "iOS",
+        "iPadOS",
+        "macOS",
+        "watchOS",
+        "tvOS",
+        "visionOS"
+      ],
+      "references": [
+        "references/optional-health-export.md"
+      ],
+      "sources": [
+        "privacy",
+        "required-reasons",
+        "sdk-privacy",
+        "healthkit",
+        "health-authorization",
+        "health-privacy",
+        "cloudkit",
+        "account-deletion"
+      ],
+      "coverage": "practical",
+      "limits": "Permission UX, applicable privacy artifacts, and data handling across Apple services. Verify platform availability per integration."
+    },
+    {
+      "id": "macos-productization",
+      "title": "Ship a Mac app people can install and update",
+      "summary": "Prepare or diagnose a Mac release by checking the signed app, packaging, Gatekeeper, installed icon and update path for its distribution channel.",
+      "triggers": [
+        "downloaded dmg",
+        "mac app distribution",
+        "developer id release",
+        "gatekeeper rejects",
+        "gatekeeper blocks",
+        "notarize my mac app",
+        "mac app update",
+        "dock icon is wrong",
+        "ship a mac app",
+        "notarized dmg",
+        "notarize a mac app",
+        "ship a dmg"
+      ],
+      "platforms": [
+        "macOS"
+      ],
+      "references": [
+        "references/downloaded-dmg.md"
+      ],
+      "sources": [
+        "notarization",
+        "developer-id",
+        "notary-errors",
+        "notarize-containers",
+        "distribution"
+      ],
+      "coverage": "practical",
+      "limits": "Direct, store and updater delivery of a signed Mac app."
+    },
+    {
+      "id": "apple-app-store-readiness",
+      "title": "Prepare an App Store build a reviewer can actually use",
+      "summary": "Match an Xcode archive and TestFlight build to the app’s storefront promise, production services, screenshots and App Review access.",
+      "triggers": [
+        "app store review",
+        "app review notes",
+        "app store connect submission",
+        "testflight candidate",
+        "testflight review",
+        "storefront screenshots",
+        "app store submission",
+        "prepare for the app store",
+        "store listing",
+        "prepare for testflight",
+        "prepare for app review",
+        "submit to the app store"
+      ],
+      "platforms": [
+        "iOS",
+        "iPadOS",
+        "macOS",
+        "watchOS",
+        "tvOS",
+        "visionOS"
+      ],
+      "references": [
+        "references/review-a-shared-trip.md"
+      ],
+      "sources": [
+        "review",
+        "distribution",
+        "testflight-external-groups",
+        "privacy",
+        "account-deletion",
+        "storekit"
+      ],
+      "coverage": "practical",
+      "limits": "Candidate identity, public-facing assets, review access and storefront readiness. Current store requirements depend on the product and region."
     }
   ],
   "retired": {
     "apple-app-intents": "apple-system-experiences",
-    "apple-app-store-readiness": "apple-device-validation",
     "apple-background-execution": "apple-data-persistence",
     "apple-build-workflows": null,
     "apple-networking": "apple-data-persistence",
     "apple-observability": "apple-performance-cleanup",
-    "apple-privacy-system-integrations": "apple-system-experiences",
-    "apple-project-governance": null,
-    "apple-security": "apple-system-experiences",
+    "apple-security": "apple-privacy-system-integrations",
     "core-data": "apple-data-persistence",
-    "macos-productization": null,
     "swift-concurrency": "apple-data-persistence",
     "swift-language": "apple-swiftui-native-apps",
     "swiftdata": "apple-data-persistence",

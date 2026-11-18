@@ -1,0 +1,4 @@
+interface:
+  display_name: "Prepare an App Store build a reviewer can actually use"
+  short_description: "Match the store listing to a reviewable build."
+  default_prompt: "Use $apple-app-store-readiness to check the selected archive, TestFlight experience and App Review path."

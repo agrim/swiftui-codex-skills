@@ -16,7 +16,7 @@ A small defect does not require loading the whole library or reciting every chec
 
 ## Optional adapters
 
-Legacy `agents/openai.yaml` files are retained as optional display/invocation metadata. Their presence is not required for validation or portable use, and they must not contain the only copy of an engineering rule. No specific adapter runtime is certified by the core tests.
+Where present, `agents/openai.yaml` files supply optional display and invocation metadata. Their presence is not required for validation or portable use, and they must not contain the only copy of an engineering rule. No specific adapter runtime is certified by the core tests.
 
 Host installation paths and automatic discovery behavior can change. Inspect the host's current documentation and configured directory rather than assuming a global path. The explicit-destination installer avoids that dependency and refuses overwrites. Do not modify plugin caches or silently replace user-maintained instructions.
 
@@ -26,7 +26,7 @@ Do not create separate competing “Claude rules,” “Codex rules,” or other
 
 ## Progressive loading
 
-The entry point opens with a recognizable task, then gives a starting point, steps, checks and what to report. The local playbook contains tradeoffs, worked cases and failure probes. The catalog gives a complete index without forcing every instruction into every task.
+The entry point opens with an app task, explains the design or engineering decisions and gives a way to verify them. The local playbook contains tradeoffs, worked cases and failure probes. The catalog gives a complete index without forcing every instruction into every task.
 
 ## Read a skill as data
 
