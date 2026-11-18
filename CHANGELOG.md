@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.0 — native app-development decisions
+
+Six installable guides replace the previous 29 topics. Each has an app-level decision, an acceptance goal and worked examples. The CLI explains retired IDs, and the [migration guide](docs/skill-migration.md) maps the previous catalog and pins the complete v2 library.
+
 ## Unreleased — task-oriented skill guides
 
 All 29 guides open with the job they help a reader do. Each decision now appears once as an ordered step, followed by checks with observable outcomes. The JSON exporter includes the opening purpose and retains the published rule IDs. It also reads the earlier six-section format.

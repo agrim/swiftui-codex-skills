@@ -1,6 +1,6 @@
 # Reproducible build plans and evidence
 
-The [build workflow skill](../skills/apple-build-workflows/SKILL.md) chooses the right project and proof. The [optimization skill](../skills/xcode-build-optimization/SKILL.md) separates orchestration, benchmarking, compiler diagnostics, project configuration, packages, and verification.
+Use the repository’s optional build helper to capture a repeatable build or test invocation. Project configuration and build optimization are maintained separately from the installable app-development guides.
 
 The standard-library helper `scripts/apple_build.py` implements a narrow contract. It is not an Xcode project generator, simulator driver, package installer, release tool, or security sandbox.
 

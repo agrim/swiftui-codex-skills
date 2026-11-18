@@ -1,102 +1,47 @@
-# SwiftUI Skills
+# Native SwiftUI app skills
 
-**SwiftUI and Apple-platform engineering skills for humans and coding agents.**
+Build the experience someone came to the app for. These six guides cover decisions that belong to the app, such as whether an edit should take effect immediately, what Back should reveal after a resize, and how much of a task someone can finish from a widget.
 
-Start with a short task contract. Load the few skills the task needs. Follow concrete rules, inspect the current SDK, and prove the resulting behavior. No model, IDE, plugin, or hosted service is required.
+Start with the guide matching the decision in front of you. If the question is how to declare a Swift type or use a particular API, go straight to the platform documentation.
 
-The repository URL retains its historical name, `swiftui-codex-skills`. The skill content is provider-neutral; existing skill names and optional adapter metadata remain compatible.
-
-## Start here
-
-For a broad review, start with the [SwiftUI entry point](skills/apple-swiftui-native-apps/SKILL.md). For a specific symptom, go directly to the matching skill in the [coverage map](docs/coverage.md). Its `SKILL.md` gives the decision rules and checks. Open a local playbook when you need a worked case.
-
-Install the selected folders in a host that supports the [Agent Skills format](https://agentskills.io/specification), or use the CLI from the repository root.
-
-```bash
-python3 scripts/skillctl.py route "SwiftUI navigation deep link restores the wrong screen"
-python3 scripts/skillctl.py contract swiftui-navigation
-python3 scripts/skillctl.py bundle swiftui-navigation --entrypoints-only
-python3 scripts/skillctl.py bundle swiftui-navigation --reference skills/swiftui-navigation/references/routing-and-restoration.md
-```
-
-`route` finds skills by phrase. `contract` returns compact JSON with rules, steps, checks and playbook paths relative to each skill folder. For Markdown, `--entrypoints-only` lists each playbook’s repository path. Pass that path to `--reference` to include its text. Repeat the flag for additional playbooks. Plain `bundle` includes every playbook for the selected skills. Add `--output selected-skills.md` to write a new file.
-
-To copy folders into an **existing directory you choose**, without overwriting installed skills:
-
-```bash
-python3 scripts/skillctl.py install swiftui-navigation --dest /path/to/skill-directory --dry-run
-python3 scripts/skillctl.py install swiftui-navigation --dest /path/to/skill-directory
-```
-
-Review changes before replacing an installed version. The installer deliberately has no force-overwrite option. An I/O failure may leave folders already copied; it will not remove user folders to recover.
-
-New installations record content hashes and available Git identity. Inspect them later without writing to the destination:
-
-```bash
-python3 scripts/skillctl.py status swiftui-navigation --dest /path/to/skill-directory --diff
-python3 scripts/skillctl.py status swiftui-navigation --dest /path/to/skill-directory --json
-```
-
-Status distinguishes `missing`, `untracked`, `current`, `source-changed`, `local-changed`, and `both-changed`. `matches_source` reports byte agreement independently: two sides can make the same change after installation. `--diff` lists installed-only, source-only, and modified file names, never file contents. Legacy copies without receipts cannot establish which side changed. Status exit code zero means inspection succeeded, not that every skill matches. No automatic replacement is performed.
-
-The destination must exist and have no symlink ancestors. Resolve a trusted directory explicitly before passing it when your host exposes a canonical location through an alias. Tests canonicalize their own temporary directories; the installer retains its link-rejection policy.
-
-## The library
-
-The catalog contains 29 focused skills and 145 stable rules. All twenty original IDs remain; additional detail loads through local references.
-
-| Work | Skills |
+| When you’re deciding… | Read |
 | --- | --- |
-| Feature engineering | [Entry point](skills/apple-swiftui-native-apps/SKILL.md), [state and architecture](skills/swiftui-state-architecture/SKILL.md), [concurrency](skills/swift-concurrency/SKILL.md) |
-| UI and interaction | [Navigation](skills/swiftui-navigation/SKILL.md), [layout](skills/swiftui-layout/SKILL.md), [controls and input](skills/swiftui-controls-input/SKILL.md), [accessibility](skills/swiftui-accessibility/SKILL.md), [design system](skills/swiftui-design-system/SKILL.md) |
-| Data and boundaries | [Persistence](skills/apple-data-persistence/SKILL.md), [networking](skills/apple-networking/SKILL.md), [system experiences](skills/apple-system-experiences/SKILL.md), [privacy](skills/apple-privacy-system-integrations/SKILL.md) |
-| Platform engineering | [Platform adaptation](skills/swiftui-platform-adaptation/SKILL.md), [UIKit/AppKit interop](skills/swiftui-interop/SKILL.md), [project governance](skills/apple-project-governance/SKILL.md) |
-| Specialist engineering | [Swift language](skills/swift-language/SKILL.md), [build workflows](skills/apple-build-workflows/SKILL.md), [build optimization](skills/xcode-build-optimization/SKILL.md), [SwiftData](skills/swiftdata/SKILL.md), [Core Data](skills/core-data/SKILL.md), [App Intents](skills/apple-app-intents/SKILL.md), [observability](skills/apple-observability/SKILL.md), [background execution](skills/apple-background-execution/SKILL.md), [security](skills/apple-security/SKILL.md) |
-| Verification and delivery | [Testing](skills/swiftui-testing/SKILL.md), [performance](skills/apple-performance-cleanup/SKILL.md), [device validation](skills/apple-device-validation/SKILL.md), [App Store readiness](skills/apple-app-store-readiness/SKILL.md), [macOS distribution](skills/macos-productization/SKILL.md) |
+| What should the first working version of this feature let someone accomplish? | [Build a complete native SwiftUI feature](skills/apple-swiftui-native-apps/SKILL.md) |
+| What should remain selected, editable and reachable as the interface changes? | [Keep a task usable as the interface changes](skills/swiftui-platform-adaptation/SKILL.md) |
+| When does an edit become real, and what survives cancellation, failure or sync? | [Save the changes someone meant to keep](skills/apple-data-persistence/SKILL.md) |
+| Can someone finish this task from a glance or a shortcut, or do they need the app? | [Extend an app task beyond the open app](skills/apple-system-experiences/SKILL.md) |
+| What is making this particular interaction slow? | [Make a slow interaction feel responsive](skills/apple-performance-cleanup/SKILL.md) |
+| Does the installed update deliver the experience we promised? | [Decide if a changed experience is ready to ship](skills/apple-device-validation/SKILL.md) |
 
-Coverage spans common iOS, iPadOS, macOS, watchOS, tvOS, and visionOS decisions. It is **not an exhaustive mirror of Apple documentation**, a guarantee of API availability, or a claim that every platform receives equal depth. The [coverage map](docs/coverage.md) states boundaries; the [source registry](docs/sources.md) distinguishes reviewed content from discovery links.
+For example, “Add App Intents” starts one decision too late. If someone routinely files a known note into a known folder, a shortcut can save them a trip. If filing requires comparing notes, open the collection and let them choose. Only the first version needs a move operation that can finish while the app is closed. [Worked example](skills/apple-system-experiences/references/a-saved-action.md)
 
-The [ecosystem integration guide](docs/ecosystem-integration.md) explains the Paul Solt resource review and deliberate limits. The [provenance ledger](docs/ecosystem.md) distinguishes reviewed entry points, public overviews, gated material, and discovery-only links. No third-party prompt pack is a mandatory dependency.
+## Use a skill
 
-## Reading a skill
+Read its Markdown directly, or copy its directory into a host that supports the [Agent Skills format](https://agentskills.io/specification). Each guide contains its design choices, observable checks and links to local worked cases. Load a case when the situation fits.
 
-Start with the task named in the title. Each guide explains when to use it, walks through the decisions, and gives an outcome you can check. For example, the App Intents guide takes a “Move note” action from the app into Shortcuts and checks where the note ended up after the app reopens. [Make an app action work in Siri and Shortcuts](skills/apple-app-intents/SKILL.md)
-
-The Markdown is the source for both readers and tools. `skillctl.py contract` also returns the purpose, ordered steps, rule IDs, checks and playbook paths as JSON.
-
-[Architecture and adapters](docs/layering.md) explains portability. [Use cases](docs/use-cases.md) shows task-to-skill selection. [Contributing](CONTRIBUTING.md) defines the evidence and maintenance bar.
-
-## Tools and checks
-
-Repository tooling requires Python 3.10+ and only the standard library. The Swift examples require Swift 6.0+; Apple-only views additionally require an Apple SDK. These requirements apply to the tooling/examples, **not** to the deployment minimum of an app using the skills.
+The optional CLI uses Python 3.10+ and the standard library. Run it from the repository root.
 
 ```bash
-python3 scripts/validate_skills.py .
-python3 scripts/skillctl.py docs --check
-python3 scripts/upstream_audit.py --check
-python3 -m unittest discover -s tests -v
-python3 scripts/scan_apple_repo.py /path/to/apple-app --format json
-swift test --package-path examples/SkillExamples
+python3 scripts/skillctl.py list
+python3 scripts/skillctl.py route "My saved shortcut moves the wrong note"
+python3 scripts/skillctl.py contract apple-system-experiences
+python3 scripts/skillctl.py bundle apple-system-experiences --entrypoints-only
+python3 scripts/skillctl.py install apple-system-experiences --dest /path/to/existing-directory
+python3 scripts/skillctl.py status apple-system-experiences --dest /path/to/existing-directory --diff
 ```
 
-The validator checks metadata, budgets, rule IDs, catalog/source consistency, local file links, portability, generated documentation, and selected public-hygiene risks. It accepts a documented scalar frontmatter profile, not arbitrary YAML. Optional `agents/openai.yaml` files are neither required nor interpreted by the core validator.
+`contract` returns JSON from the same Markdown. Plain `bundle` includes the worked cases. For a specific case, pass `--reference` with its repository path. Installation preserves existing folders and supports `--dry-run`. [CLI and installation details](docs/layering.md)
 
-Hygiene checks scan UTF-8 text without NUL bytes regardless of filename, including extensionless files. Binary and other encoded assets are outside these pattern checks. Unreadable files fail validation, as do malformed Markdown, JSON, Python, YAML, Swift, and TOML files. Diagnostics redact matched content. Git metadata, symlinks, and ignored build/dependency directories remain excluded.
+## Upgrading from v2
 
-The scanner is **advisory lexical triage**, not an AST, compiler, accessibility audit, secret scanner replacement, or HIG certification. It ignores comments and strings for Swift code hints, distinguishes informational review prompts from warnings/errors, and never prints matched secret content. By default only error-level findings fail the command. Use `--fail-on warning` or `--fail-on info` deliberately. Skipped files and known blind spots are reported.
+Version 3 consolidates 29 topics into six skills and seven cases. The migration guide accounts for every previous skill and explains how to keep a pinned copy or stage the replacements alongside an existing installation. [Catalog migration](docs/skill-migration.md)
 
-For a plan-first CLI build loop, see [build workflows](docs/build-workflows.md). The helper preserves raw logs and process failures; it does not certify an app or silently install tooling. [The verification matrix](docs/verification-matrix.md) separates implemented checks from remaining runtime and agent evaluations.
+## Maintaining the library
 
-The [examples](examples/SkillExamples/README.md) exercise draft ownership, typed routes, value authority, stale-request protection, and a SwiftData rename on disk. The [evaluation protocol](docs/evaluation.md) covers mechanical checks and agent behavior. Two offline pilots record [release and screen-review decisions](evals/pilot-2026-09-09.md) and [interpretation of a scrolling trace](evals/scroll-trace-pilot.md), each with one attempt per condition.
+A new skill should change a decision that affects someone using the finished app. Keep framework mechanics in platform documentation, examples in local playbooks, and research receipts in the repository. [Contributing](CONTRIBUTING.md) · [Coverage](docs/coverage.md) · [Community research](docs/ecosystem-integration.md)
 
-The [deep-link parser](examples/SkillExamples/Sources/SkillExamplesCore/NoteDeepLink.swift) and [its tests](examples/SkillExamples/Tests/SkillExamplesCoreTests/NoteDeepLinkTests.swift) demonstrate a narrow input contract. Parsing a valid route does not establish object access or authorize a mutation.
-
-## Source and maintenance policy
-
-Apple documentation and HIG are authoritative for platform APIs and guidance; installed SDK declarations establish actual compilation availability. This library adds original decision procedures and engineering recommendations. Recheck version-sensitive APIs, beta behavior, privacy rules, and store requirements at use time. Do not turn a review date into a permanent freshness claim.
-
-Maintainers can trace each skill’s source IDs in `catalog.json` to the [source registry](docs/sources.md). Apple and SwiftUI are trademarks of Apple Inc.; this is an independent repository, not an Apple endorsement.
+The repository also contains an optional build helper, a lexical scanner and a Swift example package. The verification matrix distinguishes repository checks, Apple builds and historical agent evaluations. [Build helper](docs/build-workflows.md) · [Examples](examples/SkillExamples/README.md) · [Verification](docs/verification-matrix.md)
 
 ## License
 
-The repository owner has not selected a license. This update does not grant a new license to existing or contributed material. Resolve licensing before presenting the project as freely reusable open-source software or distributing third-party contributions under assumed terms.
+The repository owner has not selected a license. Public access does not grant additional distribution terms.

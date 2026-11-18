@@ -1,33 +1,24 @@
 ---
 name: apple-device-validation
-description: "Verify Apple app launch, rendering, interaction, hardware or paired-device behavior on a simulator or device."
+description: "Evaluate an installed build against the user journey a release promises, including the transition most likely to break it."
 ---
 
-# Verify what an Apple app actually does on a device
+# Decide if a changed experience is ready to ship
 
-Use this to verify a change on a running app. A screenshot shows whether Save is visible. Activate it and reread the value after relaunch to prove the edit survived.
+Name the promise that would make someone install this release. “My saved trips are still there after the update” calls for a different trial from “I can create a trip with VoiceOver.” Choose the build, starting state and environment that can answer that question.
 
-## Start here
+## Design choices
 
-Choose a behavior, expected result, build, destination and starting data. Identify actions that could affect the user’s account or files.
+1. **Use the starting state people will bring.** For an upgrade, prepare a previous supported build with meaningful data and preferences. For a first-run change, start fresh. Use the candidate and installation path relevant to the promise. <!-- SHIP-001 -->
+2. **Follow the journey through its weakest transition.** Choose one consequential interruption, such as relaunch after saving or a focus move after dismissing a sheet. Exercise required hardware or services where the claimed behavior depends on them. <!-- SHIP-002 -->
+3. **Decide which promise the candidate keeps.** Compare the end result with the promise. Tie any failure to the build and affected journey. Where a required condition is unavailable, identify the remaining trial before calling that promise verified. <!-- SHIP-003 -->
 
-## How to proceed
+## Try it
 
-1. **Choose an observation that answers the question.** Capture layout at the affected size. For an interaction, capture the starting state, perform the action and inspect the result. Use the receiving hardware for hardware or paired-device claims. <!-- PROOF-001 -->
-2. **Protect existing data.** Use a disposable account or fixture where available. Reset, uninstall, change accounts or edit source only within the approved scope. <!-- PROOF-002 -->
-3. **Identify the run.** Label logs and captures with build, destination, toolchain and test data. For batch reviews, identify each screen, state and capture revision. <!-- PROOF-003 -->
-4. **Find the first blocked step.** Check pairing, provisioning, installation and launch in order as applicable. Preserve the actual error before changing the setup. <!-- PROOF-004 -->
-5. **Retest the changed build.** Repeat affected checks and remove temporary fixtures. <!-- PROOF-005 -->
+Decide whether the release delivers the named promise on the tested destination.
 
-## Check the result
+- For an upgrade, open a previously saved item, edit it, quit and reopen. Record the installed builds and whether the old and new values appear where expected. <!-- SHIP-001 SHIP-002 -->
+- If a feature depends on spoken focus or paired hardware, try that interaction in the relevant environment. Record the observed result or the specific claim still open. <!-- SHIP-002 SHIP-003 -->
 
-- Reopen a saved edit or inspect a delivered item on the receiving device. For layout, enable the affected accessibility setting and inspect the screen at that size. <!-- PROOF-001 -->
-- If installation failed, retain the installer error and check that any reset was authorized. After a fix, confirm the new captures identify the replacement build and destination. <!-- PROOF-002 PROOF-003 PROOF-004 PROOF-005 -->
-
-## What to report
-
-For each behavior, report the verdict, build, destination, observation and blocked step.
-
-- [Choosing a destination for a runtime check](references/device-validation-patterns.md)
-- [Tracking reviewed screens and replacement captures](references/screen-review.md)
-- [When debugger or simulator evidence is incomplete](references/debugger-and-simulator-evidence.md)
+- [A blank list after a successful upgrade](references/an-upgrade.md)
+- [Finding the first broken step in an accessible journey](references/screen-review.md)

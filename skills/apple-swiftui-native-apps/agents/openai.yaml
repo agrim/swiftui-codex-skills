@@ -1,4 +1,4 @@
 interface:
-  display_name: "Apple SwiftUI Native Apps"
-  short_description: "Native SwiftUI controls, state, and system foreground."
-  default_prompt: "Use $apple-swiftui-native-apps to implement or review this Apple UI surface and its interaction-state semantics."
+  display_name: "Build a complete native SwiftUI feature"
+  short_description: "Build one useful feature end to end."
+  default_prompt: "Use $apple-swiftui-native-apps to shape and implement one complete native feature."

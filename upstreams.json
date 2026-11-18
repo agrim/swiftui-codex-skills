@@ -1473,6 +1473,35 @@
       "blob_sha": "b59ad8835fd49f413ae41a48a1ce5a06effdc1b7",
       "path": ".claude-plugin/plugins/axiom/skills/axiom-macos/skills/appkit-interop.md",
       "commit_sha": "ffafd3b3e0dbaaa60b753ca4a835ae6603b873e1"
+    },
+    {
+      "id": "icecubes-adaptive-presentation",
+      "url": "https://github.com/Dimillian/IceCubesApp",
+      "commit_sha": "98098b9c4b5928f89f338203193c2bf40ab7f38c",
+      "blob_sha": "06e35df5b8df2bd2126d059357f53fdb10eb97a9",
+      "path": "IceCubesApp/App/Main/AppView.swift",
+      "scope": "AppView.swift uses a selected tab binding across tab and sidebar presentations. Reviewed the adaptive layout and selection excerpts.",
+      "maps_to": [
+        "swiftui-platform-adaptation"
+      ],
+      "status": "excerpt-reviewed",
+      "relation": "supporting-source",
+      "reviewed": "2026-11-18"
+    },
+    {
+      "id": "avdlee-native-review",
+      "url": "https://github.com/AvdLee/SwiftUI-Agent-Skill",
+      "commit_sha": "62bd760f005093d1e2e4de5db156e456a5f96400",
+      "blob_sha": "76b5c9535830b6bc6d81b28f814a6ddf37114e21",
+      "path": "skills/swiftui-expert-skill/SKILL.md",
+      "scope": "Operating Rules and Task Workflow excerpts on native controls, state ownership and limiting invalidations. The local guides apply those choices to a concrete task.",
+      "maps_to": [
+        "apple-swiftui-native-apps",
+        "apple-performance-cleanup"
+      ],
+      "status": "excerpt-reviewed",
+      "relation": "supporting-source",
+      "reviewed": "2026-11-18"
     }
   ]
 }

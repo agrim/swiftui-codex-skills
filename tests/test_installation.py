@@ -22,7 +22,7 @@ class InstallationTests(unittest.TestCase):
         self.repo = Path(temp.name).resolve()
         self.dest = self.repo / "installed"
         self.dest.mkdir()
-        self.names = ["swiftui-navigation", "swift-concurrency"]
+        self.names = ["swiftui-platform-adaptation", "apple-data-persistence"]
         shutil.copyfile(ROOT / "catalog.json", self.repo / "catalog.json")
         for name in self.names:
             shutil.copytree(ROOT / "skills" / name, self.repo / "skills" / name)
@@ -57,7 +57,7 @@ class InstallationTests(unittest.TestCase):
         self.assertEqual(entry.read_text(), "local changes")
 
     def test_missing_reference_in_later_skill_blocks_entire_batch(self):
-        (self.repo / "skills" / self.names[1] / "references/concurrency-patterns.md").unlink()
+        (self.repo / "skills" / self.names[1] / "references/two-editors.md").unlink()
         with self.assertRaisesRegex(ValueError, "reference"):
             skillctl.install(self.repo, self.names, self.dest)
         self.assertEqual(list(self.dest.iterdir()), [])

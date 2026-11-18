@@ -1,39 +1,12 @@
-# Task-to-skill examples
+# Picking a guide
 
-## A search screen shows an older result
+| Someone asks | Decision to make | Guide |
+| --- | --- | --- |
+| “Build an app for places friends recommend.” | Can they save a place now and find it later? A map earns its place if location helps them choose. | [Build the first feature](../skills/apple-swiftui-native-apps/SKILL.md) |
+| “The editor disappears when I make the iPad window narrow.” | Which window owns the edit, and what should Back reveal after the transition? | [Adapt the interface](../skills/swiftui-platform-adaptation/SKILL.md) |
+| “Cancel undoes a favorite I changed in another window.” | Which fields belong to this draft and when should they reach the stored record? | [Keep edits trustworthy](../skills/apple-data-persistence/SKILL.md) |
+| “Can I move a note without opening the app?” | Can the person identify both inputs and complete the move safely there? | [Extend a task beyond the app](../skills/apple-system-experiences/SKILL.md) |
+| “The CPU graph looks better but the list still catches.” | What work delayed this frame, and what must still update after the fix? | [Improve responsiveness](../skills/apple-performance-cleanup/SKILL.md) |
+| “Are we ready to release the new editor?” | Can an existing user upgrade, edit a real record, and find the change on reopening? | [Try the installed candidate](../skills/apple-device-validation/SKILL.md) |
 
-Read `swift-concurrency`, then `apple-networking` if transport is involved. Trace request identity through success, failure, cancellation, and loading cleanup. Keep old completion from mutating a newer request's state. Use a controlled completion-order test, not a sleep that happens to pass.
-
-## A sheet creates a record even after Cancel
-
-Read `swiftui-state-architecture` and `apple-data-persistence`. Identify whether the editor mutates a live persistence object or owns a value draft. Save only at the promised commit boundary; verify cancellation, failed save, duplicate submission, and relaunch.
-
-## A screen feels custom-built rather than native
-
-Start with `apple-swiftui-native-apps`, then `swiftui-controls-input`, `swiftui-design-system`, and `swiftui-accessibility` as needed. Fix action semantics and hierarchy before recoloring. Custom styles are allowed; they still need a full appearance, disabled, focus, and accessibility contract. Prove visual claims with rendered output.
-
-## A phone layout is awkward on Mac or iPad
-
-Read `swiftui-platform-adaptation`, `swiftui-layout`, and `swiftui-navigation`. Separate shared domain state from per-window selection and presentation. Use platform scenes, commands, keyboard behavior, and adaptive navigation rather than scaling phone geometry.
-
-## A widget compiles but does not stay current
-
-Read `apple-system-experiences`, `apple-project-governance`, and `apple-device-validation`. Verify embedding, registration, shared projection, timeline generation, host rendering, delayed updates, and stale state. Do not promise an exact refresh cadence that the system does not guarantee.
-
-## A HealthKit permission label says “denied” when no samples appear
-
-Read `apple-privacy-system-integrations` and `apple-system-experiences`. Check the exact authorization contract: absence of query results is not a read-permission signal. Preserve empty/unknown/unavailable distinctions and test truthful UI rather than inferring protected state.
-
-## A refactor reduces lines but slows scrolling
-
-Read `apple-performance-cleanup` and `swiftui-testing`. Compare the same workload and configuration, inspect invalidation and allocation behavior, and preserve unique regression tests. Fewer lines are not a performance measurement.
-
-## A macOS app runs locally but fails after download
-
-Read `macos-productization`. Inspect the exact packaged artifact, nested code, signing identity, entitlements, notarization, stapling, Gatekeeper, and installed launch. Do not “fix” it by disabling system security or blanket re-signing.
-
-## “Make the app ready for the App Store”
-
-Start with `apple-app-store-readiness`. Separate auditing and preparation from authorized upload, submission, and release. Bind the real product promise, privacy disclosures, screenshots, reviewer access, and device evidence to one exact candidate.
-
-All skill identifiers above are indexed in the [coverage map](coverage.md). They are names, not model-specific commands.
+For an API signature, modifier spelling, signing command or build setting, use its documentation or tool help directly.

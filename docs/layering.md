@@ -6,7 +6,7 @@
 
 A human can read a skill directly. A compatible agent host can discover its name and description, then load its instructions and only the necessary references. A host without native skill support can use `skillctl.py bundle` to receive self-contained Markdown. No tool-specific invocation is part of the engineering contract.
 
-Each installed skill includes its entry point and local playbooks. Official documentation and review records live in the repository’s maintenance registry. Other skill names in prose are routing recommendations; they are not executable commands or mandatory filesystem dependencies.
+Each installed skill includes its entry point and local playbooks. Official documentation and review records live in the repository’s maintenance registry. Each skill can be installed alone.
 
 ## Instruction precedence and scope
 
@@ -30,13 +30,13 @@ The entry point opens with a recognizable task, then gives a starting point, ste
 
 ## Read a skill as data
 
-`python3 scripts/skillctl.py contract swiftui-navigation apple-networking` prints one UTF-8 JSON object with `schema_version` set to `1`. The `skills` array follows the order of the arguments. Each object has these fields.
+`python3 scripts/skillctl.py contract swiftui-platform-adaptation apple-data-persistence` prints one UTF-8 JSON object with `schema_version` set to `1`. The `skills` array follows the order of the arguments. Each object has these fields.
 
 | Field | Contents |
 | --- | --- |
 | `id`, `title`, `description` | Stable skill name, display title, and discovery description |
-| `purpose` | Opening paragraph in the task guide. Absent in older six-section entries. |
-| `inputs`, `output` | What the reader needs and what to report |
+| `purpose` | Optional opening purpose in the earlier four-heading format. |
+| `inputs`, `output` | The situation the guide addresses and the acceptance goal in “Try it.” Earlier formats use these for inputs and the handoff. |
 | `rules` | Ordered objects with `id`, `title`, and `instruction` |
 | `workflow` | Action titles in execution order. Older entries retain their separately authored workflow steps. |
 | `verify` | Objects with `rule_ids` and `check`. Each ID belongs to the same skill. |

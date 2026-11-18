@@ -20,10 +20,16 @@ DEFAULT_ROOT = Path(__file__).resolve().parents[1]
 def select(root: Path, names: list[str]) -> list[dict[str, Any]]:
     if not names:
         raise ValueError("select at least one skill")
-    items = {item["id"]: item for item in catalog(root)["skills"]}
+    library = catalog(root)
+    items = {item["id"]: item for item in library["skills"]}
     if len(names) != len(set(names)):
         raise ValueError("select each skill only once")
     missing = [name for name in names if name not in items]
+    for name in missing:
+        if name in library.get("retired", {}):
+            target = library["retired"][name]
+            hint = f" Related app workflow: {target}." if target else ""
+            raise ValueError(f"{name} retired in v3.{hint} See docs/skill-migration.md.")
     if missing:
         raise ValueError("unknown skill: " + ", ".join(missing))
     return [items[name] for name in names]

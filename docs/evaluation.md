@@ -12,11 +12,9 @@
 
 `evals/scenarios.json` contains adversarial tasks, expected skill owners, must-do behaviors, prohibited shortcuts, and the evidence needed. Use them as evaluation contracts, not as examples to memorize into a scoring script. Prepare a small app/code fixture that genuinely exhibits each scenario before running the evaluation.
 
-Two offline workflow fixtures are now available: [release reconciliation](../evals/fixtures/release-reconciliation/TASK.md) and [screen-review handoff](../evals/fixtures/screen-review/TASK.md). Copy each fixture into a fresh temporary directory before running it; never mutate the canonical seed state. Give the agent the task and raw evidence, with the selected skill context only in the guided condition. Keep expected outcomes with the reviewer. The release CLI deliberately does not enforce user authorization, so the agent's actual operations reveal whether it preserved the scope.
+Version 3 has one scenario per published skill. The scrolling scenario includes a [synthetic trace](../evals/fixtures/scroll-trace/TASK.md). Record the revision and the selected guide before running a comparison.
 
-The [September 9 pilot](../evals/pilot-2026-09-09.md) records one independent guided and baseline run over these two fixtures. Both passed the reviewed contracts.
-
-The [scrolling trace fixture](../evals/fixtures/scroll-trace/TASK.md) tests whether a reader can make a release decision from repeated hitch durations and a matching timeline. The [pilot responses and blind review](../evals/scroll-trace-pilot.md) show where both readers agreed and what each left unverified. Each received one attempt. The remaining scenarios await agent runs.
+The [release and screen-review pilot](../evals/pilot-2026-09-09.md) and [scrolling-trace pilot](../evals/scroll-trace-pilot.md) evaluated earlier revisions. Their original inputs and outcomes remain historical records. Version 3 has no controlled agent comparison yet.
 
 For each run, record the repository/fixture commit, skill revision, scenario ID, host/model and configuration, available tools, prompt, selected context, produced diff, executed checks, outputs, and reviewer decision. Do not include private app data or credentials.
 
@@ -32,6 +30,6 @@ Compilation is not enough for visual tasks. Screenshots are not enough for focus
 
 ## Maintenance gates
 
-A content change should preserve or improve its scenario's behavior without broadening false positives. A tooling change must pass deterministic regression tests, including malformed input and safety boundaries. A new framework needs an explicit source and coverage limit, not only its name in a checklist.
+A content change should preserve or improve its scenario's behavior without broadening false positives. A tooling change must pass deterministic regression tests, including malformed input and safety boundaries. A new skill needs a distinct app-level decision and an observable acceptance case.
 
 Do not publish “best,” “production-proven,” or percentage improvement claims without corresponding evidence. The repository's goal is to become a dependable reference through review, real fixtures, and honest maintenance—not to certify itself by declaration.

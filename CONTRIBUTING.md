@@ -4,34 +4,28 @@ Improve a demonstrated decision or failure mode, not the adjective count. Read [
 
 ## A useful change
 
-State the triggering task, failure scenario, scoped correction, primary-source basis, compatibility implications, and verification. Include a counterexample to an overly broad rule. For example, “prefer Button for an action” should not become “ban every tap gesture,” and “keep expensive work off a UI update path” should not become “use detached tasks everywhere.”
+Propose the decision that remains after a developer has read the relevant API documentation. Name two reasonable designs and the difference someone would notice when using the app. If one existing guide can express that choice in a sentence or a worked case, put it there. A framework, language feature or tool name alone belongs in the documentation for that technology.
 
-Assume readers can look up framework mechanics. Write the decision they still face and a check that distinguishes a correct result from a plausible failure. Leave API tutorials, HIG summaries and official documentation links out of installed skill folders. Include a platform fact only when it changes a decision, such as which editor owns a draft after its record changes.
+For example, someone filing a known note can finish from a shortcut. Someone comparing several notes needs the collection in front of them. That choice changes the product. Declaring the intent’s parameters is a lookup after the choice has been made.
 
-Keep the decision in the entry point and its worked case in one playbook. Introduce a new skill only for a distinct task and owner.
+Keep installed folders free of API tutorials, HIG recaps and official documentation links. A symbol or native control belongs when it makes a choice concrete. Keep source receipts in the maintenance catalog.
 
 ## Write a checkable entry point
 
-Give the guide a title that names the job. Under it, explain when someone would use it and what should happen. A reader who skips the YAML should still understand the purpose. Use one recognizable example to carry a decision through to an observable result.
+Title the guide with the job it helps a person finish. Open with the situation and the result they care about. Use two headings.
 
-Use four level-two headings in order.
+- **Design choices** contains numbered decisions with a short bold action and enough context to choose. Tie advice to the conditions that warrant it.
+- **Try it** opens with the acceptance goal, then gives observable checks as bullets. End with a separate group of links to local cases.
 
-| Heading | What belongs here |
-| --- | --- |
-| Start here | One paragraph naming the first action or evidence to gather. |
-| How to proceed | Numbered steps in the order a person would do them. Give each a short, bold action title and explain how to make the decision. |
-| Check the result | Bullets describing an input or failure and the outcome the reader should observe. |
-| What to report | One paragraph naming the result to communicate, followed by a blank line and links to the local playbooks. |
-
-Put the stable rule ID at the end of its step in an HTML comment. End each check with the IDs it exercises. This keeps the guide readable on GitHub and lets the CLI export those relationships from the same Markdown. Here the input is valid HTTP data for the wrong record.
+Keep the machine-readable IDs in trailing HTML comments. Cite each decision from a check. Use a worked case only when it adds a choice, consequence or counterexample that the entry point could not show as clearly.
 
 ```markdown
-1. **Check the record before replacing the cache.** If the server returns the wrong record, keep the usable cached copy. <!-- NET-001 -->
+1. **Give each window its own selection.** Share saved notes across windows. Let each window choose which note to read. <!-- ADAPT-001 -->
 
-- Return another record's ID during refresh. The app reports a refresh error and still shows the cached record. <!-- NET-001 -->
+- Open different notes in two windows. Change the first window’s selection and check that the second keeps its note. <!-- ADAPT-001 -->
 ```
 
-Keep each step, check and playbook link on one line. Preview the structured version with `python3 scripts/skillctl.py contract <skill-id>`.
+Keep each decision, check and case link on one line. Preview the JSON with `python3 scripts/skillctl.py contract <skill-id>`.
 
 ## Rule taxonomy
 

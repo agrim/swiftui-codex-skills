@@ -2,209 +2,103 @@
   "schema_version": 1,
   "cases": [
     {
-      "query": "SwiftUI native UI review",
+      "query": "Help me build a SwiftUI app for places friends recommend.",
       "expected": [
         "apple-swiftui-native-apps"
       ]
     },
     {
-      "query": "Observation state ownership resets",
+      "query": "This editor feels custom and hard to use.",
       "expected": [
-        "swiftui-state-architecture"
+        "apple-swiftui-native-apps"
       ]
     },
     {
-      "query": "actor reentrancy and cancellation",
-      "expected": [
-        "swift-concurrency"
-      ]
-    },
-    {
-      "query": "navigation deep link restoration",
-      "expected": [
-        "swiftui-navigation"
-      ]
-    },
-    {
-      "query": "adaptive layout with geometry",
-      "expected": [
-        "swiftui-layout"
-      ]
-    },
-    {
-      "query": "button style and focus",
-      "expected": [
-        "swiftui-controls-input"
-      ]
-    },
-    {
-      "query": "accessibility VoiceOver audit",
-      "expected": [
-        "swiftui-accessibility"
-      ]
-    },
-    {
-      "query": "Liquid Glass design system",
-      "expected": [
-        "swiftui-design-system"
-      ]
-    },
-    {
-      "query": "SwiftData persistence migration",
-      "expected": [
-        "apple-data-persistence"
-      ]
-    },
-    {
-      "query": "URLSession networking retry",
-      "expected": [
-        "apple-networking"
-      ]
-    },
-    {
-      "query": "Swift Testing and XCTest",
-      "expected": [
-        "swiftui-testing"
-      ]
-    },
-    {
-      "query": "macOS window and tvOS focus",
+      "query": "My iPad split view loses the draft when the window gets narrow.",
       "expected": [
         "swiftui-platform-adaptation"
       ]
     },
     {
-      "query": "UIViewRepresentable interop",
+      "query": "At larger text sizes VoiceOver cannot save the note.",
       "expected": [
-        "swiftui-interop"
+        "swiftui-platform-adaptation"
       ]
     },
     {
-      "query": "WidgetKit and App Intents",
+      "query": "Offline editing overwrites my edits when I reconnect.",
+      "expected": [
+        "apple-data-persistence"
+      ]
+    },
+    {
+      "query": "A saved rename disappears after relaunch.",
+      "expected": [
+        "apple-data-persistence"
+      ]
+    },
+    {
+      "query": "My saved shortcut moves the wrong note.",
       "expected": [
         "apple-system-experiences"
       ]
     },
     {
-      "query": "Xcode project target membership",
+      "query": "A notification opens yesterday’s trip.",
       "expected": [
-        "apple-project-governance"
+        "apple-system-experiences"
       ]
     },
     {
-      "query": "privacy manifest purpose string",
-      "expected": [
-        "apple-privacy-system-integrations"
-      ]
-    },
-    {
-      "query": "performance memory leak Instruments",
+      "query": "Scrolling stutters during a download.",
       "expected": [
         "apple-performance-cleanup"
       ]
     },
     {
-      "query": "simulator screenshot runtime proof",
-      "expected": [
-        "apple-device-validation"
-      ]
-    },
-    {
-      "query": "App Store TestFlight submission",
-      "expected": [
-        "apple-app-store-readiness"
-      ]
-    },
-    {
-      "query": "notarization Gatekeeper Developer ID",
-      "expected": [
-        "macos-productization"
-      ]
-    },
-    {
-      "query": "Bake sourdough bread",
-      "expected": []
-    },
-    {
-      "query": "Translate this sentence into French",
-      "expected": []
-    },
-    {
-      "query": "Write a SQL join for invoices",
-      "expected": []
-    },
-    {
-      "query": "Create a navigationless wordmark",
-      "expected": []
-    },
-    {
-      "query": "screenshot review with a screen inventory",
-      "expected": [
-        "apple-device-validation"
-      ]
-    },
-    {
-      "query": "reconcile the release ledger and superseded blocker",
-      "expected": [
-        "apple-app-store-readiness"
-      ]
-    },
-    {
-      "query": "After renaming a document and reordering, the wrong row changes.",
-      "expected": [
-        "swiftui-state-architecture"
-      ]
-    },
-    {
-      "query": "Back skips the guide after I open a document from it.",
-      "expected": [
-        "swiftui-navigation"
-      ]
-    },
-    {
-      "query": "When AnyLayout changes the form, the draft disappears.",
-      "expected": [
-        "swiftui-layout"
-      ]
-    },
-    {
-      "query": "Voice Control can't press the button by its visible name.",
-      "expected": [
-        "swiftui-accessibility"
-      ]
-    },
-    {
-      "query": "AsyncStream keeps sending when I dismiss the screen.",
-      "expected": [
-        "swift-concurrency"
-      ]
-    },
-    {
-      "query": "Why does our zero-count confirmation pass before a callback runs?",
-      "expected": [
-        "swiftui-testing"
-      ]
-    },
-    {
-      "query": "Cancelling a shared image download in the feed blanks the detail screen.",
-      "expected": [
-        "apple-networking"
-      ]
-    },
-    {
-      "query": "Row body updates spike during the gesture but CPU is down.",
+      "query": "Typing lags during indexing.",
       "expected": [
         "apple-performance-cleanup"
       ]
     },
     {
-      "query": "How do I verify a SwiftData attribute rename on a store written by v1?",
+      "query": "Is the release candidate ready to ship?",
       "expected": [
-        "swiftdata"
+        "apple-device-validation"
       ]
     },
     {
-      "query": "Reorder the columns in a spreadsheet.",
+      "query": "Validate an upgrade from the previous installed version.",
+      "expected": [
+        "apple-device-validation"
+      ]
+    },
+    {
+      "query": "How do I declare an AppIntent?",
+      "expected": []
+    },
+    {
+      "query": "App Intents and Shortcuts",
+      "expected": []
+    },
+    {
+      "query": "What are the arguments to EntityQuery?",
+      "expected": []
+    },
+    {
+      "query": "SwiftData",
+      "expected": []
+    },
+    {
+      "query": "What is NavigationSplitView?",
+      "expected": []
+    },
+    {
+      "query": "How do I run xcodebuild?",
+      "expected": []
+    },
+    {
+      "query": "What are the rules for notarization?",
       "expected": []
     }
   ]

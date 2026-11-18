@@ -1,4 +1,4 @@
 interface:
-  display_name: "Apple Device Validation"
-  short_description: "Runtime proof on simulators and Apple devices."
-  default_prompt: "Use $apple-device-validation to prove this Apple app behavior at the requested runtime evidence level."
+  display_name: "Decide if a changed experience is ready to ship"
+  short_description: "Decide what a release candidate actually delivers."
+  default_prompt: "Use $apple-device-validation to evaluate the release promise on the installed candidate."

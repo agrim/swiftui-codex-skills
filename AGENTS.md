@@ -1,6 +1,6 @@
 # Repository maintenance contract
 
-Maintain portable skills for SwiftUI and Apple-platform engineering.
+Maintain portable guides to product decisions in native SwiftUI apps. A framework name alone is insufficient scope for a skill.
 
 ## Authoring
 

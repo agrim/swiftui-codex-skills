@@ -1,33 +1,23 @@
 ---
 name: apple-system-experiences
-description: "Integrate widgets, Live Activities, notifications, Spotlight, WatchConnectivity, HealthKit, and StoreKit."
+description: "Choose what a widget, shortcut or notification should let someone see or do, including when its saved context has gone stale."
 ---
 
-# Keep system features in sync with the app
+# Extend an app task beyond the open app
 
-Use this when app data appears or changes outside the main app, such as a pass in a widget or an edit sent from a watch. Trace one record to its destination.
+Ask what someone gains by staying outside the app. A widget can show the next departure at a glance. A shortcut can mark a known item complete. If the person needs to compare several records before deciding, open the app at that choice.
 
-## Start here
+## Design choices
 
-For a widget that shows an expired pass as valid, find the stored pass, its expiry, the installed widget, and the affected account and device.
+1. **Choose how much of the task belongs outside.** Show enough context for a confident decision. If yesterday’s cached time could look like a live departure, show when it was updated or offer to open the schedule. Hand off to the relevant item when the surface runs out of context. <!-- SURFACE-001 -->
+2. **Treat a saved selection as a request.** Resolve the item against the account and permissions available at invocation, including before any window opens. If access changed, give a neutral way to choose again without exposing the old item’s details. <!-- SURFACE-002 -->
+3. **Use the operation the app already trusts.** Let the surface supply inputs and the existing app operation decide whether the change can succeed. Collect missing choices before committing. Report completion only when the promised effect took place. <!-- SURFACE-003 -->
 
-## How to proceed
+## Try it
 
-1. **Choose the source of truth.** Decide which record the destination should display and how it should look after expiry, deletion or loss of access. <!-- SYS-001 -->
-2. **Preserve the record’s meaning.** Keep the exported type and units consistent with the source. If the system hides read permission, leave it unknown. <!-- SYS-004 -->
-3. **Trace the handoff.** Follow one record ID and revision from the request or queue to the receiving feature. Check which revision it actually applied. <!-- SYS-003 -->
-4. **Reuse the app’s action for writes.** Validate the record, account access and required confirmation at execution. Reconcile a repeated delivery before applying its effect again. <!-- SYS-002 -->
-5. **Exercise the receiving feature.** Check that the app ships and registers any required extension. On the device, confirm the destination can access the record and displays the intended change. <!-- SYS-005 -->
+For a saved action, compare its response with the record you find on returning to the app.
 
-## Check the result
+- Run the saved action with the app closed. Cancel a required choice, then run it to completion. Only the completed attempt changes the intended record. <!-- SURFACE-001 SURFACE-003 -->
+- Save the action in one account and invoke it in another that lacks access. Both accounts keep their data and the old record’s private details stay hidden. <!-- SURFACE-002 -->
 
-- Delay a refresh across restart and expiry. The installed widget marks the old pass stale or shows its fallback. <!-- SYS-001 SYS-003 SYS-005 -->
-- Deliver the same watch edit twice. The app records one change. <!-- SYS-002 -->
-- Export a workout and compare its units on-device. Switch accounts and check that private records disappear. An empty HealthKit read leaves read permission unknown. <!-- SYS-004 SYS-005 -->
-
-## What to report
-
-Identify the source record, destination, last observed handoff and user-visible result.
-
-- [Choose what each system feature can show or change](references/system-patterns.md)
-- [Check delivery, expiry and recovery](references/system-surface-contracts.md)
+- [Should “Move note” run in Shortcuts or open the app?](references/a-saved-action.md)

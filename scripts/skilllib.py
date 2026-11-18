@@ -18,6 +18,7 @@ SLUG = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*\Z")
 RULE = re.compile(r"- \*\*(?P<id>[A-Z]+-[0-9]{3}) — (?P<title>[^*\s][^*]*?\.)\*\* (?P<instruction>\S.*)")
 HEADINGS = ("Inputs", "Rules", "Workflow", "Verify", "Output", "References")
 GUIDE_HEADINGS = ("Start here", "How to proceed", "Check the result", "What to report")
+DECISION_HEADINGS = ("Design choices", "Try it")
 RULE_ID = r"[A-Z]+-[0-9]{3}"
 ACTION = re.compile(rf"(?P<number>[0-9]+)\. \*\*(?P<title>[^*\s][^*]*?\.)\*\* (?P<instruction>\S.*?) <!-- (?P<id>{RULE_ID}) -->")
 CHECK = re.compile(rf"- (?P<check>\S.*?) <!-- (?P<ids>{RULE_ID}(?: {RULE_ID})*) -->")
@@ -153,23 +154,35 @@ def _legacy_fields(intro: str, sections: dict[str, str]) -> dict[str, Any]:
 def _guide_fields(intro: str, sections: dict[str, str]) -> dict[str, Any]:
     opening = re.fullmatch(r"# (\S[^\n]*)\n[ \t]*\n(.+)", intro, re.S)
     if opening is None:
-        raise ValueError("expected a title, a blank line and a purpose paragraph")
-    report = re.split(r"\n[ \t]*\n", sections["What to report"], maxsplit=1)
-    if len(report) != 2:
-        raise ValueError("What to report must end with a blank line and playbook links")
-    steps = _entries("How to proceed", sections["How to proceed"], ACTION)
-    checks = _entries("Check the result", sections["Check the result"], CHECK)
-    return {"title": opening[1], "purpose": _paragraph("Purpose", opening[2]),
-            "inputs": _paragraph("Start here", sections["Start here"]),
+        raise ValueError("expected a title followed by an opening paragraph")
+    first_paragraph = _paragraph("Opening", opening[2])
+    fields = {"title": opening[1]}
+    if "Design choices" in sections:
+        trial = re.split(r"\n[ \t]*\n", sections["Try it"])
+        if len(trial) != 3:
+            raise ValueError("Try it requires an acceptance goal, checks and local case links")
+        outcome, check_text, links = trial
+        fields.update(inputs=first_paragraph, output=_paragraph("Acceptance goal", outcome))
+        step_text = sections["Design choices"]
+    else:
+        report = re.split(r"\n[ \t]*\n", sections["What to report"], maxsplit=1)
+        if len(report) != 2:
+            raise ValueError("What to report must end with a blank line and playbook links")
+        outcome, links = report
+        fields.update(purpose=first_paragraph, inputs=_paragraph("Start here", sections["Start here"]),
+                      output=_paragraph("What to report", outcome))
+        step_text, check_text = sections["How to proceed"], sections["Check the result"]
+    steps = _entries("Design choices", step_text, ACTION)
+    checks = _entries("Checks", check_text, CHECK)
+    return {**fields,
             "rules": [{key: m[key] for key in ("id", "title", "instruction")} for m in steps],
             "workflow": [m["title"] for m in steps],
             "verify": [{"rule_ids": m["ids"].split(), "check": m["check"]} for m in checks],
-            "output": _paragraph("What to report", report[0]),
-            "references": [m.groupdict() for m in _entries("Playbook links", report[1], REFERENCE)]}
+            "references": [m.groupdict() for m in _entries("Playbook links", links, REFERENCE)]}
 
 
 def skill_contract(folder: Path, item: dict[str, Any], text: str, seen_rules: set[str]) -> dict[str, Any]:
-    """Export current guides and previously published six-section entries through the same interface."""
+    """Export current and previously published entry formats through the same interface."""
     text = text.replace("\r\n", "\n")
     meta = frontmatter(text)
     if meta["name"] != item["id"] or meta["description"] != item["summary"]:
@@ -185,7 +198,7 @@ def skill_contract(folder: Path, item: dict[str, Any], text: str, seen_rules: se
     for heading, content in sections.items():
         if heading != "Rules" and re.search(r"^- \*\*[A-Z]+-[0-9]{3} — ", content, re.M):
             raise ValueError(f"rule declaration outside Rules in {heading}")
-    if headings == GUIDE_HEADINGS:
+    if headings in (DECISION_HEADINGS, GUIDE_HEADINGS):
         fields = _guide_fields(intro, sections)
         expected_comments = len(fields["rules"]) + len(fields["verify"])
         if body.count("<!--") != expected_comments or body.count("-->") != expected_comments:
@@ -193,7 +206,7 @@ def skill_contract(folder: Path, item: dict[str, Any], text: str, seen_rules: se
     elif headings == HEADINGS:
         fields = _legacy_fields(intro, sections)
     else:
-        raise ValueError("expected guide headings in order: " + ", ".join(GUIDE_HEADINGS))
+        raise ValueError("expected guide headings in order: " + ", ".join(DECISION_HEADINGS))
 
     declared: set[str] = set()
     for rule in fields["rules"]:
@@ -248,6 +261,14 @@ def catalog(root: Path) -> dict[str, Any]:
         raise ValueError("catalog.json: unsupported schema or missing skills array")
     if not data["skills"] or not all(isinstance(item, dict) for item in data["skills"]):
         raise ValueError("catalog.json: skills must be a nonempty object array")
+    active = {item.get("id") for item in data["skills"] if isinstance(item.get("id"), str)}
+    retired = data.get("retired", {})
+    if not isinstance(retired, dict) or any(
+        not SLUG.fullmatch(name) or name in active or
+        (target is not None and (not isinstance(target, str) or target not in active))
+        for name, target in retired.items()
+    ):
+        raise ValueError("catalog.json: invalid retired skill mapping")
     return data
 
 
@@ -277,7 +298,7 @@ def generated_docs(root: Path) -> dict[str, str]:
     for item in items:
         cells = [f'[{item["id"]}](../skills/{item["id"]}/SKILL.md)', item["summary"], ", ".join(item["platforms"]), item["limits"]]
         coverage.append("| " + " | ".join(cell.replace("|", "\\|") for cell in cells) + " |")
-    coverage += ["", "## Applicability versus execution", "", "The Platforms column describes where the engineering guidance may apply, not a list of tested destinations. The example package configures macOS 14 and iOS 17 minimums. CI is configured for macOS example execution and iOS SDK compilation; those definitions alone are not successful run receipts. Other listed platforms require their own relevant builds and runtime evidence. See the examples README and evaluation records for the precise contracts exercised.", "", "## Deliberate limits", "", "This is not a replacement for Apple documentation, legal review, platform testing, or specialist implementations of graphics engines, media pipelines, security protocols, machine learning, or medical algorithms. Platform and framework coverage is uneven by design: common SwiftUI decisions are deeper than specialist APIs. The source registry distinguishes reviewed content from discovery links. Behavioral quality across models requires the evaluation procedure, not just passing repository lint."]
+    coverage += ["", "## Applicability versus execution", "", "The Platforms column describes where the engineering guidance may apply, not a list of tested destinations. The example package configures macOS 14 and iOS 17 minimums. CI is configured for macOS example execution and iOS SDK compilation; those definitions alone are not successful run receipts. Other listed platforms require their own relevant builds and runtime evidence. See the examples README and evaluation records for the precise contracts exercised.", "", "## Deliberate limits", "", "Select a guide when you face the product decision it describes. Use framework documentation for API mechanics and tool help for build and distribution commands. The [migration guide](skill-migration.md) explains the revised scope. The [evaluation protocol](evaluation.md) describes how to assess behavior on an app task."]
     refs = ["# Primary-source registry", "", "Generated from `sources.json`; run `python3 scripts/skillctl.py docs` to update.", "", "`content-reviewed` means relevant page content was inspected for this revision; it is not a guarantee that every linked API, platform, or rule was verified. `reference-only` is a discovery route whose content has not been reviewed in this revision. A successful HTTP request does not upgrade this status. Dates are review records, not automatic freshness guarantees.", "", "| ID | Official source | Status | Reviewed |", "| --- | --- | --- | --- |"]
     for item in sorted(sources, key=lambda s: s["id"]):
         refs.append(f'| `{item["id"]}` | [{item["title"]}]({item["url"]}) | {item["status"]} | {item["reviewed"] or "—"} |')

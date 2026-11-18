@@ -6,6 +6,7 @@ import argparse
 import datetime as dt
 import re
 import sys
+from collections.abc import Collection
 from pathlib import Path
 from urllib.parse import quote, urlsplit
 
@@ -53,7 +54,9 @@ source was read, that its content is correct, or that every article link exists.
     _text(article.get("title"), "article.title")
     _text(article.get("limitation"), "article.limitation")
     _text(data.get("reuse"), "reuse")
-    known = {item["id"] for item in catalog(root)["skills"]}
+    library = catalog(root)
+    active = {item["id"] for item in library["skills"]}
+    known = active | set(library.get("retired", {}))
     records = data.get("resources")
     if not isinstance(records, list) or not records:
         raise ValueError("resources must be a nonempty array")
@@ -80,7 +83,7 @@ source was read, that its content is correct, or that every article link exists.
             raise ValueError(sid + ": maps_to must be a nonempty string array")
         if len(mapping) != len(set(mapping)) or not set(mapping).issubset(known):
             raise ValueError(sid + ": duplicate or unknown local skill mapping")
-        for target in mapping:
+        for target in active.intersection(mapping):
             if not safe_path(root, f"skills/{target}/SKILL.md").is_file():
                 raise ValueError(sid + ": missing mapped skill")
         sha, path = row.get("blob_sha"), row.get("path")
@@ -109,17 +112,18 @@ source was read, that its content is correct, or that every article link exists.
                 raise ValueError(sid + ": blob receipt URL must identify owner/repository")
 
 
-def render(data: dict) -> str:
+def render(data: dict, retired: Collection[str] = ()) -> str:
     def cell(value: str) -> str:
         return value.replace("|", "\\|").replace("\n", " ")
     lines = ["# Ecosystem provenance map", "", "Generated from `upstreams.json`; run `python3 scripts/upstream_audit.py --write`.", "",
              f'Inventory date: {data["inventory_date"]}.', "",
              f'Source article: [{data["article"]["title"]}]({data["article"]["url"]}).', "",
              "**Access boundary:** " + data["article"]["limitation"], "", data["reuse"], "",
-             "Mappings indicate relevant local guidance, not feature parity or an audit of upstream implementation. `directory-discovery` is one level beyond the recovered article list. A reviewed entry point does not mean every supporting file was read.", "",
+             "Mappings record the topics at the time of review. Retired topics link to the [catalog migration](skill-migration.md). `directory-discovery` is one level beyond the recovered article list. A reviewed entry point does not mean every supporting file was read.", "",
              "| Resource | Relationship / review | Local guidance | Review scope |", "| --- | --- | --- | --- |"]
     for row in data["resources"]:
-        mapping = ", ".join(f'[{sid}](../skills/{sid}/SKILL.md)' for sid in row["maps_to"])
+        mapping = ", ".join(f"[{sid}](skill-migration.md)" if sid in retired else
+                            f"[{sid}](../skills/{sid}/SKILL.md)" for sid in row["maps_to"])
         scope = row["scope"]
         if row.get("blob_sha"):
             scope += f' Receipt: `{row["path"]}` at Git blob `{row["blob_sha"]}`.'
@@ -142,7 +146,7 @@ def main(argv: list[str] | None = None) -> int:
         data = read_json(safe_path(root, "upstreams.json"))
         validate(root, data)
         output = safe_path(root, "docs/ecosystem.md")
-        expected = render(data)
+        expected = render(data, catalog(root).get("retired", {}))
         if args.write:
             output.write_text(expected, encoding="utf-8")
         elif not output.is_file() or output.read_text(encoding="utf-8") != expected:

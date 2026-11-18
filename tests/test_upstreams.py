@@ -7,7 +7,7 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 import upstream_audit as audit
-from skillctl import route
+from skilllib import catalog
 
 
 class ProvenanceTests(unittest.TestCase):
@@ -24,10 +24,12 @@ class ProvenanceTests(unittest.TestCase):
     def test_pin_links_to_the_reviewed_file(self):
         audit.validate(ROOT, self.data)
         url = f'{self.row["url"]}/blob/{self.row["commit_sha"]}/skills/File%20%231.md'
-        self.assertIn(f']({url})', audit.render(self.data))
+        rendered = audit.render(self.data, catalog(ROOT)["retired"])
+        self.assertIn(f']({url})', rendered)
+        self.assertIn("[swiftdata](skill-migration.md)", rendered)
         del self.row["commit_sha"]
         audit.validate(ROOT, self.data)
-        legacy = audit.render(self.data)
+        legacy = audit.render(self.data, catalog(ROOT)["retired"])
         self.assertIn(self.row["blob_sha"], legacy)
         self.assertNotIn("/blob/", legacy)
 
@@ -45,15 +47,6 @@ class ProvenanceTests(unittest.TestCase):
         self.row["url"] = "https://user:password@github.com/example/project"
         with self.assertRaisesRegex(ValueError, "credential-free"):
             audit.validate(ROOT, self.data)
-
-
-class EcosystemRoutingTests(unittest.TestCase):
-    def test_specialist_routes(self):
-        fixtures = json.loads((ROOT / "evals/ecosystem-routing.json").read_text())
-        for case in fixtures["cases"]:
-            with self.subTest(query=case["query"]):
-                matches = [item["id"] for item in route(ROOT, case["query"], 3)]
-                self.assertIn(case["expected"], matches)
 
 
 if __name__ == "__main__":

@@ -51,12 +51,12 @@ class CatalogTests(unittest.TestCase):
         self.assertTrue(any("unsafe relative path" in e for e in validate_skills.validate(self.root)))
 
     def test_duplicate_rule_id_rejected(self):
-        path = self.root / "skills/swift-concurrency/SKILL.md"
-        path.write_text(path.read_text().replace("CONC-001", "UI-001"))
+        path = self.root / "skills/apple-data-persistence/SKILL.md"
+        path.write_text(path.read_text().replace("EDIT-001", "FEATURE-001"))
         self.assertTrue(any("duplicate rule ID" in e for e in validate_skills.validate(self.root)))
 
     def test_contract_exports_complete_entries_or_reports_an_error(self):
-        skills = ["swift-concurrency", "swiftui-testing"]
+        skills = ["apple-data-persistence", "apple-device-validation"]
         args = ["--repo", str(self.root), "contract", *skills]
         # Mix an older installed entry with a current guide in one request.
         old_path = self.root / "skills" / skills[0] / "SKILL.md"
@@ -93,9 +93,8 @@ Give the result.
         self.assertEqual(legacy["rules"], [{"id": "CONC-001", "title": "Cancel.", "instruction": "Stop the task."}])
         path = self.root / "skills" / skills[1] / "SKILL.md"
         original = path.read_text()
-        self.assertIn(f'# {guide["title"]}\n\n{guide["purpose"]}', original)
-        self.assertIn(f'## Start here\n\n{guide["inputs"]}', original)
-        self.assertIn(f'## What to report\n\n{guide["output"]}', original)
+        self.assertIn(f'# {guide["title"]}\n\n{guide["inputs"]}', original)
+        self.assertIn(f'## Try it\n\n{guide["output"]}', original)
         self.assertEqual(guide["workflow"], [rule["title"] for rule in guide["rules"]])
         for number, rule in enumerate(guide["rules"], 1):
             self.assertIn(f"{number}. " + "**{title}** {instruction} <!-- {id} -->".format(**rule), original)
@@ -104,14 +103,14 @@ Give the result.
         for ref in guide["references"]:
             self.assertIn("- [{label}]({path})".format(**ref), original)
 
-        path.write_text(original.replace("## Check the result\n", "## Check the result\n- Wrong skill. <!-- CONC-001 -->\n"))
+        path.write_text(original.replace("- For an upgrade,", "- Wrong skill. <!-- CONC-001 -->\n- For an upgrade,"))
         output, errors = io.StringIO(), io.StringIO()
         with contextlib.redirect_stdout(output), contextlib.redirect_stderr(errors):
             self.assertEqual(skillctl.main(args), 2)
         self.assertIn("rule IDs from this skill", errors.getvalue())
         self.assertEqual(output.getvalue(), "")
         count = len(guide["rules"]) + 1
-        path.write_text(original.replace("## Check the result", f"{count}. **Retry.** Run again. <!-- TEST-999 -->\n\n## Check the result"))
+        path.write_text(original.replace("## Try it", f"{count}. **Retry.** Run again. <!-- TEST-999 -->\n\n## Try it"))
         self.assertIn(f"{skills[-1]}: no verification check for TEST-999", validate_skills.validate(self.root))
 
 
@@ -124,6 +123,13 @@ class PortableToolsTests(unittest.TestCase):
                     self.assertIn(expected, actual)
                 if not case["expected"]:
                     self.assertEqual(actual, [])
+
+        for name, target in skilllib.catalog(ROOT)["retired"].items():
+            with self.subTest(retired=name):
+                with self.assertRaisesRegex(ValueError, "retired in v3") as error:
+                    skillctl.select(ROOT, [name])
+                if target:
+                    self.assertIn(target, str(error.exception))
 
     def test_behavioral_contracts_reference_existing_skills(self):
         known = {item["id"] for item in skilllib.catalog(ROOT)["skills"]}
@@ -152,14 +158,14 @@ class PortableToolsTests(unittest.TestCase):
         self.assertNotIn('<a id="apple-device-validation-reference-1">', partial)
         self.assertIn((ROOT / path).read_text().strip(), partial)
         with self.assertRaisesRegex(ValueError, "outside selected skills"):
-            skillctl.bundle(ROOT, ["apple-security"], references=[path])
+            skillctl.bundle(ROOT, ["apple-system-experiences"], references=[path])
 
     def test_bundle_output_does_not_overwrite(self):
         with tempfile.TemporaryDirectory() as directory:
             target = Path(directory) / "bundle.md"
             target.write_text("keep")
             with contextlib.redirect_stderr(io.StringIO()):
-                status = skillctl.main(["bundle", "swiftui-navigation", "--output", str(target)])
+                status = skillctl.main(["bundle", "swiftui-platform-adaptation", "--output", str(target)])
             self.assertEqual(status, 2)
             self.assertEqual(target.read_text(), "keep")
 

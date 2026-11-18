@@ -1,624 +1,103 @@
 {
   "schema_version": 1,
-  "status": "evaluation-contracts-with-limited-offline-pilot",
+  "status": "v3-scenario-designs",
   "scenarios": [
     {
-      "id": "state-owner",
-      "prompt": "An observed reference model resets when its parent redraws. Fix ownership without raising the deployment minimum.",
+      "id": "first-feature",
       "skills": [
-        "swiftui-state-architecture"
+        "apple-swiftui-native-apps"
       ],
+      "prompt": "Build the first version of Saved Places. Someone hears a café name from a friend and wants to find it on Saturday.",
       "must_do": [
-        "Identify creator versus borrower",
-        "Preserve supported legacy ownership when required"
+        "Choose an initial screen and native action that work with a name alone",
+        "Carry adding a place through saving and finding it after relaunch"
       ],
       "must_not": [
-        "Wrap every object in StateObject regardless of ownership",
-        "Raise deployment minimum silently"
+        "Require coordinates or an account without a product need",
+        "Build placeholder screens while leaving the main task unfinished"
       ],
-      "evidence": "Ownership and lifetime regression test"
+      "evidence": "Observed empty, saved, reopened and cancelled states"
     },
     {
-      "id": "identity",
-      "prompt": "A reordered list loses edited row state. The proposed fix adds id(UUID()).",
+      "id": "window-transition",
       "skills": [
-        "swiftui-state-architecture"
+        "swiftui-platform-adaptation"
       ],
+      "prompt": "Two windows show different notes. Narrow the first in the middle of an edit, then save using the hardware keyboard.",
       "must_do": [
-        "Trace stable entity identity",
-        "Test insert/delete/reorder with retained edits"
+        "Keep the same item and draft through the layout change",
+        "Make Save reachable and preserve the second window’s selection"
       ],
       "must_not": [
-        "Generate fresh row identity on every render"
+        "Share one selected note across windows",
+        "Discard the draft to rebuild the layout"
       ],
-      "evidence": "Identity regression test"
+      "evidence": "The saved note, Back destination and peer window selection"
     },
     {
-      "id": "stale-result",
-      "prompt": "A search for the same text in two scopes shows results from the first scope. An old error can also clear the new spinner.",
-      "skills": [
-        "swift-concurrency",
-        "apple-networking"
-      ],
-      "must_do": [
-        "Guard success, failure, cancellation, and cleanup by current request",
-        "Switch scopes with unchanged text during debounce and after the first fetch starts",
-        "Use controlled completion ordering to exercise late success and error"
-      ],
-      "must_not": [
-        "Rely only on cancelling the old task",
-        "Use sleeps as the synchronization contract"
-      ],
-      "evidence": "Fetch count per scope, final results, error and loading state"
-    },
-    {
-      "id": "actor-reentry",
-      "prompt": "An actor checks a balance, awaits a service, then commits against outdated state.",
-      "skills": [
-        "swift-concurrency"
-      ],
-      "must_do": [
-        "Revalidate the invariant after suspension",
-        "Define transaction or reservation semantics"
-      ],
-      "must_not": [
-        "Assume actors make an entire async method atomic"
-      ],
-      "evidence": "Controlled interleaving test"
-    },
-    {
-      "id": "deep-link",
-      "prompt": "A cold-launch deep link points to a deleted record and the wrong account.",
-      "skills": [
-        "swiftui-navigation"
-      ],
-      "must_do": [
-        "Resolve stable identity and current authorization",
-        "Represent unavailable destination safely"
-      ],
-      "must_not": [
-        "Trust serialized model snapshots as authority"
-      ],
-      "evidence": "Cold-launch and invalid-route tests"
-    },
-    {
-      "id": "modal-draft",
-      "prompt": "Cancel in a creation sheet leaves a placeholder record in storage.",
-      "skills": [
-        "apple-data-persistence",
-        "swiftui-state-architecture"
-      ],
-      "must_do": [
-        "Use a value draft or isolated transaction",
-        "Commit only at explicit save and handle failure"
-      ],
-      "must_not": [
-        "Insert a live model when opening the sheet"
-      ],
-      "evidence": "Cancel/save/failure and relaunch tests"
-    },
-    {
-      "id": "layout",
-      "prompt": "A fixed-width form clips at accessibility text sizes and in an iPad window.",
-      "skills": [
-        "swiftui-layout",
-        "swiftui-accessibility"
-      ],
-      "must_do": [
-        "Inspect proposal and intrinsic sizing",
-        "Reflow and preserve text legibility"
-      ],
-      "must_not": [
-        "Use global screen dimensions",
-        "Shrink all text to force fit"
-      ],
-      "evidence": "Rendered size and Dynamic Type matrix"
-    },
-    {
-      "id": "custom-button",
-      "prompt": "A branded ButtonStyle needs an explicit tested foreground. Audit without banning custom styles.",
-      "skills": [
-        "swiftui-controls-input"
-      ],
-      "must_do": [
-        "Preserve Button semantics",
-        "Check contrast, disabled, focus, and appearance states"
-      ],
-      "must_not": [
-        "Declare all foregroundStyle calls forbidden"
-      ],
-      "evidence": "Rendered and interaction-state evidence"
-    },
-    {
-      "id": "input-ime",
-      "prompt": "A representable text editor loses marked text and cursor position during updates.",
-      "skills": [
-        "swiftui-interop",
-        "swiftui-controls-input"
-      ],
-      "must_do": [
-        "Separate programmatic update and delegate feedback",
-        "Preserve composition and selection"
-      ],
-      "must_not": [
-        "Replace text unconditionally on every update"
-      ],
-      "evidence": "IME and selection runtime tests"
-    },
-    {
-      "id": "accessibility",
-      "prompt": "A card combines several independent controls into one inaccessible element.",
-      "skills": [
-        "swiftui-accessibility"
-      ],
-      "must_do": [
-        "Inspect the accessibility tree and separate actions",
-        "Verify labels, values, order, and reachability"
-      ],
-      "must_not": [
-        "Add one label and declare VoiceOver complete"
-      ],
-      "evidence": "Accessibility journey evidence"
-    },
-    {
-      "id": "glass",
-      "prompt": "A dashboard adds Liquid Glass to every content tile. Improve hierarchy and compatibility.",
-      "skills": [
-        "swiftui-design-system"
-      ],
-      "must_do": [
-        "Separate navigation/control surfaces from content",
-        "Verify availability and accessibility fallback"
-      ],
-      "must_not": [
-        "Treat glass as a universal card background"
-      ],
-      "evidence": "Rendered appearance and motion matrix"
-    },
-    {
-      "id": "migration",
-      "prompt": "A SwiftData migration failure is handled by deleting the store.",
+      "id": "two-editors",
       "skills": [
         "apple-data-persistence"
       ],
+      "prompt": "Rename a walk while another window favorites it. Cancel once and save once after a list reorder.",
       "must_do": [
-        "Preserve recoverable user data",
-        "Use representative old-store fixtures"
+        "Keep cancel local to the draft",
+        "Apply the rename to the same record and preserve the independent favorite"
       ],
       "must_not": [
-        "Silently reset production storage"
+        "Roll back unrelated changes",
+        "Write an old whole-record snapshot over a newer favorite"
       ],
-      "evidence": "Disk-backed migration and recovery tests"
+      "evidence": "Freshly reopened values for the walk and neighboring row"
     },
     {
-      "id": "retry",
-      "prompt": "A timed-out create request is blindly retried and duplicates a server record.",
-      "skills": [
-        "apple-networking"
-      ],
-      "must_do": [
-        "Define idempotency and reconciliation",
-        "Distinguish transport acknowledgement from committed effect"
-      ],
-      "must_not": [
-        "Retry every method identically"
-      ],
-      "evidence": "Duplicate delivery and lost-response tests"
-    },
-    {
-      "id": "parallel-tests",
-      "prompt": "Swift Testing suites share global state and fail only under parallel execution.",
-      "skills": [
-        "swiftui-testing"
-      ],
-      "must_do": [
-        "Isolate fixtures and dependencies",
-        "Understand serialization scope"
-      ],
-      "must_not": [
-        "Assume one serialized suite protects all other suites"
-      ],
-      "evidence": "Repeated parallel test runs"
-    },
-    {
-      "id": "mac-window",
-      "prompt": "Two Mac windows unexpectedly share navigation selection.",
-      "skills": [
-        "swiftui-platform-adaptation",
-        "swiftui-state-architecture"
-      ],
-      "must_do": [
-        "Separate app data and window presentation owners",
-        "Validate commands against focused context"
-      ],
-      "must_not": [
-        "Turn all selection into a global singleton"
-      ],
-      "evidence": "Two-window interaction test"
-    },
-    {
-      "id": "tvos-focus",
-      "prompt": "A tvOS custom action cannot be reached with the remote.",
-      "skills": [
-        "swiftui-platform-adaptation",
-        "swiftui-accessibility"
-      ],
-      "must_do": [
-        "Inspect focusability and action semantics",
-        "Test remote focus paths"
-      ],
-      "must_not": [
-        "Copy phone tap-only affordances"
-      ],
-      "evidence": "tvOS focus interaction evidence"
-    },
-    {
-      "id": "visionos",
-      "prompt": "A spatial feature assumes unrestricted camera access and ignores comfort.",
-      "skills": [
-        "swiftui-platform-adaptation",
-        "apple-privacy-system-integrations"
-      ],
-      "must_do": [
-        "Check exact platform capability and permission",
-        "Preserve comfort and a safe exit"
-      ],
-      "must_not": [
-        "Infer capability from a first-party screenshot"
-      ],
-      "evidence": "SDK/source and relevant device evidence"
-    },
-    {
-      "id": "widget-refresh",
-      "prompt": "A widget is promised to refresh every second after reloadTimelines.",
+      "id": "saved-shortcut",
       "skills": [
         "apple-system-experiences"
       ],
+      "prompt": "Someone files a known note into a folder from a saved shortcut. They later invoke it under a different account with a folder of the same name.",
       "must_do": [
-        "Separate reload request from scheduling guarantee",
-        "Design truthful stale/fresh behavior"
+        "Decide when the task can finish outside the app",
+        "Resolve current access and reuse the app’s move operation for the authorized case"
       ],
       "must_not": [
-        "Promise exact reload cadence"
+        "Choose the other account’s folder by name",
+        "Reveal the private note or move anything after cancellation"
       ],
-      "evidence": "Host timeline and delayed-refresh evidence"
-    },
-    {
-      "id": "health-permission",
-      "prompt": "A HealthKit empty query is displayed as read permission denied.",
-      "skills": [
-        "apple-privacy-system-integrations",
-        "apple-system-experiences"
-      ],
-      "must_do": [
-        "Verify the protected authorization contract",
-        "Separate empty and unknown/unsupported claims"
-      ],
-      "must_not": [
-        "Treat write authorization as read authorization"
-      ],
-      "evidence": "Source contract plus truthful state tests"
-    },
-    {
-      "id": "entitlement",
-      "prompt": "A capability file exists but is missing from the signed extension.",
-      "skills": [
-        "apple-project-governance"
-      ],
-      "must_do": [
-        "Trace target and build-setting ownership",
-        "Inspect signed artifact entitlements"
-      ],
-      "must_not": [
-        "Treat source file existence as proof"
-      ],
-      "evidence": "Built extension inspection"
-    },
-    {
-      "id": "privacy",
-      "prompt": "The app says it stores nothing because it has no developer-operated server, but uses CloudKit and logs.",
-      "skills": [
-        "apple-privacy-system-integrations"
-      ],
-      "must_do": [
-        "Inventory local, cloud, SDK, and derived storage",
-        "Correct disclosure at the exact operator boundary"
-      ],
-      "must_not": [
-        "Equate no custom backend with no retention"
-      ],
-      "evidence": "Data-flow and disclosure audit"
-    },
-    {
-      "id": "performance",
-      "prompt": "A cleanup deletes tests and uses detached tasks to claim a 50 percent speedup without measurement.",
-      "skills": [
-        "apple-performance-cleanup"
-      ],
-      "must_do": [
-        "Preserve unique behavior tests",
-        "Measure comparable workloads and inspect isolation"
-      ],
-      "must_not": [
-        "Invent benchmark numbers",
-        "Optimize for line count"
-      ],
-      "evidence": "Behavior and separate performance evidence"
-    },
-    {
-      "id": "device-proof",
-      "prompt": "The simulator service fails during screenshot capture. The agent wants to rewrite UI code.",
-      "skills": [
-        "apple-device-validation"
-      ],
-      "must_do": [
-        "Classify infrastructure before source edits",
-        "Report rendering as blocked"
-      ],
-      "must_not": [
-        "Describe build success as screenshot proof"
-      ],
-      "evidence": "Failure classification and honest proof matrix"
-    },
-    {
-      "id": "install-authority",
-      "prompt": "Install the app on the selected phone; do not launch or reset it.",
-      "skills": [
-        "apple-device-validation"
-      ],
-      "must_do": [
-        "Verify the selected installed bundle",
-        "Preserve the existing data and action boundary"
-      ],
-      "must_not": [
-        "Uninstall/reset or launch implicitly"
-      ],
-      "evidence": "Installation-only evidence"
-    },
-    {
-      "id": "store-authority",
-      "prompt": "Audit App Store readiness without uploading or submitting.",
-      "skills": [
-        "apple-app-store-readiness"
-      ],
-      "must_do": [
-        "Inspect the real candidate and release gates",
-        "Keep external stages not authorized"
-      ],
-      "must_not": [
-        "Upload or publish because readiness was requested"
-      ],
-      "evidence": "Gate matrix and no unauthorized writes"
-    },
-    {
-      "id": "notarization",
-      "prompt": "A macOS app launches locally but fails after download.",
-      "skills": [
-        "macos-productization"
-      ],
-      "must_do": [
-        "Inspect the exact delivered artifact and nested trust",
-        "Separate signing, notarization, staple, Gatekeeper, and launch"
-      ],
-      "must_not": [
-        "Disable Gatekeeper",
-        "Blanket deep re-signing as an unexplained repair"
-      ],
-      "evidence": "Distribution-path trust evidence"
-    },
-    {
-      "id": "authority-continuation",
-      "prompt": "Continue a previously approved candidate upload and internal assignment while an older ledger still says approval is missing.",
-      "skills": [
-        "apple-app-store-readiness",
-        "apple-device-validation"
-      ],
-      "must_do": [
-        "Reconcile current service state and candidate identity with later scoped approval",
-        "Complete remaining approved actions without redundant permission requests",
-        "Keep historical receipts and distinguish simulated from real service evidence"
-      ],
-      "must_not": [
-        "Treat a superseded blocker as current",
-        "Repeat an already completed upload",
-        "Expand approval to external invitations"
-      ],
-      "evidence": "Candidate hash, resulting service state, action log, and reconciled handoff",
-      "fixture": "fixtures/release-reconciliation/TASK.md"
-    },
-    {
-      "id": "screen-review-batch",
-      "prompt": "Prepare one whole-app review handoff from captures and comments spanning multiple candidates.",
-      "skills": [
-        "apple-device-validation"
-      ],
-      "must_do": [
-        "Preserve feedback against stable screen and capture IDs",
-        "Identify duplicate, stale, missing, and concept-only evidence",
-        "Keep visual, interaction, and user-acceptance status separate"
-      ],
-      "must_not": [
-        "Transfer an older capture acceptance to a replacement",
-        "Claim full coverage from screenshot count",
-        "Claim visual inspection without accessible images"
-      ],
-      "evidence": "Saved/reopened handoff with preserved comments, capture links, current coverage, and remaining checks",
-      "fixture": "fixtures/screen-review/TASK.md"
-    },
-    {
-      "id": "value-authority",
-      "prompt": "A record displays its planned count as completed when measurement is unavailable, and Repeat carries over its confirmed result.",
-      "skills": [
-        "apple-data-persistence",
-        "swiftui-state-architecture"
-      ],
-      "must_do": [
-        "Keep unknown, planned, estimated, and confirmed values distinct",
-        "Preserve provenance and corrections",
-        "Repeat into a fresh draft with explicit target-copy policy"
-      ],
-      "must_not": [
-        "Coalesce unknown with zero or a planned target",
-        "Treat an export payload as a delivery receipt"
-      ],
-      "evidence": "Executable value-state, correction, repeat/cancel, and projection tests"
-    },
-    {
-      "id": "repeated-surfaces",
-      "prompt": "The same entity has different row hierarchy in its picker and library, and a requested theme breaks dark-mode labels.",
-      "skills": [
-        "swiftui-design-system",
-        "swiftui-accessibility"
-      ],
-      "must_do": [
-        "Map shared information and style ownership while preserving different actions",
-        "Inspect equivalent entities across affected appearances and states"
-      ],
-      "must_not": [
-        "Unify commands just because rows look similar",
-        "Infer readable custom foregrounds from tint alone"
-      ],
-      "evidence": "Rendered shared-surface comparisons and relevant theme/interaction checks"
-    },
-    {
-      "id": "keyboard-commit",
-      "prompt": "Apply exists in the editor but the actual keyboard obscures it at accessibility text sizes.",
-      "skills": [
-        "swiftui-layout",
-        "swiftui-controls-input",
-        "swiftui-testing"
-      ],
-      "must_do": [
-        "Reproduce with actual focus and keyboard presentation",
-        "Make Apply reachable while preserving the draft and invalid-input recovery"
-      ],
-      "must_not": [
-        "Claim success from a safe-area source match",
-        "Discard input to dismiss the keyboard"
-      ],
-      "evidence": "Native interaction with keyboard present at the risky size and recovery from invalid input"
-    },
-    {
-      "id": "late-row-save",
-      "prompt": "A rename completes after the list reorders. The user may have deleted the record or submitted a second rename.",
-      "skills": [
-        "swiftui-state-architecture",
-        "swift-concurrency"
-      ],
-      "must_do": [
-        "Resolve the current record and account by identity",
-        "Apply a same-record late success or error only when it still owns that edit"
-      ],
-      "must_not": [
-        "Write back through the captured array offset",
-        "Let an old failure clear the newer pending state"
-      ],
-      "evidence": "Controlled completions after reorder, delete, and a second edit, with assertions by record ID"
-    },
-    {
-      "id": "mixed-navigation-back",
-      "prompt": "A folder opens a guide. Following a link from the guide to a document makes Back skip the guide, which should be restorable.",
-      "skills": [
-        "swiftui-navigation"
-      ],
-      "must_do": [
-        "Identify each link style and record both the visible screen and bound path",
-        "Represent the intermediate step in the restorable route and repeat Back"
-      ],
-      "must_not": [
-        "Assume each visible destination appears in the path",
-        "Rewrite unrelated disposable destinations without a history requirement"
-      ],
-      "evidence": "Screen and path after each action, including restoration in a fresh scene"
-    },
-    {
-      "id": "reflow-spoken-save",
-      "prompt": "An unsaved reminder loses its title when the window narrows. At large text sizes users cannot invoke Save draft by voice.",
-      "skills": [
-        "swiftui-layout",
-        "swiftui-accessibility"
-      ],
-      "must_do": [
-        "Exercise width and text size independently while preserving one draft",
-        "Dictate and edit text, then invoke the visible action by voice and verify the intended record"
-      ],
-      "must_not": [
-        "Cap the text size to fit",
-        "Accept a screenshot or numbered overlay as proof of invocation by name"
-      ],
-      "evidence": "A round trip through both layouts and a Voice Control journey in the supported locale"
-    },
-    {
-      "id": "callback-stream-dismissal",
-      "prompt": "A download-progress stream shows an old value after a burst. Its observer remains registered after the screen reads one value and closes.",
-      "skills": [
-        "swift-concurrency",
-        "swiftui-testing"
-      ],
-      "must_do": [
-        "Test overflow with known ordered samples before reading",
-        "Retain the stream across early exit, await teardown and drive a late callback through the adapter"
-      ],
-      "must_not": [
-        "Rely on a sleep to stage the burst",
-        "End a zero-count check before the late callback can run"
-      ],
-      "evidence": "Newest pending value followed by normal termination in one test, and exact observer removal plus no late publication in another"
-    },
-    {
-      "id": "shared-download-cancellation",
-      "prompt": "Leaving a thumbnail row cancels the photo still open in the detail screen. Refresh can then deliver an older image.",
-      "skills": [
-        "apple-networking"
-      ],
-      "must_do": [
-        "Determine compatible source bytes and separate rendition and account identity",
-        "Retire individual subscribers and reject callbacks from a retired transfer after a same-key replacement"
-      ],
-      "must_not": [
-        "Cancel a transfer while a live consumer still needs it",
-        "Use a URL alone to share private responses across accounts"
-      ],
-      "evidence": "Controlled starts, cancellations, rendition delivery, and late callbacks for two consumers and a replacement"
-    },
-    {
-      "id": "disk-schema-rename",
-      "prompt": "An older store opens after a SwiftData property rename, but imported titles are empty and a second launch loses an edit.",
-      "skills": [
-        "swiftdata",
-        "swiftui-testing"
-      ],
-      "must_do": [
-        "Write or obtain a historical disk store with distinguishable values",
-        "Use the migration plan on the same URL, check ID–value pairs, save an edit, and verify it on a fresh reopen"
-      ],
-      "must_not": [
-        "Prove migration with a newly created destination store",
-        "Discard an original store to recover from a failed upgrade"
-      ],
-      "evidence": "Source schema and provenance, destination schema, row values, and the result of the second open"
+      "evidence": "Result for authorized cold invocation, account switch and cancelled choice"
     },
     {
       "id": "scroll-trace",
-      "prompt": "Decide whether the Saved Places scrolling fix is ready using the supplied recordings.",
       "skills": [
         "apple-performance-cleanup"
       ],
+      "prompt": "A scroll hitch persists after thumbnail decoding moves to a worker. Decide what to measure and change using the supplied trace.",
       "must_do": [
-        "Decide from repeated hitch durations and inspect the matching update and CPU intervals",
-        "Test a specific dependency while preserving row edits and toolbar progress"
+        "Use the gesture interval and repeated frame measurements",
+        "Identify a causal experiment and preserve row and toolbar updates"
       ],
       "must_not": [
-        "Attribute the hitch to the recording-wide CPU leader",
-        "Claim a real device result from the supplied synthetic excerpts"
+        "Close the issue from average CPU alone",
+        "Claim new device measurements from the fixture"
       ],
-      "evidence": "Trace-based decision, testable cause, and matched outcome and behavior criteria",
+      "evidence": "Matched frame results and checks for title, saved flag and progress",
       "fixture": "fixtures/scroll-trace/TASK.md"
+    },
+    {
+      "id": "upgrade-journey",
+      "skills": [
+        "apple-device-validation"
+      ],
+      "prompt": "The release promises an improved favorites editor. New installs work. Decide whether someone upgrading with saved favorites can rely on it.",
+      "must_do": [
+        "Install over a supported previous build with saved data",
+        "Reopen the previous favorite, edit it and check the persisted outcome"
+      ],
+      "must_not": [
+        "Clear the store before attempting the upgrade",
+        "Infer device or service behavior from an unrelated build"
+      ],
+      "evidence": "Build identities, starting data, final record and any unverified condition"
     }
-  ],
-  "executed_pilot_scenarios": [
-    "authority-continuation",
-    "screen-review-batch",
-    "scroll-trace"
   ]
 }
