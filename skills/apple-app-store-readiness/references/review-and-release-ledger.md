@@ -14,9 +14,15 @@ Recheck current regional and storefront requirements from Apple at submission ti
 
 Report passed, failed, not applicable, not authorized, and unverified separately. A source inspection can establish preparation, not uploaded or released service state. Never embed review credentials, certificates, or API keys in the public ledger.
 
+## An external tester cannot see the beta
+
+1. Match the app, version/build and external group in App Store Connect. If the build is marked **TestFlight Internal Only**, it can only join internal groups. Record the need for a candidate eligible for external distribution. Reinviting the tester cannot change eligibility.
+2. For an eligible build, inspect group membership, review status and how testers are notified. If TestFlight App Review approved it with automatic notification off, verify whether manual distribution is still pending. If distribution to this group is authorized, complete that step and reread its status. An upload-only request ends at the upload receipt even when a distribution control is available.
+
 ## Official sources
 
 - [App Review Guidelines](https://developer.apple.com/app-store/review/guidelines/).
 - [Distributing your app](https://developer.apple.com/documentation/xcode/distributing-your-app-for-beta-testing-and-releases).
 - [Describing data use in privacy manifests](https://developer.apple.com/documentation/bundleresources/describing-data-use-in-privacy-manifests).
 - [Offering account deletion in your app](https://developer.apple.com/support/offering-account-deletion-in-your-app/).
+- [Invite external testers](https://developer.apple.com/help/app-store-connect/test-a-beta-version/invite-external-testers/).

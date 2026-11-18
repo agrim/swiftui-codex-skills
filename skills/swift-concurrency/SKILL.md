@@ -1,39 +1,39 @@
 ---
 name: swift-concurrency
-description: "Diagnose Swift actor isolation, task lifetimes, stale async results, cancellation, continuations, stream buffering, and Swift 6 migration."
+description: "Diagnose Swift isolation, task lifetimes, stale results, cancellation, continuations, stream buffering, and Swift 6 migration."
 ---
 
-# Swift concurrency and task lifetimes
+# Swift concurrency
 
 ## Inputs
 
-Record the compiler, language mode, isolation defaults, feature flags, task owners, and cross-actor data.
+Record compiler, language mode, isolation defaults, flags, and task owners.
 
 ## Rules
 
-- **CONC-001 — Isolate mutable state.** Keep UI state on its actor. Transfer immutable `Sendable` snapshots. Justify any unsafe annotation independently of compiler acceptance.
-- **CONC-002 — Give tasks a lifetime.** Prefer structured children or `.task(id:)` for view work. Assign longer-lived tasks to a service that completes or cancels them.
-- **CONC-003 — Stop obsolete work.** Check cancellation around costly work and before publishing. Invalidate obsolete requests even when the service ignores cancellation.
-- **CONC-004 — Recheck after suspension.** Apply success, failure, and cleanup only while the account and request generation still match.
-- **CONC-005 — Check the executor.** Locate CPU-heavy work before moving it. A `Task` created on the main actor can still block it.
+- **CONC-001 — Isolate UI state.** Transfer `Sendable` snapshots. Justify unsafe annotations.
+- **CONC-002 — Own tasks.** Prefer structured children or view-scoped `.task(id:)`. Give longer work an owner and stop condition.
+- **CONC-003 — Revoke obsolete work.** Check cancellation around costly work and before publication. Invalidate replaced requests even if cancellation is ignored.
+- **CONC-004 — Recheck after suspension.** Match account and request before applying success, failure, or cleanup.
+- **CONC-005 — Check the executor.** Locate expensive work that blocks rendering on the main actor.
 
 ## Workflow
 
-1. Trace each suspension and handoff. Bound concurrent work, retries, and stream buffers.
-2. Serialize callback completion and cancellation so each continuation resumes once.
-3. For streams, specify which events may drop and who removes observers on early exit.
+1. Trace actor crossings. Bound concurrency, retries, and buffers.
+2. Serialize callback completion and cancellation so each continuation resumes once. Define droppable events and observer teardown.
 
 ## Verify
 
-- CONC-001: Build affected targets with strict concurrency checking in their supported language mode. The changed handoffs compile without isolation diagnostics.
-- CONC-003, CONC-004: Replace a request or log out before completing it. Late success and failure leave current data and loading state intact.
-- CONC-002: For a latest-only progress stream, deliver two samples before the first read. Only the newer sample is pending. Dismiss the consumer and verify its observer is removed once.
+- CONC-001: Build supported modes with strict checking. Changed handoffs compile without isolation diagnostics.
+- CONC-003, CONC-004: Replace a request or log out. Late results and errors preserve data and loading state.
+- CONC-002: Buffer two latest-only samples. Read only the newer. Dismiss and verify one observer removal.
+- CONC-005: Profile slow work on its executor. Compare main-thread time for the same interaction after the fix.
 
 ## Output
 
-Report isolation, task owners, failing event order, and regression results.
+Report isolation, owners, event order, and results.
 
 ## References
 
-- [Task lifetime, actor reentrancy, and stale results](references/concurrency-patterns.md)
-- [Stream teardown, callback races, and compiler settings](references/streams-and-migration.md)
+- [Task lifetime and stale results](references/concurrency-patterns.md)
+- [Streams, callbacks, and migration](references/streams-and-migration.md)

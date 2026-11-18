@@ -21,6 +21,12 @@ A SwiftUI view value can be recreated while its state storage persists. `@State`
 
 For mutable rows, persist the ID when creating the record. Indices are reasonable for genuinely static position-based content, not a safe default for editable, reordered records. Test deleting the selected item and inserting before an editing row. Preserve semantic row identity during loading by changing status/accessories when that avoids losing focus; do not freeze the entire hierarchy if content genuinely changes.
 
+### A changing input seeds a state object
+
+An editor can seed a private `@StateObject` from its document. Pass the construction expression directly to `StateObject(wrappedValue:)`. SwiftUI evaluates that autoclosure once per view identity. Constructing a model in a local variable beforehand pays the initialization cost whenever the view initializer runs. [StateObject](https://developer.apple.com/documentation/swiftui/stateobject)
+
+Decide what a parent update means. Pass a changing read-only title as an input. Keep an unsaved title in the editor's draft and reconcile external changes according to the edit policy. If switching documents starts a fresh editing session, resolve any unsaved work before keying the editor by document ID. The new identity resets its draft and focus together. Verify that a same-document refresh preserves typing and switching documents cannot save into the previous record.
+
 ## Avoid accidental global state
 
 Share authentication and deliberate app services at app scope; keep selections and edit drafts at scene or feature scope. Opening a second window must not silently replace the first window's route or draft. A type-based environment dependency needs a provider in previews, tests, sheets, and new scenes. Prefer explicit parameters when they make required dependencies clearer.

@@ -33,6 +33,17 @@ The registry holds exact read-file blob hashes where available. New receipts inc
 
 The [provenance map](ecosystem.md) links the exact files inspected. The [primary-source registry](sources.md) records the Apple and Swift sources used to check the resulting platform guidance.
 
+## Specialist skill review, November 2026
+
+This pass reviewed 29 files across 12 GitHub repositories for decisions missing from the local playbooks. On November 18, Nuke had 8,698 stars, MobileBuildMCP had 6,585, Paul Hudson’s SwiftUI skill had 6,581, Dimillian’s collection had 4,029 and Antoine van der Lee’s SwiftUI skill had 3,931. Narrower collections supplied the Core Data, SwiftData, testing, concurrency and release cases. The file receipts record which passages informed each skill. [Reviewed files](ecosystem.md)
+
+| Upstream example | Decision in the local playbook |
+| --- | --- |
+| [Dimillian’s scoped search](https://github.com/Dimillian/Skills/blob/05ba982bfeb0d77d3c97d4542b0ee15034d05f84/swiftui-ui-patterns/references/searchable.md) | The example changes scope but keys its task only to text. The [search playbook](../skills/swift-concurrency/references/concurrency-patterns.md) exercises a scope switch both during debounce and after a request starts. |
+| [Nuke’s image-sizing skill](https://github.com/kean/Nuke/blob/740dff31db9d4b1916a1651e5e50abccd1f18cdf/Skills/nuke-optimize/SKILL.md) | The [networking playbook](../skills/apple-networking/references/transport-and-cache-boundaries.md) checks two screen scales. They can reuse source bytes and still need different decoded thumbnails. |
+| [Axiom’s hang diagnosis](https://github.com/CharlesWiltgen/Axiom/blob/ffafd3b3e0dbaaa60b753ca4a835ae6603b873e1/axiom-codex/skills/axiom-performance/skills/hang-diagnostics.md) | In a freeze, another thread can keep process CPU high while the main thread waits. The [diagnostic playbook](../skills/apple-observability/references/logging-and-traces.md) follows the wait to the operation that can release it. |
+| [TestFlight orchestration](https://github.com/rorkai/app-store-connect-cli-skills/blob/6d1c3c55fe4590fcbc3e3115de18c5721a73c23b/skills/asc-testflight-orchestration/SKILL.md) | The [release playbook](../skills/apple-app-store-readiness/references/review-and-release-ledger.md) distinguishes a build limited to internal groups from an externally approved build awaiting manual distribution. |
+
 ## Decisions deliberately not imported
 
 Do not raise every app's deployment target to an upstream author's preferred OS/compiler. Check the installed SDK, language mode, and minimum supported runtime separately. Do not migrate an API merely because a newer spelling exists during unrelated work.

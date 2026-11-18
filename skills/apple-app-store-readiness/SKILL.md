@@ -1,39 +1,38 @@
 ---
 name: apple-app-store-readiness
-description: "Audit an App Store build, prepare storefront and reviewer materials, or perform an authorized TestFlight, submission, or release stage."
+description: "Audit App Store candidates and reviewer materials, or perform an authorized TestFlight, submission, or release stage."
 ---
 
 # App Store readiness
 
 ## Inputs
 
-Identify the release stage, approval scope, product, storefronts, candidate, account and purchase flows, dependencies, and App Store Connect records.
+Identify the candidate, storefronts, requested stage, existing approval and service state.
 
 ## Rules
 
-- **STORE-001 — Track each stage separately.** Separate preparation, upload, processing, TestFlight, submission, approval, and release. Honor existing authorization for its candidate and stage until changed or revoked.
-- **STORE-002 — Check the release promise.** Match each advertised feature and screenshot to a reachable journey in the candidate.
-- **STORE-003 — Check current requirements.** Use Apple’s requirements for the current toolchain, region, data use, business model, and stage.
-- **STORE-004 — Rehearse reviewer access.** Follow the review instructions with working services, links, sample data, and reviewer access. Keep credentials private.
-- **STORE-005 — Identify the build.** Tie source, platforms, archive, version/build, upload receipt, and tests to one candidate.
+- **STORE-001 — Bound the action.** Reuse approval for its candidate and stage. Upload, beta distribution, submission and release are separate actions.
+- **STORE-002 — Test the promise.** Trace each advertised feature and screenshot to a reachable journey.
+- **STORE-003 — Check current policy.** Apply Apple’s requirements for this region, toolchain, business model and data use.
+- **STORE-004 — Rehearse review.** Follow reviewer instructions against live services. Keep credentials private.
+- **STORE-005 — Bind evidence.** Match revision, archive, version/build, tests and service receipts.
 
 ## Workflow
 
-1. Compare disclosures, account behavior, monetization, and metadata with the binary.
-2. Prepare reviewer access and reproduce the core journey.
-3. Check live state before acting. Record an existing receipt for this build, or perform the authorized stage once its prerequisites pass.
+1. Reconcile disclosures, account flows and purchases with the candidate.
+2. Check the selected build’s live status before performing any outstanding authorized stage.
 
 ## Verify
 
-- STORE-002: Test first launch, denied permissions, offline behavior, and applicable purchases or deletion against the storefront claim.
-- STORE-004: Reach the privacy policy, support links, and advertised features using reviewer access.
-- STORE-001, STORE-005: Confirm each completed external stage in App Store Connect against the selected build.
+- STORE-002, STORE-004: From first launch, reach advertised features, support and privacy links. Exercise applicable offline, denied-permission, purchase and deletion paths against storefront claims.
+- STORE-001, STORE-005: Confirm the resulting stage against this build in App Store Connect.
+- STORE-003: For account creation, check the deletion flow against Apple’s current requirements for this app.
 
 ## Output
 
-Report candidate, service evidence, and blockers in gate order. Mark each gate passed, failed, not applicable, not authorized, or unverified.
+List each gate in order with evidence or blocker. Distinguish failed, unverified, unauthorized and inapplicable gates.
 
 ## References
 
 - [Candidate and storefront checks](references/app-store-readiness-patterns.md)
-- [Reviewer handoff and release ledger](references/review-and-release-ledger.md)
+- [Reviewer and release ledger](references/review-and-release-ledger.md)

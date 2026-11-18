@@ -7,32 +7,32 @@ description: "Fix SwiftUI Back behavior, deep links, sheets, scene selection, an
 
 ## Inputs
 
-Record target, deployment minimum, journey, owning scene or tab, record IDs, and restoration requirements.
+Target, minimum OS, journey, scene or tab, IDs and restoration needs.
 
 ## Rules
 
-- **NAV-001 — Route by identity.** Store lightweight route values or IDs. At the destination, load the current record and check authorization.
-- **NAV-002 — Match container to task.** Use stacks for hierarchy, split views for persistent selection/detail, tabs for peers, and sheets for focused tasks.
-- **NAV-003 — Give presentation one owner.** Represent mutually exclusive sheets with one selection. Keep paths and selection per scene unless sharing is intentional.
-- **NAV-004 — Define each exit.** Preserve Back and keyboard dismissal. Commit on Save. Handle unsaved drafts explicitly on Cancel or dismissal.
-- **NAV-005 — Validate incoming routes.** Parse supported URLs, resolve authentication, and handle malformed, deleted, or inaccessible destinations.
+- **NAV-001 — Identity.** Resolve route IDs against current records and permissions.
+- **NAV-002 — Container.** Use stacks for hierarchy, split views for selection/detail, tabs for peers, sheets for focused tasks.
+- **NAV-003 — Ownership.** Use one selection for exclusive sheets. Scope paths and selection per scene unless intentionally shared.
+- **NAV-004 — Exits.** Preserve Back and keyboard dismissal. Save commits. Define draft handling on other exits.
+- **NAV-005 — Incoming links.** Validate URL, authentication and record access. Provide a fallback.
 
 ## Workflow
 
-1. Use route values for restorable steps and intermediate screens Back must reach after a value push.
-2. Register destinations outside lazy rows. Synchronize selection and path through their owner. Check availability on the oldest target.
+1. Use route values for restorable steps and screens Back must revisit after a value push.
+2. Register destinations outside lazy rows. Synchronize selection and path at their owner. Check availability.
 
 ## Verify
 
-- NAV-003, NAV-004: Push from a guide to a detail, then go Back. If the guide belongs in history, confirm it reappears in compact and expanded layouts. For scene-local paths, navigation leaves the second window unchanged.
-- NAV-005: Deliver a link twice and confirm one intended destination. Restore a deleted record on cold launch and check the unavailable state or root fallback.
-- NAV-003, NAV-004: Switch sheets, edit, then cancel. Confirm the intended editor opened and stored data stayed intact.
+- NAV-002, NAV-003, NAV-004: Push guide then detail. Back reveals the guide at both widths. Collapsing a split view preserves selection. A second window retains its path.
+- NAV-001, NAV-005: Open a link twice for one destination. Relaunch after deletion or revoked access. Restoration shows the fallback.
+- NAV-003, NAV-004: Switch sheets, edit, cancel. Verify editor identity and unchanged stored data.
 
 ## Output
 
-Report owners, fallback, and observed path and screen at the failing transition.
+Owner, fallback, path and screen at failure.
 
 ## References
 
-- [Containers, modal tasks, and scene ownership](references/navigation-patterns.md)
-- [Back history, deep links, and restoration](references/routing-and-restoration.md)
+- [Containers, sheets, and scenes](references/navigation-patterns.md)
+- [Skipped history, failed dismissal, and restoration](references/routing-and-restoration.md)

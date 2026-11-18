@@ -21,6 +21,12 @@ Inspect how many rows each element in a `List` or `Table` produces. A conditiona
 
 A conditional badge *inside* a row that always exists has a different cost. Keep the badge and its semantics unless its own measured update is expensive. Compare opening the list as well as scrolling it, and verify that selecting, deleting, or reordering filtered records still targets the correct IDs.
 
+## A computed property updates an expensive parent
+
+Suppose a library header reads an observable model’s computed `availableCount`. Its getter reads each book’s availability. Those reads can make the header depend on each book, and changing availability can rerun an expensive enclosing body. Trace which view actually reads the count. Passing a model through an intermediate view need only create a dependency where a property is read. [Managing model data](https://developer.apple.com/documentation/SwiftUI/Managing-model-data-in-your-app)
+
+If reevaluating the parent dominates, move the read and label into a small child. If counting the books dominates, that move still performs the count. Consider maintaining a derived count only if every insertion, removal and availability change can update it correctly. Replay the costly interaction and compare its duration. Also change a title alone and then a book’s availability to check the label and its update causes.
+
 ## Change contract
 
 A proposed optimization records the observed cost, semantic invariant, affected path, hypothesis, comparison workload, and stop condition. Keep a behavior regression test alongside the measurement. Preserve nil/zero/stale/failed distinctions and cancellation semantics while reducing work.

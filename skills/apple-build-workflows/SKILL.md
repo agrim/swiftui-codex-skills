@@ -1,37 +1,37 @@
 ---
 name: apple-build-workflows
-description: "Set up or repair Xcode and SwiftPM build, test, debug, or simulator workflows. Use for scheme selection, CI reproduction, and failed commands."
+description: "Set up or repair Xcode and SwiftPM build, test, debug and simulator commands, including CI reproduction."
 ---
 
-# Reproducible Apple builds and debugging
+# Apple build workflows
 
 ## Inputs
 
-Read the build instructions. Identify project, workspace, or package, source revision, toolchain, action, configuration, SDK, and destination.
+Read the CI invocation. Identify revision, toolchain, owner, action and destination.
 
 ## Rules
 
-- **BUILD-001 — Discover targets.** Use SwiftPM for package checks it supports. For destination-specific claims, select an available Apple scheme and destination.
-- **BUILD-002 — Reuse the CI command.** Use the same settings, dependency locks, and generator inputs locally and in CI.
-- **BUILD-003 — Preserve the first failure.** Capture raw output and exit status before formatting. Stop dependent steps on failure.
-- **BUILD-004 — Separate side effects.** Plan build, test, install, launch, reset, signing, and publication independently. Execute only the requested actions.
-- **BUILD-005 — Inspect executable inputs.** Inspect scripts, plugins, generators and debugger expressions. Run untrusted tools only within the authorized scope.
+- **BUILD-001 — Select the build.** Use SwiftPM for package checks. For platform claims, discover a matching scheme and destination.
+- **BUILD-002 — Reproduce CI.** Match configuration, locks and generator inputs.
+- **BUILD-003 — Preserve failures.** Capture raw output and exit status before formatting. Stop dependent actions on failure.
+- **BUILD-004 — Bound side effects.** Build, install, launch, reset, sign or publish only as authorized.
+- **BUILD-005 — Inspect executable inputs.** Check scripts, plugins, generators and debugger expressions before running untrusted code.
 
 ## Workflow
 
-1. List commands and their file, device, network, or account effects.
-2. Run the authorized phase, passing paths and names as separate arguments.
-3. Identify the failing phase and rerun it after the fix.
+1. Resolve active settings and review the command’s effects.
+2. Pass paths as separate arguments. After a fix, rerun the failing phase.
 
 ## Verify
 
-- BUILD-002: For a clean-build claim, build the selected scheme or package from a fresh checkout. For test success, confirm the requested cases ran and passed.
-- BUILD-003: A failed build returns its nonzero status through the wrapper and prevents launch.
+- BUILD-001, BUILD-002: Replay CI with its scheme or package, destination, lockfiles and generator inputs. Use a fresh checkout for clean-build claims. Confirm the requested tests passed.
+- BUILD-003, BUILD-004: A build failure survives the wrapper and prevents launch.
+- BUILD-005: If a phase uploads symbols, identify its destination and confirm upload authorization before execution.
 
 ## Output
 
-Report revision, toolchain, destination, commands, exit statuses, artifacts, and blocked or skipped actions.
+Report revision, command, environment, status, artifacts and skipped actions.
 
 ## References
 
-- [Project discovery, CLI commands, and debugger checks](references/bootstrap-and-cli.md)
+- [Discovery, CI and debugging](references/bootstrap-and-cli.md)

@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased — shorter skills and deeper playbooks
+
+All 29 entry points are shorter. Every published rule now points to an observable check. The playbooks add cases drawn from 29 pinned upstream skill files, including scope changes during search, Core Data saves that stop in a parent context, inaccessible custom controls, and TestFlight eligibility. `skillctl.py bundle --reference REPO_PATH` includes just the requested playbooks alongside the selected entries.
+
 ## Unreleased — readable skill contracts
 
 All 29 entry points now give ordered actions and observable checks linked to their rule IDs. `skillctl.py contract` exports selected entries as compact JSON from the same Markdown the validator reads. Reference links identify the decisions or sources they lead to.

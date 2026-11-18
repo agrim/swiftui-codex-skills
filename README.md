@@ -8,17 +8,18 @@ The repository URL retains its historical name, `swiftui-codex-skills`. The skil
 
 ## Start here
 
-Read [the SwiftUI entry point](skills/apple-swiftui-native-apps/SKILL.md), then select a focused module from the [coverage map](docs/coverage.md). Each folder is self-contained: `SKILL.md` supplies the workflow and a local playbook supplies decisions, failure cases, and official sources.
+For a broad review, start with the [SwiftUI entry point](skills/apple-swiftui-native-apps/SKILL.md). For a specific symptom, go directly to the matching skill in the [coverage map](docs/coverage.md). Its `SKILL.md` gives the decision rules and checks. Open a linked playbook when you need a worked case or an API source.
 
-For a host that supports the [Agent Skills format](https://agentskills.io/specification), install the selected folders in that host's configured skill directory. For any other tool, read or attach the Markdown directly, or generate a standalone bundle:
+Install the selected folders in a host that supports the [Agent Skills format](https://agentskills.io/specification), or use the CLI from the repository root.
 
 ```bash
 python3 scripts/skillctl.py route "SwiftUI navigation deep link restores the wrong screen"
 python3 scripts/skillctl.py contract swiftui-navigation
-python3 scripts/skillctl.py bundle swiftui-navigation swiftui-state-architecture --output selected-skills.md
+python3 scripts/skillctl.py bundle swiftui-navigation --entrypoints-only
+python3 scripts/skillctl.py bundle swiftui-navigation --reference skills/swiftui-navigation/references/routing-and-restoration.md
 ```
 
-Use `route` to find skills by phrase. If it finds no match, inspect the coverage map. Use `contract` for compact JSON containing the selected skills’ rules, ordered steps, and verification checks. Each check names the rule IDs it exercises. Use `bundle` for standalone Markdown with the playbooks included.
+`route` finds skills by phrase. `contract` returns compact JSON with rules, steps, checks and playbook paths relative to each skill folder. For Markdown, `--entrypoints-only` lists each playbook’s repository path. Pass that path to `--reference` to include its text. Repeat the flag for additional playbooks. Plain `bundle` includes every playbook for the selected skills. Add `--output selected-skills.md` to write a new file.
 
 To copy folders into an **existing directory you choose**, without overwriting installed skills:
 

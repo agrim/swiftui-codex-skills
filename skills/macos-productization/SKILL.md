@@ -1,38 +1,38 @@
 ---
 name: macos-productization
-description: "Prepare or verify macOS distribution, including Developer ID or Mac App Store signing, notarization, packaging, Gatekeeper, installation, and updates."
+description: "Prepare or verify macOS signing, notarization, packaging, Gatekeeper, installation and updates for Developer ID or Mac App Store distribution."
 ---
 
-# macOS packaging and distribution
+# macOS distribution
 
 ## Inputs
 
-Identify channel, authorized stage, revision, version/build, bundle, nested code, signing requirements, package, and updater.
+Identify the channel, candidate, package, updater and authorized stage.
 
 ## Rules
 
-- **MAC-001 — Select the channel.** Identify signing, sandbox, hardened runtime, packaging, and review requirements for development, internal, direct, or Mac App Store distribution.
-- **MAC-002 — Inspect the deliverable.** Check identity, resources, signature, and entitlements in the exported artifact and installed copy.
-- **MAC-003 — Verify the trust chain.** Inspect nested signatures, entitlements and update authenticity. Fix the source of a signing failure.
-- **MAC-004 — Record each trust check.** Track signing, notarization acceptance, stapling, Gatekeeper assessment, installation, and launch separately.
-- **MAC-005 — Stay within authorization.** Use credentials, submit to services, install, publish, delete, or change system settings only within the approved scope.
+- **MAC-001 — Select the channel.** Derive signing, sandbox, hardened runtime and review requirements from the distribution channel.
+- **MAC-002 — Inspect the product.** Check identity, resources and entitlements in the export and installed copy.
+- **MAC-003 — Verify trust.** Validate nested signatures and update authenticity. Repair failures at their source.
+- **MAC-004 — Separate receipts.** Track signing, notarization, stapling, Gatekeeper, installation and launch individually.
+- **MAC-005 — Bound side effects.** Use credentials, submit, install, publish, delete or change system settings only as authorized.
 
 ## Workflow
 
-1. Inspect the supplied candidate. For an authorized repair, fix the signing or packaging step and export again.
-2. Tie the artifact hash, version, release notes, service receipts, and update metadata to that export.
-3. For an authorized install test, use the intended distribution path.
+1. Inspect the candidate. After a repair, re-export and identify the new artifact.
+2. Match receipts and update metadata to the shipped version and hash.
 
 ## Verify
 
-- MAC-002, MAC-004: For direct download, check notarization and ticket status, assess the quarantined download, and confirm the installed app launches with expected resources and icons.
-- MAC-003: For signed updates, verify metadata and payload authenticity. Invalid updates must leave the installed app and user data intact.
+- MAC-002, MAC-004: For notarized distribution, match acceptance to the submission and validate its stapled ticket where applicable. Assess the quarantined download and launch the installed copy with its resources.
+- MAC-003: Reject invalid updates while preserving the installed app and data.
+- MAC-001, MAC-005: For a Developer ID audit, verify the export’s signer and check the log for unapproved submissions.
 
 ## Output
 
-Report artifact hash, channel, external actions, evidence per gate, and pending checks.
+Report channel, hash, actions and evidence or blocker per gate.
 
 ## References
 
-- [Channel, signing, and packaging checks](references/macos-productization-patterns.md)
-- [Reproducing and verifying an installed release](references/distribution-reproducibility.md)
+- [Signing and packaging](references/macos-productization-patterns.md)
+- [Installed release verification](references/distribution-reproducibility.md)

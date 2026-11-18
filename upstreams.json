@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "inventory_date": "2026-11-17",
+  "inventory_date": "2026-11-18",
   "article": {
     "url": "https://x.com/paulsolt/status/2042716870512353294",
     "title": "Install These Skills Before Codex Touches Your Xcode Project",
@@ -1065,6 +1065,414 @@
       "blob_sha": "8521b2ddd38a920ead18ef145470ec7946444792",
       "path": "swiftdata-expert-skill/references/migrations-and-history.md",
       "commit_sha": "4819a5381fa5fdce894451822917b1135c19e050"
+    },
+    {
+      "id": "coredata-saving",
+      "url": "https://github.com/AvdLee/Core-Data-Agent-Skill",
+      "relation": "supporting-source",
+      "status": "excerpt-reviewed",
+      "scope": "Child-context commit and cancellation scope prompted a parent-save failure and cold-reopen probe.",
+      "maps_to": [
+        "apple-data-persistence"
+      ],
+      "reviewed": "2026-11-18",
+      "blob_sha": "a6895ddf2c442dc025dcc612fc1f85a3d608f26d",
+      "path": "core-data-expert/references/saving.md",
+      "commit_sha": "855ca7d0df50e82b00c12881dd9cd23c19ef5f49"
+    },
+    {
+      "id": "coredata-handoff",
+      "url": "https://github.com/AvdLee/Core-Data-Agent-Skill",
+      "relation": "supporting-source",
+      "status": "excerpt-reviewed",
+      "scope": "Reviewed ID transfer examples. Apple documents a stricter existence check for inserts and deleted rows in a fresh reader.",
+      "maps_to": [
+        "core-data"
+      ],
+      "reviewed": "2026-11-18",
+      "blob_sha": "4d2e53cb485a8e67ea8be7e0ff79b68210823620",
+      "path": "core-data-expert/references/concurrency.md",
+      "commit_sha": "855ca7d0df50e82b00c12881dd9cd23c19ef5f49"
+    },
+    {
+      "id": "swiftdata-query-translation",
+      "url": "https://github.com/twostraws/SwiftData-Agent-Skill",
+      "relation": "supporting-source",
+      "status": "excerpt-reviewed",
+      "scope": "Store predicate translation limits prompted an example of a derived filter missing matches when the fetch limit runs first.",
+      "maps_to": [
+        "swiftdata"
+      ],
+      "reviewed": "2026-11-18",
+      "blob_sha": "b4cf2a362b142fac66142d1fa5c2acb4dfb8e45d",
+      "path": "swiftdata-pro/references/predicates.md",
+      "commit_sha": "8051f177a0076e7fd45bdf4ee687b070ba58fdc6"
+    },
+    {
+      "id": "swift-task-retention",
+      "url": "https://github.com/AvdLee/Swift-Concurrency-Agent-Skill",
+      "relation": "supporting-source",
+      "status": "excerpt-reviewed",
+      "scope": "Long-running observation and task captures prompted a deterministic ownership and teardown check.",
+      "maps_to": [
+        "swift-concurrency"
+      ],
+      "reviewed": "2026-11-18",
+      "blob_sha": "b33b99cd5390b6b5c157873e3f446de7143fb97d",
+      "path": "skills/swift-concurrency/references/memory-management.md",
+      "commit_sha": "3b1580d8398e0b5408b3bf0bada0e941a1cfc642"
+    },
+    {
+      "id": "swift-domain-search",
+      "url": "https://github.com/twostraws/SwiftUI-Agent-Skill",
+      "relation": "supporting-source",
+      "status": "excerpt-reviewed",
+      "scope": "User-facing text matching informed a case that preserves opaque identifier semantics alongside localized search.",
+      "maps_to": [
+        "swift-language"
+      ],
+      "reviewed": "2026-11-18",
+      "blob_sha": "2572522c5903b6281f5e7a5d64cc0585ed2bd6f9",
+      "path": "swiftui-pro/references/swift.md",
+      "commit_sha": "f2920b63995263f57b3e198674e89a602efba6d2"
+    },
+    {
+      "id": "nuke-rendition-sizing",
+      "url": "https://github.com/kean/Nuke",
+      "relation": "supporting-source",
+      "status": "entrypoint-reviewed",
+      "scope": "Display points, decode pixels and rendition cache identity informed a scale-change probe for a thumbnail.",
+      "maps_to": [
+        "apple-networking"
+      ],
+      "reviewed": "2026-11-18",
+      "blob_sha": "9177805180c46872c3922a22748ad56be894a2ef",
+      "path": "Skills/nuke-optimize/SKILL.md",
+      "commit_sha": "740dff31db9d4b1916a1651e5e50abccd1f18cdf"
+    },
+    {
+      "id": "safe-area-notices",
+      "url": "https://github.com/twostraws/SwiftUI-Agent-Skill",
+      "relation": "supporting-source",
+      "status": "excerpt-reviewed",
+      "scope": "The safe-area treatment of pinned content informed a wrapping notice covering the last list row.",
+      "maps_to": [
+        "swiftui-layout"
+      ],
+      "reviewed": "2026-11-18",
+      "blob_sha": "60743543b600d38de32301d9d338320c23f70c61",
+      "path": "swiftui-pro/references/resizability.md",
+      "commit_sha": "f2920b63995263f57b3e198674e89a602efba6d2"
+    },
+    {
+      "id": "sheet-dismissal",
+      "url": "https://github.com/AvdLee/SwiftUI-Agent-Skill",
+      "relation": "supporting-source",
+      "status": "excerpt-reviewed",
+      "scope": "Sheet-local dismissal informed a Cancel button that closes its presenting window and a check for failed saves.",
+      "maps_to": [
+        "swiftui-navigation"
+      ],
+      "reviewed": "2026-11-18",
+      "blob_sha": "d09845a0228f61728436a7bb1ba80ceaa5fd0e7e",
+      "path": "skills/swiftui-expert-skill/references/sheet-navigation-patterns.md",
+      "commit_sha": "62bd760f005093d1e2e4de5db156e456a5f96400"
+    },
+    {
+      "id": "form-focus-targets",
+      "url": "https://github.com/AvdLee/SwiftUI-Agent-Skill",
+      "relation": "supporting-source",
+      "status": "excerpt-reviewed",
+      "scope": "Ambiguous focus bindings informed a keyboard validation probe after reordering editable rows.",
+      "maps_to": [
+        "swiftui-controls-input"
+      ],
+      "reviewed": "2026-11-18",
+      "blob_sha": "74b3d010e0b879c4c9d8aada4ea0c60cc6335824",
+      "path": "skills/swiftui-expert-skill/references/focus-patterns.md",
+      "commit_sha": "62bd760f005093d1e2e4de5db156e456a5f96400"
+    },
+    {
+      "id": "custom-control-semantics",
+      "url": "https://github.com/AvdLee/SwiftUI-Agent-Skill",
+      "relation": "supporting-source",
+      "status": "excerpt-reviewed",
+      "scope": "Accessibility representations for custom controls informed a bounded dial adjustment and adjacent-control probe.",
+      "maps_to": [
+        "swiftui-accessibility"
+      ],
+      "reviewed": "2026-11-18",
+      "blob_sha": "6f0ea0c1275696c5fbddccbf1d7a07b13ee03dbf",
+      "path": "skills/swiftui-expert-skill/references/accessibility-patterns.md",
+      "commit_sha": "62bd760f005093d1e2e4de5db156e456a5f96400"
+    },
+    {
+      "id": "chart-descriptors",
+      "url": "https://github.com/AvdLee/SwiftUI-Agent-Skill",
+      "relation": "supporting-source",
+      "status": "excerpt-reviewed",
+      "scope": "Native chart accessibility and custom descriptors informed an audio-graph check after filtering a series.",
+      "maps_to": [
+        "swiftui-design-system"
+      ],
+      "reviewed": "2026-11-18",
+      "blob_sha": "a0f4cd6547a071a12b5590f9039e9705fbf44144",
+      "path": "skills/swiftui-expert-skill/references/charts-accessibility.md",
+      "commit_sha": "62bd760f005093d1e2e4de5db156e456a5f96400"
+    },
+    {
+      "id": "macos-value-windows",
+      "url": "https://github.com/AvdLee/SwiftUI-Agent-Skill",
+      "relation": "supporting-source",
+      "status": "excerpt-reviewed",
+      "scope": "Record-addressed windows informed a repeat-open and deleted-record restoration check for independent drafts.",
+      "maps_to": [
+        "swiftui-platform-adaptation"
+      ],
+      "reviewed": "2026-11-18",
+      "blob_sha": "f6cef4802c03cb10fa6562c6274aa70fbd14e5f3",
+      "path": "skills/swiftui-expert-skill/references/macos-scenes.md",
+      "commit_sha": "62bd760f005093d1e2e4de5db156e456a5f96400"
+    },
+    {
+      "id": "avdlee-state-initialization",
+      "url": "https://github.com/AvdLee/SwiftUI-Agent-Skill",
+      "relation": "supporting-source",
+      "status": "excerpt-reviewed",
+      "scope": "Externally seeded view-owned state, the StateObject initializer autoclosure and changing parent inputs.",
+      "maps_to": [
+        "swiftui-state-architecture"
+      ],
+      "reviewed": "2026-11-18",
+      "blob_sha": "b920b90c829dedfe2df587a826447db4f46f4b6d",
+      "path": "skills/swiftui-expert-skill/references/state-management.md",
+      "commit_sha": "62bd760f005093d1e2e4de5db156e456a5f96400"
+    },
+    {
+      "id": "hudson-swiftui-change-observation",
+      "url": "https://github.com/twostraws/SwiftUI-Agent-Skill",
+      "relation": "supporting-source",
+      "status": "excerpt-reviewed",
+      "scope": "onChange overload choice, checked against the SwiftUI declarations and original callback semantics.",
+      "maps_to": [
+        "apple-swiftui-native-apps"
+      ],
+      "reviewed": "2026-11-18",
+      "blob_sha": "f53879cd76e812232ed77293520e7065e14d705d",
+      "path": "swiftui-pro/references/api.md",
+      "commit_sha": "f2920b63995263f57b3e198674e89a602efba6d2"
+    },
+    {
+      "id": "hudson-observation-cost",
+      "url": "https://github.com/twostraws/SwiftUI-Agent-Skill",
+      "relation": "supporting-source",
+      "status": "excerpt-reviewed",
+      "scope": "Observable computed property dependencies and measured invalidation before changing observation boundaries.",
+      "maps_to": [
+        "apple-performance-cleanup"
+      ],
+      "reviewed": "2026-11-18",
+      "blob_sha": "e670b5e15792dfd66ebdfa3c94884f0b7602b711",
+      "path": "swiftui-pro/references/performance-plus.md",
+      "commit_sha": "f2920b63995263f57b3e198674e89a602efba6d2"
+    },
+    {
+      "id": "axiom-hang-diagnosis",
+      "url": "https://github.com/CharlesWiltgen/Axiom",
+      "relation": "supporting-source",
+      "status": "excerpt-reviewed",
+      "scope": "Busy versus blocked main-thread diagnosis and the choice of CPU sampling or thread-state evidence.",
+      "maps_to": [
+        "apple-observability"
+      ],
+      "reviewed": "2026-11-18",
+      "blob_sha": "cfb6ac62d703a7478a629bda629ff2de979ad3ea",
+      "path": "axiom-codex/skills/axiom-performance/skills/hang-diagnostics.md",
+      "commit_sha": "ffafd3b3e0dbaaa60b753ca4a835ae6603b873e1"
+    },
+    {
+      "id": "avdlee-parameterized-tests",
+      "url": "https://github.com/AvdLee/Swift-Testing-Agent-Skill",
+      "relation": "supporting-source",
+      "status": "excerpt-reviewed",
+      "scope": "Consolidating repeated test behavior while preserving independently identifiable failing inputs and paired expectations.",
+      "maps_to": [
+        "swiftui-testing"
+      ],
+      "reviewed": "2026-11-18",
+      "blob_sha": "4ac34fea171a8485af4d3604b49b8921a4f1ec3c",
+      "path": "swift-testing-expert/references/parameterized-testing.md",
+      "commit_sha": "798e9b1a2bcac164d4f0c781908199e754f0bab6"
+    },
+    {
+      "id": "axiom-window-presentation",
+      "url": "https://github.com/CharlesWiltgen/Axiom",
+      "relation": "supporting-source",
+      "status": "excerpt-reviewed",
+      "scope": "Value-driven windows and model-store identity informed a repeated-open and deleted-record restoration probe.",
+      "maps_to": [
+        "swiftui-platform-adaptation"
+      ],
+      "reviewed": "2026-11-18",
+      "blob_sha": "aabb9221b1a41c6d852092489ad7773b62f82f8e",
+      "path": "axiom-codex/skills/axiom-macos/skills/windows.md",
+      "commit_sha": "ffafd3b3e0dbaaa60b753ca4a835ae6603b873e1"
+    },
+    {
+      "id": "dimillian-search-scope",
+      "url": "https://github.com/Dimillian/Skills",
+      "relation": "supporting-source",
+      "status": "excerpt-reviewed",
+      "scope": "The scoped search example keys work only by query. A scope switch with identical text exposes a missing restart condition.",
+      "maps_to": [
+        "swift-concurrency"
+      ],
+      "reviewed": "2026-11-18",
+      "blob_sha": "6d7a2f15c3543f91b8c0f7cef2fffea606944037",
+      "path": "swiftui-ui-patterns/references/searchable.md",
+      "commit_sha": "05ba982bfeb0d77d3c97d4542b0ee15034d05f84"
+    },
+    {
+      "id": "asc-testflight-groups",
+      "url": "https://github.com/rorkai/app-store-connect-cli-skills",
+      "relation": "supporting-source",
+      "status": "entrypoint-reviewed",
+      "scope": "Read full entry point covering group/build IDs, upload-only scope and notification. Applied to external group eligibility and notification decisions.",
+      "maps_to": [
+        "apple-app-store-readiness"
+      ],
+      "reviewed": "2026-11-18",
+      "blob_sha": "dd5fabd92649c76c41f823f5621d33fb52a0e904",
+      "path": "skills/asc-testflight-orchestration/SKILL.md",
+      "commit_sha": "6d1c3c55fe4590fcbc3e3115de18c5721a73c23b"
+    },
+    {
+      "id": "asc-notary-containers",
+      "url": "https://github.com/rorkai/app-store-connect-cli-skills",
+      "relation": "supporting-source",
+      "status": "entrypoint-reviewed",
+      "scope": "Read full entry point covering container selection, status and ticket stapling. Applied to exact submission ID and ZIP handoff with Apple-specific limits.",
+      "maps_to": [
+        "macos-productization"
+      ],
+      "reviewed": "2026-11-18",
+      "blob_sha": "b8731826a4d68718f7ecaa084dc820a2f8d7bf0a",
+      "path": "skills/asc-notarization/SKILL.md",
+      "commit_sha": "6d1c3c55fe4590fcbc3e3115de18c5721a73c23b"
+    },
+    {
+      "id": "mobilebuild-active-session",
+      "url": "https://github.com/getsentry/MobileBuildMCP",
+      "relation": "supporting-source",
+      "status": "entrypoint-reviewed",
+      "scope": "Read full entry point covering active project/destination, workflow-scoped capabilities, hierarchy, gestures and capture. Applied to session drift and verification of observed interactions.",
+      "maps_to": [
+        "apple-build-workflows",
+        "apple-device-validation"
+      ],
+      "reviewed": "2026-11-18",
+      "blob_sha": "9c1a6419f631a7ab025128376bec70ac765ed987",
+      "path": "skills/mobilebuildmcp/SKILL.md",
+      "commit_sha": "2998ac77ebbca59544e88a27f34bfb830db9d924"
+    },
+    {
+      "id": "avdlee-project-audit",
+      "url": "https://github.com/AvdLee/Xcode-Build-Optimization-Agent-Skill",
+      "relation": "supporting-source",
+      "status": "excerpt-reviewed",
+      "scope": "Read audit playbook on resolved build-setting variants, script invalidation and no-change traces. Applied to configuration inheritance and generated-file dependency probes.",
+      "maps_to": [
+        "apple-project-governance",
+        "xcode-build-optimization"
+      ],
+      "reviewed": "2026-11-18",
+      "blob_sha": "cf42305190b14b81759c5c31a24e47ffa5cf1dd8",
+      "path": "skills/xcode-project-analyzer/references/project-audit-checks.md",
+      "commit_sha": "6bd7b596cd688b1127ded00e812b1b6937ec35d6"
+    },
+    {
+      "id": "axiom-app-intents",
+      "url": "https://github.com/CharlesWiltgen/Axiom",
+      "relation": "supporting-source",
+      "status": "excerpt-reviewed",
+      "scope": "Parameter resolution can restart perform before side effects.",
+      "maps_to": [
+        "apple-app-intents"
+      ],
+      "reviewed": "2026-11-18",
+      "blob_sha": "55577d1f13a50a836df402b53c0f2fc2b8372faa",
+      "path": ".claude-plugin/plugins/axiom/skills/axiom-integration/skills/app-intents.md",
+      "commit_sha": "ffafd3b3e0dbaaa60b753ca4a835ae6603b873e1"
+    },
+    {
+      "id": "axiom-background-processing",
+      "url": "https://github.com/CharlesWiltgen/Axiom",
+      "relation": "supporting-source",
+      "status": "excerpt-reviewed",
+      "scope": "A locked-device background launch may have an unreadable protected checkpoint.",
+      "maps_to": [
+        "apple-background-execution"
+      ],
+      "reviewed": "2026-11-18",
+      "blob_sha": "e301590425f36b49571e5343035ea45cdcbcbe7d",
+      "path": ".claude-plugin/plugins/axiom/skills/axiom-integration/skills/background-processing.md",
+      "commit_sha": "ffafd3b3e0dbaaa60b753ca4a835ae6603b873e1"
+    },
+    {
+      "id": "axiom-extensions-widgets",
+      "url": "https://github.com/CharlesWiltgen/Axiom",
+      "relation": "supporting-source",
+      "status": "excerpt-reviewed",
+      "scope": "Timeline provider, shared app-to-widget data, and reload requests after app writes.",
+      "maps_to": [
+        "apple-system-experiences"
+      ],
+      "reviewed": "2026-11-18",
+      "blob_sha": "a4187fa8c660c5eea331d6b32e4e6eccd4c38ba4",
+      "path": ".claude-plugin/plugins/axiom/skills/axiom-integration/skills/extensions-widgets.md",
+      "commit_sha": "ffafd3b3e0dbaaa60b753ca4a835ae6603b873e1"
+    },
+    {
+      "id": "axiom-privacy-ux",
+      "url": "https://github.com/CharlesWiltgen/Axiom",
+      "relation": "supporting-source",
+      "status": "excerpt-reviewed",
+      "scope": "Sharing a tracking domain with first-party functionality can break essential requests when tracking is denied.",
+      "maps_to": [
+        "apple-privacy-system-integrations"
+      ],
+      "reviewed": "2026-11-18",
+      "blob_sha": "bf88477ee14e8fa86bc2025e6e2bee38c877829d",
+      "path": ".claude-plugin/plugins/axiom/skills/axiom-integration/skills/privacy-ux.md",
+      "commit_sha": "ffafd3b3e0dbaaa60b753ca4a835ae6603b873e1"
+    },
+    {
+      "id": "axiom-keychain-diag",
+      "url": "https://github.com/CharlesWiltgen/Axiom",
+      "relation": "supporting-source",
+      "status": "excerpt-reviewed",
+      "scope": "Preserve credentials after a temporary locked-device Keychain read failure.",
+      "maps_to": [
+        "apple-security"
+      ],
+      "reviewed": "2026-11-18",
+      "blob_sha": "a47fd2e9451cd8143e489dc810ae3c4cf306449c",
+      "path": ".claude-plugin/plugins/axiom/skills/axiom-security/skills/keychain-diag.md",
+      "commit_sha": "ffafd3b3e0dbaaa60b753ca4a835ae6603b873e1"
+    },
+    {
+      "id": "axiom-appkit-interop",
+      "url": "https://github.com/CharlesWiltgen/Axiom",
+      "relation": "supporting-source",
+      "status": "excerpt-reviewed",
+      "scope": "Reuse a hosting view inside an AppKit cell while scoping SwiftUI row state to record identity.",
+      "maps_to": [
+        "swiftui-interop"
+      ],
+      "reviewed": "2026-11-18",
+      "blob_sha": "b59ad8835fd49f413ae41a48a1ce5a06effdc1b7",
+      "path": ".claude-plugin/plugins/axiom/skills/axiom-macos/skills/appkit-interop.md",
+      "commit_sha": "ffafd3b3e0dbaaa60b753ca4a835ae6603b873e1"
     }
   ]
 }

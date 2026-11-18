@@ -14,9 +14,16 @@ Debuggers and hot reload can alter timing or preserve stale state. Repeat materi
 
 Differentiate tooling failure from app failure: missing SDK, unavailable simulator, pairing, provisioning, install service, launch crash, and post-launch store readiness require different next actions. Do not rewrite UI because screenshot capture timed out. Reconcile later successful receipts with earlier blockers and retain both histories without presenting superseded evidence as current.
 
+## A visible control receives no tap
+
+Query the control in the running app by its accessibility identifier. A matching element can exist in the hierarchy while it is offscreen or covered. For a row below the fold, scroll it into view and check `isHittable`. For a sheet covering the row, exercise the expected dismissal first, then query again. A timeout while the sheet is present is a different failure from a missing row.
+
+Once the control is hittable, perform the action and assert its specific outcome, such as the saved value appearing in the detail view. If the automation session points to another simulator or bundle, correct the destination and repeat the check before changing hit targets in source. Save a frame for a layout question and the observed transition for a tap question.
+
 ## Official sources
 
 - [Xcode documentation](https://developer.apple.com/documentation/xcode).
 - [Swift Testing](https://developer.apple.com/xcode/swift-testing/).
 - [XCUI accessibility audits](https://developer.apple.com/documentation/xcuiautomation/xcuiaccessibilityauditissue).
 - [Distributing your app](https://developer.apple.com/documentation/xcode/distributing-your-app-for-beta-testing-and-releases).
+- [XCUIElement.isHittable](https://developer.apple.com/documentation/xcuiautomation/xcuielement/ishittable).

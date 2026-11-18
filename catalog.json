@@ -6,12 +6,13 @@
     {
       "id": "apple-swiftui-native-apps",
       "title": "SwiftUI engineering entry point",
-      "summary": "Scope a SwiftUI feature or review, check native control semantics and SDK availability, and select a specialist skill.",
+      "summary": "Scope a SwiftUI feature or review, check native controls and API availability, and select a specialist.",
       "triggers": [
         "swiftui",
         "native ui",
         "apple app",
-        "hig audit"
+        "hig audit",
+        "onchange migration"
       ],
       "platforms": [
         "iOS",
@@ -30,7 +31,9 @@
         "design",
         "button",
         "accessibility",
-        "api-design"
+        "api-design",
+        "swiftui-onchange-perform",
+        "swiftui-onchange-values"
       ],
       "coverage": "practical",
       "limits": "Task scoping and native semantics across Apple platforms; this entry point is not an exhaustive API or HIG index."
@@ -49,7 +52,8 @@
         "mvvm",
         "environmentobject",
         "wrong row",
-        "row identity"
+        "row identity",
+        "stateobject initializer"
       ],
       "platforms": [
         "iOS",
@@ -69,7 +73,8 @@
         "navigation",
         "api-design",
         "identifiable",
-        "concurrency"
+        "concurrency",
+        "swiftui-state-object"
       ],
       "coverage": "practical",
       "limits": "Ownership and identity patterns; executable core and selected SwiftUI examples do not cover every platform observation lifecycle."
@@ -77,7 +82,7 @@
     {
       "id": "swift-concurrency",
       "title": "Concurrency and lifecycle",
-      "summary": "Diagnose Swift actor isolation, task lifetimes, stale async results, cancellation, continuations, stream buffering, and Swift 6 migration.",
+      "summary": "Diagnose Swift isolation, task lifetimes, stale results, cancellation, continuations, stream buffering, and Swift 6 migration.",
       "triggers": [
         "concurrency",
         "async await",
@@ -89,7 +94,9 @@
         "task.detached",
         "actor reentrancy",
         "asyncstream",
-        "observer teardown"
+        "observer teardown",
+        "search scope",
+        "cancelled debounce"
       ],
       "platforms": [
         "iOS",
@@ -110,7 +117,10 @@
         "task-cancellation",
         "stream-buffering",
         "stream-yield",
-        "stream-termination"
+        "stream-termination",
+        "swift-task-lifetime",
+        "swiftui-trigger-task-id",
+        "swiftui-active-search-scope"
       ],
       "coverage": "practical",
       "limits": "Isolation, cancellation, and stale-result patterns with controlled async examples; no general concurrency verifier or workload benchmark."
@@ -128,7 +138,9 @@
         "route restoration",
         "tab navigation",
         "back skips",
-        "mixed navigation links"
+        "mixed navigation links",
+        "sheet closes window",
+        "dismissaction"
       ],
       "platforms": [
         "iOS",
@@ -145,7 +157,8 @@
       "sources": [
         "navigation",
         "navigation-migration",
-        "windows"
+        "windows",
+        "swiftui-dismiss-action"
       ],
       "coverage": "practical",
       "limits": "Typed routes, presentation, restoration, and scene ownership; platform navigation journeys require their own runtime evidence."
@@ -165,7 +178,9 @@
         "lazyvgrid",
         "adaptive layout",
         "swiftui geometry",
-        "anylayout"
+        "anylayout",
+        "safeareainset",
+        "obscured last row"
       ],
       "platforms": [
         "iOS",
@@ -185,7 +200,8 @@
         "rtl",
         "accessibility",
         "view-that-fits",
-        "any-layout"
+        "any-layout",
+        "swiftui-vertical-safe-area-inset"
       ],
       "coverage": "practical",
       "limits": "Layout diagnosis and risky-size checks; no exhaustive device, locale, keyboard, or window-size screenshot matrix."
@@ -202,7 +218,8 @@
         "focusstate",
         "keyboard submission",
         "ontapgesture",
-        "drag and drop"
+        "drag and drop",
+        "ambiguous focus"
       ],
       "platforms": [
         "iOS",
@@ -238,7 +255,8 @@
         "localization",
         "screen reader",
         "keyboard access",
-        "voice control"
+        "voice control",
+        "accessibilityrepresentation"
       ],
       "platforms": [
         "iOS",
@@ -261,7 +279,8 @@
         "ui-audit",
         "localization",
         "accessibility-input-labels",
-        "voice-control-criteria"
+        "voice-control-criteria",
+        "swiftui-accessibility-representation"
       ],
       "coverage": "practical",
       "limits": "Accessibility workflows and failure probes; static inspection and automated audits do not certify assistive-technology journeys."
@@ -278,7 +297,8 @@
         "sf symbols",
         "animation",
         "material",
-        "swift charts"
+        "swift charts",
+        "chart descriptor"
       ],
       "platforms": [
         "iOS",
@@ -301,7 +321,8 @@
         "color",
         "animation",
         "reduced-motion",
-        "charts"
+        "charts",
+        "swiftui-chart-descriptors"
       ],
       "coverage": "practical",
       "limits": "Hierarchy, repeated surfaces, optional themes, and materials; palettes and runtime rendering remain product-specific."
@@ -309,7 +330,7 @@
     {
       "id": "apple-data-persistence",
       "title": "Persistence, drafts, and synchronization",
-      "summary": "Choose a store and define save, cancel, migration, and sync behavior across SwiftData, Core Data, files, or CloudKit.",
+      "summary": "Choose persistence for drafts, saves, migrations, and sync across SwiftData, Core Data, files, or CloudKit.",
       "triggers": [
         "swiftdata",
         "core data",
@@ -318,7 +339,8 @@
         "persistence",
         "cloudkit",
         "autosave",
-        "cancel draft"
+        "cancel draft",
+        "child context save"
       ],
       "platforms": [
         "iOS",
@@ -338,7 +360,8 @@
         "cloudkit",
         "keychain",
         "swiftdata-autosave",
-        "swiftdata-rollback"
+        "swiftdata-rollback",
+        "coredata-context-save"
       ],
       "coverage": "practical",
       "limits": "Drafts, value authority, local persistence, migration and sync boundaries; SwiftData examples do not prove disk recovery or CloudKit behavior."
@@ -346,7 +369,7 @@
     {
       "id": "apple-networking",
       "title": "Networking, caching, and remote state",
-      "summary": "Build or review URLSession clients for authentication, retries, cancellation, shared image downloads, pagination, caching, and offline use.",
+      "summary": "Build or review URLSession authentication, retries, cancellation, shared downloads, pagination, caching, and offline behavior.",
       "triggers": [
         "urlsession",
         "network request",
@@ -356,7 +379,8 @@
         "pagination",
         "authentication token",
         "shared image download",
-        "request coalescing"
+        "request coalescing",
+        "thumbnail scale"
       ],
       "platforms": [
         "iOS",
@@ -376,7 +400,8 @@
         "concurrency",
         "privacy",
         "app-transport",
-        "urlsession-task-cancel"
+        "urlsession-task-cancel",
+        "imageio-thumbnail-pixel-limit"
       ],
       "coverage": "practical",
       "limits": "Client response, retry, identity, and cache contracts; not a backend implementation or production delivery guarantee."
@@ -384,7 +409,7 @@
     {
       "id": "swiftui-testing",
       "title": "Behavior tests, previews, and evidence",
-      "summary": "Choose Swift Testing, XCTest, UI automation or preview fixtures for a SwiftUI regression. Verify async ordering, accessibility and visible behavior.",
+      "summary": "Choose Swift Testing, XCTest, UI automation or previews for async, accessibility and behavior regressions.",
       "triggers": [
         "swift testing",
         "xctest",
@@ -393,7 +418,8 @@
         "preview fixture",
         "regression test",
         "snapshot test",
-        "zero-count confirmation"
+        "zero-count confirmation",
+        "parameterized tests"
       ],
       "platforms": [
         "iOS",
@@ -414,7 +440,9 @@
         "xcode",
         "task-cancellation",
         "testing-async-events",
-        "stream-buffering"
+        "stream-buffering",
+        "swift-testing-arguments",
+        "swift-zip-pairs"
       ],
       "coverage": "practical",
       "limits": "Test design and evidence classification; example tests and evaluation contracts are distinct from completed agent evaluations."
@@ -432,7 +460,9 @@
         "macos window",
         "menu bar",
         "windowgroup",
-        "documentgroup"
+        "documentgroup",
+        "duplicate editor windows",
+        "openwindow"
       ],
       "platforms": [
         "iOS",
@@ -455,7 +485,8 @@
         "visionos",
         "windows",
         "settings",
-        "swiftui"
+        "swiftui",
+        "swiftui-open-window"
       ],
       "coverage": "practical",
       "limits": "Platform decision guidance; framework availability and actual focus, window, spatial, or watch interactions need separate verification."
@@ -463,7 +494,7 @@
     {
       "id": "swiftui-interop",
       "title": "UIKit and AppKit interoperability",
-      "summary": "Bridge SwiftUI to UIKit or AppKit with representables, hosting, coordinators, and delegates.",
+      "summary": "Bridge UIKit or AppKit with SwiftUI representables, hosting, coordinators, and delegates.",
       "triggers": [
         "uiviewrepresentable",
         "nsviewrepresentable",
@@ -471,7 +502,8 @@
         "appkit bridge",
         "uikit bridge",
         "representable",
-        "coordinator"
+        "coordinator",
+        "nshostingview"
       ],
       "platforms": [
         "iOS",
@@ -491,7 +523,9 @@
         "concurrency",
         "accessibility",
         "view-controller-bridge",
-        "appkit-view-bridge"
+        "appkit-view-bridge",
+        "nshostingview-root",
+        "swiftui-view-id"
       ],
       "coverage": "practical",
       "limits": "Representable lifecycle and ownership patterns; specialized text, media, and graphics bridges need focused implementation and tests."
@@ -499,7 +533,7 @@
     {
       "id": "apple-system-experiences",
       "title": "System surfaces and framework integration",
-      "summary": "Connect app state and actions to widgets, Live Activities, notifications, Spotlight, WatchConnectivity, HealthKit, and StoreKit.",
+      "summary": "Integrate widgets, Live Activities, notifications, Spotlight, WatchConnectivity, HealthKit, and StoreKit.",
       "triggers": [
         "widgetkit",
         "app intents",
@@ -509,7 +543,8 @@
         "watchconnectivity",
         "storekit",
         "spotlight",
-        "notification delivery"
+        "notification delivery",
+        "widget timeline"
       ],
       "platforms": [
         "iOS",
@@ -543,7 +578,7 @@
     {
       "id": "apple-project-governance",
       "title": "Apple project governance",
-      "summary": "Audit or repair Xcode and Swift package configuration, generated projects, target membership, schemes, resources, entitlements, and settings drift.",
+      "summary": "Audit or repair Xcode and SwiftPM configuration, generated projects, target membership, resources, entitlements and settings drift.",
       "triggers": [
         "xcode project",
         "target membership",
@@ -552,7 +587,8 @@
         "xcodegen",
         "scheme",
         "package.swift",
-        "project configuration"
+        "project configuration",
+        "xcconfig inheritance"
       ],
       "platforms": [
         "iOS",
@@ -570,7 +606,8 @@
         "xcode",
         "distribution",
         "privacy",
-        "build-speed"
+        "build-speed",
+        "xcconfig-settings"
       ],
       "coverage": "practical",
       "limits": "Project ownership and artifact inspection; signing, capabilities, and generated state must be checked for the actual product graph."
@@ -578,7 +615,7 @@
     {
       "id": "apple-privacy-system-integrations",
       "title": "Apple privacy and integration safety",
-      "summary": "Audit protected data, permissions, purpose strings, privacy manifests, disclosures, retention, and deletion.",
+      "summary": "Audit permissions, purpose strings, privacy manifests, disclosures, retention, and deletion.",
       "triggers": [
         "privacy",
         "permission",
@@ -587,7 +624,8 @@
         "required reason",
         "protected data",
         "account deletion",
-        "retention"
+        "retention",
+        "tracking domain"
       ],
       "platforms": [
         "iOS",
@@ -610,7 +648,8 @@
         "review",
         "health-authorization",
         "health-privacy",
-        "account-deletion"
+        "account-deletion",
+        "privacy-tracking-domains"
       ],
       "coverage": "practical",
       "limits": "Data-flow and permission boundary review; neither legal certification nor proof of live protected-data behavior."
@@ -618,7 +657,7 @@
     {
       "id": "apple-performance-cleanup",
       "title": "Apple performance and behavior-preserving cleanup",
-      "summary": "Diagnose SwiftUI hitches, slow startup, memory growth and energy use. Verify performance gains and preserve behavior during cleanup.",
+      "summary": "Profile SwiftUI hitches, startup, memory and energy. Measure gains and preserve behavior during cleanup.",
       "triggers": [
         "performance",
         "slow",
@@ -629,7 +668,8 @@
         "optimization",
         "compaction",
         "scrolling hitch",
-        "row body updates"
+        "row body updates",
+        "computed property invalidation"
       ],
       "platforms": [
         "iOS",
@@ -650,7 +690,8 @@
         "model-context",
         "logger",
         "swiftui-instruments",
-        "list-performance"
+        "list-performance",
+        "model-data"
       ],
       "coverage": "practical",
       "limits": "Measurement and behavior-preserving cleanup workflows; no speed, energy, or memory improvement is implied without a comparable workload."
@@ -658,7 +699,7 @@
     {
       "id": "apple-device-validation",
       "title": "Apple runtime and device validation",
-      "summary": "Verify an Apple app on a simulator or device. Use for launch failures, screenshots, interaction, hardware, paired devices, and runtime evidence.",
+      "summary": "Verify Apple app launch, rendering, interaction, hardware or paired-device behavior on a simulator or device.",
       "triggers": [
         "simulator",
         "physical device",
@@ -669,7 +710,8 @@
         "watch pairing",
         "simctl",
         "screen inventory",
-        "screenshot review"
+        "screenshot review",
+        "ishittable"
       ],
       "platforms": [
         "iOS",
@@ -688,7 +730,8 @@
         "xcode",
         "testing",
         "ui-audit",
-        "distribution"
+        "distribution",
+        "xcui-hittable"
       ],
       "coverage": "practical",
       "limits": "Claim-specific runtime proof and screen-review inventory; artifacts from one environment do not cover untested hardware or services."
@@ -696,7 +739,7 @@
     {
       "id": "apple-app-store-readiness",
       "title": "App Store readiness",
-      "summary": "Audit an App Store build, prepare storefront and reviewer materials, or perform an authorized TestFlight, submission, or release stage.",
+      "summary": "Audit App Store candidates and reviewer materials, or perform an authorized TestFlight, submission, or release stage.",
       "triggers": [
         "app store",
         "app review",
@@ -705,7 +748,9 @@
         "storefront",
         "release candidate",
         "release ledger",
-        "superseded blocker"
+        "superseded blocker",
+        "internal only",
+        "external testers"
       ],
       "platforms": [
         "iOS",
@@ -724,7 +769,8 @@
         "distribution",
         "privacy",
         "sdk-privacy",
-        "account-deletion"
+        "account-deletion",
+        "testflight-external-groups"
       ],
       "coverage": "practical",
       "limits": "Candidate, authority, and release-ledger reconciliation; account service state and current submission rules require live verification."
@@ -732,7 +778,7 @@
     {
       "id": "macos-productization",
       "title": "macOS productization and distribution",
-      "summary": "Prepare or verify macOS distribution, including Developer ID or Mac App Store signing, notarization, packaging, Gatekeeper, installation, and updates.",
+      "summary": "Prepare or verify macOS signing, notarization, packaging, Gatekeeper, installation and updates for Developer ID or Mac App Store distribution.",
       "triggers": [
         "notarization",
         "gatekeeper",
@@ -740,7 +786,8 @@
         "dmg",
         "macos distribution",
         "codesign",
-        "stapler"
+        "stapler",
+        "staple a zip"
       ],
       "platforms": [
         "macOS"
@@ -755,7 +802,8 @@
         "review",
         "xcode",
         "developer-id",
-        "notary-errors"
+        "notary-errors",
+        "notarize-containers"
       ],
       "coverage": "practical",
       "limits": "macOS distribution and trust workflow; local compilation does not establish notarization or downloaded-install behavior."
@@ -763,7 +811,7 @@
     {
       "id": "swift-language",
       "title": "Swift API design and dependency boundaries",
-      "summary": "Review Swift API design, value semantics, dependency injection, error handling, formatting, and compiler or language-mode migrations.",
+      "summary": "Review Swift APIs, value semantics, dependency injection, errors, formatting, and toolchain migrations.",
       "triggers": [
         "swift api design",
         "dependency injection",
@@ -771,7 +819,8 @@
         "error contract",
         "formatstyle",
         "swift language",
-        "protocol boundary"
+        "protocol boundary",
+        "localizedstandardcontains"
       ],
       "platforms": [
         "iOS",
@@ -787,7 +836,8 @@
       "sources": [
         "api-design",
         "concurrency",
-        "localization"
+        "localization",
+        "localized-standard-search"
       ],
       "coverage": "practical",
       "limits": "API design and dependency-boundary guidance; not a complete Swift language manual or a mandatory architecture."
@@ -795,7 +845,7 @@
     {
       "id": "apple-build-workflows",
       "title": "Reproducible Apple build and debug workflows",
-      "summary": "Set up or repair Xcode and SwiftPM build, test, debug, or simulator workflows. Use for scheme selection, CI reproduction, and failed commands.",
+      "summary": "Set up or repair Xcode and SwiftPM build, test, debug and simulator commands, including CI reproduction.",
       "triggers": [
         "build workflow",
         "build and run",
@@ -803,7 +853,8 @@
         "makefile",
         "xcode debugger",
         "build bootstrap",
-        "buildable folders"
+        "buildable folders",
+        "xctestrun"
       ],
       "platforms": [
         "iOS",
@@ -819,7 +870,8 @@
       "sources": [
         "xcode",
         "build-speed",
-        "distribution"
+        "distribution",
+        "xctestrun-products"
       ],
       "coverage": "practical",
       "limits": "Reproducible build/test plans with a tested command wrapper; actual schemes, destinations, signing, and debugger behavior require Xcode execution."
@@ -827,7 +879,7 @@
     {
       "id": "xcode-build-optimization",
       "title": "Evidence-based Xcode build optimization",
-      "summary": "Reduce Xcode clean, no-change, or edit-build latency. Diagnose compiler hotspots, script phases, target dependencies, and SwiftPM plugins.",
+      "summary": "Diagnose slow Xcode clean, no-change and edit builds, including compiler hotspots, scripts, target dependencies and SwiftPM plugins.",
       "triggers": [
         "xcode build optimization",
         "slow builds",
@@ -836,7 +888,8 @@
         "compile hotspot",
         "spm build analysis",
         "build benchmark",
-        "type checking performance"
+        "type checking performance",
+        "generator runs on every build"
       ],
       "platforms": [
         "iOS",
@@ -857,7 +910,8 @@
       "sources": [
         "build-speed",
         "build-coding",
-        "xcode"
+        "xcode",
+        "build-script-inputs"
       ],
       "coverage": "practical",
       "limits": "Six diagnostic and measurement tracks with descriptive statistics; no project-specific speedup or critical path is inferred automatically."
@@ -865,7 +919,7 @@
     {
       "id": "swiftdata",
       "title": "SwiftData schemas, queries, and migrations",
-      "summary": "Design or repair SwiftData models, predicates, relationships, indexes, context ownership, history, disk migrations, and CloudKit-compatible schemas.",
+      "summary": "Design or repair SwiftData models, relationships, predicates, indexes, contexts, history, disk migrations, and CloudKit schemas.",
       "triggers": [
         "swiftdata schema",
         "swiftdata predicate",
@@ -875,7 +929,8 @@
         "schemamigrationplan",
         "fetchdescriptor",
         "modelactor",
-        "swiftdata attribute rename"
+        "swiftdata attribute rename",
+        "fetch limit"
       ],
       "platforms": [
         "iOS",
@@ -896,7 +951,9 @@
         "swiftdata-sync",
         "swiftdata-autosave",
         "swiftdata-rollback",
-        "swiftdata-schema-stages"
+        "swiftdata-schema-stages",
+        "swiftdata-transient-property",
+        "swiftdata-fetch-limit"
       ],
       "coverage": "practical",
       "limits": "Includes a synthetic disk-backed attribute rename and reopen test. Released-store recovery, persistent history, and CloudKit convergence need separate fixtures."
@@ -904,7 +961,7 @@
     {
       "id": "core-data",
       "title": "Core Data confinement, history, and migration",
-      "summary": "Diagnose Core Data context handoffs, batch changes, persistent history, merge conflicts, SQLite migrations, and CloudKit mirroring.",
+      "summary": "Diagnose Core Data context handoffs, batch merges, persistent history, conflicts, SQLite migrations, and CloudKit mirroring.",
       "triggers": [
         "core data threading",
         "core data migration",
@@ -912,7 +969,8 @@
         "nsmanagedobject",
         "nsbatchdeleterequest",
         "nspersistentcontainer",
-        "nsfetchedresultscontroller"
+        "nsfetchedresultscontroller",
+        "permanent object id"
       ],
       "platforms": [
         "iOS",
@@ -930,7 +988,9 @@
         "coredata-confinement",
         "coredata-batch",
         "coredata-history",
-        "cloudkit"
+        "cloudkit",
+        "coredata-permanent-ids",
+        "coredata-existing-object"
       ],
       "coverage": "practical",
       "limits": "Context, batch, history, and migration decision guidance; this revision adds no executable Core Data migration or mirroring fixture."
@@ -938,7 +998,7 @@
     {
       "id": "apple-app-intents",
       "title": "App Intents, entities, and system actions",
-      "summary": "Implement App Intents, AppEntity queries, and App Shortcuts. Verify authorization and cold invocation.",
+      "summary": "Build and verify App Intents, AppEntity queries, and App Shortcuts.",
       "triggers": [
         "appintent",
         "appentity",
@@ -946,7 +1006,8 @@
         "app shortcuts",
         "siri action",
         "intent authentication",
-        "intent registration"
+        "intent registration",
+        "needsvalueerror"
       ],
       "platforms": [
         "iOS",
@@ -964,7 +1025,8 @@
         "intent-entity",
         "intent-query",
         "intent-auth",
-        "privacy"
+        "privacy",
+        "intent-needs-value"
       ],
       "coverage": "practical",
       "limits": "Entity, authorization, and invocation contracts; system registration, discoverability, and actual Siri/Shortcuts execution remain destination-specific."
@@ -972,7 +1034,7 @@
     {
       "id": "apple-observability",
       "title": "Privacy-safe logs and performance diagnostics",
-      "summary": "Diagnose Apple app failures with unified logging, signposts, Instruments traces, crash symbols and memory graphs.",
+      "summary": "Diagnose Apple app failures with unified logs, signposts, Instruments, crash symbols and memory graphs.",
       "triggers": [
         "unified logging",
         "logger",
@@ -981,7 +1043,9 @@
         "memgraph",
         "crash symbolication",
         "hang diagnosis",
-        "leak diagnosis"
+        "leak diagnosis",
+        "blocked main thread",
+        "thread state trace"
       ],
       "platforms": [
         "iOS",
@@ -999,7 +1063,9 @@
         "logger",
         "performance",
         "rendering",
-        "concurrency"
+        "concurrency",
+        "understanding-hangs",
+        "instrument-hang-thread-states"
       ],
       "coverage": "practical",
       "limits": "Privacy-safe diagnostic workflows; no captured trace, symbolication result, or leak-free claim is supplied by the guidance alone."
@@ -1014,7 +1080,8 @@
         "bgapprefreshtask",
         "background transfer",
         "expiration handler",
-        "background task scheduler"
+        "background task scheduler",
+        "locked checkpoint"
       ],
       "platforms": [
         "iOS",
@@ -1031,7 +1098,8 @@
         "backgroundtasks",
         "urlsession",
         "privacy",
-        "task-cancellation"
+        "task-cancellation",
+        "file-protection-complete"
       ],
       "coverage": "practical",
       "limits": "Expiration and recovery contracts across applicable mechanisms; no exact scheduling guarantee or live background-delivery proof."
@@ -1039,7 +1107,7 @@
     {
       "id": "apple-security",
       "title": "Apple app trust boundaries and secure data",
-      "summary": "Review Keychain credentials, transport trust, deep links, imports, sandbox boundaries, and dependencies.",
+      "summary": "Review Keychain, TLS, deep links, imports, entitlements, and dependencies.",
       "triggers": [
         "security audit",
         "keychain storage",
@@ -1047,7 +1115,8 @@
         "untrusted input",
         "deep link validation",
         "secret handling",
-        "sandbox boundary"
+        "sandbox boundary",
+        "errsecinteractionnotallowed"
       ],
       "platforms": [
         "iOS",
@@ -1064,7 +1133,9 @@
         "keychain",
         "app-transport",
         "privacy",
-        "app-intent"
+        "app-intent",
+        "keychain-item-accessibility",
+        "security-interaction-not-allowed"
       ],
       "coverage": "practical",
       "limits": "Trust-boundary guidance and a narrow tested route parser; parsing does not authorize access or replace a full application security review."

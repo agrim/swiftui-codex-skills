@@ -7,32 +7,33 @@ description: "Fix SwiftUI clipping, safe areas, scrolling, or reflow across wind
 
 ## Inputs
 
-Record container size, safe areas, keyboard state, text size, content, and layout direction.
+Container proposal, insets, keyboard, content, text size and direction.
 
 ## Rules
 
-- **LAY-001 — Use the container proposal.** Size resizable views from available space and content. Global screen bounds can exceed the window.
-- **LAY-002 — Reflow before shrinking.** Wrap or rearrange content before truncating essential text or limiting Dynamic Type. Justify fixed dimensions.
-- **LAY-003 — Limit geometry updates.** Derive the needed value, such as a width class. Update state only when it changes.
-- **LAY-004 — Protect interaction and identity.** An edge-to-edge background may extend under system UI. Keep controls reachable and give rows and scroll targets stable IDs.
-- **LAY-005 — Choose a layout primitive.** Try stacks, grids, alignment, priority, or fitting alternatives before adding a geometry reader or custom Layout.
+- **LAY-001 — Container sizing.** Size views from the container’s proposal.
+- **LAY-002 — Essential text.** Reflow before truncating or shrinking. Justify fixed sizes.
+- **LAY-003 — Geometry.** Publish derived values only when they change.
+- **LAY-004 — Interaction.** Keep pinned controls and underlying content reachable. Use stable row and scroll IDs.
+- **LAY-005 — Primitives.** Try stacks, grids, alignment, priority or fitting alternatives before custom measurement.
 
 ## Workflow
 
-1. Locate the first frame, inset, overlay, or nested scroll view that breaks the failing proposal.
-2. Choose eager or lazy containers from row semantics and measured scale. Keep draft ownership stable during reflow. Profile geometry updates if scrolling hitches.
+1. Locate the first frame, inset, overlay or scroll container that breaks the proposal.
+2. Preserve draft ownership through reflow. Choose lazy or eager rows by behavior and measured scale.
 
 ## Verify
 
-- LAY-002: Cross the reflow breakpoint both ways while editing. Check focus returns to the intended field and Save commits the entered text.
-- LAY-001, LAY-004: At supported width extremes, check that large text, long translations, right-to-left layout, and the keyboard leave the primary action reachable.
-- LAY-004: Test an empty collection, then a large one. Insert a row before the scroll anchor and confirm restoration still targets the same record ID.
+- LAY-002, LAY-005: Try a stack first. Reflow twice mid-edit. Check focus and saved text. Name any constraint still requiring custom layout.
+- LAY-001, LAY-004: At width extremes, reach the primary action with large text, long translations, RTL and keyboard visible.
+- LAY-003: Resize within one width class, then cross its boundary. Expect one derived-state change.
+- LAY-004: Load many rows from empty, insert before the anchor, then restore the same record.
 
 ## Output
 
-Report failing size, layout change, fixed-size rationale, and rendered or measured results.
+Failing size, fix, fixed-size rationale and observed result.
 
 ## References
 
-- [Layout proposals, text, and safe areas](references/layout-patterns.md)
-- [Fitting alternatives, stateful reflow, and scroll restoration](references/layout-and-scroll-edge-cases.md)
+- [Proposals, text, and safe areas](references/layout-patterns.md)
+- [Reflow, obscured rows, and scroll restoration](references/layout-and-scroll-edge-cases.md)

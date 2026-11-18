@@ -7,33 +7,32 @@ description: "Audit SwiftUI tasks with VoiceOver, Voice Control, keyboards, Dyna
 
 ## Inputs
 
-Record the task, destination, locale, input method, text size, and assistive settings.
+Task, destination, locale, input, text size and assistive settings.
 
 ## Rules
 
-- **AX-001 — Expose actions and values.** Expose each control’s name, role, action and value. Make essential read-only values and units accessible too.
-- **AX-002 — Adapt to settings.** Keep essential actions reachable as text, direction, contrast, motion, and input method change.
-- **AX-003 — Provide alternatives.** Pair color, position, sound, or motion cues with accessible status. Offer an alternative to required gestures.
-- **AX-004 — Group by action.** Combine related static text. Keep independent controls individually reachable in task order.
-- **AX-005 — Exercise the journey.** Read, edit, submit, recover from an error, and dismiss using the relevant assistive technology.
+- **AX-001 — Semantics.** Expose names, roles, actions, values and essential readouts with units.
+- **AX-002 — Reach.** Keep actions reachable as text, direction, contrast, motion and input change.
+- **AX-003 — Alternatives.** Supplement sensory cues with accessible status. Offer alternatives to required gestures.
+- **AX-004 — Grouping.** Group static text. Preserve independent actions in task order.
+- **AX-005 — Journey.** Read, edit, submit, recover and dismiss with assistive technology.
 
 ## Workflow
 
-1. Inspect the accessibility tree at the failing step. Correct semantics before adding hints.
-2. Localize names, plurals, and formatted values. Check longer translations and mixed-direction text.
-3. Repeat at the largest supported text size.
+1. Inspect failing semantics before adding hints.
+2. Localize names, plurals and values. Test long, mixed-direction text at maximum size.
 
 ## Verify
 
-- AX-004, AX-005: Use VoiceOver or Full Keyboard Access where supported. Reach each independent control in task order and correct an invalid entry.
-- AX-001, AX-002: With Voice Control, speak the localized action’s visible title after reflow. Confirm the intended record changed.
-- AX-002, AX-003: With Reduce Motion, Reduce Transparency, or increased contrast, confirm completion and error feedback remain distinguishable.
+- AX-004, AX-005: Reach each action in order and correct invalid input with VoiceOver or Full Keyboard Access.
+- AX-001, AX-002: After reflow, speak the visible localized title with Voice Control. Only the intended record changes.
+- AX-002, AX-003: Distinguish success from error under Reduce Motion, Reduce Transparency or increased contrast.
 
 ## Output
 
-Rank barriers by impact. Report control, failing step, fix, tested settings, and outstanding hands-on checks.
+Rank barriers by impact. Identify fixes, tested settings and outstanding checks.
 
 ## References
 
-- [Labels, grouping, text, and contrast](references/accessibility-patterns.md)
-- [Spoken commands, localization, and focus](references/assistive-and-localized-flows.md)
+- [Labels, grouping and contrast](references/accessibility-patterns.md)
+- [Custom dials and spoken commands](references/assistive-and-localized-flows.md)

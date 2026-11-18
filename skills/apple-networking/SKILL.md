@@ -1,39 +1,38 @@
 ---
 name: apple-networking
-description: "Build or review URLSession clients for authentication, retries, cancellation, shared image downloads, pagination, caching, and offline use."
+description: "Build or review URLSession authentication, retries, cancellation, shared downloads, pagination, caching, and offline behavior."
 ---
 
-# Networking, caching, and remote state
+# Networking and caching
 
 ## Inputs
 
-Identify endpoint contract, credentials owner, sensitive data, retry guarantees, cache policy, and consumers.
+Identify endpoint, credential owner, sensitive fields, cache policy, and consumers.
 
 ## Rules
 
-- **NET-001 — Validate responses.** Check HTTP status, expected content, decoding, and domain invariants before publishing success.
-- **NET-002 — Bound resource use.** Limit payloads, concurrency, retries, pagination, and cache size. Assign cancellation to the transfer owner.
-- **NET-003 — Retry by operation.** Retry only when the failure and operation allow it. Honor server delays. For uncertain writes, reconcile or reuse the server-supported idempotency key.
-- **NET-004 — Protect credentials.** Validate certificates, use protected credential storage, and redact tokens and private payloads from diagnostics.
-- **NET-005 — Describe offline results.** Label stale data and refresh failures. A cache hit must not hide an authorization failure.
+- **NET-001 — Validate success.** Check HTTP status, representation, decoding, and domain invariants.
+- **NET-002 — Bound work.** Limit payloads, concurrency, attempts, pages, and caches. Assign cancellation ownership.
+- **NET-003 — Retry eligible operations.** Retry only recoverable failures and honor server delays. Reconcile uncertain writes or reuse a server-supported idempotency key.
+- **NET-004 — Protect credentials.** Validate certificates, protect stored credentials, and redact private payloads and tokens.
+- **NET-005 — Expose freshness.** Label stale data. Surface refresh and authorization errors even on cache hits.
 
 ## Workflow
 
-1. Inject the transport. Map cancellation, expiry, invalid data, and empty success to distinct feature outcomes.
-2. Scope cache keys by account and representation. Track each shared download’s subscribers and transfer identity.
-3. Bind pages to their query, deduplicate by ID, and stop on repeated cursors.
+1. Inject transport. Distinguish cancellation, expiry, malformed data, and empty success.
+2. Partition caches by account and representation. Track transfer IDs and subscribers. Scope pages to queries, deduplicate IDs, and stop repeated cursors.
 
 ## Verify
 
-- NET-002: Cancel one subscriber to a shared download. The other receives its image. A retired transfer’s callback leaves its replacement intact.
-- NET-005: Offline, expired data stays hidden or is labeled stale according to cache policy. Switching accounts hides the previous account’s data.
-- NET-001, NET-003: Return malformed data and verify the request reports failure. For a retryable request, keep returning a temporary error and verify retries stop at the configured limit.
+- NET-002: Cancel one subscriber. Its peer still receives the image. Late callbacks leave the replacement transfer intact.
+- NET-005: Offline, hide or label expired data per policy. Switching accounts hides prior entries.
+- NET-001, NET-003, NET-004: Reject malformed private data without logging it. Repeated transient errors stop at the retry limit.
 
 ## Output
 
-Report retry and cache decisions, fixture results, and real-service checks.
+Report retry and cache policies, fixture results, and live checks.
 
 ## References
 
-- [HTTP validation, retries, and offline state](references/networking-patterns.md)
-- [Pagination, cache identity, and shared downloads](references/transport-and-cache-boundaries.md)
+- [HTTP and offline behavior](references/networking-patterns.md)
+- [Pagination and shared downloads](references/transport-and-cache-boundaries.md)

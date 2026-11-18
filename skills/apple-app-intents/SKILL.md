@@ -1,38 +1,36 @@
 ---
 name: apple-app-intents
-description: "Implement App Intents, AppEntity queries, and App Shortcuts. Verify authorization and cold invocation."
+description: "Build and verify App Intents, AppEntity queries, and App Shortcuts."
 ---
 
-# App Intents, entities, and system actions
+# App Intents and Shortcuts
 
 ## Inputs
 
-Identify the action, entity, host, actor, account, and access policy.
+Identify the action, host, account, and entity.
 
 ## Rules
 
-- **INT-001 — Share the command.** Resolve parameters and call the UI’s validated operation. For retried writes, reconcile the previous outcome.
-- **INT-002 — Check each stage.** Distinguish extracted metadata, host discovery, entity resolution, and the effect of `perform()`.
-- **INT-003 — Resolve current identity.** Look up stable entity IDs within the active account. Handle deleted or inaccessible entities without recreating them.
-- **INT-004 — Limit disclosure.** Expose only necessary fields in suggestions, labels, results, and logs. Apply the action’s authentication and confirmation policies.
-- **INT-005 — Support cold invocation.** Initialize services in the executing process. Use the actor and time budget for this execution mode.
+- **INT-001 — Share commands.** Resolve parameters, then call the UI’s validated command. Reconcile retries.
+- **INT-002 — Trace invocation.** Check metadata extraction, discovery, resolution, then execution.
+- **INT-003 — Resolve IDs.** Look up stable IDs in the active account. Reject missing entities.
+- **INT-004 — Limit disclosure.** Minimize exposed fields. Apply required authentication and confirmation.
+- **INT-005 — Start cold.** Initialize dependencies in the executing process. Respect its actor and time budget.
 
 ## Workflow
 
-1. Build the hosting target. Inspect embedded metadata and find the action in its system surface.
-2. Resolve the selected entity and invoke the action from that surface.
+1. Inspect the host’s built metadata. Find and run the action on its system surface.
 
 ## Verify
 
-- INT-002, INT-005: With the app closed, invoke the discovered action. Its reported result matches the domain outcome.
-- INT-003, INT-004: After an account switch, a stale ID yields no private details or unauthorized mutation.
-- INT-004: When the policy requires authentication, a signed-out invocation leaves data unchanged.
-- INT-001: Retry a committed write using the same durable operation ID. The effect occurs once.
+- INT-002, INT-005: Invoke cold. The result matches the stored effect.
+- INT-003, INT-004: Switch accounts. A stale ID reveals nothing and changes nothing.
+- INT-001, INT-004: Deny required authentication and observe zero writes. Replay a committed operation ID and count one effect.
 
 ## Output
 
-Report the command, host, resolved entity, observed effect, and untested paths.
+Report host, command, entity, effect, and gaps.
 
 ## References
 
-- [Entity queries, shared commands, and invocation checks](references/entities-and-actions.md)
+- [Entity resolution and invocation](references/entities-and-actions.md)

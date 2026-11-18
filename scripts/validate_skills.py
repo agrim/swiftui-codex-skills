@@ -99,6 +99,10 @@ def validate(root: Path, check_generated: bool = True) -> list[str]:
             entry = safe_path(folder, "SKILL.md")
             text = entry.read_text(encoding="utf-8")
             contract = skill_contract(folder, item, text, all_rules)
+            checked = {rid for check in contract["verify"] for rid in check["rule_ids"]}
+            for rule in contract["rules"]:
+                if rule["id"] not in checked:
+                    errors.append(f"{sid}: no verification check for {rule['id']}")
             if len(contract["description"]) > 1024:
                 errors.append(f"{sid}: description exceeds 1024 characters")
             if len(text.split()) > MAX_ENTRY_WORDS:

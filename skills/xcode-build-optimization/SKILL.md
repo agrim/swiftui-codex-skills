@@ -1,42 +1,42 @@
 ---
 name: xcode-build-optimization
-description: "Reduce Xcode clean, no-change, or edit-build latency. Diagnose compiler hotspots, script phases, target dependencies, and SwiftPM plugins."
+description: "Diagnose slow Xcode clean, no-change and edit builds, including compiler hotspots, scripts, target dependencies and SwiftPM plugins."
 ---
 
 # Xcode build optimization
 
 ## Inputs
 
-Record workload, source revision, target graph, toolchain, destination, configuration, cache policy, and permitted changes.
+Record workload, revision, toolchain, destination, configuration, cache state and scope.
 
 ## Rules
 
-- **XBUILD-001 — Measure elapsed time.** Time clean, no-change, and representative edit builds separately. Parallel task durations can overlap.
-- **XBUILD-002 — Match the comparison.** Keep command, dependencies, cache policy, and environment consistent. Retain samples and failures.
-- **XBUILD-003 — Trace the critical path.** Use the timeline to identify which dependency delays completion.
-- **XBUILD-004 — Fix the owner.** Edit the responsible source, setting, script, or package. Preserve correctness checks and release requirements.
-- **XBUILD-005 — Define rollback.** Revert correctness or compatibility regressions. Explain any timing tradeoff before keeping the change.
+- **XBUILD-001 — Time each workload.** Measure elapsed time separately for clean, unchanged and representative edit builds.
+- **XBUILD-002 — Match conditions.** Keep commands, dependencies, caches and environment comparable. Retain failures.
+- **XBUILD-003 — Trace delays.** Follow the dependency chain that determines completion. Parallel durations overlap.
+- **XBUILD-004 — Fix the owner.** Preserve tests, generated products and release requirements.
+- **XBUILD-005 — Set rollback criteria.** Revert correctness or compatibility regressions.
 
 ## Workflow
 
-1. Capture a baseline and identify the limiting task chain.
-2. Apply a reversible, authorized change and inspect its effect on the build graph.
-3. Repeat the baseline workload. Mark missing timings unavailable.
+1. Capture repeated baseline samples and locate the limiting task.
+2. Make one scoped, reversible change and repeat the workload.
 
 ## Verify
 
-- XBUILD-004: Build and test the candidate. Confirm required resources and generated outputs are current.
-- XBUILD-001, XBUILD-002: Compare elapsed samples and spread per workload. Report inconclusive results when variation obscures the change.
+- XBUILD-004: Build and test. Change a generator input and inspect the affected output when relevant.
+- XBUILD-001, XBUILD-002: Compare elapsed samples and spread. Mark noise-obscured deltas inconclusive.
+- XBUILD-003, XBUILD-005: Locate the limiting dependency in both timelines. Reject a speedup that breaks a supported target.
 
 ## Output
 
-Report samples, elapsed deltas, spread, failures, changed files, and the keep or revert decision.
+Report samples, failures, timing tradeoffs and the keep or revert decision.
 
 ## References
 
-- [Optimization planning](references/orchestration.md)
-- [Build benchmarks](references/benchmarking.md)
-- [Diagnose compiler hotspots](references/compiler.md)
-- [Settings, scripts, and targets](references/project.md)
-- [SwiftPM and generated code](references/packages.md)
-- [Verification and rollback](references/verification.md)
+- [Planning](references/orchestration.md)
+- [Benchmarks](references/benchmarking.md)
+- [Compiler](references/compiler.md)
+- [Scripts and targets](references/project.md)
+- [Packages](references/packages.md)
+- [Rollback](references/verification.md)

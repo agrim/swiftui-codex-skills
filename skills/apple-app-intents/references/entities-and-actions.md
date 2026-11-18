@@ -20,6 +20,12 @@ For side effects that can be retried, use domain-level operation identity and re
 
 A compile, screenshot of a shortcut, or mocked `perform` call proves only its own rung. Keep app schemas, assistant exposure, widgets, controls, and shortcuts as related but distinct integration contracts.
 
+## A missing parameter restarts the command
+
+A shortcut that moves a note may be missing the destination. If it archives the original before throwing `needsValueError(_:)`, the system can run that archive step again after the person chooses a folder. Resolve all missing parameters, recheck access, and obtain any required confirmation before the first durable mutation. Pass the resolved inputs to the same move command the app uses.
+
+Invoke with the destination omitted. Cancel the prompt and confirm the original note stays put. Invoke again with the destination still missing. This time answer the prompt. Across the initial and restarted calls, count one committed move to the chosen folder.
+
 ## Official sources
 
 - [AppIntent protocol](https://developer.apple.com/documentation/appintents/appintent).
@@ -27,3 +33,4 @@ A compile, screenshot of a shortcut, or mocked `perform` call proves only its ow
 - [EntityQuery](https://developer.apple.com/documentation/appintents/entityquery).
 - [AppIntent authentication policy](https://developer.apple.com/documentation/appintents/appintent/authenticationpolicy).
 - [Describing data use in privacy manifests](https://developer.apple.com/documentation/bundleresources/describing-data-use-in-privacy-manifests).
+- [IntentParameter.needsValueError(_:)](https://developer.apple.com/documentation/appintents/intentparameter/needsvalueerror(_:)).

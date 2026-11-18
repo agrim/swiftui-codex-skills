@@ -16,6 +16,12 @@ A reminder editor puts a title field, a date, and a Save button on one line. Enl
 
 Vary text size and container width separately. A long translation can overflow a narrow window even at the default text size. Verify the reading order after reflow with the relevant assistive technology.
 
+## The last row stops under a pinned notice
+
+At default text size a bottom notice takes one line. In a narrow window it wraps to three, hiding the final row even at the end of the scroll. Temporarily remove the notice and scroll again. If the row becomes reachable, reserve the notice's actual height. Where supported, attach it with `safeAreaInset(edge: .bottom)` to the scrolling view and remove any padding that guessed the notice height. Keep an overlay for a purely decorative shadow.
+
+Show the long notice, scroll to the last row and activate its control. Hide the notice and check that its reserved gap disappears. Repeat with the keyboard visible if the row accepts input. [Vertical safe-area inset](https://developer.apple.com/documentation/swiftui/view/safeareainset%28edge%3Aalignment%3Aspacing%3Acontent%3A%29-4s51l)
+
 ## Collections
 
 Keep identity stable and per-element output predictable. Filter/sort outside the row builder when needed so the container can understand the collection. Do not convert large dynamic lists into an eager stack without measuring memory, accessibility, and interaction tradeoffs. A lazy container is not automatically faster for a small bounded layout.

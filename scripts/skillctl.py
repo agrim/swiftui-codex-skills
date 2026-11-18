@@ -42,26 +42,34 @@ def route(root: Path, query: str, limit: int = 3) -> list[dict[str, Any]]:
     return sorted(results, key=lambda item: (-item["score"], item["id"]))[:limit]
 
 
-def bundle(root: Path, names: list[str], entrypoints_only: bool = False) -> str:
+def bundle(root: Path, names: list[str], entrypoints_only: bool = False,
+           references: list[str] | None = None) -> str:
     items = select(root, names)
-    lines = ["# Selected SwiftUI skills", "", "Portable Markdown bundle. Load only the modules needed for the task. Official links remain authoritative; no model or tool adapter is required.", ""]
+    available = {f"skills/{item['id']}/{ref}" for item in items for ref in item["references"]}
+    included = available if references is None else set(references)
+    if unknown := included - available:
+        raise ValueError("reference outside selected skills: " + ", ".join(sorted(unknown)))
+    if entrypoints_only:
+        if references:
+            raise ValueError("choose --entrypoints-only or --reference")
+        included = set()
+    lines = ["# Selected SwiftUI skills", ""]
     for item in items:
         sid = item["id"]
         folder = safe_path(root, f"skills/{sid}")
         text = safe_path(folder, "SKILL.md").read_text(encoding="utf-8")
-        for index, reference in enumerate(item["references"]):
-            # Generated anchors avoid basename collisions between selected skills.
-            destination = f"#{sid}-reference-{index + 1}"
-            if entrypoints_only:
-                text = re.sub(r"\[([^\]\n]+)\]\(" + re.escape(reference) + r"\)",
-                              r"\1 (not included; load it from the skill folder)", text)
-            else:
-                text = text.replace(f"]({reference})", f"]({destination})")
-        lines += [f'<a id="{sid}"></a>', "", text.strip(), ""]
-        if not entrypoints_only:
-            for index, reference in enumerate(item["references"]):
+        playbooks = []
+        for index, reference in enumerate(item["references"], 1):
+            path = f"skills/{sid}/{reference}"
+            if path in included:
+                anchor = f"{sid}-reference-{index}"
+                text = text.replace(f"]({reference})", f"](#{anchor})")
                 body = safe_path(folder, reference).read_text(encoding="utf-8")
-                lines += [f'<a id="{sid}-reference-{index + 1}"></a>', "", body.strip(), ""]
+                playbooks.extend([f'<a id="{anchor}"></a>', "", body.strip(), ""])
+            else:
+                text = re.sub(r"\[([^\]\n]+)\]\(" + re.escape(reference) + r"\)",
+                              lambda match: f"{match[1]} (`{path}`)", text)
+        lines += [f'<a id="{sid}"></a>', "", text.strip(), "", *playbooks]
     return "\n".join(lines).rstrip() + "\n"
 
 
@@ -113,7 +121,10 @@ def main(argv: list[str] | None = None) -> int:
     subs.add_parser("contract", help="export selected skill entry points as JSON").add_argument("skills", nargs="+")
     bundling = subs.add_parser("bundle")
     bundling.add_argument("skills", nargs="+")
-    bundling.add_argument("--entrypoints-only", action="store_true")
+    depth = bundling.add_mutually_exclusive_group()
+    depth.add_argument("--entrypoints-only", action="store_true", help="omit all reference bodies")
+    depth.add_argument("--reference", action="append", metavar="REPO_PATH",
+                       help="include only this playbook (repeat for more)")
     bundling.add_argument("--output", type=Path)
     installing = subs.add_parser("install")
     installing.add_argument("skills", nargs="+")
@@ -147,7 +158,7 @@ def main(argv: list[str] | None = None) -> int:
                     raise ValueError(f'{item["id"]}: {exc}') from exc
             print(json.dumps({"schema_version": 1, "skills": contracts}, ensure_ascii=False, separators=(",", ":")))
         elif args.command == "bundle":
-            result = bundle(args.repo, args.skills, args.entrypoints_only)
+            result = bundle(args.repo, args.skills, args.entrypoints_only, args.reference)
             if args.output:
                 # Explicit file output, but avoid silent destruction of an existing file.
                 with args.output.open("x", encoding="utf-8") as output:

@@ -12,9 +12,15 @@ Updates need authentic metadata and artifact integrity, version ordering, failur
 
 Keep publication separate from preparation. A successful archive, signature check, or notarization does not authorize uploading a release or changing an account. Record exactly which artifact and gate were tested, and keep unexecuted downloaded-install and distribution-channel checks visible.
 
+## Hand off a notarized download
+
+- **A ZIP of one app.** Match the notary submission ID and accepted result to the uploaded archive. Staple the ticket to the enclosed app, validate the ticket, then create the shipping ZIP from that app. Hash this final ZIP and test its downloaded installation path. The ZIP accepts no staple itself, and repackaging changes which bytes users receive.
+- **A rejected image or installer.** Use the log for that submission ID to locate the named binary and signing issue. If a helper failed validation, fix its signing step, rebuild the enclosing product and submit the corrected container within existing authorization. An earlier accepted app submission cannot supply a receipt for the rebuilt container. For an accepted disk image or flat installer package, staple and validate the ticket on the distributed container.
+
 ## Official sources
 
 - [Notarizing macOS software before distribution](https://developer.apple.com/documentation/security/notarizing-macos-software-before-distribution).
 - [Signing Mac software with Developer ID](https://developer.apple.com/developer-id/).
 - [Distributing your app](https://developer.apple.com/documentation/xcode/distributing-your-app-for-beta-testing-and-releases).
 - [Resolving common notarization issues](https://developer.apple.com/documentation/security/resolving-common-notarization-issues).
+- [Customizing the notarization workflow](https://developer.apple.com/documentation/security/customizing-the-notarization-workflow).

@@ -1,37 +1,37 @@
 ---
 name: apple-security
-description: "Review Keychain credentials, transport trust, deep links, imports, sandbox boundaries, and dependencies."
+description: "Review Keychain, TLS, deep links, imports, entitlements, and dependencies."
 ---
 
-# Apple app trust boundaries and secure data
+# App trust boundaries
 
 ## Inputs
 
-Identify assets, credential lifetimes, untrusted inputs, privileged actions, and supported platforms.
+Identify assets, untrusted inputs, and privileged actions.
 
 ## Rules
 
-- **SEC-001 — Protect credentials.** Scope Keychain access to the feature. Keep tokens, signing secrets, and private diagnostics out of source and artifacts.
-- **SEC-002 — Authorize at use.** Parse routes and imports into typed values. Check the active account’s rights to the target before acting.
-- **SEC-003 — Preserve transport trust.** Keep system certificate and hostname validation enabled. Scope documented transport exceptions to their intended purpose.
-- **SEC-004 — Limit capabilities.** Inspect signed entitlements, access groups, and data scopes against the feature’s requirements.
-- **SEC-005 — Inspect executable inputs.** Review executable dependencies and scripts. Grant access to data or credentials only when required and authorized.
+- **SEC-001 — Protect credentials.** Scope Keychain access. Exclude secrets and private diagnostics from source and artifacts.
+- **SEC-002 — Authorize at use.** Parse routes and imports into typed values. Authorize the target in the current account.
+- **SEC-003 — Preserve trust.** Keep system certificate and hostname checks. Scope and document exceptions.
+- **SEC-004 — Limit capabilities.** Minimize signed entitlements, access groups, and data scopes.
+- **SEC-005 — Review executables.** Inspect scripts and dependencies. Grant only necessary, authorized access.
 
 ## Workflow
 
-1. Trace an external input through authorization, storage, and diagnostics.
-2. Correct the failed boundary and exercise the affected command.
+1. Trace one input through authorization, storage, and logs. Fix and rerun the command.
 
 ## Verify
 
-- SEC-002: Malformed or duplicate route fields and another account’s ID leave stored records unchanged.
-- SEC-001, SEC-004: Revoke the credential or deny sandbox access. The command fails without exposing protected data.
-- SEC-001, SEC-003: Reject TLS trust. The command reports failure and logs omit secrets.
+- SEC-002: Malformed or repeated fields and cross-account IDs leave records unchanged.
+- SEC-001, SEC-004: Revoke credentials or sandbox access. Observe rejection without disclosure.
+- SEC-005: Run a reviewed build script with only its declared inputs. It succeeds without unrelated credentials.
+- SEC-001, SEC-003: Present an untrusted certificate. The request fails without logging secrets.
 
 ## Output
 
-Report the asset, boundary, correction, observed rejection, and remaining risk.
+Report the fix, rejection, and residual risk.
 
 ## References
 
-- [Credentials, input validation, and tool trust](references/trust-and-input.md)
+- [Credentials, inputs, and tool access](references/trust-and-input.md)

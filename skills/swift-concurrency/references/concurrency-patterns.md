@@ -4,7 +4,7 @@
 
 | Work | Preferred owner | Failure to avoid |
 | --- | --- | --- |
-| Search for visible query | `.task(id: query)` plus model/service | Old query overwrites new result |
+| Search by text, scope, and account | Key `.task(id:)` by the inputs that determine the result | An earlier search publishes into a different scope |
 | Related concurrent requests | `async let` or task group | Unbounded task creation |
 | App-wide sync | Explicit service task with stop/restart | Recreated by every view appearance |
 | Shared mutable cache | Actor or another justified isolation boundary | Unsynchronized dictionaries |
@@ -16,6 +16,8 @@
 ## Latest-result-wins protocol
 
 On start, create a request identity and mark it current. Capture the query/account that the request belongs to. After awaiting the service, check cancellation and compare the identity before publishing success or failure. Cleanup may clear a busy state only if its identity is still current. Invalidate the current identity on logout or explicit cancellation even when a service ignores cancellation.
+
+For a debounced search, capture the same input snapshot that keys the task. End a cancelled debounce before starting the fetch. With identical text, switch from All to Favorites during the delay and verify only Favorites reaches the service. Repeat after the All request starts. Complete it late with success or failure and check that Favorites keeps its results and loading state.
 
 A request token solves UI ordering, not remote exactly-once execution. Writes need their own operation identity, server contract, or reconciliation policy. A cancelled save may already have committed remotely; represent an uncertain result instead of retrying blindly or claiming rollback.
 
@@ -45,3 +47,5 @@ Thread Sanitizer and strict-concurrency diagnostics can identify classes of unsa
 - [Swift 6.2 language and concurrency changes](https://www.swift.org/blog/swift-6.2-released/)
 - [Migrating to Observation](https://developer.apple.com/documentation/SwiftUI/Migrating-from-the-observable-object-protocol-to-the-observable-macro)
 - [task-cancellation](https://developer.apple.com/documentation/swift/task/cancel%28%29) — Cooperative cancellation and handler execution.
+- [Restarting a view task when its ID changes](https://developer.apple.com/documentation/swiftui/view/task%28id%3Aname%3Apriority%3Afile%3Aline%3A_%3A%29)
+- [Using the current search scope](https://developer.apple.com/documentation/swiftui/view/searchscopes%28_%3Ascopes%3A%29)

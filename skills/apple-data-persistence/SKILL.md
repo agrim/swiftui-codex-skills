@@ -1,39 +1,38 @@
 ---
 name: apple-data-persistence
-description: "Choose a store and define save, cancel, migration, and sync behavior across SwiftData, Core Data, files, or CloudKit."
+description: "Choose persistence for drafts, saves, migrations, and sync across SwiftData, Core Data, files, or CloudKit."
 ---
 
-# Persistence, drafts, and synchronization
+# Persistence and sync
 
 ## Inputs
 
-Identify the authoritative store, supported schemas, context owners, and local and remote save guarantees.
+Identify the authoritative store, schemas, context owners, and promised durability.
 
 ## Rules
 
-- **DATA-001 — Define commit.** Separate drafts, tracked edits, saved records, and remote acknowledgements. Keep targets and observations distinct from confirmed values when storing or exporting them.
-- **DATA-002 — Isolate edits.** Access managed objects within their context’s isolation domain. Pass IDs or immutable snapshots across actors.
-- **DATA-003 — Preserve shipped data.** Exercise migrations on historical disk fixtures. If opening or migration fails, retain the original store and diagnostics.
-- **DATA-004 — Reconcile sync.** Track pending writes and deletions per account. Reconcile uncertain outcomes before retrying non-idempotent writes.
-- **DATA-005 — Retain failed drafts.** Surface save errors, preserve editable input, and report success only after the promised commit.
+- **DATA-001 — Define commit.** Distinguish drafts, tracked edits, saves, and remote acknowledgements. Separate targets, observations, and confirmed results.
+- **DATA-002 — Confine edits.** Cross contexts with IDs or immutable snapshots.
+- **DATA-003 — Protect upgrades.** Keep original stores and diagnostics on failure.
+- **DATA-004 — Reconcile retries.** Track writes and deletions per account. Resolve uncertain non-idempotent writes before retry.
+- **DATA-005 — Preserve drafts.** Surface save errors. Confirm success only at the promised commit.
 
 ## Workflow
 
-1. Trace an edit through storage, sync, and export.
-2. For explicit Save/Cancel, stage changes in a value or isolated edit context. Define validation, conflict resolution, and retry identity.
-3. Bound queries to the feature’s data. Measure fetches before changing observation ownership.
+1. Stage Save/Cancel edits in isolation. Trace commit through sync and export.
+2. Define validation, conflict policy, and retry identity. Bound queries and measure fetches before moving observers.
 
 ## Verify
 
-- DATA-001, DATA-005: Cancel a staged edit, then try saving another with a forced error. Both leave stored values intact. The failed draft remains editable.
-- DATA-003: Reopen each supported disk upgrade. Migrated field values and relationships match the fixture’s expected mappings.
-- DATA-004: Retry an interrupted sync. Each intended write or deletion takes effect once where deduplication is promised. Switching accounts hides the previous account’s records.
+- DATA-001, DATA-002, DATA-005: Cancel one edit and fail another save. A separate context refetches original values by ID. The failed draft stays editable.
+- DATA-003: Upgrade each supported disk fixture. Reopen and compare mapped values and relationships.
+- DATA-004: Replay interrupted sync. Deduplicated changes apply once. Switching accounts hides prior records.
 
 ## Output
 
-Report commit guarantees, upgrade paths tested, recovery behavior, and remote evidence.
+Report durability, recovery, tested upgrades, and sync evidence.
 
 ## References
 
-- [Drafts, rollback, and synchronization](references/persistence-patterns.md)
-- [Store selection and recovery](references/store-selection-and-recovery.md)
+- [Drafts and rollback](references/persistence-patterns.md)
+- [Store choice and recovery](references/store-selection-and-recovery.md)

@@ -8,6 +8,12 @@ On iPad, test resizing, split layouts, keyboard/pointer input, and sidebar colla
 
 On tvOS, reason about the focus engine: directional movement, stable focused identity, restoration, and discoverable actions. A view that looks tappable is not proof it can receive remote focus. On visionOS, choose window, volume, or immersive roles deliberately; respect comfort, accessibility, spatial placement, and platform-specific availability rather than adding depth everywhere.
 
+## Opening the same record creates a second editor
+
+For a data-presenting `WindowGroup`, opening its group ID alone requests a new window. If a record should have one editor, open the group with the stable record ID as its value. SwiftUI brings an existing window for that group and value forward or creates one if needed. Supply both group ID and value when multiple groups accept the same value type. A standalone `Window` addressed by scene ID already comes forward on repeat.
+
+On a supported multiwindow destination, open A twice and B once. Expect one editor per record and A's unsaved draft when A comes forward again. Restore after B was deleted. B's window should offer an unavailable state or recovery without recreating B or altering A. [SwiftUI OpenWindowAction](https://developer.apple.com/documentation/swiftui/openwindowaction)
+
 ## Shared-code boundaries
 
 Share domain models and commands where semantics match. Adapt navigation, menus, input, focus, permissions, and lifecycle at the platform boundary. Conditional compilation should expose deliberate differences rather than hide missing features behind empty branches.

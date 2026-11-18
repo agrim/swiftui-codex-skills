@@ -7,32 +7,33 @@ description: "Adapt SwiftUI scenes, windows, focus, and input for iOS, iPadOS, m
 
 ## Inputs
 
-List affected targets, minimum OS versions, primary task, inputs, scenes, and capabilities.
+Targets, minimum OS, task, scenes, inputs and capabilities.
 
 ## Rules
 
-- **PLAT-001 — Share domain operations.** Reuse models and commands for equivalent outcomes. Adapt presentation to the platform.
-- **PLAT-002 — Scope state per scene.** Choose the scene type for the task. Separate window drafts, navigation, and selection from shared services.
-- **PLAT-003 — Support native input.** Make essential actions reachable by the intended touch, keyboard, pointer, remote, Crown, or spatial input.
-- **PLAT-004 — Check availability.** Verify API support and entitlements per target. Define a fallback for unavailable features.
-- **PLAT-005 — Verify per destination.** Build each affected target and exercise its primary task. Record untested destinations and hardware.
+- **PLAT-001 — Shared behavior.** Share models and commands for equivalent tasks. Adapt presentation.
+- **PLAT-002 — Ownership.** Match scene to task. Scope drafts, paths and selection per window.
+- **PLAT-003 — Native input.** Expose essential actions to each supported input.
+- **PLAT-004 — Availability.** Check APIs and entitlements per target. Define fallbacks.
+- **PLAT-005 — Destinations.** Build each affected target and exercise its task. Identify untested hardware.
 
 ## Workflow
 
-1. Map each task to its scene and input. Isolate platform-specific presentation at the view boundary.
-2. Define the receiving scene for external requests, focus after dismissal, and state restored on reopen.
+1. Map inputs to scenes. Isolate platform presentation in views.
+2. Choose which scene handles external requests, regains focus and restores state.
 
 ## Verify
 
-- PLAT-002: Where windows can resize or switch, check that selection, draft, and keyboard commands still target the intended record.
-- PLAT-003: On watchOS, read and activate the primary control. On tvOS, reach it by remote and regain focus after dismissal.
-- PLAT-003, PLAT-005: On visionOS, complete the task using supported spatial input and exit to the expected scene. Assess physical comfort on hardware.
+- PLAT-001, PLAT-004: Run a shared command on two targets with identical input. Compare outcomes. Exercise the fallback where its API is unavailable.
+- PLAT-002: Switch or resize windows. Editing the selection by keyboard changes only its draft.
+- PLAT-003: Read and activate the watchOS control. On tvOS reach it by remote and regain focus after dismissal.
+- PLAT-003, PLAT-005: Use spatial input on visionOS. Verify task completion, exit scene and comfort on hardware.
 
 ## Output
 
-Report scene, input, shared command, fallback, build destination, and runtime result per target.
+Per target, report scene, input, command, fallback, build and runtime results.
 
 ## References
 
-- [Platform tasks, input, and availability](references/platform-patterns.md)
-- [Scene ownership, desktop commands, and focus](references/scenes-and-focus.md)
+- [Tasks and native inputs](references/platform-patterns.md)
+- [Reopening windows and restoring focus](references/scenes-and-focus.md)

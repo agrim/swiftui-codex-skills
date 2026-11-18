@@ -1,38 +1,39 @@
 ---
 name: apple-observability
-description: "Diagnose Apple app failures with unified logging, signposts, Instruments traces, crash symbols and memory graphs."
+description: "Diagnose Apple app failures with unified logs, signposts, Instruments, crash symbols and memory graphs."
 ---
 
-# Privacy-safe logs and performance diagnostics
+# Diagnose Apple app failures
 
 ## Inputs
 
-Identify the symptom, build, process, workload, time window and permitted capture data.
+Identify build, process, workload, symptom, incident window and permitted data.
 
 ## Rules
 
-- **OBS-001 — Limit logged data.** Log phases and error categories. Correlate with short-lived opaque IDs. Exclude credentials and protected content.
-- **OBS-002 — Pair interval boundaries.** End each started signpost once on success, failure, cancellation or timeout. Compare durations in consistent units.
-- **OBS-003 — Choose a diagnostic.** Inspect samples and waits for hangs, update causes for invalidation, and allocations and retaining paths for memory growth.
-- **OBS-004 — Preserve the original.** Keep raw captures private. Record tool version and capture conditions with each summary.
-- **OBS-005 — Check instrumentation effects.** Repeat the workload on the final build after removing temporary fixtures and detaching the debugger.
+- **OBS-001 — Privacy.** Log phases, error categories and short-lived opaque IDs. Exclude secrets and protected content.
+- **OBS-002 — Intervals.** End each interval once on success, failure, cancellation or timeout. Compare like units.
+- **OBS-003 — Diagnosis.** Inspect main-thread samples or waits for hangs, update causes for invalidation, allocations and retainers for growth.
+- **OBS-004 — Capture.** Keep originals private and summaries reproducible.
+- **OBS-005 — Overhead.** Check whether instrumentation changes the symptom.
 
 ## Workflow
 
-1. Reproduce once. Verify the trace covers the incident or match the dSYM and binary UUIDs.
-2. Identify the suspect operation or retaining owner. Test one correction.
+1. Reproduce. Check trace coverage or match dSYM and binary UUIDs.
+2. Identify the operation or retaining owner. Test one correction.
 
 ## Verify
 
-- OBS-001: Before sharing diagnostics, inspect the export for credentials and protected content.
-- OBS-002: Cancel a signposted operation. Its interval has one matching end.
-- OBS-003: For suspected retention, repeat presentation and dismissal. Inspect the retaining path of any owner still alive after expected teardown.
+- OBS-001, OBS-004: Before sharing, check for tool version, capture conditions and redaction of sensitive data.
+- OBS-002: Cancel mid-interval. Count one matching end.
+- OBS-003: Repeat presentation and dismissal. Trace owners surviving teardown.
+- OBS-005: Replay on the final build without debugger or temporary fixtures. Compare symptoms.
 
 ## Output
 
-Report the build, capture conditions, observed cause, change, comparison and unresolved hypotheses.
+Give build, conditions, cause, correction, comparison and unresolved hypotheses.
 
 ## References
 
-- [Logs, signposts and trace coverage](references/logging-and-traces.md)
-- [Retaining paths and crash symbolication](references/memory-and-crashes.md)
+- [Logs and traces](references/logging-and-traces.md)
+- [Memory and crash diagnosis](references/memory-and-crashes.md)

@@ -1,38 +1,38 @@
 ---
 name: swiftui-interop
-description: "Bridge SwiftUI to UIKit or AppKit with representables, hosting, coordinators, and delegates."
+description: "Bridge UIKit or AppKit with SwiftUI representables, hosting, coordinators, and delegates."
 ---
 
-# UIKit and AppKit interoperability
+# UIKit and AppKit bridges
 
 ## Inputs
 
-Identify the missing capability, supported OS, platform object, inputs, callbacks, and lifetime.
+Identify the missing capability, OS, and owner.
 
 ## Rules
 
-- **BRIDGE-001 — Bound the adapter.** For capabilities SwiftUI lacks on supported targets, wrap the smallest suitable public platform API.
-- **BRIDGE-002 — Separate creation from updates.** Create the platform object once per identity. Update changed inputs in place.
-- **BRIDGE-003 — Refresh callbacks.** Give the coordinator current bindings and handlers. Suppress delegate echoes from programmatic writes.
-- **BRIDGE-004 — Release owned resources.** On dismantle, detach observers and delegates, cancel owned tasks, and discard late callbacks.
-- **BRIDGE-005 — Preserve native interaction.** Honor UI actor isolation, proposed size, focus, accessibility, responder chains, and controller containment.
+- **BRIDGE-001 — Limit scope.** Wrap the smallest supported public API that fills the gap.
+- **BRIDGE-002 — Update in place.** Create once per identity. Apply only changed inputs.
+- **BRIDGE-003 — Rebind callbacks.** Refresh coordinator bindings and handlers. Suppress programmatic delegate echoes.
+- **BRIDGE-004 — Dismantle.** Detach observers and delegates, cancel owned tasks, and reject late callbacks.
+- **BRIDGE-005 — Preserve interaction.** Respect UI isolation, proposed size, focus, accessibility, responder chains, and controller containment.
 
 ## Workflow
 
-1. Assign ownership for creation, updates, callbacks, and teardown.
-2. Rebind the coordinator when ownership changes. Exercise resizing and reparenting in the host.
+1. Trace each lifecycle owner. Exercise resizing and reparenting in the host.
 
 ## Verify
 
-- BRIDGE-002, BRIDGE-005: During text editing, reapply unchanged input. Focus, selection, and marked text survive.
-- BRIDGE-003: One user edit produces one model change. A programmatic update produces no duplicate edit.
-- BRIDGE-004: Recreate the view and deliver an old callback. The current model stays unchanged and old resources are released.
+- BRIDGE-001: Exercise the missing capability on the minimum OS. It works through the adapter, and unrelated controls work without it.
+- BRIDGE-002, BRIDGE-005: Reapply unchanged text. Marked text, focus, and selection survive.
+- BRIDGE-003: One edit changes the model once. Programmatic writes produce no echo.
+- BRIDGE-004: Remount. Old resources are released and stale callbacks cannot change the model.
 
 ## Output
 
-Report the capability gap, adapter interface, owners, and observed interaction and cleanup results.
+Report owners, interaction results, and cleanup evidence.
 
 ## References
 
-- [Hosting, sizing, focus, and platform behavior](references/interop-patterns.md)
-- [Representable updates, callbacks, and teardown](references/representable-lifecycle.md)
+- [Hosting, sizing, and focus](references/interop-patterns.md)
+- [Representable lifecycle](references/representable-lifecycle.md)

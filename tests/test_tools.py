@@ -76,13 +76,16 @@ class CatalogTests(unittest.TestCase):
                 self.assertIn("- [{label}]({path})".format(**ref), text)
 
         path = self.root / "skills" / skills[-1] / "SKILL.md"
+        original = path.read_text()
         other_rule = data["skills"][0]["rules"][0]["id"]
-        path.write_text(path.read_text().replace("## Verify\n", f"## Verify\n- {other_rule}: Wrong skill.\n"))
+        path.write_text(original.replace("## Verify\n", f"## Verify\n- {other_rule}: Wrong skill.\n"))
         output, errors = io.StringIO(), io.StringIO()
         with contextlib.redirect_stdout(output), contextlib.redirect_stderr(errors):
             self.assertEqual(skillctl.main(args), 2)
         self.assertIn("rule IDs from this skill", errors.getvalue())
         self.assertEqual(output.getvalue(), "")
+        path.write_text(original.replace("## Rules\n", "## Rules\n\n- **TEST-999 — Repeat.** Run again.\n"))
+        self.assertIn(f"{skills[-1]}: no verification check for TEST-999", validate_skills.validate(self.root))
 
 
 class PortableToolsTests(unittest.TestCase):
@@ -106,15 +109,23 @@ class PortableToolsTests(unittest.TestCase):
             if "fixture" in scenario:
                 self.assertTrue(skilllib.safe_path(ROOT / "evals", scenario["fixture"]).is_file())
 
-    def test_multiple_references_remain_locatable_in_both_bundle_modes(self):
+    def test_bundle_includes_selected_references_and_locates_the_rest(self):
         text = skillctl.bundle(ROOT, ["apple-device-validation"])
         anchor = "apple-device-validation-reference-2"
         self.assertIn(f'<a id="{anchor}"></a>', text)
         self.assertIn(f"](#{anchor})", text)
         self.assertNotIn("](references/", text)
+        path = "skills/apple-device-validation/references/screen-review.md"
         entry = skillctl.bundle(ROOT, ["apple-device-validation"], True)
-        self.assertIn("not included", entry)
+        self.assertIn(f"`{path}`", entry)
         self.assertNotIn("](#apple-device-validation-reference", entry)
+        partial = skillctl.bundle(ROOT, ["apple-device-validation"], references=[path])
+        self.assertIn(f"](#{anchor})", partial)
+        self.assertIn(f'<a id="{anchor}"></a>', partial)
+        self.assertNotIn('<a id="apple-device-validation-reference-1">', partial)
+        self.assertIn((ROOT / path).read_text().strip(), partial)
+        with self.assertRaisesRegex(ValueError, "outside selected skills"):
+            skillctl.bundle(ROOT, ["apple-security"], references=[path])
 
     def test_bundle_output_does_not_overwrite(self):
         with tempfile.TemporaryDirectory() as directory:

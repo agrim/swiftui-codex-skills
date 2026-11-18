@@ -28,6 +28,12 @@ Put ownership of the observation token and its idempotent removal in the adapter
 
 If removal must run on another actor, expose a way to await shutdown completion on that actor. Route late callbacks through the closed subscription and ignore them after dismissal.
 
+## An owner that never deallocates
+
+An observation task can retain a controller for the entire wait for its next event. If the upstream stays open and only `deinit` cancels, neither teardown runs. Give the screen or service an explicit stop point. If using a weak capture, acquiring the owner once before an endless loop still extends its lifetime. Acquire it only while handling each value if that matches the ownership contract. A bounded task can safely retain its owner until completion.
+
+Test with a stream that remains open and emits nothing. Wait for subscription, end the feature, await teardown, and drop the last external owner. Check observer removal and a nil weak reference without sending a final event.
+
 ## Continuation race table
 
 Handle callback-before-registration, cancellation-before-registration, cancellation-after-registration, duplicate callback, and callback-after-cancellation. A checked continuation diagnoses misuse; it does not make the surrounding state machine race-free. Give completion one owner and never hold a synchronous lock across suspension. If a framework offers a native async API, inspect its cancellation behavior before writing a wrapper.
@@ -42,3 +48,4 @@ Tests must prove publication and cleanup authority, not merely call `cancel()`. 
 - [AsyncStream buffering policies](https://developer.apple.com/documentation/swift/asyncstream/continuation/bufferingpolicy).
 - [Continuation yield results and delivery](https://developer.apple.com/documentation/swift/asyncstream/continuation/yield%28_%3A%29).
 - [Cancellation of active stream iteration](https://developer.apple.com/documentation/swift/asyncstream/continuation/ontermination).
+- [Swift Task closure lifetime](https://developer.apple.com/documentation/swift/task)

@@ -20,6 +20,12 @@ Selection and annotations must correspond to the displayed transformed data. Tes
 
 Shared components should encode semantic roles, not force the same decoration on every platform. Keep brand choices explicit while preserving system behavior, and inspect the rendered result rather than equating more materials or symbols with quality.
 
+## A filter changes the chart but leaves its spoken series stale
+
+For a chart with standard marks, inspect what VoiceOver already exposes. A custom-drawn chart may need an `AXChartDescriptorRepresentable` for audio graphs. Build its axes, units and series from the same filtered points the drawing uses. Implement `updateChartDescriptor` to refresh an existing descriptor when inputs or the relevant environment change. Keep zero and missing data distinct.
+
+Display two series with different peaks. Hide the higher series and revisit the chart with VoiceOver. Confirm the hidden series is gone, the remaining peak has the plotted value and unit, and clearing the last series yields the empty state. [SwiftUI chart descriptors](https://developer.apple.com/documentation/swiftui/axchartdescriptorrepresentable)
+
 ## Official sources
 
 - [Liquid Glass technology overview](https://developer.apple.com/documentation/TechnologyOverviews/liquid-glass).

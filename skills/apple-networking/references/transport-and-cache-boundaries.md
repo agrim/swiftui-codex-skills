@@ -20,6 +20,12 @@ A feed row and a detail screen request the same photo. When the row scrolls away
 
 Hold a fake transport at a known point while two consumers join. Check that one transfer starts, cancelling the row leaves the detail consumer active, and the detail receives its requested rendition. In a second run, cancel both, start a replacement, then deliver the old completion. Check that the first transfer was cancelled once, the replacement still has its subscribers, and only its result is published. Repeat across accounts at the same URL and verify separate transfers.
 
+## The same thumbnail at two display scales
+
+Size the decoded rendition in pixels. For a square 60-point avatar at 3× scale, request a 180-pixel thumbnail from a sufficiently large square original. A smaller view frame alone still allows a full-size decode. Image I/O accepts a maximum dimension in pixels. When the app caches renditions, key them by the pixel size and transformations that affect the output.
+
+Request the same square source at 1× and 3× using the same cache. Inspect decoded dimensions on the cold and warm paths. The 3× request should receive the 180-pixel rendition, while the 1× request retains its 60-pixel rendition. The two may reuse the same source bytes.
+
 ## Verify transport behavior
 
 Test invalid payloads, unauthorized responses, cancellation, out-of-order pages, repeated cursors, server throttling, oversized images, and account switches. Use isolated transport fakes for ordering, then exercise real platform networking where the claim concerns trust, background delivery, or cache implementation.
@@ -30,3 +36,4 @@ Test invalid payloads, unauthorized responses, cancellation, out-of-order pages,
 - [The Swift Programming Language: Concurrency](https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html).
 - [Keychain services](https://developer.apple.com/documentation/security/keychain-services).
 - [Preventing insecure network connections](https://developer.apple.com/documentation/security/preventing-insecure-network-connections).
+- [Image I/O thumbnail pixel limit](https://developer.apple.com/documentation/imageio/kcgimagesourcethumbnailmaxpixelsize)

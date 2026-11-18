@@ -8,6 +8,12 @@ Batch delete/update/insert works at the store layer and can leave registered obj
 
 Give each history consumer a persistent token, store identity, relevant transaction-author filtering, and failure retry. Process then advance the cursor, not the reverse. Pruning based only on the fastest consumer risks data loss for slower consumers. Notifications mean changes may exist; fetch actual transactions rather than trusting a single notification as an exact mutation record.
 
+## A permanent ID before the first save
+
+An importer can obtain a permanent object ID while the row is still an unsaved insert. Publish the ID to independent readers after the writer saves to their shared store. In a fresh receiving context, use the throwing `existingObject(with:)` when a missing row changes the outcome. `object(with:)` can return an unchecked fault whose properties fail later. A context that already registered the object can return its own copy, so merge relevant deletions before trusting that view.
+
+Hold an insert after permanent-ID allocation. A fresh reader should fail to resolve it. Save the writer and use a second fresh reader to verify its business ID. Delete and save, then resolve the same ID in a third reader. The consumer should handle a missing record without dereferencing a fault.
+
 ## Regression matrix
 
 Verify a background save becomes visible through a fresh reader; a deleted object ID fails gracefully; a batch removes registered rows after merging; and a replay does not duplicate user-visible side effects. Use a temporary SQLite store for batch behavior. A passed in-memory test does not establish SQL translation, batch support, migration, or file protection behavior.
@@ -18,3 +24,5 @@ Verify a background save becomes visible through a fresh reader; a deleted objec
 - [Core Data batch delete guide (archived)](https://developer.apple.com/library/archive/featuredarticles/CoreData_Batch_Guide/BatchDeletes/BatchDeletes.html).
 - [Consuming relevant store changes](https://developer.apple.com/documentation/coredata/consuming-relevant-store-changes).
 - [CloudKit](https://developer.apple.com/documentation/cloudkit).
+- [Core Data permanent IDs for inserted objects](https://developer.apple.com/documentation/coredata/nsmanagedobjectcontext/obtainpermanentids%28for%3A%29)
+- [Core Data object lookup by ID](https://developer.apple.com/documentation/coredata/nsmanagedobjectcontext/existingobject%28with%3A%29)

@@ -1,38 +1,38 @@
 ---
 name: core-data
-description: "Diagnose Core Data context handoffs, batch changes, persistent history, merge conflicts, SQLite migrations, and CloudKit mirroring."
+description: "Diagnose Core Data context handoffs, batch merges, persistent history, conflicts, SQLite migrations, and CloudKit mirroring."
 ---
 
-# Core Data contexts, history, and migration
+# Core Data
 
 ## Inputs
 
-Identify stores, model versions, context queues and parents, merge policy, history consumers, and mirroring settings.
+Identify stores, model versions, context queues and parents, readers, and mirroring settings.
 
 ## Rules
 
-- **CD-001 — Confine managed objects.** Schedule access on the owning context. Cross context boundaries with object IDs or immutable values.
-- **CD-002 — Resolve IDs at use.** Pass permanent IDs across contexts. Handle a lookup failing because the record is unsaved or deleted.
-- **CD-003 — Merge batch changes.** Update observing contexts using affected object IDs or persistent history.
-- **CD-004 — Protect history consumers.** Advance each cursor after successful processing. Retain transactions any required consumer still needs.
-- **CD-005 — Preserve failed stores.** Upgrade a disk fixture from each supported model version. Retain the original store and diagnostics after open or migration failures.
+- **CD-001 — Confine objects.** Use the owning queue. Transfer IDs or immutable snapshots.
+- **CD-002 — Resolve IDs.** Publish permanent IDs after save. Handle missing rows.
+- **CD-003 — Merge batches.** Merge changed IDs or history into observing contexts.
+- **CD-004 — Protect readers.** Advance cursors after successful processing. Preserve history slower readers need.
+- **CD-005 — Preserve stores.** Keep originals and diagnostics after open or upgrade failure.
 
 ## Workflow
 
-1. Trace a background edit through any parent contexts to disk and the UI.
-2. Bound fetches and imports. Choose which edit survives a local/background conflict.
+1. Trace parent saves to disk and the observing UI.
+2. Bound fetches and imports. Choose which edits survive conflicts.
 
 ## Verify
 
-- CD-003: Batch-delete a SQLite row. The observing context and a fresh fetch both reflect the deletion.
-- CD-004: Replay a transaction. Its effects occur once and a slower consumer can resume from its own cursor.
-- CD-005: Reopen the upgraded disk fixture. Business IDs, values, and relationships match the fixture.
+- CD-001, CD-002, CD-003: Batch-delete a SQLite row. Verify disappearance after merge and failed lookup by ID on a fresh reader’s queue.
+- CD-004: Replay history. Effects occur once and slower readers resume.
+- CD-005: Reopen each supported disk upgrade. Compare IDs, values and relationships. Force a migration failure on a copy. Verify the original store and sidecars survive and the error is recorded.
 
 ## Output
 
-Report the save chain, merge policy, and recovery gaps. Give separate account evidence for mirroring claims.
+Report save chain, merge policy, recovery, and account evidence for mirroring.
 
 ## References
 
-- [Context handoffs, batch changes, and history](references/contexts-and-history.md)
-- [Fetches, conflicts, and migrations](references/migration-and-fetches.md)
+- [Contexts and history](references/contexts-and-history.md)
+- [Fetches and migrations](references/migration-and-fetches.md)

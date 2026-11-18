@@ -6,6 +6,12 @@ Use a typed focus value for forms with multiple fields. Declare submit intent an
 
 Test composition input, paste, AutoFill, selection replacement, and formatting while editing. A numeric formatter that rewrites every keystroke can destroy intermediate valid input or cursor position. Keep raw draft text when the edit grammar differs from the committed value grammar. Do not attach personal-data content types merely to obtain a keyboard appearance.
 
+## Validation focuses the wrong row
+
+Two line items bind their quantity fields to the same `.quantity` focus value. Tapping either works. On Save, programmatic focus can land on the first row even when the second row failed validation. Give simultaneously visible fields distinct values, such as `.quantity(itemID)`, and set focus to the failing field's value. Use a stable record ID so reordering preserves that mapping.
+
+Make the second quantity invalid. With focus elsewhere, submit by keyboard and type a correction without tapping. Only that item’s draft should change. Reorder the rows, invalidate the same item and repeat. This probe distinguishes an actual focus repair from an error message that merely scrolls into view. [SwiftUI FocusState](https://developer.apple.com/documentation/swiftui/focusstate)
+
 ## Commit table
 
 | Event | Expected contract |

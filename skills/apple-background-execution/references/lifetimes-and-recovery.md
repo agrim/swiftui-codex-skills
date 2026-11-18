@@ -12,9 +12,16 @@ Schedule subsequent work according to the framework's model and user settings, n
 
 Test durable reopen and interrupted operations using controlled dependencies. Debugging hooks can exercise the handler, but only production-like device tests can supply evidence about real scheduling constraints. Record which mechanism and platform were actually exercised.
 
+## A checkpoint exists but the device is locked
+
+A resumed export opens its checkpoint file under `FileProtectionType.complete`. While the device is locked, opening that file can fail. Preserve the operation ID and defer the export until protected data is available. Treating the read failure as a new export could repeat a previously accepted upload. Choose protection according to the data’s sensitivity and the feature’s locked-device requirements.
+
+Interrupt after the remote service accepts an upload. Exercise the read failure while locked, then unlock and resume. The same checkpoint and operation ID drive reconciliation, and the service records one upload.
+
 ## Official sources
 
 - [Background Tasks](https://developer.apple.com/documentation/backgroundtasks).
 - [URLSession](https://developer.apple.com/documentation/foundation/urlsession).
 - [Describing data use in privacy manifests](https://developer.apple.com/documentation/bundleresources/describing-data-use-in-privacy-manifests).
 - [Swift Task cancellation semantics](https://developer.apple.com/documentation/swift/task/cancel%28%29).
+- [FileProtectionType.complete](https://developer.apple.com/documentation/foundation/fileprotectiontype/complete).

@@ -44,6 +44,12 @@ A privacy-policy link should remain reachable after first run. Where account del
 
 Test permission transitions and data mapping independently from UI rendering. Inspect both successful and failed exports, pending reconciliation, stale widgets, diagnostic logs, and deletion results. Validate the signed/bundled configuration and test real accounts or devices when the framework boundary requires them. Report facts, documented constraints, recommendations, and unverified claims separately.
 
+## Tracking consent breaks an unrelated request
+
+A receipt lookup and an SDK tracking call share a host listed in `NSPrivacyTrackingDomains`. On systems that enforce the manifest, denied tracking permission blocks requests to that domain, including the receipt lookup. Move the essential lookup to a dedicated host that performs no tracking. Keep actual tracking domains declared and apply consent to the tracking flow.
+
+Exercise the receipt lookup with tracking permission denied. Verify it completes on the dedicated host, and inspect network activity for unintended tracking.
+
 ## Sources
 
 - [Describing data use in privacy manifests](https://developer.apple.com/documentation/bundleresources/describing-data-use-in-privacy-manifests)
@@ -55,3 +61,4 @@ Test permission transitions and data mapping independently from UI rendering. In
 - [HealthKit authorizationStatus(for:)](https://developer.apple.com/documentation/healthkit/hkhealthstore/authorizationstatus(for:))
 - [Protecting user privacy with HealthKit](https://developer.apple.com/documentation/healthkit/protecting-user-privacy)
 - [Offering account deletion in your app](https://developer.apple.com/support/offering-account-deletion-in-your-app/)
+- [NSPrivacyTrackingDomains](https://developer.apple.com/documentation/bundleresources/app-privacy-configuration/nsprivacytrackingdomains).

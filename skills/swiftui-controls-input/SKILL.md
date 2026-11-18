@@ -7,32 +7,32 @@ description: "Build SwiftUI controls and forms. Resolve focus, keyboard submissi
 
 ## Inputs
 
-Record the interaction, devices, validation rules, and commit or cancel point.
+Interaction, devices, validation, commit and cancel events.
 
 ## Rules
 
-- **CTRL-001 — Match control to intent.** Prefer `Button` for commands, `NavigationLink` for navigation, and native pickers, toggles, sliders, or menus for choices and adjustments.
-- **CTRL-002 — Preserve native behavior.** Start with system styles. Custom styles must retain role, enabled and pressed states, focus, keyboard support, and assistive activation.
-- **CTRL-003 — Bind selection once.** Give each picker option a unique, type-matched tag. Keep selection separate from explicit Save.
-- **CTRL-004 — Preserve active input.** Map focus and Submit to the intended command. Preserve the draft and text composition during validation.
-- **CTRL-005 — Guard commits.** Prevent duplicate writes, retain failed drafts for retry, and offer alternatives to gesture-only commands.
+- **CTRL-001 — Intent.** Prefer Button for commands, NavigationLink for destinations and native controls for choices.
+- **CTRL-002 — Styling.** Preserve native role, focus, pressed/disabled states, keyboard and assistive activation.
+- **CTRL-003 — Selection.** Use unique, type-matched tags. Keep explicit Save separate.
+- **CTRL-004 — Input.** Route focus and Submit. Preserve text composition during validation.
+- **CTRL-005 — Commits.** Deduplicate writes, retain failed drafts and offer gesture alternatives.
 
 ## Workflow
 
-1. Trace activation through the binding or command to its effect. Name icon-only controls.
-2. Set focus order, AutoFill, dismissal, and destructive confirmation. Expose busy, invalid, and unavailable states.
+1. Trace activation to the command. Label icon controls.
+2. Set focus order, AutoFill, dismissal and destructive confirmation. Show busy, invalid and unavailable states.
 
 ## Verify
 
-- CTRL-003: Change the picker value. Confirm one option is selected and persistence occurs at the commit point.
-- CTRL-004, CTRL-005: Enter text with an input method editor. After validation fails, correct the retained draft. Press Save twice before the first save finishes. Confirm one write.
-- CTRL-002: Using keyboard or VoiceOver where supported, identify the control by its full localized label, activate it when enabled, and check that disabling it blocks the command.
+- CTRL-001, CTRL-003: Choose a picker option. The selection changes in place. Only the commit event updates storage.
+- CTRL-004, CTRL-005: Compose with an input method editor, fail validation, then correct the retained draft. Two overlapping saves commit once.
+- CTRL-002: Find the full localized label using VoiceOver or keyboard. Activation works only while enabled.
 
 ## Output
 
-Report control, commit behavior, input tested, and result.
+Control, commit event, input tested, observed result.
 
 ## References
 
-- [Control selection, styles, and gestures](references/control-patterns.md)
-- [Focus, validation, and editable forms](references/focus-and-form-contracts.md)
+- [Control choice and gestures](references/control-patterns.md)
+- [Ambiguous focus and commits](references/focus-and-form-contracts.md)

@@ -35,20 +35,21 @@
     },
     {
       "id": "stale-result",
-      "prompt": "Search A completes after search B and overwrites the visible results.",
+      "prompt": "A search for the same text in two scopes shows results from the first scope. An old error can also clear the new spinner.",
       "skills": [
         "swift-concurrency",
         "apple-networking"
       ],
       "must_do": [
         "Guard success, failure, cancellation, and cleanup by current request",
-        "Use controlled completion ordering"
+        "Switch scopes with unchanged text during debounce and after the first fetch starts",
+        "Use controlled completion ordering to exercise late success and error"
       ],
       "must_not": [
         "Rely only on cancelling the old task",
         "Use sleeps as the synchronization contract"
       ],
-      "evidence": "Deterministic late-completion tests"
+      "evidence": "Fetch count per scope, final results, error and loading state"
     },
     {
       "id": "actor-reentry",

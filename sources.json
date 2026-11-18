@@ -26,8 +26,9 @@
       "id": "model-data",
       "title": "Managing model data",
       "url": "https://developer.apple.com/documentation/SwiftUI/Managing-model-data-in-your-app",
-      "reviewed": "2026-09-06",
-      "status": "content-reviewed"
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "Views form dependencies on accessed observable properties, including those read via computed properties. Intermediate views may pass models through without acquiring these dependencies."
     },
     {
       "id": "navigation",
@@ -76,8 +77,9 @@
       "id": "focus",
       "title": "SwiftUI FocusState",
       "url": "https://developer.apple.com/documentation/swiftui/focusstate",
-      "reviewed": null,
-      "status": "reference-only"
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "The same focus value can identify two views ambiguously. Programmatic focus then chooses the first candidate and emits a runtime warning."
     },
     {
       "id": "accessibility",
@@ -427,8 +429,9 @@
       "id": "widget-refresh",
       "title": "Keeping a widget up to date",
       "url": "https://developer.apple.com/documentation/widgetkit/keeping-a-widget-up-to-date/",
-      "reviewed": "2026-09-06",
-      "status": "content-reviewed"
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "WidgetKit supports entries for predictable future dates and timeline reloads for changed data; actual presentation time can vary."
     },
     {
       "id": "health-authorization",
@@ -713,6 +716,286 @@
       "reviewed": "2026-11-17",
       "status": "content-reviewed",
       "review_scope": "Versioned schemas, lightweight attribute renames, and resolving duplicates before enforcing uniqueness."
+    },
+    {
+      "id": "coredata-context-save",
+      "title": "Core Data context save chain",
+      "url": "https://developer.apple.com/documentation/coredata/nsmanagedobjectcontext/save%28%29",
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "A child save updates its parent. Writing to the external store requires saving the entire chain."
+    },
+    {
+      "id": "coredata-permanent-ids",
+      "title": "Core Data permanent IDs for inserted objects",
+      "url": "https://developer.apple.com/documentation/coredata/nsmanagedobjectcontext/obtainpermanentids%28for%3A%29",
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "Obtaining a permanent ID leaves the object inserted until it is saved."
+    },
+    {
+      "id": "coredata-existing-object",
+      "title": "Core Data object lookup by ID",
+      "url": "https://developer.apple.com/documentation/coredata/nsmanagedobjectcontext/existingobject%28with%3A%29",
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "The throwing lookup returns a registered object or fetches from the store; it throws if both lack the ID."
+    },
+    {
+      "id": "swiftdata-transient-property",
+      "title": "SwiftData transient properties",
+      "url": "https://developer.apple.com/documentation/swiftdata/transient%28%29",
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "Transient properties are omitted from persistent storage. SwiftData also treats computed properties as transient."
+    },
+    {
+      "id": "swiftdata-fetch-limit",
+      "title": "SwiftData fetch limit",
+      "url": "https://developer.apple.com/documentation/swiftdata/fetchdescriptor/fetchlimit",
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "The fetch limit caps the models returned by that fetch."
+    },
+    {
+      "id": "imageio-thumbnail-pixel-limit",
+      "title": "Image I/O thumbnail pixel limit",
+      "url": "https://developer.apple.com/documentation/imageio/kcgimagesourcethumbnailmaxpixelsize",
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "The Image I/O thumbnail maximum bounds width and height in pixels."
+    },
+    {
+      "id": "swift-task-lifetime",
+      "title": "Swift Task closure lifetime",
+      "url": "https://developer.apple.com/documentation/swift/task",
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "Completion releases a task closure and its captures; dropping the task handle does not stop the work."
+    },
+    {
+      "id": "localized-standard-search",
+      "title": "Locale-aware Foundation text search",
+      "url": "https://developer.apple.com/documentation/foundation/nsstring/localizedstandardcontains%28_%3A%29",
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "Standard localized substring search is locale-aware and case- and diacritic-insensitive."
+    },
+    {
+      "id": "swiftui-vertical-safe-area-inset",
+      "title": "SwiftUI vertical safe-area inset",
+      "url": "https://developer.apple.com/documentation/swiftui/view/safeareainset%28edge%3Aalignment%3Aspacing%3Acontent%3A%29-4s51l",
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "A vertical safe-area inset makes space in the modified view for content anchored to the specified edge using its height."
+    },
+    {
+      "id": "swiftui-dismiss-action",
+      "title": "SwiftUI DismissAction",
+      "url": "https://developer.apple.com/documentation/swiftui/dismissaction",
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "Dismiss acts in the environment where it was read. Reading it in the presenting window root can close that window on macOS or iPadOS."
+    },
+    {
+      "id": "swiftui-accessibility-representation",
+      "title": "SwiftUI accessibility representation",
+      "url": "https://developer.apple.com/documentation/swiftui/view/accessibilityrepresentation%28representation%3A%29",
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "A nonvisual representation replaces default accessibility elements. A custom style on a native control can inherit accessibility behavior."
+    },
+    {
+      "id": "swiftui-chart-descriptors",
+      "title": "SwiftUI chart descriptors",
+      "url": "https://developer.apple.com/documentation/swiftui/axchartdescriptorrepresentable",
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "A representable supplies an AXChartDescriptor. Implement updateChartDescriptor to update its existing representation when relevant environment values change."
+    },
+    {
+      "id": "swiftui-open-window",
+      "title": "SwiftUI OpenWindowAction",
+      "url": "https://developer.apple.com/documentation/swiftui/openwindowaction",
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "For WindowGroup, opening by group ID alone creates a new window. Opening by group and value brings a matching presented value forward, or creates one when absent."
+    },
+    {
+      "id": "swiftui-onchange-perform",
+      "title": "onChange(of:perform:)",
+      "url": "https://developer.apple.com/documentation/swiftui/view/onchange(of:perform:)",
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "The legacy closure receives the new value. The previous value can be captured in that closure."
+    },
+    {
+      "id": "swiftui-onchange-values",
+      "title": "onChange(of:initial:_:)",
+      "url": "https://developer.apple.com/documentation/swiftui/view/onchange(of:initial:_:)-4psgg",
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "The two-value action receives both old and new values. initial defaults to false, and captures come from the updated closure."
+    },
+    {
+      "id": "swiftui-state-object",
+      "title": "StateObject",
+      "url": "https://developer.apple.com/documentation/swiftui/stateobject",
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "An external input can seed the object once per view identity. SwiftUI evaluates the autoclosure only on initial creation, and changing identity resets other local state."
+    },
+    {
+      "id": "understanding-hangs",
+      "title": "Understanding hangs in your app",
+      "url": "https://developer.apple.com/documentation/xcode/understanding-hangs-in-your-app",
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "The main run loop normally sleeps between events. A lengthy period handling work can prevent timely processing of incoming events."
+    },
+    {
+      "id": "swift-testing-arguments",
+      "title": "Implementing parameterized tests",
+      "url": "https://developer.apple.com/documentation/testing/parameterizedtesting",
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "Two argument collections form all combinations. One collection of paired cases instead invokes the body once for each supplied pair."
+    },
+    {
+      "id": "swift-zip-pairs",
+      "title": "zip(_:_:)",
+      "url": "https://developer.apple.com/documentation/swift/zip(_:_:)",
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "Pairing sequences of unequal length silently limits the result to the shorter sequence."
+    },
+    {
+      "id": "instrument-hang-thread-states",
+      "title": "Analyze hangs with Instruments",
+      "url": "https://developer.apple.com/videos/play/wwdc2023/10248/",
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "Time Profiler samples running code, while Thread State Trace identifies the stack that initiated a wait in the selected hang interval."
+    },
+    {
+      "id": "swiftui-trigger-task-id",
+      "title": "SwiftUI task restart identity",
+      "url": "https://developer.apple.com/documentation/swiftui/view/task%28id%3Aname%3Apriority%3Afile%3Aline%3A_%3A%29",
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "When the ID changes, SwiftUI cancels the previous task and restarts it."
+    },
+    {
+      "id": "swiftui-active-search-scope",
+      "title": "SwiftUI search scope selection",
+      "url": "https://developer.apple.com/documentation/swiftui/view/searchscopes%28_%3Ascopes%3A%29",
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "The binding selects the active scope of the search field."
+    },
+    {
+      "id": "testflight-external-groups",
+      "title": "Invite external testers",
+      "url": "https://developer.apple.com/help/app-store-connect/test-a-beta-version/invite-external-testers/",
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "Internal Only builds cannot join external groups. Automatic and manual notification differ."
+    },
+    {
+      "id": "xctestrun-products",
+      "title": "Building from the Command Line with Xcode FAQ",
+      "url": "https://developer.apple.com/library/archive/technotes/tn2339/_index.html",
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "build-for-testing produces .xctestrun. test-without-building with -xctestrun resolves test bundles at paths identified by the file."
+    },
+    {
+      "id": "xcui-hittable",
+      "title": "XCUIElement.isHittable",
+      "url": "https://developer.apple.com/documentation/xcuiautomation/xcuielement/ishittable",
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "An existing offscreen or covered element can be unhittable, including a row reachable by scrolling."
+    },
+    {
+      "id": "xcconfig-settings",
+      "title": "Adding a build configuration file to your project",
+      "url": "https://developer.apple.com/documentation/xcode/adding-a-build-configuration-file-to-your-project",
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "Xcode layers project/target/configuration settings. $(inherited) augments a setting."
+    },
+    {
+      "id": "notarize-containers",
+      "title": "Customizing the notarization workflow",
+      "url": "https://developer.apple.com/documentation/security/customizing-the-notarization-workflow",
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "ZIPs can be submitted, but ticket stapling is applied to the contained item before creating a new ZIP; disk images and flat installer packages can be stapled directly."
+    },
+    {
+      "id": "build-script-inputs",
+      "title": "Running custom scripts during a build",
+      "url": "https://developer.apple.com/documentation/xcode/running-custom-scripts-during-a-build",
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "Run Script inputs and outputs determine scheduling and rebuilds. File lists handle varying sets."
+    },
+    {
+      "id": "intent-needs-value",
+      "title": "IntentParameter.needsValueError(_:)",
+      "url": "https://developer.apple.com/documentation/appintents/intentparameter/needsvalueerror(_:)",
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "Throwing needsValueError requests a value and re-performs the intent with that value."
+    },
+    {
+      "id": "file-protection-complete",
+      "title": "FileProtectionType.complete",
+      "url": "https://developer.apple.com/documentation/foundation/fileprotectiontype/complete",
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "A completely protected file cannot be read or written while the device is locked or booting."
+    },
+    {
+      "id": "privacy-tracking-domains",
+      "title": "NSPrivacyTrackingDomains",
+      "url": "https://developer.apple.com/documentation/bundleresources/app-privacy-configuration/nsprivacytrackingdomains",
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "If tracking permission is absent, network requests to declared tracking domains fail. The entries identify domains the app or SDK uses for tracking."
+    },
+    {
+      "id": "keychain-item-accessibility",
+      "title": "Restricting keychain item accessibility",
+      "url": "https://developer.apple.com/documentation/security/restricting-keychain-item-accessibility",
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "The default accessibility permits reads when unlocked. Select an accessibility class that fits the item’s sensitivity and intended access."
+    },
+    {
+      "id": "security-interaction-not-allowed",
+      "title": "errSecInteractionNotAllowed",
+      "url": "https://developer.apple.com/documentation/security/errsecinteractionnotallowed",
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "This status means interaction with the Security Server is disallowed; the code alone does not establish a missing credential."
+    },
+    {
+      "id": "nshostingview-root",
+      "title": "NSHostingView.rootView",
+      "url": "https://developer.apple.com/documentation/swiftui/nshostingview/rootview",
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "NSHostingView exposes a mutable rootView property isolated to the main actor."
+    },
+    {
+      "id": "swiftui-view-id",
+      "title": "View.id(_:)",
+      "url": "https://developer.apple.com/documentation/swiftui/view/id(_:)",
+      "reviewed": "2026-11-18",
+      "status": "content-reviewed",
+      "review_scope": "Changing the bound identifier resets view identity, including state."
     }
   ]
 }

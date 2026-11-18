@@ -14,6 +14,12 @@ For dependencies, separate *what* work is requested from *where* it executes. An
 
 Prefer semantic formatting APIs for user-visible numbers, measurements, dates, and lists. Keep wire formats explicit and locale-independent. Test decimal separators, long currency text, time-zone transitions, and calendar assumptions without turning localized output into a storage key.
 
+## Searching labels and resolving identifiers
+
+A people picker searches display names and passes a selected account ID to storage. For its user-facing search, Foundation's `localizedStandardContains` provides locale-aware, case- and diacritic-insensitive substring matching. Keep opaque IDs under the equality rules of the service that issued them.
+
+In a fixed test locale, search for “jose” among “José” and “Josef”. Both labels should match. Give them distinct case-sensitive account IDs `a7` and `A7`, select each result, and verify storage receives the corresponding unchanged ID.
+
 ## Review contract
 
 Report file and symbol, concrete failure, smallest change, migration impact, and verification. Separate correctness from optional style. A function can legitimately use `try?` when discarding that particular error is the contract; it is inappropriate when it converts a failed save into apparent success. A proven invariant can justify a precondition, but untrusted input cannot establish it.
@@ -29,3 +35,4 @@ Compile an external consumer, decode the oldest supported serialized fixture, an
 - [Swift API design guidelines](https://www.swift.org/documentation/api-design-guidelines/).
 - [The Swift Programming Language: Concurrency](https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html).
 - [Preparing views for localization](https://developer.apple.com/documentation/swiftui/preparing-views-for-localization).
+- [Locale-aware Foundation text search](https://developer.apple.com/documentation/foundation/nsstring/localizedstandardcontains%28_%3A%29)

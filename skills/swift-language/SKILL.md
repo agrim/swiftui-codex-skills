@@ -1,37 +1,37 @@
 ---
 name: swift-language
-description: "Review Swift API design, value semantics, dependency injection, error handling, formatting, and compiler or language-mode migrations."
+description: "Review Swift APIs, value semantics, dependency injection, errors, formatting, and toolchain migrations."
 ---
 
-# Swift API design and dependency boundaries
+# Swift API design
 
 ## Inputs
 
-Inspect callers, serialized formats, supported toolchains, and module conventions.
+Inspect callers, stored formats, and supported toolchains.
 
 ## Rules
 
-- **LANG-001 — Read the call site.** Expose units, mutation, optionality, and failure at the call site. Preserve public names and stored keys across style edits.
-- **LANG-002 — Encode meaningful distinctions.** Use values for snapshots and references for shared identity. Use typed IDs or enums to prevent plausible caller mistakes.
-- **LANG-003 — Inject variable behavior.** Pass in the clock, ID generator, transport, or store that varies. A closure suffices for a single operation.
-- **LANG-004 — Preserve error meaning.** Give absence, invalid input, cancellation, and operational failure distinct outcomes when callers recover differently. Redact private diagnostics.
-- **LANG-005 — Check client compatibility.** Before retiring an API, confirm runtime availability and build its clients in each supported language mode and toolchain. Keep unrelated formatting and architecture intact.
+- **LANG-001 — Clarify calls.** Expose units, mutation, optionality, and failure. Preserve public names and stored keys in style edits.
+- **LANG-002 — Model distinctions.** Use values for snapshots, references for shared identity, and typed IDs to prevent mix-ups.
+- **LANG-003 — Inject dependencies.** Pass in what varies, such as a clock or transport. One operation can use a closure.
+- **LANG-004 — Preserve recovery.** Distinguish absence, invalid input, cancellation, and errors when recovery differs. Redact private diagnostics.
+- **LANG-005 — Protect clients.** Before retiring APIs, check runtime availability, toolchains, and language modes.
 
 ## Workflow
 
-1. Trace success and failure at real callers. Record preconditions, effects, and nontrivial costs.
-2. Implement the smallest typed change. Keep wire formats locale-independent.
+1. Trace caller outcomes, effects, preconditions, and costs.
+2. Keep wire formats locale-independent.
 
 ## Verify
 
-- LANG-001, LANG-005: Build affected clients and decode a supported old fixture. Existing calls compile and decoded fields retain their values and identity.
-- LANG-003: For localized instants, fix the clock and change zones. Displayed times adapt while the serialized instant stays fixed.
-- LANG-004: Cancel an operation and separately submit invalid input. Check the caller can distinguish them when recovery differs.
+- LANG-001, LANG-002, LANG-005: Build supported clients. Decode an old fixture and edit the source after taking a snapshot. The snapshot retains the fixture’s expected values and identity.
+- LANG-003: Fix the clock. Switching zones changes display and preserves the serialized instant.
+- LANG-004: Cancel one call and pass invalid input to another. Verify each recovery path.
 
 ## Output
 
-Report changed symbols, affected callers, compatibility impact, and test results.
+Report changed symbols, callers, compatibility, and results.
 
 ## References
 
-- [API, dependency, and compatibility decisions](references/api-and-dependencies.md)
+- [API and dependency decisions](references/api-and-dependencies.md)

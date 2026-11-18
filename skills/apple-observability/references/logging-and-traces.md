@@ -8,7 +8,14 @@ Pair interval start/end through success, failure, and cancellation. Do not measu
 
 For traces, record process, device/OS, build configuration, symbols, template, warm-up, and time window. Discover available templates and schemas in the installed tool rather than hard-coding a third-party parser's expectations. An empty lane can mean absent capture support, filtering, missing symbols, or no events; it is not proof of no defect.
 
-Inspect the main thread's samples and wait states around a hang. CPU samples, blocked duration, SwiftUI invalidation causes, and animation hitches answer different questions. Do not infer a universal blocked/CPU diagnosis from an arbitrary sample-coverage percentage. Compare the same scenario before and after, including instrumentation overhead.
+## A freeze with high process CPU
+
+Select the interval when input stopped responding. The main run loop normally sleeps between events. A wait matters when it prevents the loop from returning to handle the next event. Other threads can keep process CPU high throughout a main-thread wait. [Understanding hangs in your app](https://developer.apple.com/documentation/xcode/understanding-hangs-in-your-app)
+
+- **Main thread running.** Inspect Time Profiler samples from that thread within the freeze. Follow the stack to the app operation doing the work.
+- **Main thread waiting.** Record Thread State Trace and inspect the backtrace where the wait began. For a lock, identify its holder if the trace exposes it. For a synchronous dependency, find the operation that must finish to release the wait. An empty CPU sample range alone leaves the cause open. [Analyze hangs with Instruments](https://developer.apple.com/videos/play/wwdc2023/10248/)
+
+Replay the same input. Check that the identified interval shortened and input became responsive, including on the final build without the debugger.
 
 ## Official sources
 

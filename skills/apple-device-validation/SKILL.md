@@ -1,40 +1,39 @@
 ---
 name: apple-device-validation
-description: "Verify an Apple app on a simulator or device. Use for launch failures, screenshots, interaction, hardware, paired devices, and runtime evidence."
+description: "Verify Apple app launch, rendering, interaction, hardware or paired-device behavior on a simulator or device."
 ---
 
-# Apple runtime and device validation
+# Apple device validation
 
 ## Inputs
 
-State the claim and authorization. Identify source, scheme, configuration, bundle, and fixture. Discover available devices and runtimes.
+Identify the claim, candidate, fixture, available destinations and authorized actions.
 
 ## Rules
 
-- **PROOF-001 — Choose evidence for the claim.** Use build output for compilation, a current frame for rendering, and an observed action and result for interaction.
-- **PROOF-002 — Limit side effects.** Keep uninstall, data resets, account changes, and source edits within their authorized scope.
-- **PROOF-003 — Record the run.** Tie commands, exit status, artifacts, toolchain, runtime, and fixture to the exact candidate and destination.
-- **PROOF-004 — Locate the failed step.** Check runtime, pairing, services, provisioning, installation, and launch before changing app code.
-- **PROOF-005 — Refresh evidence after changes.** Rerun affected checks, supersede obsolete receipts, and remove temporary harness state.
+- **PROOF-001 — Match the evidence.** Use a frame for layout, an action and observed result for interaction, real hardware for hardware claims.
+- **PROOF-002 — Bound side effects.** Preserve user data. Reset, uninstall, edit source or change accounts only as authorized.
+- **PROOF-003 — Identify the run.** Tie artifacts and exit statuses to the build, destination, toolchain and fixture.
+- **PROOF-004 — Isolate failure.** Locate the first failing prerequisite, from pairing or provisioning through launch.
+- **PROOF-005 — Refresh affected proof.** Rerun checks after relevant changes and remove temporary fixtures.
 
 ## Workflow
 
-1. Choose a destination that can demonstrate the claim. Build and run its prerequisites.
-2. Exercise the transition and capture its result. For batch reviews, identify each screen, state, and capture revision.
-3. Identify the first blocked step and unverified outcomes.
+1. Select a capable destination and run the prerequisites for this claim.
+2. Exercise the transition. Record each screen and state for batch reviews.
 
 ## Verify
 
-- PROOF-001: For layout, inspect a frame at the affected size and accessibility setting. For persistence, read the changed value after relaunch.
-- PROOF-001: For hardware or companion delivery, observe the expected result on the real device or pair.
-- PROOF-003, PROOF-005: After a build change, check that evidence for each affected behavior identifies the new build and destination.
+- PROOF-001: Inspect layout at the affected size and accessibility setting. For persistence, reread the value after relaunch. For paired delivery, observe it on the receiving device.
+- PROOF-003, PROOF-005: Change the build, rerun affected checks and verify replacement receipts identify the new build and destination.
+- PROOF-002, PROOF-004: On install failure, record the installer error and check reset history against authorization.
 
 ## Output
 
-For each claim, report pass, fail, blocked, or not-run with candidate, environment, evidence, and known cause.
+Give each claim a verdict, evidence and any blocked step.
 
 ## References
 
-- [Destination and runtime checks](references/device-validation-patterns.md)
-- [Screen inventory and batch feedback](references/screen-review.md)
+- [Destination and runtime](references/device-validation-patterns.md)
+- [Screen inventory](references/screen-review.md)
 - [Debugger and simulator evidence](references/debugger-and-simulator-evidence.md)

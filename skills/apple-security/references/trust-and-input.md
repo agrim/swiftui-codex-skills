@@ -14,9 +14,17 @@ Treat build scripts, package plugins, code generators, debugger expressions, and
 
 Try an unknown route operation, encoded separator, wrong host, malformed identifier, repeated query field, deleted object, cross-account ID, unavailable Keychain item, and revoked permission. Confirm rejection has no partial side effect and no sensitive error text. Test the actual parser and command handler, not just a regex that happens to match a safe sample.
 
+## A locked-device read looks like logout
+
+A background refresh requests a credential that requires an unlocked device. If the query returns `errSecInteractionNotAllowed`, preserve the item and pending work. This status alone cannot establish revocation or a missing credential. Retry when interaction is possible. Keep the accessibility class chosen for the feature.
+
+With a valid item, lock the device and exercise the refresh. Unlock and repeat the original query. The same account resumes without replacing the credential or prompting for a new login.
+
 ## Official sources
 
 - [Keychain services](https://developer.apple.com/documentation/security/keychain-services).
 - [Preventing insecure network connections](https://developer.apple.com/documentation/security/preventing-insecure-network-connections).
 - [Describing data use in privacy manifests](https://developer.apple.com/documentation/bundleresources/describing-data-use-in-privacy-manifests).
 - [AppIntent protocol](https://developer.apple.com/documentation/appintents/appintent).
+- [Restricting keychain item accessibility](https://developer.apple.com/documentation/security/restricting-keychain-item-accessibility).
+- [errSecInteractionNotAllowed](https://developer.apple.com/documentation/security/errsecinteractionnotallowed).

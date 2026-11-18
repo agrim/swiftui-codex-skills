@@ -19,6 +19,12 @@ In a `NavigationStack(path:)`, a link that supplies a destination view directly 
 
 If Back must return to the guide, represent the guide as a route value too. Repeat the journey, check that Back reveals the guide, and restore the saved path in a fresh scene if restoration is part of the feature. A disposable help screen at the end of a journey can keep its direct link. Check both the actual screen and the bound path when testing mixed links.
 
+## Cancel closes the presenting window
+
+A sheet editor's Cancel button calls a dismissal action captured by the window's root view. SwiftUI applies the action to the environment where it was read. Depending on the host, the sheet can stay open or the window itself can close. Read `@Environment(\.dismiss)` inside the presented editor when that editor owns dismissal. A coordinator that owns sheet selection can clear its selection directly. Keep Save behind a successful commit in either design.
+
+From a pushed detail, open the editor, change a value and cancel. The same window and detail should remain with the original value. Reopen, force Save to fail, and verify the draft is still available for retry. [SwiftUI DismissAction](https://developer.apple.com/documentation/swiftui/dismissaction)
+
 ## Failure probes
 
 Open the same link twice, a malformed link, a deleted item, an unauthorized item, and a valid route before login/store initialization. Reopen with an old route version, switch accounts mid-resolution, and open a second window. Assert one intended destination and no hidden mutation.

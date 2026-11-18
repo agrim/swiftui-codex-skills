@@ -19,6 +19,12 @@ For each finding, identify file/symbol, observed failure or unsupported contract
 
 A newer API does not automatically justify migration. Keep stable code when replacement changes behavior or raises supported minimums without a product reason. Do not copy system-app private chrome based on a screenshot. Use the installed public declaration and actual destination.
 
+## Migrating a change handler
+
+A document switch saves the outgoing selection. The one-argument `onChange(of:perform:)` supplies the new value and may capture the old selection. In the two-argument replacement, read the outgoing and incoming IDs from the arguments. Its closure captures values from the updated view, so carrying across an old capture list can save the wrong document. Keep the default `initial: false` when opening the view should leave storage untouched. Check availability before changing a supported fallback. [Original action](https://developer.apple.com/documentation/swiftui/view/onchange(of:perform:)) · [Two-value action](https://developer.apple.com/documentation/swiftui/view/onchange(of:initial:_:)-4psgg)
+
+Open on A, switch to B, then recompute with B still selected. If leaving a selection commits it, expect one commit to A across all three steps. In a review, report the affected handler and this reproduction.
+
 ## Scope the next reference
 
 State loss belongs to ownership/identity; layout failure to measurement/proposals; poor contrast to the whole styled component; stale async work to task authority; slow builds to compiler/project diagnostics rather than runtime profiling. Framework-specific persistence issues need the matching store specialist, not a blanket preference for the newest framework.

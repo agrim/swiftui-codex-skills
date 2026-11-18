@@ -16,6 +16,12 @@ An editor shows a button titled “Save draft”. At larger text sizes the same 
 
 Record the spoken phrase, the name the system displayed, the destination, and the observed outcome. A number can help locate the failure even when the visible name still fails as a command.
 
+## A custom dial announces a value but cannot adjust it
+
+A dial exposes its current level as text. VoiceOver reads it, yet a listener cannot change the level. Prefer a native control with a custom appearance when it fits the interaction. If custom drawing owns the gesture, use `accessibilityRepresentation` where supported to supply a nonvisual Slider bound to the same level, bounds and step. The replacement supplies the dial's accessibility elements. Apply it to the dial alone so adjacent actions remain reachable.
+
+With VoiceOver, adjust up and down, reach each limit, then move to the next control. Check the on-screen level and the announced value after each change. Both input methods should produce the same value at each stop. [SwiftUI accessibility representation](https://developer.apple.com/documentation/swiftui/view/accessibilityrepresentation%28representation%3A%29)
+
 ## Text and locale matrix
 
 Exercise large accessibility text, long translations, plural forms, interpolated content, dates/numbers, RTL, reduced motion, increased contrast, and reduced transparency. Keep storage/wire formatting separate from localized display. Layout direction should follow the environment unless the content has a genuine directional meaning.

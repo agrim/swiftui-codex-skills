@@ -1,38 +1,37 @@
 ---
 name: apple-system-experiences
-description: "Connect app state and actions to widgets, Live Activities, notifications, Spotlight, WatchConnectivity, HealthKit, and StoreKit."
+description: "Integrate widgets, Live Activities, notifications, Spotlight, WatchConnectivity, HealthKit, and StoreKit."
 ---
 
-# System surfaces and framework integration
+# System surfaces
 
 ## Inputs
 
-Identify the surface, OS, hosting target, device, permissions, and app command or data source.
+Identify host, OS, device, permissions, and source.
 
 ## Rules
 
-- **SYS-001 — Derive displayed state.** Build widgets, activities, indexes, and companion displays from canonical records. Represent stale and unavailable data explicitly.
-- **SYS-002 — Reuse the app command.** Validate parameters and current authority, obtain required confirmation, and reconcile retries before repeating an effect.
-- **SYS-003 — Track delivery stages.** Distinguish requesting refresh, queuing a transfer, receiving it, and applying it.
-- **SYS-004 — Preserve framework meaning.** Export values only when the system type and units preserve their meaning. Report only permission states the framework discloses.
-- **SYS-005 — Check the host.** Verify target embedding, registration, access, data handoff, execution, and host rendering.
+- **SYS-001 — Project records.** Derive content from canonical records. Mark stale or unavailable data.
+- **SYS-002 — Share commands.** Check inputs, authorization, and required confirmation. Reconcile retries.
+- **SYS-003 — Track delivery.** Separate refresh requests, queued transfers, receipt, and application.
+- **SYS-004 — Preserve meaning.** Match exported types and units. Report only observable permission states.
+- **SYS-005 — Verify the host.** Check embedding, registration, access, payload handoff, execution, and rendering.
 
 ## Workflow
 
-1. Define the minimum payload, its identity, and expiration or deletion behavior.
-2. Configure the hosting target’s capabilities and privacy declarations. Handle retries and device changes.
+1. Configure host capabilities and declarations. Define payload identity, expiry, and deletion.
 
 ## Verify
 
-- SYS-001, SYS-003: Delay delivery or restart the host. The surface shows the last known state or its fallback until fresh data arrives.
-- SYS-002: Deliver the same side-effecting operation twice. Check that the store records the effect once.
-- SYS-005: After revocation or account switch, the host hides data the viewer can no longer access. Test device-specific behavior on hardware.
+- SYS-001, SYS-003: Delay delivery across restart. The host marks stale data or shows its fallback.
+- SYS-002: Deliver a command twice. Its effect appears once.
+- SYS-004, SYS-005: Revoke access or switch accounts on-device. Inaccessible records disappear without a fabricated permission status.
 
 ## Output
 
-Report the source, host, outcome, configuration changes, and unverified stages.
+Report source, host, configuration, outcome, and gaps.
 
 ## References
 
-- [Widget, activity, notification, and companion integration](references/system-patterns.md)
-- [Framework-specific delivery and recovery checks](references/system-surface-contracts.md)
+- [Surface integration](references/system-patterns.md)
+- [Delivery and recovery checks](references/system-surface-contracts.md)

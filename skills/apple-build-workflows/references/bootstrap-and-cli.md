@@ -24,8 +24,14 @@ Resetting a simulator, clearing DerivedData, or reinstalling is not the default 
 
 A tool adapter should declare available actions, current defaults, chosen destination, evidence paths, and side effects. Missing plugins must not block a shell-capable environment; missing Xcode must not lead to fabricated Apple execution. Project processes may invoke arbitrary scripts even when the wrapper itself accepts only build/test actions.
 
+## CI builds once and tests elsewhere
+
+- **Select the intended job.** A saved simulator default from yesterday may point to the sample app. Compare the active workspace, scheme and destination with this job before running it. If they already match, reuse them. A combined build-and-run action belongs to a launch request and would add side effects to a build-only check.
+- **Move a test bundle between runners.** Keep the `.xctestrun` produced by `xcodebuild build-for-testing` with the test products it references. Identify the artifact by revision and configuration. On a compatible destination run `xcodebuild test-without-building -xctestrun "$test_run" -destination "$destination"` using the artifact’s actual paths. A missing test bundle calls for checking those paths and the restored products. Reuse an older green bundle only to reproduce its own revision.
+
 ## Official sources
 
 - [Xcode documentation](https://developer.apple.com/documentation/xcode).
 - [Improving incremental build speed](https://developer.apple.com/documentation/xcode/improving-the-speed-of-incremental-builds).
 - [Distributing your app](https://developer.apple.com/documentation/xcode/distributing-your-app-for-beta-testing-and-releases).
+- [Building from the Command Line with Xcode FAQ](https://developer.apple.com/library/archive/technotes/tn2339/_index.html).

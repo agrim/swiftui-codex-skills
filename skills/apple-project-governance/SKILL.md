@@ -1,38 +1,38 @@
 ---
 name: apple-project-governance
-description: "Audit or repair Xcode and Swift package configuration, generated projects, target membership, schemes, resources, entitlements, and settings drift."
+description: "Audit or repair Xcode and SwiftPM configuration, generated projects, target membership, resources, entitlements and settings drift."
 ---
 
 # Apple project governance
 
 ## Inputs
 
-Read the build instructions. Identify affected products, targets, schemes, configurations, generator inputs, dependencies, and CI commands.
+Identify products, configurations, tracked project inputs and CI scheme.
 
 ## Rules
 
-- **PROJ-001 — Edit the owning input.** For generated projects, change the manifest or template and inspect the regenerated diff.
-- **PROJ-002 — Check product membership.** Verify each changed source, dependency, resource, model, privacy manifest, or extension reaches every intended product and no others.
-- **PROJ-003 — Preserve durable identity.** Reconcile bundle IDs, groups, containers, domains, and shared constants. Changing a storage key requires an intentional migration.
-- **PROJ-004 — Inspect effective settings.** Compare the resolved settings, bundled resources, and signed entitlements with the target’s requirements.
-- **PROJ-005 — Diagnose by stage.** Distinguish configuration, compiler, signing, destination, and infrastructure failures before selecting a fix.
+- **PROJ-001 — Edit the owner.** Change the generator manifest or template when it owns the project.
+- **PROJ-002 — Check membership.** Include each source, dependency, resource and extension in exactly its intended products.
+- **PROJ-003 — Preserve identity.** Reconcile bundle IDs, groups, containers and domains. Migrate persistent keys deliberately.
+- **PROJ-004 — Inspect effective values.** Compare resolved settings, packaged resources and signed entitlements with target requirements.
+- **PROJ-005 — Locate the failure.** Identify the failing configuration, compilation, signing or infrastructure step before editing.
 
 ## Workflow
 
-1. Trace the changed setting or file from its source owner to every consumer.
-2. For a repair, edit the owner and regenerate from tracked inputs.
-3. Build affected products with the CI scheme, configuration, and destination.
+1. Trace the change from its owner to consuming targets.
+2. Regenerate if needed and build affected configurations on the CI destination.
 
 ## Verify
 
-- PROJ-002, PROJ-004: Confirm deployment settings and linked dependencies. Inspect the built Info.plist, resources, and extensions for intended membership.
-- PROJ-001: For generator changes, rerun with identical inputs and check for an empty diff against the first output.
+- PROJ-001: Regenerating twice from identical inputs produces identical output.
+- PROJ-002, PROJ-004: Inspect linked dependencies, Info.plist, resources and extensions in the built products.
+- PROJ-003, PROJ-005: For provisioning errors, match the rejected entitlement to the profile. After storage identity changes, read pre-upgrade data.
 
 ## Output
 
-Report owners, affected products, build context, inspected artifacts, and build or signing blockers.
+Report owner, products, build context, inspected artifacts and blockers.
 
 ## References
 
-- [Project ownership and product inspection](references/project-governance-patterns.md)
-- [Generated inputs, toolchains, and membership](references/build-and-generated-inputs.md)
+- [Project and product inspection](references/project-governance-patterns.md)
+- [Generated inputs and membership](references/build-and-generated-inputs.md)

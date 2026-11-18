@@ -12,7 +12,7 @@ An entry point should tell a human or agent what to inspect, decide, do, and pro
 
 Use these six level-two headings in order — `Inputs`, `Rules`, `Workflow`, `Verify`, `Output`, `References`. Write one paragraph each for inputs and output. Give each rule a short title and the decision it governs. State when a rule applies if the answer depends on the deployment target, data ownership, or user authorization.
 
-Under `Workflow`, number the actions from 1 in execution order. Under `Verify`, describe a condition and the result a reviewer can observe. Prefix each check with the local rule IDs it exercises. These lines illustrate a rule, its check, and a playbook link.
+Under `Workflow`, number the actions in execution order. Under `Verify`, give a condition and the result a reviewer can observe. Every rule needs evidence. One check can exercise several rules. Prefix it with their IDs. Put variations and longer reproductions in a named playbook.
 
 ```markdown
 - **NET-001 — Validate responses.** Check HTTP status and expected content before publishing success.

@@ -35,6 +35,12 @@ Keep UIKit/AppKit UI operations on their documented actor/thread boundary. A bac
 
 Create the view, update one property, trigger a user event, remove it, recreate it, and deliver a delayed callback from the prior lifecycle. Assert that only the current model changes and that resource counts return to baseline. Exercise keyboard/assistive focus and resize. A single successful render proves neither lifecycle cleanup nor responder correctness.
 
+## A reused AppKit cell keeps the previous row’s state
+
+An AppKit cell hosts a SwiftUI row with a local disclosure toggle. Reuse the cell’s `NSHostingView` and update its `rootView` when assigning a record. If the toggle belongs only to that record, bind the row’s identity with `.id(record.id)` so reassignment resets it. If the toggle should survive scrolling, store it by record ID outside the reusable cell.
+
+Expand row A, reuse its cell for B, and update B in place. B starts with its own state, its next update preserves that state, and the cell still owns one hosting view.
+
 ## Sources
 
 - [SwiftUI UIKit integration](https://developer.apple.com/documentation/swiftui/uikit-integration)
@@ -43,3 +49,5 @@ Create the view, update one property, trigger a user event, remove it, recreate 
 - [HIG: Accessibility](https://developer.apple.com/design/human-interface-guidelines/accessibility)
 - [UIViewControllerRepresentable](https://developer.apple.com/documentation/SwiftUI/uiviewcontrollerrepresentable)
 - [NSViewRepresentable](https://developer.apple.com/documentation/SwiftUI/NSViewRepresentable/)
+- [NSHostingView.rootView](https://developer.apple.com/documentation/swiftui/nshostingview/rootview).
+- [View.id(_:)](https://developer.apple.com/documentation/swiftui/view/id(_:)).

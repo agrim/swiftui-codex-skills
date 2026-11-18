@@ -14,9 +14,16 @@ Resolve dependencies from tracked inputs, regenerate where required, list scheme
 
 For build speed, preserve correctness first: no skipped metadata, broad sandbox exceptions, disabled tests, or removed signing requirements simply to obtain a faster timing. For identity changes, preserve stable storage keys and migration paths unless an intentional migration includes them.
 
+## A configuration override hides a dependency
+
+Suppose a framework builds in Debug and the same import fails in Release. Compare `xcodebuild -showBuildSettings` for the same scheme and destination in both configurations. If a needed search path disappears, trace the resolved value through the project, configuration file and target override. When the override must *extend* the inherited paths, use `$(inherited)` in the owning setting, regenerate if needed, then rebuild Release from tracked inputs.
+
+If an extension deliberately excludes a private app-only search path, keep that boundary. An import of the app-only module in extension code calls for checking source membership or moving the shared interface into an appropriate module. Forcing both targets to inherit every path can hide that ownership error.
+
 ## Official sources
 
 - [Xcode documentation](https://developer.apple.com/documentation/xcode).
 - [Improving incremental build speed](https://developer.apple.com/documentation/xcode/improving-the-speed-of-incremental-builds).
 - [Distributing your app](https://developer.apple.com/documentation/xcode/distributing-your-app-for-beta-testing-and-releases).
 - [Describing data use in privacy manifests](https://developer.apple.com/documentation/bundleresources/describing-data-use-in-privacy-manifests).
+- [Adding a build configuration file to your project](https://developer.apple.com/documentation/xcode/adding-a-build-configuration-file-to-your-project).

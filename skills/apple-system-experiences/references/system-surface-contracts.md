@@ -19,6 +19,12 @@ For purchases, use current platform transaction verification and entitlement beh
 
 Every surface needs explicit deletion, account change, denial, and stale-data behavior. Minimize exposed fields. Compile target wiring and test the actual host surface/process; app UI tests do not establish widget timelines, shortcut discovery, or companion transport guarantees.
 
+## A widget shows an expired pass as valid
+
+A pass expires at a known time. Supply a timeline entry for its current status and a future entry for expiry. Keep the expiry time visible so a delayed update still gives the person enough information. If the issuer renews the pass early, persist the new expiry first and request a reload for the affected widget kind.
+
+Inspect the provider’s dated entries across expiry with the app closed. Then renew the pass and inspect the replacement timeline and the installed widget separately. Record when the host actually displays the new status.
+
 ## Official sources
 
 - [WidgetKit](https://developer.apple.com/documentation/widgetkit).

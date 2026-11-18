@@ -10,7 +10,13 @@ A confirmation counts events during its operation's lifetime; it is not an autom
 
 Parallel tests need separate files, stores, clocks, clients, and mutable state. A serialized suite is a scoped compromise, not global isolation from unrelated suites or processes. Avoid a global mutable URL-protocol handler shared by concurrently running networking tests.
 
-Parameterized argument collections can form a Cartesian product. Use paired tuples or `zip` when inputs are correlated, and test the number of generated cases. Keep failure output diagnostic and datasets bounded. New traits, attachments, exit tests, or isolation features need toolchain availability checks.
+## Consolidate tests that differ only by input
+
+If a validator runs the same action and assertion for empty, whitespace-only and valid titles, use one parameterized test with a named case containing the input and expected result. Each case still runs independently. Keep a cancel-and-reopen journey separate because it exercises persistence and teardown. Check that a deliberately broken whitespace rule fails its own case. [Implementing parameterized tests](https://developer.apple.com/documentation/testing/parameterizedtesting)
+
+Two argument collections run every combination. Use that product when every pairing matters. Store correlated inputs and expectations in one collection. If fixtures must stay separate, verify their lengths and correspondence before passing `zip` to the test. Adding an invalid title to only one array would otherwise omit the very case meant to catch the defect. [Swift zip](https://developer.apple.com/documentation/swift/zip(_:_:))
+
+Check toolchain support before adopting new traits, attachments, exit tests or isolation features.
 
 ## Test a callback stream through its adapter
 
